@@ -1,0 +1,19 @@
+* {
+    font-family: monospace;
+    /* margin: 0;
+    padding: 0; */
+}
+
+.navbar {
+    display:flex; 
+    min-width:'100%'; 
+    border: 1px solid gray; 
+    min-height:5rem;
+    align-items: center;
+}
+
+.navbarElement {
+    padding: 1rem;
+    font-size: 1.5rem;
+    text-decoration: none;
+}
