@@ -1,1 +1,17 @@
-export const DeviceList = 0
+import { FC } from "react"
+import { IDevice, IDevicesProps } from "../interface/interface"
+import DeviceItem from "./DeviceItem"
+
+const DeviceList:FC<IDevicesProps<IDevice[]>> = ({devices}) => {
+    return (
+        <div>
+            {devices.map((device:IDevice) => 
+                <DeviceItem 
+                    key={device.id}
+                    device={device} 
+            />)}
+        </div>
+    )
+}
+
+export default DeviceList
