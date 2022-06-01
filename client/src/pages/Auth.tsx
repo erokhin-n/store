@@ -1,5 +1,5 @@
-import React, { SetStateAction, useState } from "react"
-import { useLocation } from "react-router-dom"
+import React, { SetStateAction, useEffect, useState } from "react"
+import { useLocation, useNavigate} from "react-router-dom"
 import AuthForm from "../components/AuthForm"
 import { EnumRoute } from "../enum/enum"
 import { IToken } from "../interface/interface"
@@ -12,10 +12,11 @@ const Auth = () => {
     const [password, setPassword] = useState<string | undefined>('')
     const [role, setRole] = useState<string | undefined>('')
 
-    const [registration, {isLoading, data: regrole}] = useRegistrationMutation()
+    const [registration, {isLoading, data: registration_role}] = useRegistrationMutation()
     const [login, {isLoading: logLoading, data: login_role}] = useLoginMutation()
   
     const location = useLocation()
+    const navigate = useNavigate()
 
     const isLogin = location.pathname === EnumRoute.Login
 
@@ -27,6 +28,20 @@ const Auth = () => {
         setPassword(e)
     } 
 
+    useEffect(()=> {
+        if(login_role) {
+            localStorage.setItem('role', login_role.role)
+            navigate(EnumRoute.Shop)
+        }  
+    },[login_role])
+
+    useEffect(()=> {
+        if(registration_role) {
+            localStorage.setItem('role', registration_role.role)
+            navigate(EnumRoute.Shop)
+        }  
+    },[registration_role])
+
     const sendForm = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
@@ -36,10 +51,11 @@ const Auth = () => {
                     password
                 } 
                 login(user)
+                // if(login_role) {localStorage.setItem("role",login_role.role);console.log(regrole.role)}
             } else {
                 await registration({email, password}).unwrap()
-                localStorage.setItem("role",regrole.role)
-                console.log(regrole)
+                // if(regrole) localStorage.setItem("role",regrole.role)
+                // console.log(regrole.role)
             }
             
             setEmail('')
