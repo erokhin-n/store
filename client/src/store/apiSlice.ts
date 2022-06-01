@@ -4,7 +4,9 @@ import { IDevice, IDevicesResponse, ILogin, IToken} from '../interface/interface
 
 export const apiSlice = createApi({
     reducerPath: 'api',
-    baseQuery: fetchBaseQuery({baseUrl: "http://localhost:5000"}),
+    baseQuery: fetchBaseQuery({
+        baseUrl: "http://localhost:5000",
+    }),
     endpoints: builder => ({
         getAllDevices: builder.query<IDevicesResponse<IDevice>, void>({
             query: () => ServerQuery.devices
@@ -13,21 +15,40 @@ export const apiSlice = createApi({
             query: regData => ({
                 url: ServerQuery.registration,
                 method: 'POST',
-                body: regData
+                body: regData,
+                credentials: "include",
             })
         }),
-        getLogin: builder.query<IToken, ILogin>({
+        login: builder.mutation({
             query: loginData => ({
                 url: ServerQuery.login,
                 method: 'POST',
-                body: loginData
+                body: loginData,
+                credentials: "include",
             })
-        })
+        }),
+        saveBrand: builder.mutation({
+            query: name => ({
+                url: ServerQuery.brand,
+                method: 'POST',
+                body: name,
+                credentials: "include",
+            })
+        }),
+        // getCSRFToken: builder.query<any, any>({
+        //     query: () => ({
+        //         url: ServerQuery.login,
+        //         method: 'POST',
+        //         body: loginData,
+        //         credentials: "include",
+        //     })
+        // }),
     })
 })
 
 export const { 
     useGetAllDevicesQuery,
     useRegistrationMutation,
-    useGetLoginQuery,
+    useLoginMutation,
+    useSaveBrandMutation
 } = apiSlice 

@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import { EnumRoute } from "./enum/enum";
 import Auth from "./pages/Auth";
 import DevicePage from "./pages/DevicePage";
 import Shop from "./pages/Shop";
@@ -11,9 +12,10 @@ function App() {
         <BrowserRouter>
             <Navbar />
             <Routes>
-                <Route path="/" element={<Shop />} />
-                <Route path="/login" element={<Auth />} />
-                <Route path="/device_page/:id" element={<DevicePage />} />
+                <Route path={EnumRoute.Shop} element={<Shop />} />
+                <Route path={EnumRoute.Login} element={<Auth />} />
+                <Route path={EnumRoute.Registration} element={<Auth />} />
+                <Route path={EnumRoute.DevicePage} element={<DevicePage />} />
                 <Route
                     path="*"
                     element={<WrongRoutePage />}

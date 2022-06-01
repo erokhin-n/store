@@ -27,6 +27,7 @@ export interface IAuthFormProps {
     changeEmail: (e:string)=> void;
     changePassword: (e:string) => void;
     sendForm: (e:React.FormEvent<HTMLFormElement>) => void;
+    isLogin: boolean;
 }
 
 export  interface ILogin {

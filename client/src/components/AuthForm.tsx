@@ -1,4 +1,6 @@
 import { FC } from "react"
+import { Link } from "react-router-dom"
+import { EnumRoute } from "../enum/enum"
 import { IAuthFormProps } from "../interface/interface"
 
 
@@ -7,7 +9,8 @@ const AuthForm:FC<IAuthFormProps> = ({
     password, 
     changeEmail, 
     changePassword, 
-    sendForm}) => {
+    sendForm,
+    isLogin}) => {
 
     return (
         <form 
@@ -31,8 +34,17 @@ const AuthForm:FC<IAuthFormProps> = ({
             <button
                 className="authFormButton"
             >
-                регистрация
+                {isLogin ? 'войти' : 'регистрация'}
             </button>
+            {isLogin ? 
+                <div>
+                    Нет аккаунта? <Link to={EnumRoute.Registration}>Зарегистрируйся</Link>
+                </div>
+                :
+                <div>
+                    есть аккаунт? <Link to={EnumRoute.Login}>Войдите</Link>
+                </div>                                
+            }
         </form>
     )
 }

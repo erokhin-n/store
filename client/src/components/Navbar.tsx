@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { NavLink } from "react-router-dom"
-import { Route } from "../enum/enum"
+import { EnumRoute } from "../enum/enum"
 
 
 const Navbar:FC = () => {
@@ -8,16 +8,17 @@ const Navbar:FC = () => {
         <div className={"navbar"}>
             <NavLink
                 className={"navbarElement"}
-                to={Route.Login}
+                to={EnumRoute.Login}
             >
                 войти
             </NavLink>
             <NavLink
                 className={"navbarElement"}
-                to={Route.Shop}
+                to={EnumRoute.Shop}
             >
                 магазин
             </NavLink>
+            
         </div>
     )
 }

@@ -1,11 +1,13 @@
-export enum Route {
-    Login = "login",
-    DevicePage = "device_page",
+export enum EnumRoute {
+    Login = "/login",
+    Registration = "/registration",
+    DevicePage = "/device_page",
     Shop = "/"
 }
 
 export enum ServerQuery {
     devices = '/api/device',
     registration = '/api/user/registration',
-    login = '/api/user/login'
+    login = '/api/user/login',
+    brand = '/api/brand'
 }

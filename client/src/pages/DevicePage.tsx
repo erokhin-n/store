@@ -1,8 +1,9 @@
 import { FC } from "react"
+import BrandModal from "../components/BrandModal"
 
 
 const DevicePage:FC = () => {
-    return <h1>ia devicePage!</h1>
+    return (<BrandModal />)
 }
 
 export default DevicePage
