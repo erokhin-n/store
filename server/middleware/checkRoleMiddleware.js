@@ -8,7 +8,6 @@ module.exports = function(role) {
 				}
 				try {
 						const token = req.cookies.token
-						console.log(token)
 						if(!token) {
 								console.log('no token')
 								return res.status(401).json({message: "пользователь не авторизован(нет токена)"})

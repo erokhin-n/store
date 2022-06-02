@@ -1,4 +1,5 @@
 
+import { useSelector } from "react-redux"
 import BrandModal from "../components/BrandModal"
 import DeviceList from "../components/DeviceList"
 import { useGetAllDevicesQuery} from "../store/apiSlice"
@@ -14,20 +15,6 @@ const Shop = () => {
         error
     } = useGetAllDevicesQuery()
 
-    const testLogin = {
-        email: 'admin2',
-        password: 'admin2'
-    }
-
-
-    // const testLogin = {
-    //     email: 'user227',
-    //     password: 'user227', 
-    // }
-
-    // const {data: token} = useGetLoginQuery(testLogin)
-
-    // console.log(token)
 
     let deviceList
 
@@ -41,7 +28,7 @@ const Shop = () => {
         deviceList = <div>error</div>
     }
 
-    const role = localStorage.getItem("role")
+    const role = useSelector((state:any) => state.user.role)
     console.log(role)
 
     return (

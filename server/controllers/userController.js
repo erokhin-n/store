@@ -27,8 +27,7 @@ class UserController {
 				const user = await User.create({email, role, password: hashPassword})
 				const basket = await Basket.create({userId: user.id})
 				const token = generateJwt(user.id, user.email, user.role)
-				console.log(`отработала регистрация ${user.role}`)
-				return res
+				res
 					.set('Access-Control-Allow-Origin', 'http://localhost:3000')
 					.cookie('token', token, {
 						httpOnly: true,
@@ -50,8 +49,7 @@ class UserController {
 						return next(ApiError.internal("указан неверный пароль"))
 				}
 				const token = generateJwt(user.id, user.email, user.role)
-				console.log(`отработал логин ${user.role}`)
-				return res
+				res
 					.set('Access-Control-Allow-Origin', 'http://localhost:3000')
 					.cookie('token', token, {
 						httpOnly: true,
@@ -63,11 +61,14 @@ class UserController {
 		
 		async check(req,res, next) {
 				const token = generateJwt(req.user.id, req.user.email, req.user.role)
-				res.cookie('token', token, {
-					httpOnly:true,
-					secure: true
-				})
-				res.json({token})
+				res
+					.set('Access-Control-Allow-Origin', 'http://localhost:3000')
+					.cookie('token', token, {
+						httpOnly: true,
+						secure: true
+					})
+					.status(200)
+					.json({role: req.user.role})
 		}
 }
 

@@ -35,14 +35,13 @@ export const apiSlice = createApi({
                 credentials: "include",
             })
         }),
-        // getCSRFToken: builder.query<any, any>({
-        //     query: () => ({
-        //         url: ServerQuery.login,
-        //         method: 'POST',
-        //         body: loginData,
-        //         credentials: "include",
-        //     })
-        // }),
+        check: builder.query<any, void>({
+            query: () => ({
+                url: ServerQuery.check,
+                credentials: "include"
+            })
+           
+        })
     })
 })
 
@@ -50,5 +49,6 @@ export const {
     useGetAllDevicesQuery,
     useRegistrationMutation,
     useLoginMutation,
-    useSaveBrandMutation
+    useSaveBrandMutation,
+    useCheckQuery,
 } = apiSlice 

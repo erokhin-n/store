@@ -5,7 +5,8 @@ module.exports = (req, res, next) => {
 				next()
 		}
 		try {
-				const token = req.headers.authorization.split(' ')[1]
+				const token = req.cookies.token
+				console.log(token)
 				if(!token) {
 						return res.status(401).json({message: "пользователь не авторизован(нет токена)"})
 				}
