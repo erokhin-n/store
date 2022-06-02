@@ -1,12 +1,13 @@
 import { FC } from "react"
 import { useSelector } from "react-redux"
-import { Link, NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { EnumRoute } from "../enum/enum"
 
 
 const Navbar:FC = () => {
 
-    const isAdmin = useSelector((state:any) => state.user.role)
+    const role = useSelector((state:any) => state.user.role)
+
     return (
         <div className={"navbar"}>
             <NavLink
@@ -21,8 +22,21 @@ const Navbar:FC = () => {
             >
                 магазин
             </NavLink>
-            {isAdmin && <Link to={EnumRoute.AdminPage}>Admin Panel</Link>
-            
+            {(role ===  "ADMIN" ) && 
+                <NavLink
+                    className={"navbarElement"} 
+                    to={EnumRoute.AdminPage}
+                >
+                    админ панель
+                </NavLink>
+            }
+            {(role === "USER") && 
+                <NavLink
+                    className={"navbarElement"} 
+                    to={EnumRoute.Basket}
+                >
+                    корзина
+                </NavLink>
             }
         </div>
     )

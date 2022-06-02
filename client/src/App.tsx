@@ -1,5 +1,7 @@
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AppRouter from "./components/AppRouter";
 import Navbar from "./components/Navbar";
 import { EnumRoute } from "./enum/enum";
 import AdminPage from "./pages/AdminPage";
@@ -8,9 +10,12 @@ import DevicePage from "./pages/DevicePage";
 import Shop from "./pages/Shop";
 import WrongRoutePage from "./pages/WrongRoutePage";
 import { useCheckQuery } from "./store/apiSlice";
+import { setRole } from "./store/userSlice";
 
 
 function App() {
+
+    const dispatch = useDispatch()
 
     const {
         data: role,
@@ -19,32 +24,25 @@ function App() {
         isError
     } = useCheckQuery()
 
-    if (isLoading) {
-        return <h3>check...</h3>
-    }
-
-    if(isSuccess) {
-        console.log(role)
-    }
-
-    if(isError) {
-        alert('hui vam, shenki!')
-    }
+    useEffect(()=> {
+        if (isLoading) {
+            console.log('he')
+        }
+    
+        if(isSuccess) {
+            dispatch(setRole(role.role))
+        }
+    
+        if(isError) {
+            dispatch(setRole(''))
+        }
+    }, [role])
+   
 
     return (
         <BrowserRouter>
             <Navbar />
-            <Routes>
-                <Route path={EnumRoute.Shop} element={<Shop />} />
-                <Route path={EnumRoute.Login} element={<Auth />} />
-                <Route path={EnumRoute.Registration} element={<Auth />} />
-                <Route path={EnumRoute.DevicePage} element={<DevicePage />} />
-                <Route path={EnumRoute.AdminPage} element={<AdminPage />} />
-                <Route
-                    path="*"
-                    element={<WrongRoutePage />}
-                />
-            </Routes>
+            <AppRouter />
       </BrowserRouter>
     );
 }

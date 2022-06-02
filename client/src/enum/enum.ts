@@ -3,7 +3,9 @@ export enum EnumRoute {
     Registration = "/registration",
     DevicePage = "/device_page",
     AdminPage = "/admin_page",
-    Shop = "/"
+    Basket = "/basket",
+    Shop = "/",
+    WrongPage = "*"
 }
 
 export enum ServerQuery {
