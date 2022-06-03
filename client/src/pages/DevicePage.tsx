@@ -3,7 +3,7 @@ import BrandModal from "../components/BrandModal"
 
 
 const DevicePage:FC = () => {
-    return (<BrandModal />)
+    return <h3>DevicePage</h3>
 }
 
 export default DevicePage

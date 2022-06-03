@@ -1,7 +1,6 @@
-
-import { useSelector } from "react-redux"
 import BrandModal from "../components/BrandModal"
 import DeviceList from "../components/DeviceList"
+import { useAppSelector } from "../hooks/hooks"
 import { useGetAllDevicesQuery} from "../store/apiSlice"
 
 
@@ -28,12 +27,11 @@ const Shop = () => {
         deviceList = <div>error</div>
     }
 
-    const role = useSelector((state:any) => state.user.role)
-    console.log(role)
+    const role = useAppSelector((state) => state.user.role)
 
     return (
         <div>
-            {role === "ADMIN" ? 'HI ADMIN!' : "HI USER!"}
+            {role}
             <BrandModal />
             {deviceList}
         </div>

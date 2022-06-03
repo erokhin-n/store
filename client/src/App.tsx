@@ -1,47 +1,43 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 import Navbar from "./components/Navbar";
-import { EnumRoute } from "./enum/enum";
-import AdminPage from "./pages/AdminPage";
-import Auth from "./pages/Auth";
-import DevicePage from "./pages/DevicePage";
-import Shop from "./pages/Shop";
-import WrongRoutePage from "./pages/WrongRoutePage";
+import { useAppDispatch } from "./hooks/hooks";
 import { useCheckQuery } from "./store/apiSlice";
-import { setRole } from "./store/userSlice";
+import { setEmailinStore, setRole } from "./store/userSlice";
 
 
 function App() {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const {
-        data: role,
-        isLoading,
+        data,
         isSuccess,
-        isError
+        isError,
+        isFetching
     } = useCheckQuery()
 
     useEffect(()=> {
-        if (isLoading) {
-            console.log('he')
-        }
-    
         if(isSuccess) {
-            dispatch(setRole(role.role))
+            dispatch(setRole(data.role))
+            dispatch(setEmailinStore(data.email))
         }
     
         if(isError) {
             dispatch(setRole(''))
+            dispatch(setEmailinStore(''))
         }
-    }, [role])
-   
+    }, [data])
+
+ 
+   if(isFetching) {
+       return <h3>fetching</h3>
+   }
 
     return (
         <BrowserRouter>
-            <Navbar />
+            <Navbar/>
             <AppRouter />
       </BrowserRouter>
     );

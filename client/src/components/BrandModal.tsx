@@ -1,13 +1,13 @@
-import { useState } from "react"
+import { ChangeEventHandler, FormEvent, useState } from "react"
 import { useSaveBrandMutation } from "../store/apiSlice"
 
 const BrandModal = () => {
 
-    const [brand, setBrand] = useState<string | undefined>('')
+    const [brand, setBrand] = useState<string>('')
 
     const [saveBrand, {isLoading}] = useSaveBrandMutation() 
 
-    const saveBrandOnServer = (e:any) => {
+    const saveBrandOnServer:ChangeEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault()
         saveBrand({name: brand})
     }

@@ -1,50 +1,52 @@
-import React, { SetStateAction, useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
+import React, { ChangeEventHandler, FormEvent, SetStateAction, useEffect, useState } from "react"
 import { useLocation, useNavigate} from "react-router-dom"
 import AuthForm from "../components/AuthForm"
 import { EnumRoute } from "../enum/enum"
+import { useAppDispatch } from "../hooks/hooks"
 import { IToken } from "../interface/interface"
 import {  useLoginMutation, useRegistrationMutation } from "../store/apiSlice"
-import { setRole } from "../store/userSlice"
+import { setRole, setEmailinStore } from "../store/userSlice"
 
 
 const Auth = () => {
 
-    const [email, setEmail] = useState<string | undefined>('')
-    const [password, setPassword] = useState<string | undefined>('')
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
 
-    const [registration, {isLoading, data: registration_role}] = useRegistrationMutation()
-    const [login, {isLoading: logLoading, data: login_role}] = useLoginMutation()
+    const [registration, {isLoading, data: registration_data}] = useRegistrationMutation()
+    const [login, {isLoading: logLoading, data: login_data}] = useLoginMutation()
   
     const location = useLocation()
     const navigate = useNavigate()
-    const dispatch:any = useDispatch()
+    const dispatch = useAppDispatch()
 
     const isLogin = location.pathname === EnumRoute.Login
 
-    const changeEmail = (e:SetStateAction<string | undefined>):void  => {
+    const changeEmail = (e:SetStateAction<string>):void  => {
         setEmail(e)
     }
 
-    const changePassword = (e:SetStateAction<string | undefined>):void  => {
+    const changePassword = (e:SetStateAction<string>):void  => {
         setPassword(e)
     } 
 
     useEffect(()=> {
-        if(login_role) {
-            dispatch(setRole(login_role.role))
+        if(login_data) {
+            dispatch(setRole(login_data.role))
+            dispatch(setEmailinStore(login_data.email))
             navigate(EnumRoute.Shop)
         }  
-    },[login_role])
+    },[login_data])
 
     useEffect(()=> {
-        if(registration_role) {
-            dispatch(setRole(registration_role.role))
+        if(registration_data) {
+            dispatch(setRole(registration_data.role))
+            dispatch(setEmailinStore(registration_data.email))
             navigate(EnumRoute.Shop)
         }  
-    },[registration_role])
+    },[registration_data])
 
-    const sendForm = async (e:React.FormEvent<HTMLFormElement>) => {
+    const sendForm = async (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
             if(isLogin) {
@@ -55,8 +57,8 @@ const Auth = () => {
             
             setEmail('')
             setPassword('')
-        } catch(e:any) {
-            console.log(`${e.message} ошибка регистрации`)
+        } catch(e) {
+            console.log(`${e} ошибка регистрации`)
         }
     }
 

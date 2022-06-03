@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { ServerQuery } from '../enum/enum'
-import { IDevice, IDevicesResponse, ILogin, IToken} from '../interface/interface'
+import { IAuthData, IDataUserResponse, IDevice, IDevicesResponse, ILogin, IMessage, IRole, IToken, ITypeAndBrand} from '../interface/interface'
 
 export const apiSlice = createApi({
     reducerPath: 'api',
@@ -11,7 +11,7 @@ export const apiSlice = createApi({
         getAllDevices: builder.query<IDevicesResponse<IDevice>, void>({
             query: () => ServerQuery.devices
         }),
-        registration: builder.mutation({
+        registration: builder.mutation<IDataUserResponse, IAuthData>({
             query: regData => ({
                 url: ServerQuery.registration,
                 method: 'POST',
@@ -19,7 +19,7 @@ export const apiSlice = createApi({
                 credentials: "include",
             })
         }),
-        login: builder.mutation({
+        login: builder.mutation<IDataUserResponse, IAuthData>({
             query: loginData => ({
                 url: ServerQuery.login,
                 method: 'POST',
@@ -27,7 +27,7 @@ export const apiSlice = createApi({
                 credentials: "include",
             })
         }),
-        saveBrand: builder.mutation({
+        saveBrand: builder.mutation<IMessage, ITypeAndBrand>({
             query: name => ({
                 url: ServerQuery.brand,
                 method: 'POST',
@@ -35,13 +35,20 @@ export const apiSlice = createApi({
                 credentials: "include",
             })
         }),
-        check: builder.query<any, void>({
+        check: builder.query<IDataUserResponse, void>({
             query: () => ({
                 url: ServerQuery.check,
                 credentials: "include"
             })
            
-        })
+        }),
+        removeCookie: builder.mutation<IMessage, void>({
+            query: () => ({
+                url: ServerQuery.removeCookie,
+                credentials: "include"
+            })
+           
+        }),
     })
 })
 
@@ -51,4 +58,5 @@ export const {
     useLoginMutation,
     useSaveBrandMutation,
     useCheckQuery,
+    useRemoveCookieMutation,
 } = apiSlice 

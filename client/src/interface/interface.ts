@@ -38,3 +38,25 @@ export  interface ILogin {
 export interface IToken {
     token: string | undefined;
 }
+
+export interface IRole {
+    role: string;
+}
+
+export interface IAuthData {
+    email: string;
+    password: string;
+}
+
+export interface IDataUserResponse {
+    role: string;
+    email: string;
+}
+
+export interface ITypeAndBrand {
+    name: string;
+}
+
+export interface IMessage {
+    massage: string;
+}

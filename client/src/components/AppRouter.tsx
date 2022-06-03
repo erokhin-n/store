@@ -1,31 +1,44 @@
-import { useSelector } from "react-redux"
 import { Route, Routes } from "react-router-dom"
+import { useAppSelector } from "../hooks/hooks"
 import WrongRoutePage from "../pages/WrongRoutePage"
 import { adminRoutes, publicRoutes, userRoutes } from "../routes/routes"
 
 const AppRouter = () => {
 
-    const role = useSelector((state:any) => state.user.role)
+    const role = useAppSelector((state) => state.user.role)
 
-    let routes
+    const routes = publicRoutes.map(route => 
+        <Route 
+            path={route.path} 
+            element={<route.element />} 
+            key={route.path}
+        />    
+    )
+
+    let authRoutes
 
     if(role === "ADMIN") {
-        routes = adminRoutes.map(route => 
-            <Route path={route.path} element={<route.element />} />    
+        authRoutes = adminRoutes.map(route => 
+            <Route 
+                path={route.path} 
+                element={<route.element />} 
+                key={route.path}
+            />    
         )
     } else if(role === "USER") {
-        routes = userRoutes.map(route => 
-            <Route path={route.path} element={<route.element />} />    
-        )
-    } else {
-        routes = publicRoutes.map(route => 
-            <Route path={route.path} element={<route.element />} />    
+        authRoutes = userRoutes.map(route => 
+            <Route 
+                path={route.path} 
+                element={<route.element />} 
+                key={route.path}
+            />    
         )
     }
 
     return (
         <Routes>
             {routes}
+            {authRoutes}
             <Route
                 path="*"
                 element={<WrongRoutePage />}

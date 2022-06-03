@@ -1,21 +1,43 @@
 import { FC } from "react"
-import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
 import { EnumRoute } from "../enum/enum"
-
+import { useAppDispatch, useAppSelector } from "../hooks/hooks"
+import { useRemoveCookieMutation } from "../store/apiSlice"
+import { setEmailinStore, setRole } from "../store/userSlice"
 
 const Navbar:FC = () => {
 
-    const role = useSelector((state:any) => state.user.role)
+    const dispatch = useAppDispatch()
+
+    const role = useAppSelector((state) => state.user.role)
+    const email = useAppSelector((state) => state.user.email)
+
+    const [removeCookie] = useRemoveCookieMutation()
+    
+    const logout = () => {
+        removeCookie()
+        dispatch(setRole(''))
+        dispatch(setEmailinStore(''))
+    }
 
     return (
         <div className={"navbar"}>
-            <NavLink
-                className={"navbarElement"}
-                to={EnumRoute.Login}
-            >
-                войти
-            </NavLink>
+            {role ?
+                <NavLink
+                    className={"navbarElement"}
+                    to={EnumRoute.Login}
+                    onClick={logout}
+                >
+                    выйти        
+                </NavLink>
+                :
+                <NavLink
+                    className={"navbarElement"}
+                    to={EnumRoute.Login}
+                >
+                    войти
+                </NavLink>
+            }
             <NavLink
                 className={"navbarElement"}
                 to={EnumRoute.Shop}
@@ -38,6 +60,7 @@ const Navbar:FC = () => {
                     корзина
                 </NavLink>
             }
+            <div>{email}</div>
         </div>
     )
 }

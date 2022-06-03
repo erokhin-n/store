@@ -3,7 +3,7 @@ import { apiSlice } from "./apiSlice";
 import userReducer from "./userSlice"
 
 
-export default configureStore({
+export const store = configureStore({
     reducer: {
         user: userReducer,
         [apiSlice.reducerPath]: apiSlice.reducer
@@ -11,3 +11,6 @@ export default configureStore({
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware().concat(apiSlice.middleware)
 });
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
