@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { ServerQuery } from '../enum/enum'
-import { IAuthData, IDataUserResponse, IDevice, IDevicesResponse, ILogin, IMessage, IRole, IToken, ITypeAndBrand} from '../interface/interface'
+import { IAuthData, IDataUserResponse, IDevice, IDevicesResponse, IMessage, ITypeAndBrand} from '../interface/interface'
+
 
 export const apiSlice = createApi({
     reducerPath: 'api',

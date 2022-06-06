@@ -1,36 +1,70 @@
-import { FC } from "react"
+import { FC, FormEvent, MouseEventHandler, SetStateAction, useState } from "react"
 import { Link } from "react-router-dom"
 import { EnumRoute } from "../enum/enum"
-import { IAuthFormProps } from "../interface/interface"
+import { IAuthData, IAuthFormProps } from "../interface/interface"
+import { useForm, SubmitHandler  } from "react-hook-form";
 
 
 const AuthForm:FC<IAuthFormProps> = ({
-    email, 
-    password, 
-    changeEmail, 
-    changePassword, 
-    sendForm,
-    isLogin}) => {
+    fetchForm,
+    isLogin,
+    error_server_message
+}) => {
+    
+    const { register, formState: { errors },handleSubmit   } = useForm<IAuthData>();
+     
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+
+    const changeEmail = (e:SetStateAction<string>):void  => {
+        setEmail(e)
+    }
+
+    const changePassword = (e:SetStateAction<string>):void  => {
+        setPassword(e)
+    } 
+
+    const  onSubmit: SubmitHandler<IAuthData> = () => {
+        fetchForm(email, password)
+        setEmail('')
+        setPassword('')
+    }
 
     return (
         <form 
             className={"authForm"}
-            onSubmit={sendForm}
+            onSubmit={handleSubmit(onSubmit)}
         >
             <input 
+                {...register("email",{
+                    required: true,
+                    maxLength: 30,
+                    pattern: /^[A-Za-z]+$/i 
+                    }
+                )}
                 type="text" 
                 placeholder="введите почту"
                 className="authFormInput"
                 value={email}
                 onChange={e => changeEmail(e.target.value)}
             />
-            <input 
+            {errors.email && "почта не указана или имеет недопустимые символы"}
+            <input
+                {...register("password")} 
                 type="text"
                 placeholder="введите пароль"
                 className="authFormInput"
                 value={password}
                 onChange={e => changePassword(e.target.value)}
             />
+            {error_server_message && 
+                <span>{
+                    error_server_message
+                    .split(':')[1]
+                    .replace(/[^a-zа-яё]/gi, ' ')
+                    }
+                </span>
+            }
             <button
                 className="authFormButton"
             >

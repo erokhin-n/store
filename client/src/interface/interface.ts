@@ -1,3 +1,4 @@
+
 export interface IDevice {
     id: number;
     brandId: number;
@@ -22,21 +23,9 @@ export interface IDevicesResponse<T> {
 }
 
 export interface IAuthFormProps {
-    email: string | undefined;
-    password: string | undefined;
-    changeEmail: (e:string)=> void;
-    changePassword: (e:string) => void;
-    sendForm: (e:React.FormEvent<HTMLFormElement>) => void;
+    fetchForm: (email: string, password: string) => void;
     isLogin: boolean;
-}
-
-export  interface ILogin {
-    email: string | undefined;
-    password: string | undefined;
-}
-
-export interface IToken {
-    token: string | undefined;
+    error_server_message: string | undefined;
 }
 
 export interface IRole {
@@ -60,3 +49,4 @@ export interface ITypeAndBrand {
 export interface IMessage {
     massage: string;
 }
+

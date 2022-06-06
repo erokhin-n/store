@@ -15,7 +15,8 @@ function App() {
         data,
         isSuccess,
         isError,
-        isFetching
+        isFetching,
+        error
     } = useCheckQuery()
 
     useEffect(()=> {

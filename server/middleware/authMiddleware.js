@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const ApiError = require('../error/ApiError')
 
 module.exports = (req, res, next) => {
 	if(req.method === "OPTIONS") {
@@ -7,12 +8,12 @@ module.exports = (req, res, next) => {
 	try {
 		const token = req.cookies.token
 		if(!token) {
-			return res.status(401).json({message: "пользователь не авторизован(нет токена)"})
+			throw ApiError.forbiden("пшел на хуй, пес безтокенный!")
 		}
 		const decoded = jwt.verify(token, process.env.SECRET_KEY)
 		req.user = decoded
 		next()
 	} catch(e) {
-		res.status(401).json({message: "пользователь не авторизован"})
+		next(e)
 	}
 }
