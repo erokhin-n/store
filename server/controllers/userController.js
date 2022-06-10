@@ -2,6 +2,8 @@ const ApiError = require('../error/ApiError')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const {User, Basket} = require('../models/models')
+const { validationResult } = require('express-validator');
+const validationErrorHandler = require('../error/validationErrorHandler');
 
 const generateJwt = (id, email, role) => {
 	return	jwt.sign(
@@ -14,11 +16,19 @@ const generateJwt = (id, email, role) => {
 class UserController {
 	async registration(req,res,next) {
 		try {
+
+			const errors = validationResult(req);
+			
+			if (!errors.isEmpty()) {
+				validationErrorHandler(errors)
+			}
+
 			const {email, password, role} = req.body
 
 			if(!email || !password) {
 				throw ApiError.badRequest('не заполнен емайл или пароль')
 			}
+
 			const candidate = await User.findOne({where: {email}})
 	
 			if(candidate) {
@@ -44,6 +54,13 @@ class UserController {
 
 	async login(req,res,next) {
 		try {
+
+			const errors = validationResult(req);
+			
+			if (!errors.isEmpty()) {
+				validationErrorHandler(errors)
+			}
+			
 			const {email, password} = req.body
 			const user = await User.findOne({where: {email}})
 			if(!user){

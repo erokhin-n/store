@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { EnumRoute } from "../enum/enum"
 import { IAuthData, IAuthFormProps } from "../interface/interface"
 import { useForm, SubmitHandler  } from "react-hook-form";
-
+import ErrorModal from "./ErrorModal";
 
 const AuthForm:FC<IAuthFormProps> = ({
     fetchForm,
@@ -24,7 +24,7 @@ const AuthForm:FC<IAuthFormProps> = ({
         setPassword(e)
     } 
 
-    const  onSubmit: SubmitHandler<IAuthData> = () => {
+    const onSubmit: SubmitHandler<IAuthData> = () => {
         fetchForm(email, password)
         setEmail('')
         setPassword('')
@@ -38,8 +38,8 @@ const AuthForm:FC<IAuthFormProps> = ({
             <input 
                 {...register("email",{
                     required: true,
-                    maxLength: 30,
-                    pattern: /^[A-Za-z]+$/i 
+                    maxLength: 20,
+                    // pattern: /^[A-Za-z0-9_-]*$/
                     }
                 )}
                 type="text" 
@@ -47,23 +47,29 @@ const AuthForm:FC<IAuthFormProps> = ({
                 className="authFormInput"
                 value={email}
                 onChange={e => changeEmail(e.target.value)}
+                onBlur={()=>console.log('hi')}
             />
-            {errors.email && "почта не указана или имеет недопустимые символы"}
+            {errors.email && <ErrorModal errors={errors.email} />}
             <input
-                {...register("password")} 
+                {...register("password", {
+                    required: true,
+                    maxLength: 20,
+                    // pattern: /^[A-Za-z0-9_-]*$/ 
+                    })
+                } 
                 type="text"
                 placeholder="введите пароль"
                 className="authFormInput"
                 value={password}
                 onChange={e => changePassword(e.target.value)}
             />
+            {errors.password && <ErrorModal errors={errors.password} />}
             {error_server_message && 
-                <span>{
-                    error_server_message
-                    .split(':')[1]
-                    .replace(/[^a-zа-яё]/gi, ' ')
-                    }
-                </span>
+                <ErrorModal 
+                    errors={error_server_message
+                        .split(":")[1]
+                        .replace(/[^a-zа-яё]/gi, ' ')} 
+                />
             }
             <button
                 className="authFormButton"

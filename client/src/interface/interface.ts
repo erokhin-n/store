@@ -1,4 +1,3 @@
-
 export interface IDevice {
     id: number;
     brandId: number;
@@ -48,5 +47,17 @@ export interface ITypeAndBrand {
 
 export interface IMessage {
     massage: string;
+}
+
+export interface IErrorValidation {
+    errors?: {
+        ref?: {name:string | undefined} | undefined;
+        type?: string | undefined;
+    } | undefined;
+    
+}
+
+export interface IErrorFromServer {
+    errors?: string
 }
 
