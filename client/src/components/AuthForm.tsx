@@ -11,12 +11,19 @@ const AuthForm:FC<IAuthFormProps> = ({
     error_server_message
 }) => {
     
-    const { register, formState: { errors },handleSubmit   } = useForm<IAuthData>();
+    const { register, formState: { errors },handleSubmit, trigger } = useForm<IAuthData>({
+        mode: "onBlur",
+        reValidateMode: "onChange",
+        // criteriaMode: 'all'
+        // reValidateMode:"onChang"
+    });
+
+    console.log(errors)
      
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
 
-    const changeEmail = (e:SetStateAction<string>):void  => {
+    const changeEmail = async (e:SetStateAction<string>)  => {
         setEmail(e)
     }
 
@@ -35,11 +42,12 @@ const AuthForm:FC<IAuthFormProps> = ({
             className={"authForm"}
             onSubmit={handleSubmit(onSubmit)}
         >
+
             <input 
                 {...register("email",{
                     required: true,
-                    maxLength: 20,
-                    // pattern: /^[A-Za-z0-9_-]*$/
+                    maxLength: 5,
+                    pattern: /^[A-Za-z0-9_-]*$/,
                     }
                 )}
                 type="text" 
@@ -47,14 +55,13 @@ const AuthForm:FC<IAuthFormProps> = ({
                 className="authFormInput"
                 value={email}
                 onChange={e => changeEmail(e.target.value)}
-                onBlur={()=>console.log('hi')}
             />
             {errors.email && <ErrorModal errors={errors.email} />}
             <input
                 {...register("password", {
                     required: true,
-                    maxLength: 20,
-                    // pattern: /^[A-Za-z0-9_-]*$/ 
+                    maxLength: 5,
+                    pattern: /^[A-Za-z0-9_-]*$/ 
                     })
                 } 
                 type="text"
