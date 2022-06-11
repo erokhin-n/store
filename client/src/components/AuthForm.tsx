@@ -4,73 +4,82 @@ import { EnumRoute } from "../enum/enum"
 import { IAuthData, IAuthFormProps } from "../interface/interface"
 import { useForm, SubmitHandler  } from "react-hook-form";
 import ErrorModal from "./ErrorModal";
+import { validation } from "./validation/validation";
 
 const AuthForm:FC<IAuthFormProps> = ({
     fetchForm,
     isLogin,
     error_server_message
 }) => {
-    
-    const { register, formState: { errors },handleSubmit, trigger } = useForm<IAuthData>({
-        mode: "onBlur",
-        reValidateMode: "onChange",
-        // criteriaMode: 'all'
-        // reValidateMode:"onChang"
-    });
-
-    console.log(errors)
      
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+    const [formIsValid, setFormIsValud] = useState<boolean>(false)
+    const [formErrors, setFormErrors] = useState<any>({email: '', password: ''})
+    const [errorInput, setErrorInput] = useState<any>('')
 
-    const changeEmail = async (e:SetStateAction<string>)  => {
+    const changeEmail = (e:string)  => {
+        validation(
+            "email", 
+            e, 
+            setFormErrors, 
+            setFormIsValud,
+            setErrorInput,
+            formErrors
+        )
         setEmail(e)
     }
 
-    const changePassword = (e:SetStateAction<string>):void  => {
+    const changePassword = (e:string):void  => {
+        validation(
+            "password", 
+            e, 
+            setFormErrors, 
+            setFormIsValud,
+            setErrorInput,
+            formErrors
+        )
         setPassword(e)
     } 
 
-    const onSubmit: SubmitHandler<IAuthData> = () => {
-        fetchForm(email, password)
-        setEmail('')
-        setPassword('')
+    console.log(formIsValid)
+    console.log(formErrors)
+
+    const sendForm = (e:any) => {
+        e.preventDefault()
+        if(!formErrors.email && !formErrors.password) {
+            fetchForm(email, password)
+            setEmail('')
+            setPassword('')
+        } else {
+            setFormErrors('fix this fuckin form!')
+        }
+
     }
 
     return (
         <form 
             className={"authForm"}
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={sendForm}
         >
 
             <input 
-                {...register("email",{
-                    required: true,
-                    maxLength: 5,
-                    pattern: /^[A-Za-z0-9_-]*$/,
-                    }
-                )}
                 type="text" 
                 placeholder="введите почту"
                 className="authFormInput"
                 value={email}
                 onChange={e => changeEmail(e.target.value)}
             />
-            {errors.email && <ErrorModal errors={errors.email} />}
+            {(formErrors && formErrors.email) && <ErrorModal errors={formErrors.email} />}
             <input
-                {...register("password", {
-                    required: true,
-                    maxLength: 5,
-                    pattern: /^[A-Za-z0-9_-]*$/ 
-                    })
-                } 
                 type="text"
                 placeholder="введите пароль"
                 className="authFormInput"
                 value={password}
                 onChange={e => changePassword(e.target.value)}
             />
-            {errors.password && <ErrorModal errors={errors.password} />}
+            {(formErrors && formErrors.password) && <ErrorModal errors={formErrors.password} />}
+            {(formErrors && errorInput === '') && <ErrorModal errors={formErrors} /> }
             {error_server_message && 
                 <ErrorModal 
                     errors={error_server_message
