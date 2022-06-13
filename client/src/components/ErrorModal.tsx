@@ -1,42 +1,10 @@
-import {  IErrorFromServer, IErrorValidation } from "../interface/interface"
+import { FC } from "react"
 
-const ErrorModal = ({errors}:IErrorValidation | IErrorFromServer) => {
-
-    let message
-
-    if(typeof(errors) === "string") {
-        message = errors
-    }
-    // else if(errors!.ref!.name === "email") {
-    //     switch(errors!.type){
-    //         case("required"):
-    //             message = "почта обязательна для заполнения"
-    //             break;
-    //         case("maxLength"):
-    //             message = "превышена допустимая длинна почты"
-    //             break;
-    //         case("pattern"):
-    //             message = "у почты недопустимые символы"
-    //     }
-    // } else if(errors!.ref!.name === "password") {
-    //     switch(errors!.type){
-    //         case("required"):
-    //             message = "пароль обязателен для заполнения"
-    //             break;
-    //         case("maxLength"):
-    //             message = "превышена допустимая длинна пароля"
-    //             break;
-    //         case("pattern"):
-    //             message = "у пароля недопустимые символы"
-    //     }
-    // } 
-
-   
-    
+const ErrorModal:FC<{error:string}> = ({error}) => {
 
     return (
         <div>
-            {message}
+            {error}
         </div>
     )
 }

@@ -1,35 +1,25 @@
 export const validation = (
     input:string,
     str:string,
-    setFormErrors:any,
-    setFormIsValud:any,
-    setErrorInput:any,
-    formErrors:any) => {
+    setFormError:any,
+    formError:any) => {
     if(input === "email") {
-        if(str.length > 5) {
-            setFormErrors({...formErrors, email: 'слишком длинно!'})
-            setFormIsValud(false)
-            setErrorInput(input)
+        if(str.length === 0) {
+            setFormError({...formError, email: 'слишком длинно!'})
         } else if(str.search(/[\s]/) !== -1) {
-            setFormErrors({...formErrors, email: 'мальчик, отвали со своим этим самым... пробелом'})
-            setFormIsValud(false)
-            setErrorInput(input)
+            setFormError({...formError, email: 'мальчик, отвали со своим этим самым... пробелом'})
         } else {
-            setFormErrors({...formErrors, email: ''})
+            setFormError({...formError, email: ''})
         }
     }
 
     if(input === "password") {
         if(str.length > 5) {
-            setFormErrors({...formErrors, password: 'пароль огромен!'})
-            setFormIsValud(false)
-            setErrorInput(input)
+            setFormError({...formError, password: 'пароль огромен!'})
         } else if(str.search(/[\s]/) !== -1) {
-            setFormErrors({...formErrors, password:'мальчик, пароли не пробелятся!'})
-            setFormIsValud(false)
-            setErrorInput(input)
+            setFormError({...formError, password:'мальчик, пароли не пробелятся!'})
         } else {
-            setFormErrors({...formErrors, password: ''})
+            setFormError({...formError, password: ''})
         }
     }
 }

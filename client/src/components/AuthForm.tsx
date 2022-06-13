@@ -1,8 +1,7 @@
-import { FC, FormEvent, MouseEventHandler, SetStateAction, useState } from "react"
+import { FC, FormEventHandler, SetStateAction, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { EnumRoute } from "../enum/enum"
-import { IAuthData, IAuthFormProps } from "../interface/interface"
-import { useForm, SubmitHandler  } from "react-hook-form";
+import { IAuthFormProps, IFormError } from "../interface/interface"
 import ErrorModal from "./ErrorModal";
 import { validation } from "./validation/validation";
 
@@ -14,47 +13,48 @@ const AuthForm:FC<IAuthFormProps> = ({
      
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-    const [formIsValid, setFormIsValud] = useState<boolean>(false)
-    const [formErrors, setFormErrors] = useState<any>({email: '', password: ''})
-    const [errorInput, setErrorInput] = useState<any>('')
+    const [formError, setFormError] = useState<IFormError>({email: '', password: ''})
+    const [submitError, setSubmitError] = useState<string>('')
+    const [serverError, setServerError] = useState<string | undefined>()
 
     const changeEmail = (e:string)  => {
         validation(
             "email", 
             e, 
-            setFormErrors, 
-            setFormIsValud,
-            setErrorInput,
-            formErrors
+            setFormError, 
+            formError
         )
+        setServerError('')
+        setSubmitError('')
         setEmail(e)
     }
 
-    const changePassword = (e:string):void  => {
+    const changePassword = (e:string) => {
         validation(
             "password", 
             e, 
-            setFormErrors, 
-            setFormIsValud,
-            setErrorInput,
-            formErrors
+            setFormError, 
+            formError
         )
+        setServerError('')
+        setSubmitError('')
         setPassword(e)
     } 
 
-    console.log(formIsValid)
-    console.log(formErrors)
+    useEffect(()=> {
+        setServerError(error_server_message)
+    },[error_server_message])
 
-    const sendForm = (e:any) => {
+
+    const sendForm:FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault()
-        if(!formErrors.email && !formErrors.password) {
+        if(!formError.email && !formError.password) {
             fetchForm(email, password)
             setEmail('')
             setPassword('')
         } else {
-            setFormErrors('fix this fuckin form!')
+            setSubmitError('fix this fucking form!')
         }
-
     }
 
     return (
@@ -70,7 +70,7 @@ const AuthForm:FC<IAuthFormProps> = ({
                 value={email}
                 onChange={e => changeEmail(e.target.value)}
             />
-            {(formErrors && formErrors.email) && <ErrorModal errors={formErrors.email} />}
+            {formError.email && <ErrorModal error={formError.email} />}
             <input
                 type="text"
                 placeholder="введите пароль"
@@ -78,13 +78,14 @@ const AuthForm:FC<IAuthFormProps> = ({
                 value={password}
                 onChange={e => changePassword(e.target.value)}
             />
-            {(formErrors && formErrors.password) && <ErrorModal errors={formErrors.password} />}
-            {(formErrors && errorInput === '') && <ErrorModal errors={formErrors} /> }
-            {error_server_message && 
+            {formError.password && <ErrorModal error={formError.password} />}
+            {submitError && <ErrorModal error={submitError} /> }
+            {serverError && 
                 <ErrorModal 
-                    errors={error_server_message
+                    error={serverError
                         .split(":")[1]
-                        .replace(/[^a-zа-яё]/gi, ' ')} 
+                        .replace(/[^a-zа-яё]/gi, ' ')
+                    } 
                 />
             }
             <button

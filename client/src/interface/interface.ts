@@ -49,15 +49,8 @@ export interface IMessage {
     massage: string;
 }
 
-export interface IErrorValidation {
-    errors?: {
-        ref?: {name:string | undefined} | undefined;
-        type?: string | undefined;
-    } | undefined;
-    
-}
-
-export interface IErrorFromServer {
-    errors?: string
+export interface IFormError {
+    email: string;
+    password: string;
 }
 
