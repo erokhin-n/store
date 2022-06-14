@@ -18,24 +18,28 @@ const AuthForm:FC<IAuthFormProps> = ({
     const [serverError, setServerError] = useState<string | undefined>()
 
     const changeEmail = (e:string)  => {
-        validation(
-            "email", 
-            e, 
-            setFormError, 
-            formError
-        )
+        if(formError.email) {
+            validation(
+                "email", 
+                e, 
+                setFormError, 
+                formError
+            )
+        }
         setServerError('')
         setSubmitError('')
         setEmail(e)
     }
 
     const changePassword = (e:string) => {
-        validation(
-            "password", 
-            e, 
-            setFormError, 
-            formError
-        )
+        if(formError.password) {
+            validation(
+                "password", 
+                e, 
+                setFormError, 
+                formError
+            )
+        }
         setServerError('')
         setSubmitError('')
         setPassword(e)
@@ -46,16 +50,30 @@ const AuthForm:FC<IAuthFormProps> = ({
     },[error_server_message])
 
 
-    const sendForm:FormEventHandler<HTMLFormElement> = (e) => {
+    const sendForm = (e:any) => {
         e.preventDefault()
-        if(!formError.email && !formError.password) {
+
+        validation("password", email, setFormError, formError)
+        validation("email", email, setFormError, formError)
+        
+
+        if(!formError.email && !formError.password && email.length && password.length) {
             fetchForm(email, password)
             setEmail('')
             setPassword('')
         } else {
-            setSubmitError('fix this fucking form!')
+            setSubmitError("необходимо исправить " + 
+                (formError.email && formError.password ? "почту и пароль " : 
+                    formError.email ? "почту " : "пароль "
+                ) + "перед " + (isLogin ? "входом " : "регистрацией ")
+               
+
+            )
         }
     }
+
+    console.log("email error: " + formError.email)
+    console.log("password error: " + formError.password)
 
     return (
         <form 
@@ -69,6 +87,7 @@ const AuthForm:FC<IAuthFormProps> = ({
                 className="authFormInput"
                 value={email}
                 onChange={e => changeEmail(e.target.value)}
+                onBlur={() => validation("email", email, setFormError, formError)}
             />
             {formError.email && <ErrorModal error={formError.email} />}
             <input
@@ -77,6 +96,7 @@ const AuthForm:FC<IAuthFormProps> = ({
                 className="authFormInput"
                 value={password}
                 onChange={e => changePassword(e.target.value)}
+                onBlur={() => validation("password", password, setFormError, formError)}
             />
             {formError.password && <ErrorModal error={formError.password} />}
             {submitError && <ErrorModal error={submitError} /> }

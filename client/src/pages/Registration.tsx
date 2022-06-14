@@ -42,8 +42,6 @@ const Registration = () => {
         }
     }
 
-    console.log(error)
-
     return (
         <AuthForm
             fetchForm={fetchForm}
