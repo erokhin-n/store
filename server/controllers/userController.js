@@ -23,19 +23,19 @@ class UserController {
 				validationErrorHandler(errors)
 			}
 
-			const {email, password, role} = req.body
+			const {email, password} = req.body
 
 			if(!email || !password) {
-				throw ApiError.badRequest('не заполнен емайл или пароль')
+				throw ApiError.unauthorized('не заполнен емайл или пароль')
 			}
 
 			const candidate = await User.findOne({where: {email}})
 	
 			if(candidate) {
-				throw ApiError.badRequest('пользователь с таким мейлом уже есть!')
+				throw ApiError.conflict('пользователь с таким мейлом уже есть!')
 			}
 			const hashPassword = await bcrypt.hash(password, 5)
-			const user = await User.create({email, role, password: hashPassword})
+			const user = await User.create({email, password: hashPassword})
 			const basket = await Basket.create({userId: user.id})
 			const token = generateJwt(user.id, user.email, user.role)
 			res
@@ -52,6 +52,36 @@ class UserController {
 			
 	}
 
+	async registrationAdmin(req,res,next) {
+		try {
+
+			const errors = validationResult(req);
+			
+			if (!errors.isEmpty()) {
+				validationErrorHandler(errors)
+			}
+
+			const {email, password} = req.body
+
+			if(!email || !password) {
+				throw ApiError.unauthorized('не заполнен емайл или пароль')
+			}
+
+			const candidate = await User.findOne({where: {email}})
+	
+			if(candidate) {
+				throw ApiError.conflict('пользователь с таким мейлом уже есть!')
+			}
+			const hashPassword = await bcrypt.hash(password, 5)
+			const user = await User.create({email, role: "ADMIN", password: hashPassword})
+			const basket = await Basket.create({userId: user.id})
+			res
+			.json({message: 'registration success'})
+		} catch(e) {
+			next(e)
+		}
+	}
+
 	async login(req,res,next) {
 		try {
 
@@ -64,11 +94,11 @@ class UserController {
 			const {email, password} = req.body
 			const user = await User.findOne({where: {email}})
 			if(!user){
-				throw ApiError.internal('пользователь не найден')
+				throw ApiError.unauthorized('пользователь не найден')
 			}
 			let comparePassword = bcrypt.compareSync(password, user.password)	
 			if(!comparePassword){
-				throw ApiError.internal("указан неверный пароль")
+				throw ApiError.unauthorized("указан неверный пароль")
 			}
 			const token = generateJwt(user.id, user.email, user.role)
 			res
@@ -87,7 +117,7 @@ class UserController {
 	async check(req,res, next) {
 		try {
 			const token = generateJwt(req.user.id, req.user.email, req.user.role)
-			if(!token) throw ApiError.forbiden('проверка токена завершилась вселенским пиздецом!')
+			if(!token) throw ApiError.unauthorized('проверка токена завершилась ошибкой')
 			res
 			.set('Access-Control-Allow-Origin', 'http://localhost:3000')
 			.cookie('token', token, {

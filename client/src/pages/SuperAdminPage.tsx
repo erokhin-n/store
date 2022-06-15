@@ -1,33 +1,29 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import AuthForm from "../components/AuthForm"
+import AuthFormFields from "../components/AuthFormFields"
 import { EnumRoute } from "../enum/enum"
 import { useAppDispatch } from "../hooks/hooks"
-import { useRegistrationMutation } from "../store/apiSlice"
+import { useRegistrationAdminMutation } from "../store/apiSlice"
 import { setEmailinStore, setRole } from "../store/userSlice"
 
-const Registration = () => {
+const SuperAdminPage = () => {
 
     const [
-        registration, 
+        registrationAdmin, 
         {
         data, 
         error
-    }] = useRegistrationMutation()
-
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
+    }] = useRegistrationAdminMutation()
 
     useEffect(()=> {
         if(data) {
-            dispatch(setRole(data.role))
-            dispatch(setEmailinStore(data.email))
-            navigate(EnumRoute.Shop)
+            console.log(data)
         }  
     },[data])
 
     const fetchForm = async (email:string, password:string) => {
-        registration({email, password}) 
+        registrationAdmin({email, password}) 
     }
 
     let error_server_message:string | undefined
@@ -43,12 +39,15 @@ const Registration = () => {
     }
 
     return (
-        <AuthForm
-            fetchForm={fetchForm}
-            error_server_message={error_server_message}
-            loginInformation={"registration"}
-        />
+        <section>
+            <h3>регистрация администратора</h3>
+            <AuthForm
+                fetchForm={fetchForm}
+                error_server_message={error_server_message}
+                loginInformation={"super_admin"}   
+            />    
+        </section>
     )
 }
 
-export default Registration
+export default SuperAdminPage

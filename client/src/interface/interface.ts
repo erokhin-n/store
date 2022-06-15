@@ -1,3 +1,5 @@
+import { ChangeEvent, Dispatch, FormEvent, FormEventHandler, SetStateAction } from "react";
+
 export interface IDevice {
     id: number;
     brandId: number;
@@ -23,8 +25,8 @@ export interface IDevicesResponse<T> {
 
 export interface IAuthFormProps {
     fetchForm: (email: string, password: string) => void;
-    isLogin: boolean;
     error_server_message: string | undefined;
+    loginInformation: "login" | "registration" | "super_admin";
 }
 
 export interface IRole {
@@ -52,5 +54,20 @@ export interface IMessage {
 export interface IFormError {
     email: string;
     password: string;
+}
+
+export interface IAuthFormFields {
+    sendForm: (e:FormEvent<HTMLButtonElement>) => void;
+    email: string;
+    changeEmail: (e:string) => void;
+    password: string;
+    changePassword:(e:string) => void;
+    emailError:string;
+    setEmailError: Dispatch<SetStateAction<string>>;
+    passwordError:string;
+    setPasswordError:Dispatch<SetStateAction<string>>;
+    serverError:string | undefined;
+    submitError: string;
+    loginInformation: "login" | "registration" | "super_admin";
 }
 

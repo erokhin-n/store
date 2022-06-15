@@ -3,6 +3,7 @@ export enum EnumRoute {
     Registration = "/registration",
     DevicePage = "/device_page",
     AdminPage = "/admin_page",
+    SuperAdminPage = "/super_admin_page",
     Basket = "/basket",
     Shop = "/",
     WrongPage = "*"
@@ -14,5 +15,6 @@ export enum ServerQuery {
     login = '/api/user/login',
     brand = '/api/brand',
     check = '/api/user/auth',
-    removeCookie = '/api/user/remove_cookie'
+    removeCookie = '/api/user/remove_cookie',
+    registrationAdmin = '/api/user/registration_admin'
 }

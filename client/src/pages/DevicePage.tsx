@@ -3,7 +3,11 @@ import BrandModal from "../components/BrandModal"
 
 
 const DevicePage:FC = () => {
-    return <h3>DevicePage</h3>
+    return (
+        <section>
+            <button>create huibala</button>
+        </section>
+    )
 }
 
 export default DevicePage

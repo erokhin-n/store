@@ -1,19 +1,30 @@
 const jwt = require('jsonwebtoken')
 const ApiError = require('../error/ApiError')
+const { validationResult } = require('express-validator');
+const validationErrorHandler = require('../error/validationErrorHandler');
 
 module.exports = function(role) {
 	return function (req, res, next) {
+
 		if(req.method === "OPTIONS") {
 			next()
 		}
 		try {
+			
+			const errors = validationResult(req);
+			console.log(errors)
+
+			if (!errors.isEmpty()) {
+				validationErrorHandler(errors)
+			}
+
 			const token = req.cookies.token
 			if(!token) {
-				throw ApiError.forbiden("нет токена, всему пiзда!")
+				throw ApiError.unauthorized("токен отсутсвует")
 			}
 			const decoded = jwt.verify(token, process.env.SECRET_KEY)
 			if(decoded.role !== role) {
-				throw ApiError.forbiden("щегол мамкин, ты не дорос до илитных деяний!")
+				throw ApiError.forbidden("для вашей роли это действие недоступно")
 			}
 			req.user = decoded
 			next()

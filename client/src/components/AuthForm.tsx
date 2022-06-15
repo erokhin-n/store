@@ -1,14 +1,12 @@
-import { FC, FormEventHandler, SetStateAction, useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import { EnumRoute } from "../enum/enum"
-import { IAuthFormProps, IFormError } from "../interface/interface"
-import ErrorModal from "./ErrorModal";
-import { emailValidation, passwordValidation } from "./validation/AuthValidation";
+import { FC, FormEvent, useEffect, useState } from "react"
+import { IAuthFormProps } from "../interface/interface"
+import AuthFormFields from "./AuthFormFields";
+import { emailValidation, passwordValidation } from "../validation/AuthValidation";
 
 const AuthForm:FC<IAuthFormProps> = ({
     fetchForm,
-    isLogin,
-    error_server_message
+    error_server_message,
+    loginInformation
 }) => {
      
     const [email, setEmail] = useState<string>('')
@@ -20,7 +18,6 @@ const AuthForm:FC<IAuthFormProps> = ({
 
     const changeEmail = (e:string)  => {
         if(emailError) emailValidation(e, setEmailError)
-        
         setServerError('')
         setSubmitError('')
         setEmail(e)
@@ -38,71 +35,39 @@ const AuthForm:FC<IAuthFormProps> = ({
     },[error_server_message])
 
 
-    const sendForm = (e:any) => {
-        e.preventDefault()
+    const sendForm = (event:FormEvent<HTMLButtonElement>) => {
+        event.preventDefault()
         
         passwordValidation(password, setPasswordError)
         emailValidation(email, setEmailError)
    
         if( !emailError && 
-            !passwordError && 
+            !passwordError &&
             email.length && 
             password.length
         ) {
             fetchForm(email, password)
-            setEmail('')
-            setPassword('')
         } else {
-            setSubmitError("необходимо исправить форму перед " + (isLogin ? "входом" : "регистрацией"))
+            setSubmitError("необходимо исправить форму перед " + 
+            (loginInformation === "login" ? "входом" : "регистрацией"))
         }
     }
     
     return (
-        <form 
-            className={"authForm"}
-            onSubmit={sendForm}
-        >
-
-            <input 
-                type="text" 
-                placeholder="введите почту"
-                className="authFormInput"
-                value={email}
-                onChange={e => changeEmail(e.target.value)}
-                onBlur={() => emailValidation(email, setEmailError)}
-            />
-            {emailError && <ErrorModal error={emailError} />}
-            <input
-                type="text"
-                placeholder="введите пароль"
-                className="authFormInput"
-                value={password}
-                onChange={e => changePassword(e.target.value)}
-                onBlur={() =>  passwordValidation(password, setPasswordError)}
-            />
-            {passwordError && <ErrorModal error={passwordError} />}
-            {submitError && <ErrorModal error={submitError} /> }
-            {serverError && 
-                <ErrorModal 
-                    error={serverError
-                        .split(":")[1]
-                        .replace(/[^a-zа-яё]/gi, ' ')
-                    } 
-                />
-            }
-            <button className="authFormButton">
-                {isLogin ? 'войти' : 'регистрация'}
-            </button>
-            {isLogin ? 
-                <div>
-                    Нет аккаунта? <Link to={EnumRoute.Registration}>Зарегистрируйся</Link>
-                </div>
-                :
-                <div>
-                    есть аккаунт? <Link to={EnumRoute.Login}>Войдите</Link>
-                </div>                                
-            }
-        </form>
+        <AuthFormFields
+            sendForm={sendForm}
+            email={email}
+            changeEmail={changeEmail}
+            password={password}
+            changePassword={changePassword}
+            emailError={emailError}
+            setEmailError={setEmailError}
+            passwordError={passwordError}
+            setPasswordError={setPasswordError}
+            serverError={serverError}
+            submitError={submitError}
+            loginInformation={loginInformation}
+        />
     )
 }
 

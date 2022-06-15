@@ -45,8 +45,8 @@ const Login = () => {
     return (
         <AuthForm
             fetchForm={fetchForm}
-            isLogin={true}
             error_server_message={error_server_message}
+            loginInformation={"login"}
         />
     )
 }

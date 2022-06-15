@@ -12,6 +12,9 @@ const Navbar:FC = () => {
     const role = useAppSelector((state) => state.user.role)
     const email = useAppSelector((state) => state.user.email)
 
+    console.log('navbar role' + role)
+    console.log('navbar email' + email)
+
     const [removeCookie] = useRemoveCookieMutation()
     
     const logout = () => {
@@ -50,6 +53,14 @@ const Navbar:FC = () => {
                     to={EnumRoute.AdminPage}
                 >
                     админ панель
+                </NavLink>
+            }
+            {(role === "SUPER_ADMIN") && 
+                <NavLink
+                    className={"navbarElement"} 
+                    to={EnumRoute.SuperAdminPage}
+                >
+                    super admin page
                 </NavLink>
             }
             {(role === "USER") && 

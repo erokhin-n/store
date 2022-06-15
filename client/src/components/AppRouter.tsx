@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 import { useAppSelector } from "../hooks/hooks"
 import WrongRoutePage from "../pages/WrongRoutePage"
-import { adminRoutes, publicRoutes, userRoutes } from "../routes/routes"
+import { adminRoutes, publicRoutes, superAdminRoutes, userRoutes } from "../routes/routes"
 
 const AppRouter = () => {
 
@@ -32,6 +32,14 @@ const AppRouter = () => {
                 element={<route.element />} 
                 key={route.path}
             />    
+        )
+    } else if (role === "SUPER_ADMIN") {
+        authRoutes = superAdminRoutes.map(route => 
+            <Route 
+                path={route.path} 
+                element={<route.element />} 
+                key={route.path}
+            />     
         )
     }
 

@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
 	try {
 		const token = req.cookies.token
 		if(!token) {
-			throw ApiError.forbiden("пшел на хуй, пес безтокенный!")
+			throw ApiError.unauthorized("проверка токена завершилась ошибкой")
 		}
 		const decoded = jwt.verify(token, process.env.SECRET_KEY)
 		req.user = decoded

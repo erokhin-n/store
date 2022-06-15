@@ -5,6 +5,7 @@ import Shop from "../pages/Shop";
 import Basket from "../pages/Basket";
 import Registration from "../pages/Registration";
 import Login from "../pages/Login";
+import SuperAdminPage from "../pages/SuperAdminPage";
 
 export const adminRoutes = [
     {path:EnumRoute.AdminPage, element:AdminPage},
@@ -19,4 +20,8 @@ export const publicRoutes = [
     {path: EnumRoute.Login, element: Login},
     {path: EnumRoute.Registration, element: Registration},
     {path: EnumRoute.DevicePage, element: DevicePage},
+]
+
+export const superAdminRoutes = [
+    {path:EnumRoute.SuperAdminPage, element:SuperAdminPage},
 ]

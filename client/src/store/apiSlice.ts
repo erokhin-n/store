@@ -20,6 +20,14 @@ export const apiSlice = createApi({
                 credentials: "include",
             })
         }),
+        registrationAdmin: builder.mutation<IDataUserResponse, IAuthData>({
+            query: regData => ({
+                url: ServerQuery.registrationAdmin,
+                method: 'POST',
+                body: regData,
+                credentials: "include",
+            })
+        }),
         login: builder.mutation<IDataUserResponse, IAuthData>({
             query: loginData => ({
                 url: ServerQuery.login,
@@ -60,4 +68,5 @@ export const {
     useSaveBrandMutation,
     useCheckQuery,
     useRemoveCookieMutation,
+    useRegistrationAdminMutation
 } = apiSlice 
