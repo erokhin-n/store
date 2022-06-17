@@ -76,7 +76,7 @@ class UserController {
 			const user = await User.create({email, role: "ADMIN", password: hashPassword})
 			const basket = await Basket.create({userId: user.id})
 			res
-			.json({message: 'registration success'})
+			.json({message: `администратор ${user.email} зарегистрирован`})
 		} catch(e) {
 			next(e)
 		}
