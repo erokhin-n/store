@@ -12,9 +12,6 @@ const Navbar:FC = () => {
     const role = useAppSelector((state) => state.user.role)
     const email = useAppSelector((state) => state.user.email)
 
-    console.log('navbar role' + role)
-    console.log('navbar email' + email)
-
     const [removeCookie] = useRemoveCookieMutation()
     
     const logout = () => {

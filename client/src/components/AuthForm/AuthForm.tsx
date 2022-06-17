@@ -1,12 +1,14 @@
 import { FC, FormEvent, useEffect, useState } from "react"
-import { IAuthFormProps } from "../interface/interface"
+import { IAuthFormProps } from "../../interface/interface"
 import AuthFormFields from "./AuthFormFields";
-import { emailValidation, passwordValidation } from "../validation/AuthValidation";
+import { emailValidation, passwordValidation } from "../../validation/AuthValidation";
 
 const AuthForm:FC<IAuthFormProps> = ({
     fetchForm,
     error_server_message,
-    loginInformation
+    loginInformation,
+    adminRegMessage,
+    setAdminRegMessage
 }) => {
      
     const [email, setEmail] = useState<string>('')
@@ -18,6 +20,7 @@ const AuthForm:FC<IAuthFormProps> = ({
 
     const changeEmail = (e:string)  => {
         if(emailError) emailValidation(e, setEmailError)
+        if(setAdminRegMessage) setAdminRegMessage('')
         setServerError('')
         setSubmitError('')
         setEmail(e)
@@ -25,6 +28,7 @@ const AuthForm:FC<IAuthFormProps> = ({
 
     const changePassword = (e:string) => {
         if(passwordError) passwordValidation(e, setPasswordError)
+        if(setAdminRegMessage) setAdminRegMessage('')
         setServerError('')
         setSubmitError('')
         setPassword(e)
@@ -67,6 +71,7 @@ const AuthForm:FC<IAuthFormProps> = ({
             serverError={serverError}
             submitError={submitError}
             loginInformation={loginInformation}
+            adminRegMessage={adminRegMessage}
         />
     )
 }

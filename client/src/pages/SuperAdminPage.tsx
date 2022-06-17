@@ -1,11 +1,7 @@
-import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import AuthForm from "../components/AuthForm"
-import AuthFormFields from "../components/AuthFormFields"
-import { EnumRoute } from "../enum/enum"
-import { useAppDispatch } from "../hooks/hooks"
+import { useState } from "react"
+import AuthForm from "../components/AuthForm/AuthForm"
+import { IDataTest, IDataUserResponse } from "../interface/interface"
 import { useRegistrationAdminMutation } from "../store/apiSlice"
-import { setEmailinStore, setRole } from "../store/userSlice"
 
 const SuperAdminPage = () => {
 
@@ -16,23 +12,26 @@ const SuperAdminPage = () => {
         error
     }] = useRegistrationAdminMutation()
 
-    useEffect(()=> {
-        if(data) {
-            console.log(data)
-        }  
-    },[data])
+    const [adminRegMessage, setAdminRegMessage] = useState<string | ''>('')
 
     const fetchForm = async (email:string, password:string) => {
-        registrationAdmin({email, password}) 
+        registrationAdmin({email, password}).then((res:any) => 
+            setAdminRegMessage(res.data.message)).catch((e:unknown) => setAdminRegMessage(''))
+    }
+
+    if(adminRegMessage) {
+        setTimeout(() => setAdminRegMessage(''), 3000)
     }
 
     let error_server_message:string | undefined
+
 
     if (error) {
         if ('status' in error) {
             error_server_message = 'error' in error ? 
             error.error : 
                 JSON.stringify(error.data)
+            
         } else {
             error_server_message = error.message
         }
@@ -44,7 +43,9 @@ const SuperAdminPage = () => {
             <AuthForm
                 fetchForm={fetchForm}
                 error_server_message={error_server_message}
-                loginInformation={"super_admin"}   
+                loginInformation={"super_admin"}
+                adminRegMessage={adminRegMessage} 
+                setAdminRegMessage={setAdminRegMessage}
             />    
         </section>
     )

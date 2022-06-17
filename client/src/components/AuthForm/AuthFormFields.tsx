@@ -1,9 +1,10 @@
-import { FC } from "react"
+import { FC, useEffect, useReducer, useState } from "react"
 import { Link } from "react-router-dom"
-import { EnumRoute } from "../enum/enum"
-import { IAuthFormFields } from "../interface/interface"
-import ErrorModal from "./ErrorModal"
-import { emailValidation, passwordValidation } from "../validation/AuthValidation"
+import { EnumRoute } from "../../enum/enum"
+import { IAuthFormFields } from "../../interface/interface"
+import ErrorModal from "../ErrorModal"
+import { emailValidation, passwordValidation } from "../../validation/AuthValidation"
+import style from './AuthFormFields.module.css'
 
 const AuthFormFields:FC<IAuthFormFields> = ({
     sendForm,
@@ -17,8 +18,10 @@ const AuthFormFields:FC<IAuthFormFields> = ({
     setPasswordError,
     serverError,
     submitError,
-    loginInformation
+    loginInformation,
+    adminRegMessage
 }) => {
+
     return (
         <form 
             className={"authForm"}
@@ -27,7 +30,9 @@ const AuthFormFields:FC<IAuthFormFields> = ({
             <input 
                 type="text" 
                 placeholder="введите почту"
-                className="authFormInput"
+                className={emailError ? 
+                    [style.inputError, style.input].join(' ') : 
+                    style.input}
                 value={email}
                 onChange={e => changeEmail(e.target.value)}
                 onBlur={() => emailValidation(email, setEmailError)}
@@ -36,7 +41,9 @@ const AuthFormFields:FC<IAuthFormFields> = ({
             <input
                 type="text"
                 placeholder="введите пароль"
-                className="authFormInput"
+                className={passwordError ? 
+                    [style.inputError, style.input].join(' ') : 
+                    style.input}
                 value={password}
                 onChange={e => changePassword(e.target.value)}
                 onBlur={() =>  passwordValidation(password, setPasswordError)}
@@ -51,6 +58,7 @@ const AuthFormFields:FC<IAuthFormFields> = ({
                     } 
                 />
             }
+            {adminRegMessage}
             <button 
                 className="authFormButton"
                 onClick={ e => sendForm(e)}
@@ -62,7 +70,7 @@ const AuthFormFields:FC<IAuthFormFields> = ({
                 }
             </button>
             {loginInformation === "super_admin" ?
-                null :
+                null:
                 loginInformation === "login" ?
                     <div>
                         Нет аккаунта? <Link to={EnumRoute.Registration}>Зарегистрируйся</Link>

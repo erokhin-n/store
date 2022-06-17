@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import AuthForm from "../components/AuthForm"
+import AuthForm from "../components/AuthForm/AuthForm"
 import { EnumRoute } from "../enum/enum"
 import { useAppDispatch } from "../hooks/hooks"
 import { useLoginMutation } from "../store/apiSlice"

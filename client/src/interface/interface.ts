@@ -27,6 +27,8 @@ export interface IAuthFormProps {
     fetchForm: (email: string, password: string) => void;
     error_server_message: string | undefined;
     loginInformation: "login" | "registration" | "super_admin";
+    adminRegMessage?: string | '';
+    setAdminRegMessage?: Dispatch<SetStateAction<string>>;
 }
 
 export interface IRole {
@@ -69,5 +71,10 @@ export interface IAuthFormFields {
     serverError:string | undefined;
     submitError: string;
     loginInformation: "login" | "registration" | "super_admin";
+    adminRegMessage?: string | '';
+}
+
+export interface IDataTest {
+    value: {data:any}
 }
 
