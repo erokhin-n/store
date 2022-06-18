@@ -20,7 +20,6 @@ export const apiSlice = createApi({
                 body: regData,
                 credentials: "include",
             }),
-            invalidatesTags: ['UserList']
         }),
         registrationAdmin: builder.mutation<IMessage, IAuthData>({
             query: regData => ({

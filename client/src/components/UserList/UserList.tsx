@@ -3,17 +3,19 @@ import UserItem from "./UserItem"
 
 const UserList = () => {
 
-    const {data, isError} = useUserListQuery()
-
-    if(isError) {
-        return <h1>hui!</h1>
-    }
+    const {data} = useUserListQuery()
 
     return (
         <div>
-            {data?.map(user => 
+            {/* <select onChange={e => setSort(e.target.value)}>
+                <option value="ADMIN">ADMIN</option>
+                <option value="USER">USER</option>
+            </select> */}
+        { 
+            data?.map((user:any) => 
                 <UserItem key={user.email} user={user}/>   
-            )}
+            ) 
+        }
         </div>
     )
 }
