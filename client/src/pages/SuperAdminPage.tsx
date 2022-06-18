@@ -1,6 +1,6 @@
 import { useState } from "react"
 import AuthForm from "../components/AuthForm/AuthForm"
-import { IDataTest, IDataUserResponse } from "../interface/interface"
+import {  IDataUserResponse } from "../interface/interface"
 import { useRegistrationAdminMutation } from "../store/apiSlice"
 
 const SuperAdminPage = () => {
@@ -15,8 +15,9 @@ const SuperAdminPage = () => {
     const [adminRegMessage, setAdminRegMessage] = useState<string | ''>('')
 
     const fetchForm = async (email:string, password:string) => {
-        registrationAdmin({email, password}).then((res:any) => 
-            setAdminRegMessage(res.data.message)).catch((e:unknown) => setAdminRegMessage(''))
+        registrationAdmin({email, password}).then((res) => {
+            console.log(data)
+            setAdminRegMessage(res.data.message)}).catch((e:unknown) => setAdminRegMessage(''))
     }
 
     if(adminRegMessage) {

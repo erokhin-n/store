@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { ServerQuery } from '../enum/enum'
-import { IAuthData, IDataUserResponse, IDevice, IDevicesResponse, IMessage, ITypeAndBrand} from '../interface/interface'
+import { IAuthData, IDataAdminRegResponse, IDataUserResponse, IDevice, IDevicesResponse, IMessage, ITypeAndBrand} from '../interface/interface'
 
 
 export const apiSlice = createApi({
@@ -20,7 +20,7 @@ export const apiSlice = createApi({
                 credentials: "include",
             })
         }),
-        registrationAdmin: builder.mutation<IDataUserResponse, IAuthData>({
+        registrationAdmin: builder.mutation<IDataAdminRegResponse, IAuthData>({
             query: regData => ({
                 url: ServerQuery.registrationAdmin,
                 method: 'POST',

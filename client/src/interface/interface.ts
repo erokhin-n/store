@@ -45,6 +45,10 @@ export interface IDataUserResponse {
     email: string;
 }
 
+export interface IDataAdminRegResponse {
+   data: any
+}
+
 export interface ITypeAndBrand {
     name: string;
 }
@@ -74,7 +78,4 @@ export interface IAuthFormFields {
     adminRegMessage?: string | '';
 }
 
-export interface IDataTest {
-    value: {data:any}
-}
 
