@@ -16,5 +16,6 @@ export enum ServerQuery {
     brand = '/api/brand',
     check = '/api/user/auth',
     removeCookie = '/api/user/remove_cookie',
-    registrationAdmin = '/api/user/registration_admin'
+    registrationAdmin = '/api/user/registration_admin',
+    getUsers = '/api/user/userlist'
 }

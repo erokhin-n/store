@@ -31,9 +31,6 @@ export interface IAuthFormProps {
     setAdminRegMessage?: Dispatch<SetStateAction<string>>;
 }
 
-export interface IRole {
-    role: string;
-}
 
 export interface IAuthData {
     email: string;
@@ -45,22 +42,14 @@ export interface IDataUserResponse {
     email: string;
 }
 
-export interface IDataAdminRegResponse {
-   data: any
-}
-
 export interface ITypeAndBrand {
     name: string;
 }
 
 export interface IMessage {
-    massage: string;
+    message: string;
 }
 
-export interface IFormError {
-    email: string;
-    password: string;
-}
 
 export interface IAuthFormFields {
     sendForm: (e:FormEvent<HTMLButtonElement>) => void;
