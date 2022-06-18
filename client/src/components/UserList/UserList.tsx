@@ -1,20 +1,19 @@
-import { useEffect } from "react"
+import { useUserListQuery } from "../../store/apiSlice"
+import UserItem from "./UserItem"
 
 const UserList = () => {
-    const  getUsers = async () => {
-        const users:any = await fetch('http://localhost:3000/api/user/userlist')
-        const jsonn = await users.json()
-        console.log(jsonn)
+
+    const {data, isError} = useUserListQuery()
+
+    if(isError) {
+        return <h1>hui!</h1>
     }
-
-    useEffect(()=> {
-        getUsers()
-    },[])
-
 
     return (
         <div>
-            тут будет UserList
+            {data?.map(user => 
+                <UserItem key={user.email} user={user}/>   
+            )}
         </div>
     )
 }

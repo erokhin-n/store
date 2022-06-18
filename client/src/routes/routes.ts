@@ -5,7 +5,7 @@ import Shop from "../pages/Shop";
 import Basket from "../pages/Basket";
 import Registration from "../pages/Registration";
 import Login from "../pages/Login";
-import SuperAdminPage from "../pages/SuperAdminPage";
+import SuperAdminPage from "../pages/SuperAdminPage/SuperAdminPage";
 
 export const adminRoutes = [
     {path:EnumRoute.AdminPage, element:AdminPage},

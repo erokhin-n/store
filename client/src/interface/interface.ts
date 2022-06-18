@@ -40,6 +40,7 @@ export interface IAuthData {
 export interface IDataUserResponse {
     role: string;
     email: string;
+    id?:string;
 }
 
 export interface ITypeAndBrand {

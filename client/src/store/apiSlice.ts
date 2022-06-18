@@ -8,6 +8,7 @@ export const apiSlice = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: "http://localhost:5000",
     }),
+    tagTypes: ['UserList'],
     endpoints: builder => ({
         getAllDevices: builder.query<IDevicesResponse<IDevice>, void>({
             query: () => ServerQuery.devices
@@ -18,7 +19,8 @@ export const apiSlice = createApi({
                 method: 'POST',
                 body: regData,
                 credentials: "include",
-            })
+            }),
+            invalidatesTags: ['UserList']
         }),
         registrationAdmin: builder.mutation<IMessage, IAuthData>({
             query: regData => ({
@@ -26,7 +28,8 @@ export const apiSlice = createApi({
                 method: 'POST',
                 body: regData,
                 credentials: "include",
-            })
+            }),
+            invalidatesTags: ['UserList']
         }),
         login: builder.mutation<IDataUserResponse, IAuthData>({
             query: loginData => ({
@@ -36,8 +39,9 @@ export const apiSlice = createApi({
                 credentials: "include",
             })
         }),
-        userList: builder.query({
-            query: () =>  ServerQuery.getUsers          
+        userList: builder.query<IDataUserResponse[], void>({
+            query: () =>  ServerQuery.getUsers,
+            providesTags: ['UserList']          
         }),
         saveBrand: builder.mutation<IMessage, ITypeAndBrand>({
             query: name => ({

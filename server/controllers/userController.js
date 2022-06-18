@@ -117,6 +117,7 @@ class UserController {
 	async getUsers(req, res, next) {
 		try {
 			const users = await User.findAll()
+			console.log('getUsersWork!')
 			res.json(users)
 		} catch(e) {
 			next(e)

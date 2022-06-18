@@ -1,7 +1,7 @@
 import { useState } from "react"
-import AuthForm from "../components/AuthForm/AuthForm"
-import UserList from "../components/UserList/UserList"
-import { useRegistrationAdminMutation } from "../store/apiSlice"
+import AuthForm from "../../components/AuthForm/AuthForm"
+import UserList from "../../components/UserList/UserList"
+import { useRegistrationAdminMutation } from "../../store/apiSlice"
 
 const SuperAdminPage = () => {
 
