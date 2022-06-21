@@ -3,8 +3,8 @@ import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 import Navbar from "./components/Navbar/Navbar";
 import { useAppDispatch } from "./hooks/hooks";
-import { useCheckQuery } from "./store/apiSlice";
-import { setEmailinStore, setRole } from "./store/userSlice";
+import { useCheckQuery } from "./store/apiSlice/userSlice";
+import { setEmailinStore, setRole } from "./store/userStore";
 
 
 function App() {

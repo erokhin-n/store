@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useSortUsers } from "../../hooks/useSortUsers"
 import { IDataUserResponse } from "../../interface/interface"
-import { useUserListQuery } from "../../store/apiSlice"
+import { useUserListQuery } from "../../store/apiSlice/userSlice"
 import UserItem from "./UserItem"
 
 const UserList = () => {

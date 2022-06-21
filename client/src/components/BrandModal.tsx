@@ -1,5 +1,5 @@
 import { ChangeEventHandler, FormEvent, useState } from "react"
-import { useSaveBrandMutation } from "../store/apiSlice"
+import { useSaveBrandMutation } from "../store/apiSlice/deviceSlice"
 
 const BrandModal = () => {
 

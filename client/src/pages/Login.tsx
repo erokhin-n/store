@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom"
 import AuthForm from "../components/AuthForm/AuthForm"
 import { EnumRoute } from "../enum/enum"
 import { useAppDispatch } from "../hooks/hooks"
-import { useLoginMutation } from "../store/apiSlice"
-import { setEmailinStore, setRole } from "../store/userSlice"
+import { useLoginMutation } from "../store/apiSlice/userSlice"
+import { setEmailinStore, setRole } from "../store/userStore"
 
 const Login = () => {
 

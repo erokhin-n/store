@@ -10,12 +10,12 @@ export enum EnumRoute {
 }
 
 export enum ServerQuery {
-    devices = '/api/device',
-    registration = '/api/user/registration',
-    login = '/api/user/login',
-    brand = '/api/brand',
-    check = '/api/user/auth',
-    removeCookie = '/api/user/remove_cookie',
-    registrationAdmin = '/api/user/registration_admin',
-    getUsers = '/api/user/userlist'
+    devices = '/device',
+    registration = '/user/registration',
+    login = '/user/login',
+    brand = '/brand',
+    check = '/user/auth',
+    removeCookie = '/user/remove_cookie',
+    registrationAdmin = '/user/registration_admin',
+    getUsers = '/user/userlist'
 }

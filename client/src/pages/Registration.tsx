@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom"
 import AuthForm from "../components/AuthForm/AuthForm"
 import { EnumRoute } from "../enum/enum"
 import { useAppDispatch } from "../hooks/hooks"
-import { useRegistrationMutation } from "../store/apiSlice"
-import { setEmailinStore, setRole } from "../store/userSlice"
+import { useRegistrationMutation } from "../store/apiSlice/userSlice"
+import { setEmailinStore, setRole } from "../store/userStore"
 
 const Registration = () => {
 

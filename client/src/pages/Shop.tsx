@@ -1,7 +1,7 @@
 import BrandModal from "../components/BrandModal"
 import DeviceList from "../components/DeviceList"
 import { useAppSelector } from "../hooks/hooks"
-import { useGetAllDevicesQuery} from "../store/apiSlice"
+import { useGetAllDevicesQuery} from "../store/apiSlice/deviceSlice"
 
 
 const Shop = () => {

@@ -2,8 +2,8 @@ import { FC } from "react"
 import { NavLink } from "react-router-dom"
 import { EnumRoute } from "../../enum/enum"
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks"
-import { useRemoveCookieMutation } from "../../store/apiSlice"
-import { setEmailinStore, setRole } from "../../store/userSlice"
+import { useRemoveCookieMutation } from "../../store/apiSlice/userSlice"
+import { setEmailinStore, setRole } from "../../store/userStore"
 import style from './Navbar.module.css'
 
 const Navbar:FC = () => {
