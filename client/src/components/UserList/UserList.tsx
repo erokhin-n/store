@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import { useSortUsers } from "../../hooks/useSortUsers"
 import { IDataUserResponse } from "../../interface/interface"
 import { useUserListQuery } from "../../store/apiSlice"
@@ -14,13 +14,10 @@ const UserList = () => {
 
     const [filterRole, setFilterRole] = useState<string | ''>('')
     const [alphabetOrder, setAlphabetOrder] = useState<string | ''>('')
-    const [users, setUsers] = useState<IDataUserResponse[] | undefined>(undefined)
     const [letterFilter, setLetterFilter] = useState<string>('')
+    const [users, setUsers] = useState<IDataUserResponse[] | undefined>(undefined)
 
-    let sortedUsers = useSortUsers(users, filterRole, alphabetOrder, letterFilter)
-    
-    // console.log(data)
-    // console.log(users)
+    const sortedUsers = useSortUsers(users, filterRole, alphabetOrder, letterFilter)
 
     return (
         <div>
@@ -42,7 +39,7 @@ const UserList = () => {
                 onChange={e => setLetterFilter(e.target.value)} 
             />
         { 
-            sortedUsers?.map((user:any) => 
+            sortedUsers?.map((user:IDataUserResponse) => 
                 <UserItem key={user.email} user={user}/>   
             ) 
         }

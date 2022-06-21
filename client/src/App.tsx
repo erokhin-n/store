@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./components/AppRouter";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 import { useAppDispatch } from "./hooks/hooks";
 import { useCheckQuery } from "./store/apiSlice";
 import { setEmailinStore, setRole } from "./store/userSlice";

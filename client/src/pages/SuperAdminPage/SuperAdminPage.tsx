@@ -2,6 +2,7 @@ import { useState } from "react"
 import AuthForm from "../../components/AuthForm/AuthForm"
 import UserList from "../../components/UserList/UserList"
 import { useRegistrationAdminMutation } from "../../store/apiSlice"
+import style from './SuperAdminPage.module.css'
 
 const SuperAdminPage = () => {
 
@@ -41,7 +42,7 @@ const SuperAdminPage = () => {
     }
 
     return (
-        <section>
+        <section className={style.body}>
             <div>
                 <h3>регистрация администратора</h3>
                 <AuthForm

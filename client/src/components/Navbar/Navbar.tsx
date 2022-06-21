@@ -1,9 +1,10 @@
 import { FC } from "react"
 import { NavLink } from "react-router-dom"
-import { EnumRoute } from "../enum/enum"
-import { useAppDispatch, useAppSelector } from "../hooks/hooks"
-import { useRemoveCookieMutation } from "../store/apiSlice"
-import { setEmailinStore, setRole } from "../store/userSlice"
+import { EnumRoute } from "../../enum/enum"
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks"
+import { useRemoveCookieMutation } from "../../store/apiSlice"
+import { setEmailinStore, setRole } from "../../store/userSlice"
+import style from './Navbar.module.css'
 
 const Navbar:FC = () => {
 
@@ -21,7 +22,7 @@ const Navbar:FC = () => {
     }
 
     return (
-        <div className={"navbar"}>
+        <div className={style.navbar}>
             {role ?
                 <NavLink
                     className={"navbarElement"}
