@@ -6,7 +6,7 @@ const initialState:IDataUserResponse = {
     email: ''
 }
 
-export const userSlice = createSlice({
+export const userStore = createSlice({
     name: 'user',
     initialState,
     reducers: {
@@ -19,6 +19,6 @@ export const userSlice = createSlice({
     }
 })
 
-export default userSlice.reducer
+export default userStore.reducer
 
-export const {setRole, setEmailinStore} = userSlice.actions
+export const {setRole, setEmailinStore} = userStore.actions

@@ -1,4 +1,4 @@
-import { ServerQuery } from "../../enum/enum";
+import { ServerQuery, Tags } from "../../enum/enum";
 import { IAuthData, IDataUserResponse, IMessage } from "../../interface/interface";
 import { indexSlice } from "./indexSlice";
 
@@ -12,6 +12,7 @@ const userApi = indexSlice.injectEndpoints({
                 body: regData,
                 credentials: "include",
             }),
+            invalidatesTags: [Tags.REG_ADMIN]
         }),
         registrationAdmin: build.mutation<IMessage, IAuthData>({
             query: regData => ({
@@ -20,7 +21,7 @@ const userApi = indexSlice.injectEndpoints({
                 body: regData,
                 credentials: "include",
             }),
-            
+            invalidatesTags: [Tags.REG_ADMIN]
         }),
         login: build.mutation<IDataUserResponse, IAuthData>({
             query: loginData => ({
@@ -32,9 +33,9 @@ const userApi = indexSlice.injectEndpoints({
         }),
         userList: build.query<IDataUserResponse[], void>({
             query: () =>  ServerQuery.getUsers,
-          
+            providesTags: [Tags.REG_ADMIN]
         }),
-        check: build.query<IDataUserResponse, void>({
+        check: build.mutation<IDataUserResponse, void>({
             query: () => ({
                 url: ServerQuery.check,
                 credentials: "include"
@@ -57,6 +58,6 @@ export const {
     useRegistrationAdminMutation,
     useLoginMutation,
     useUserListQuery,
-    useCheckQuery,
+    useCheckMutation,
     useRemoveCookieMutation
 } = userApi

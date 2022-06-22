@@ -19,3 +19,7 @@ export enum ServerQuery {
     registrationAdmin = '/user/registration_admin',
     getUsers = '/user/userlist'
 }
+
+export enum Tags {
+    REG_ADMIN = "REG_ADMIN"
+}
