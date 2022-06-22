@@ -1,14 +1,13 @@
-import {FormEvent, useState } from "react"
+import {FC, FormEvent, useState } from "react"
 import { useSaveTypeMutation } from "../../../store/apiSlice/typeSlice"
 import { adminFormValidation } from "../../../validation/AdminFormValidation"
 import ErrorModal from "../../ErrorModal"
 
-const TypeModal = () => {
+const TypeModal:FC<any> = ({typeError, setTypeError}) => {
 
     const [saveType, {isLoading, isError}] = useSaveTypeMutation()
 
     const [type, setType] = useState<string>('')
-    const [typeError, setTypeError] = useState<string>('')
 
     const changeType = (e:string) => {
         adminFormValidation(type, setTypeError)
