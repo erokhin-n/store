@@ -15,10 +15,14 @@ export const userStore = createSlice({
         },
         setEmailinStore: (state, action:PayloadAction<string>) => {
             state.email = action.payload
-        } 
+        }, 
+        removeRoleAndEmail: (state) => {
+            state.role = ''
+            state.email = ''
+        }
     }
 })
 
 export default userStore.reducer
 
-export const {setRole, setEmailinStore} = userStore.actions
+export const {setRole, setEmailinStore, removeRoleAndEmail} = userStore.actions

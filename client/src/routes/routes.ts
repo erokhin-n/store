@@ -1,5 +1,5 @@
 import { EnumRoute } from "../enum/enum";
-import AdminPage from "../pages/AdminPage";
+import AdminPage from "../pages/AdminPage/AdminPage";
 import DevicePage from "../pages/DevicePage";
 import Shop from "../pages/Shop";
 import Basket from "../pages/Basket";
