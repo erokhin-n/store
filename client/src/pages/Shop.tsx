@@ -1,4 +1,4 @@
-import BrandModal from "../components/BrandModal"
+import BrandModal from "../components/modals/BrandModal/BrandModal"
 import DeviceList from "../components/DeviceList"
 import { useAppSelector } from "../hooks/hooks"
 import { useGetAllDevicesQuery} from "../store/apiSlice/deviceSlice"
@@ -32,7 +32,6 @@ const Shop = () => {
     return (
         <div>
             {role}
-            <BrandModal />
             {deviceList}
         </div>
     )

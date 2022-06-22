@@ -34,9 +34,6 @@ function App() {
         }
     }, [data])
 
-    console.log(data)
-
- 
     if(isUninitialized ) {
         return <h3>ждем запуска мутации</h3>
     }
