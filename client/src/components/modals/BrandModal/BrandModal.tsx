@@ -17,9 +17,10 @@ const BrandModal = () => {
  
     const saveBrandOnServer = (e:FormEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        adminFormValidation(brand, setBrandError)
-        if(!brandError){
-            saveBrand({name: brand})        
+        const validationSuccess = adminFormValidation(brand, setBrandError)
+        if(validationSuccess){
+            saveBrand({name: brand}) 
+            setBrand('')       
         }
     }
 
@@ -34,7 +35,6 @@ const BrandModal = () => {
                 placeholder="название бренда"
                 value={brand}  
                 onChange={e => changeBrand(e.target.value)}
-                onBlur={() => adminFormValidation(brand, setBrandError)}
             />
             <button onClick={e => saveBrandOnServer(e)}>save</button>
             {brandError && <ErrorModal error={brandError} />}

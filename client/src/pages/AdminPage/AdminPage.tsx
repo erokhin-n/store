@@ -11,26 +11,21 @@ const AdminPage = () => {
     const {data:types,isSuccess:successTypesLoad} = useGetAllTypesQuery()
     const {data:brands,isSuccess:successBrandsLoad} = useGetAllBrandsQuery()
 
-    const [typeError, setTypeError] = useState<string>('') 
-
-    // const invalidateError = () => {
-    //     console.log('invalidate work')
-    //     setTypeError('')
-    // }
-
     return (
         <section className={styles.page}>
             <div className={styles.deviceForm}>
                 <h4>создание бренда</h4>
                 <BrandModal />
                 <h4>создание типа устройства</h4>
-                <TypeModal typeError={typeError} setTypeError={setTypeError} />
+                <TypeModal />
             </div>
             <div>
             <h3>типы устройств:</h3>
             {successTypesLoad ? 
                 types.map((type:ITypeAndBrand) => 
-                    <h3 key={type.name}>{type.name}</h3>    
+                    <div key={type.name}>
+                        <h3>{type.name}</h3>  
+                    </div>  
                 ) :
                 <h3>типы не найдены</h3>
             }

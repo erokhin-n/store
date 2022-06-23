@@ -7,5 +7,8 @@ module.exports = validator =  [
     body("password")
         .matches(/^[A-Za-z]\w{7,14}$/)
         .withMessage("Пароль должен начинаться с буквы, длинна пароля должна быть от 7 до 16 букв или цифр"),
+    body("name")
+        .matches(/^[A-Za-zА-Яа-я0-9]*$/)
+        .withMessage("Поле содержит недопустимые символы")
 ]
 

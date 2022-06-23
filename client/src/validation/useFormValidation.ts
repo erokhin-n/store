@@ -1,13 +1,11 @@
 import { Dispatch, SetStateAction } from "react"
 
-export const adminFormValidation = (
+export const useFormValidation = (
     str:string, 
     setState:Dispatch<SetStateAction<string>>) => {
     if(!/^[A-Za-zА-Яа-я0-9]*$/.test(str) || !str.length) {
-        setState('поле должно содержать только буквы или цифры')
-        return false
+        setState('поле необходимо исправить')
     } else {
         setState('')
-        return true
     }
 }

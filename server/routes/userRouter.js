@@ -3,7 +3,7 @@ const router = new Router()
 const userController = require('../controllers/userController')
 const authMiddleware = require('../middleware/authMiddleware')
 const checkRoleMiddleware = require('../middleware/checkRoleMiddleware')
-const validator = require('../middleware/validationMiddleware');
+const validator = require('../middleware/authFormValidation');
 
 router.post('/registration', validator, userController.registration)
 router.post('/login', validator, userController.login)

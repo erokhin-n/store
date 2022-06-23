@@ -10,13 +10,6 @@ module.exports = function(role) {
 			next()
 		}
 		try {
-			
-			const errors = validationResult(req);
-			console.log(errors)
-
-			if (!errors.isEmpty()) {
-				validationErrorHandler(errors)
-			}
 
 			const token = req.cookies.token
 			if(!token) {
