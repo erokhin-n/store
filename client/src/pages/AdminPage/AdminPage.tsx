@@ -1,5 +1,6 @@
 import { useState } from "react"
 import BrandModal from "../../components/modals/BrandModal/BrandModal"
+import DeviceModal from "../../components/modals/DeviceModal/DeviceModal"
 import TypeModal from "../../components/modals/TypeModal/TypeModal"
 import { ITypeAndBrand } from "../../interface/interface"
 import { useGetAllBrandsQuery } from "../../store/apiSlice/brandSlice"
@@ -18,6 +19,8 @@ const AdminPage = () => {
                 <BrandModal />
                 <h4>создание типа устройства</h4>
                 <TypeModal />
+                <h4>создание устройства</h4>
+                <DeviceModal />
             </div>
             <div>
             <h3>типы устройств:</h3>

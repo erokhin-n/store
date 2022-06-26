@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom"
 import { EnumRoute } from "../../enum/enum"
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks"
 import { useRemoveCookieMutation } from "../../store/apiSlice/userSlice"
-import { removeRoleAndEmail } from "../../store/userStore"
+import { removeRoleAndEmail } from "../../store/store/userStore"
 import style from './Navbar.module.css'
 
 const Navbar:FC = () => {

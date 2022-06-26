@@ -3,7 +3,8 @@ const { body } = require('express-validator');
 module.exports = deviceFormValidator =  [
     body("name")
         .notEmpty()
-        .matches(/^[A-Za-zА-Яа-я0-9]*$/)
+        .withMessage("Поле не может быть пустым!")
+        .matches(/^([a-zA-Zа-яА-Я0-9]+\s)*[a-zA-Zа-яА-Я0-9]+$/)
         .withMessage("Поле содержит недопустимые символы")
 ]
 

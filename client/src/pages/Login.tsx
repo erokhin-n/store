@@ -4,7 +4,7 @@ import AuthForm from "../components/AuthForm/AuthForm"
 import { EnumRoute } from "../enum/enum"
 import { useAppDispatch } from "../hooks/hooks"
 import { useLoginMutation } from "../store/apiSlice/userSlice"
-import { setEmailinStore, setRole } from "../store/userStore"
+import { setEmailinStore, setRole } from "../store/store/userStore"
 
 const Login = () => {
 

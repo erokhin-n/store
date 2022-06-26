@@ -1,20 +1,16 @@
-import { ChangeEventHandler, FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { useSaveBrandMutation } from "../../../store/apiSlice/brandSlice"
 import { adminFormValidation } from "../../../validation/AdminFormValidation"
 import ErrorModal from "../../ErrorModal"
 
 const BrandModal = () => {
 
-    const [saveBrand, {isLoading}] = useSaveBrandMutation()
-
     const [brand, setBrand] = useState<string>('')
     const [brandError, setBrandError] = useState<string>('')
+    const [serverError, setServerError] = useState<string>('')
 
-    const changeBrand = (e:string) => {
-        if(brandError) adminFormValidation(brand, setBrandError)
-        setBrand(e)
-    }
- 
+    const [saveBrand, {isLoading, error}] = useSaveBrandMutation()
+
     const saveBrandOnServer = (e:FormEvent<HTMLButtonElement>) => {
         e.preventDefault()
         const validationSuccess = adminFormValidation(brand, setBrandError)
@@ -22,6 +18,28 @@ const BrandModal = () => {
             saveBrand({name: brand}) 
             setBrand('')       
         }
+    }
+
+    let errorServerMessage:string | undefined
+
+    if (error) {
+        if ('status' in error) {
+            errorServerMessage = 'error' in error ? 
+            error.error : 
+                JSON.stringify(error.data)
+        } else {
+            errorServerMessage = error.message
+        }
+    }
+
+    useEffect(()=>{
+        if(errorServerMessage) setServerError(errorServerMessage)     
+    },[errorServerMessage]) 
+
+    const changeBrand = (e:string) => {
+        if(brandError) adminFormValidation(brand, setBrandError)
+        setServerError('')
+        setBrand(e)
     }
 
     if (isLoading) {
@@ -38,6 +56,9 @@ const BrandModal = () => {
             />
             <button onClick={e => saveBrandOnServer(e)}>save</button>
             {brandError && <ErrorModal error={brandError} />}
+            {serverError && <ErrorModal error={serverError
+                .split(":")[1]
+                .replace(/[\\\}]/gi, '')}/>}
         </form>
     )
 }

@@ -13,6 +13,8 @@ class TypeController {
 			}
 
 			const {name} = req.body
+			const existType = await Type.findOne({where: {name}})
+			if(existType) throw ApiError.conflict('такой тип уже существует')
 			const type = await Type.create({name})
 			return res.json(type)
 		} catch(e){
@@ -23,6 +25,7 @@ class TypeController {
 	async getAll(req,res,next) {
 		try {
 			const types = await Type.findAll()
+			console.log('type controller worked!')
 			return res.json(types)
 		} catch(e) {
 			next(ApiError.conflict('ошибка загрузки типов'))

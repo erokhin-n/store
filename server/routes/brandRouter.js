@@ -1,9 +1,10 @@
 const Router = require('express')
 const router = new Router()
-const brandController = require('../controllers/brandController')
-const checkRole = require('../middleware/checkRoleMiddleware')
+const brandController = require('../controllers/brandController');
+const checkRoleMiddleware = require('../middleware/checkRoleMiddleware');
+const deviceFormValidation = require('../middleware/deviceFormValidation');
 
-router.post('/', checkRole('ADMIN'), brandController.create)
+router.post('/',deviceFormValidation , checkRoleMiddleware('ADMIN'), brandController.create)
 router.get('/', brandController.getAll)
 
 module.exports = router

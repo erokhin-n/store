@@ -1,10 +1,9 @@
-import {FC, FormEvent, useEffect, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { useSaveTypeMutation } from "../../../store/apiSlice/typeSlice"
-import { adminFormValidation } from "../../../validation/AdminFormValidation"
-import { useFormValidation } from "../../../validation/useFormValidation"
+import { adminFormValidation } from "../../../validation/AdminFormValidation"   
 import ErrorModal from "../../ErrorModal"
 
-const TypeModal:FC<any> = () => {
+const TypeModal = () => {
 
     const [type, setType] = useState<string>('')
     const [typeError, setTypeError] = useState<string>('')
@@ -12,26 +11,13 @@ const TypeModal:FC<any> = () => {
 
     const [saveType, {isLoading, isError, error}] = useSaveTypeMutation()
 
-    const changeType = (e:string) => {
-        // if(typeError) adminFormValidation(type, setTypeError)
-        errorServerMessage=""
-        setType(e)
-    }
-
     const saveTypeOnServer = (e:FormEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        // const validationSuccess = adminFormValidation(type, setTypeError)
-        // if(validationSuccess) {
-        //     saveType({name: type})
-        //     setType('')
-        // }
-        saveType({name: type})
-    }
-
-
-
-    if (isLoading) {
-        return <h3>type save loading ....</h3>
+        const validationSuccess = adminFormValidation(type, setTypeError)
+        if(validationSuccess) {
+            saveType({name: type})
+            setType('')
+        }
     }
 
     let errorServerMessage:string | undefined
@@ -46,6 +32,19 @@ const TypeModal:FC<any> = () => {
         }
     }
 
+    useEffect(()=>{
+        if(errorServerMessage) setServerError(errorServerMessage)     
+    },[errorServerMessage])
+
+    const changeType = (e:string) => {
+        if(typeError) adminFormValidation(type, setTypeError)
+        setServerError('')
+        setType(e)
+    }
+
+    if (isLoading) {
+        return <h3>type save loading ....</h3>
+    }
 
     return (
         <form>
@@ -57,7 +56,9 @@ const TypeModal:FC<any> = () => {
             />
             <button onClick={e => saveTypeOnServer(e)}>save</button>
             {typeError && <ErrorModal error={typeError} />}
-            {errorServerMessage && <ErrorModal error={errorServerMessage}/>}
+            {serverError && <ErrorModal error={serverError
+                .split(":")[1]
+                .replace(/[\\\}]/gi, '')}/>}
         </form>
     )
 }

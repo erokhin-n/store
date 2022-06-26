@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IDataUserResponse } from "../interface/interface";
+import { IDataUserResponse } from "../../interface/interface";
 
 const initialState:IDataUserResponse = {
     role: '',

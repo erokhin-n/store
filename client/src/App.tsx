@@ -4,7 +4,9 @@ import AppRouter from "./components/AppRouter";
 import Navbar from "./components/Navbar/Navbar";
 import { useAppDispatch } from "./hooks/hooks";
 import { useCheckMutation } from "./store/apiSlice/userSlice";
-import { removeRoleAndEmail, setEmailinStore, setRole } from "./store/userStore";
+import { useGetAllTypesQuery } from "./store/apiSlice/typeSlice";
+import { removeRoleAndEmail, setEmailinStore, setRole } from "./store/store/userStore";
+import { setTypes } from "./store/store/deviceStore";
 
 
 function App() {
@@ -14,22 +16,30 @@ function App() {
     const [check, {
         data,
         isLoading,
-        isSuccess,
-        isError,
+        isSuccess:checkSuccess,
+        isError:checkError,
         isUninitialized 
     }] = useCheckMutation()
+
+    const {data:types} = useGetAllTypesQuery()
+
+    useEffect(()=> {
+        if(types) {
+            dispatch(setTypes(types))
+        }
+    },[types])
 
     useEffect(()=> {
         check()
     },[])
 
     useEffect(()=> {
-        if(isSuccess) {
+        if(checkSuccess) {
             dispatch(setRole(data!.role))
             dispatch(setEmailinStore(data!.email))
         }
     
-        if(isError) {
+        if(checkError) {
             dispatch(removeRoleAndEmail)
         }
     }, [data])
@@ -51,3 +61,5 @@ function App() {
 }
 
 export default App;
+
+

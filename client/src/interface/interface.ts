@@ -68,4 +68,10 @@ export interface IAuthFormFields {
     adminRegMessage?: string | '';
 }
 
+export interface IDeviceStoreInitialState {
+    brands: ITypeAndBrand[];
+    types: ITypeAndBrand[];
+    devices: IDevice[];
+}
+
 
