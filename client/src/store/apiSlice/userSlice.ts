@@ -12,7 +12,7 @@ const userApi = indexSlice.injectEndpoints({
                 body: regData,
                 credentials: "include",
             }),
-            invalidatesTags: [Tags.REG_ADMIN]
+            invalidatesTags: [Tags.USER]
         }),
         registrationAdmin: build.mutation<IMessage, IAuthData>({
             query: regData => ({
@@ -29,25 +29,26 @@ const userApi = indexSlice.injectEndpoints({
                 method: 'POST',
                 body: loginData,
                 credentials: "include",
-            })
+            }),
+            invalidatesTags: [Tags.USER]
         }),
         userList: build.query<IDataUserResponse[], void>({
             query: () =>  ServerQuery.getUsers,
             providesTags: [Tags.REG_ADMIN]
         }),
-        check: build.mutation<IDataUserResponse, void>({
+        check: build.query<IDataUserResponse, void>({
             query: () => ({
                 url: ServerQuery.check,
                 credentials: "include"
-            })
-           
+            }),
+            providesTags: [Tags.USER]
         }),
         removeCookie: build.mutation<IMessage, void>({
             query: () => ({
                 url: ServerQuery.removeCookie,
                 credentials: "include"
-            })
-           
+            }),
+            invalidatesTags:[Tags.USER]
         }),
     }),
     overrideExisting: false
@@ -58,6 +59,6 @@ export const {
     useRegistrationAdminMutation,
     useLoginMutation,
     useUserListQuery,
-    useCheckMutation,
+    useCheckQuery,
     useRemoveCookieMutation
 } = userApi

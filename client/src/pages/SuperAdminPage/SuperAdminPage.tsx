@@ -29,7 +29,6 @@ const SuperAdminPage = () => {
 
     let error_server_message:string | undefined
 
-
     if (error) {
         if ('status' in error) {
             error_server_message = 'error' in error ? 

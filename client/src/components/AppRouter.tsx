@@ -2,10 +2,15 @@ import { Route, Routes } from "react-router-dom"
 import { useAppSelector } from "../hooks/hooks"
 import WrongRoutePage from "../pages/WrongRoutePage"
 import { adminRoutes, publicRoutes, superAdminRoutes, userRoutes } from "../routes/routes"
+import { useCheckQuery } from "../store/apiSlice/userSlice"
 
 const AppRouter = () => {
 
-    const role = useAppSelector((state) => state.user.role)
+    const {data, isLoading} = useCheckQuery()
+
+    if(isLoading){
+        return <h3>loading</h3>
+    }
 
     const routes = publicRoutes.map(route => 
         <Route 
@@ -17,7 +22,7 @@ const AppRouter = () => {
 
     let authRoutes
 
-    if(role === "ADMIN") {
+    if(data?.role === "ADMIN") {
         authRoutes = adminRoutes.map(route => 
             <Route 
                 path={route.path} 
@@ -25,7 +30,7 @@ const AppRouter = () => {
                 key={route.path}
             />    
         )
-    } else if(role === "USER") {
+    } else if(data?.role === "USER") {
         authRoutes = userRoutes.map(route => 
             <Route 
                 path={route.path} 
@@ -33,7 +38,7 @@ const AppRouter = () => {
                 key={route.path}
             />    
         )
-    } else if (role === "SUPER_ADMIN") {
+    } else if (data?.role === "SUPER_ADMIN") {
         authRoutes = superAdminRoutes.map(route => 
             <Route 
                 path={route.path} 

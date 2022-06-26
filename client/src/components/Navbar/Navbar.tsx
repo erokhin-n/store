@@ -1,32 +1,29 @@
-import { FC } from "react"
 import { NavLink } from "react-router-dom"
 import { EnumRoute } from "../../enum/enum"
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks"
-import { useRemoveCookieMutation } from "../../store/apiSlice/userSlice"
-import { removeRoleAndEmail } from "../../store/store/userStore"
+import { useCheckQuery, useRemoveCookieMutation } from "../../store/apiSlice/userSlice"
 import style from './Navbar.module.css'
 
-const Navbar:FC = () => {
-
-    const dispatch = useAppDispatch()
-
-    const role = useAppSelector((state) => state.user.role)
-    const email = useAppSelector((state) => state.user.email)
+const Navbar = () => {
 
     const [removeCookie] = useRemoveCookieMutation()
-    
+
+    const {data, isError,isSuccess, isLoading} = useCheckQuery()
+
     const logout = () => {
         removeCookie()
-        dispatch(removeRoleAndEmail())
+    }
+
+    if(isLoading){
+        return <h3>loading</h3>
     }
 
     return (
         <div className={style.navbar}>
-            {role ?
+            {data?.role ?
                 <NavLink
                     className={"navbarElement"}
                     to={EnumRoute.Login}
-                    onClick={logout}
+                    onClick={() => logout()}
                 >
                     выйти        
                 </NavLink>
@@ -44,7 +41,7 @@ const Navbar:FC = () => {
             >
                 магазин
             </NavLink>
-            {(role ===  "ADMIN" ) && 
+            {(data?.role ===  "ADMIN" ) && 
                 <NavLink
                     className={"navbarElement"} 
                     to={EnumRoute.AdminPage}
@@ -52,7 +49,7 @@ const Navbar:FC = () => {
                     админ панель
                 </NavLink>
             }
-            {(role === "SUPER_ADMIN") && 
+            {(data?.role === "SUPER_ADMIN") && 
                 <NavLink
                     className={"navbarElement"} 
                     to={EnumRoute.SuperAdminPage}
@@ -60,7 +57,7 @@ const Navbar:FC = () => {
                     super admin page
                 </NavLink>
             }
-            {(role === "USER") && 
+            {(data?.role === "USER") && 
                 <NavLink
                     className={"navbarElement"} 
                     to={EnumRoute.Basket}
@@ -68,7 +65,7 @@ const Navbar:FC = () => {
                     корзина
                 </NavLink>
             }
-            <div>{email}</div>
+            <div>{data?.email}</div>
         </div>
     )
 }

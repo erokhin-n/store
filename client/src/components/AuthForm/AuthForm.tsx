@@ -51,8 +51,11 @@ const AuthForm:FC<IAuthFormProps> = ({
             password.length
         ) {
             fetchForm(email, password)
-            setEmail('')
-            setPassword('')
+            if(error_server_message) {
+                setEmail('')
+                setPassword('')
+            }
+
         } else {
             setSubmitError("необходимо исправить форму перед " + 
             (loginInformation === "login" ? "входом" : "регистрацией"))

@@ -29,12 +29,12 @@ const Shop = () => {
         deviceList = <div>error</div>
     }
 
-    const role = useAppSelector((state) => state.user.role)
+    // const role = useAppSelector((state) => state.user.role)
 
     return (
         <div>
-            {role}
-            {/* {deviceList} */}
+            {/* {role} */}
+            {deviceList}
         </div>
     )
 }

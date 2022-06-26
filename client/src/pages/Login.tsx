@@ -26,7 +26,7 @@ const Login = () => {
         }  
     },[data])
 
-    const fetchForm = async (email:string, password:string) => {
+    const fetchForm = (email:string, password:string) => {
         login({email, password})  
     }
 

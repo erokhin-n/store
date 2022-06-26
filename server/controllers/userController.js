@@ -142,8 +142,10 @@ class UserController {
 
 	async removeCookie(req,res,next) {
 		try {
-			res.clearCookie('token');
-			res.json({message: 'выход'})
+			res
+			.clearCookie('token')
+			.status(200)
+			.json({role: '', email: ""})
 		} catch(e) {
 			next(e)
 		}

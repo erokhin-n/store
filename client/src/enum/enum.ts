@@ -22,6 +22,7 @@ export enum ServerQuery {
 }
 
 export enum Tags {
+    USER = "USER",
     REG_ADMIN = "REG_ADMIN",
     CREATE_TYPE = "CREATE_TYPE",
     CREATE_BRAND = "CREATE_BRAND"
