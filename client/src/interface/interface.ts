@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, FormEvent, FormEventHandler, SetStateAction } from "react";
+import { Dispatch, FormEvent, SetStateAction } from "react";
 
 export interface IDevice {
     id: number;
@@ -44,6 +44,7 @@ export interface IDataUserResponse {
 }
 
 export interface ITypeAndBrand {
+    id?: number;
     name: string;
 }
 

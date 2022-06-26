@@ -21,13 +21,15 @@ function App() {
         isUninitialized 
     }] = useCheckMutation()
 
-    const {data:types} = useGetAllTypesQuery()
+    console.log(data)
 
-    useEffect(()=> {
-        if(types) {
-            dispatch(setTypes(types))
-        }
-    },[types])
+    // const {data:types} = useGetAllTypesQuery()
+
+    // useEffect(()=> {
+    //     if(types) {
+    //         dispatch(setTypes(types))
+    //     }
+    // },[types])
 
     useEffect(()=> {
         check()

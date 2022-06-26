@@ -2,6 +2,7 @@ import BrandModal from "../components/modals/BrandModal/BrandModal"
 import DeviceList from "../components/DeviceList"
 import { useAppSelector } from "../hooks/hooks"
 import { useGetAllDevicesQuery} from "../store/apiSlice/deviceSlice"
+import { useGetAllTypesQuery } from "../store/apiSlice/typeSlice"
 
 
 const Shop = () => {
@@ -14,6 +15,7 @@ const Shop = () => {
         error
     } = useGetAllDevicesQuery()
 
+    const {data:types} = useGetAllTypesQuery()
 
     let deviceList
 
@@ -32,7 +34,7 @@ const Shop = () => {
     return (
         <div>
             {role}
-            {deviceList}
+            {/* {deviceList} */}
         </div>
     )
 }

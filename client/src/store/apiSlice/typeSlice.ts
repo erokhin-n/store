@@ -15,7 +15,7 @@ const typeSlice = indexSlice.injectEndpoints({
         }),
         getAllTypes: build.query<ITypeAndBrand[], void>({
             query: ()=> ServerQuery.type,
-            providesTags: [Tags.CREATE_TYPE]
+            providesTags: [Tags.CREATE_TYPE],
         }),
     }),
     overrideExisting: false

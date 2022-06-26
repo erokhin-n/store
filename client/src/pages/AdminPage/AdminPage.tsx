@@ -20,7 +20,7 @@ const AdminPage = () => {
                 <h4>создание типа устройства</h4>
                 <TypeModal />
                 <h4>создание устройства</h4>
-                <DeviceModal />
+                <DeviceModal types={types} brands={brands} />
             </div>
             <div>
             <h3>типы устройств:</h3>
