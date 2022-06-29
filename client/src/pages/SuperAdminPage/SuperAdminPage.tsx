@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { MouseEventHandler, useState } from "react"
 import AuthForm from "../../components/AuthForm/AuthForm"
 import UserList from "../../components/UserList/UserList"
 import { useRegistrationAdminMutation } from "../../store/apiSlice/userSlice"
@@ -14,6 +14,7 @@ const SuperAdminPage = () => {
     }] = useRegistrationAdminMutation()
 
     const [adminRegMessage, setAdminRegMessage] = useState<string | ''>('')
+    const [hideValidationError, setHideValidationError] = useState<boolean>(false)
 
     const fetchForm = async (email:string, password:string) => {
         const response = await registrationAdmin({email, password})
@@ -40,11 +41,17 @@ const SuperAdminPage = () => {
         }
     }
 
+    const hideValidation:MouseEventHandler<HTMLElement> = (e) => {
+        setHideValidationError(true)
+    }
+
     return (
-        <section className={style.body}>
+        <section className={style.body} onClick={hideValidation} style={{background: 'red', height: '1000px'}}>
             <div>
                 <h3>регистрация администратора</h3>
                 <AuthForm
+                    hideValidationError={hideValidationError}
+                    setHideValidationError={setHideValidationError}
                     fetchForm={fetchForm}
                     error_server_message={error_server_message}
                     loginInformation={"super_admin"}

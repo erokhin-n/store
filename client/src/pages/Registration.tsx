@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { MouseEventHandler, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import AuthForm from "../components/AuthForm/AuthForm"
 import { EnumRoute } from "../enum/enum"
@@ -15,19 +15,13 @@ const Registration = () => {
         error
     }] = useRegistrationMutation()
 
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
+    const [hideValidationError, setHideValidationError] = useState<boolean>(false)
 
-    useEffect(()=> {
-        if(data) {
-            dispatch(setRole(data.role))
-            dispatch(setEmailinStore(data.email))
-            navigate(EnumRoute.Shop)
-        }  
-    },[data])
+    const navigate = useNavigate()
 
     const fetchForm = async (email:string, password:string) => {
         registration({email, password}) 
+        navigate(EnumRoute.Shop)
     }
 
     let error_server_message:string | undefined
@@ -42,12 +36,20 @@ const Registration = () => {
         }
     }
 
+    const hideValidation:MouseEventHandler<HTMLElement> = (e) => {
+        setHideValidationError(true)
+    }
+
     return (
-        <AuthForm
-            fetchForm={fetchForm}
-            error_server_message={error_server_message}
-            loginInformation={"registration"}
-        />
+        <section onClick={hideValidation} style={{background: 'red', height: '1000px'}}>
+            <AuthForm
+                hideValidationError={hideValidationError}
+                setHideValidationError={setHideValidationError}
+                fetchForm={fetchForm}
+                error_server_message={error_server_message}
+                loginInformation={"registration"}
+            />
+        </section>
     )
 }
 

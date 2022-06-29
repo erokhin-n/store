@@ -1,10 +1,8 @@
-import { useEffect } from "react"
+import { FormEvent, MouseEventHandler, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import AuthForm from "../components/AuthForm/AuthForm"
 import { EnumRoute } from "../enum/enum"
-import { useAppDispatch } from "../hooks/hooks"
 import { useLoginMutation } from "../store/apiSlice/userSlice"
-import { setEmailinStore, setRole } from "../store/store/userStore"
 
 const Login = () => {
 
@@ -15,19 +13,13 @@ const Login = () => {
         error
     }] = useLoginMutation()
 
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
+    const [hideValidationError, setHideValidationError] = useState<boolean>(false)
 
-    useEffect(()=> {
-        if(data) {
-            dispatch(setRole(data.role))
-            dispatch(setEmailinStore(data.email))
-            navigate(EnumRoute.Shop)
-        }  
-    },[data])
+    const navigate = useNavigate()
 
     const fetchForm = (email:string, password:string) => {
         login({email, password})  
+        navigate(EnumRoute.Shop)
     }
 
     let error_server_message:string | undefined
@@ -42,12 +34,20 @@ const Login = () => {
         }
     }
 
+    const hideValidation:MouseEventHandler<HTMLElement> = (e):void => {
+        setHideValidationError(true)
+    }
+
     return (
-        <AuthForm
-            fetchForm={fetchForm}
-            error_server_message={error_server_message}
-            loginInformation={"login"}
-        />
+        <section onClick={hideValidation} style={{background: 'lightblue', height: '1000px'}}>
+            <AuthForm
+                hideValidationError={hideValidationError}
+                setHideValidationError={setHideValidationError}
+                fetchForm={fetchForm}
+                error_server_message={error_server_message}
+                loginInformation={"login"}
+            />
+        </section>
     )
 }
 

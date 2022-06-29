@@ -61,7 +61,7 @@ const AuthFormFields:FC<IAuthFormFields> = ({
             {adminRegMessage}
             <button 
                 className="authFormButton"
-                onClick={ e => sendForm(e)}
+                onClick={ e =>  sendForm(e)}
             >
                 {loginInformation === "super_admin" ? 
                     'регистрация админа' : 

@@ -24,6 +24,8 @@ export interface IDevicesResponse<T> {
 }
 
 export interface IAuthFormProps {
+    hideValidationError: boolean;
+    setHideValidationError: Dispatch<SetStateAction<boolean>>;
     fetchForm: (email: string, password: string) => void;
     error_server_message: string | undefined;
     loginInformation: "login" | "registration" | "super_admin";

@@ -1,9 +1,11 @@
-import { FC, FormEvent, useEffect, useState } from "react"
+import { Component, FC, FormEvent, MouseEventHandler, useEffect, useState } from "react"
 import { IAuthFormProps } from "../../interface/interface"
 import AuthFormFields from "./AuthFormFields";
 import { emailValidation, passwordValidation } from "../../validation/AuthValidation";
 
 const AuthForm:FC<IAuthFormProps> = ({
+    hideValidationError,
+    setHideValidationError,
     fetchForm,
     error_server_message,
     loginInformation,
@@ -61,23 +63,39 @@ const AuthForm:FC<IAuthFormProps> = ({
             (loginInformation === "login" ? "входом" : "регистрацией"))
         }
     }
+
+    const handleClick:MouseEventHandler<HTMLElement> = (e) => {
+
+        e.stopPropagation()
+        setHideValidationError(false)
+    }
+
+    useEffect(()=> {
+        console.log(hideValidationError)
+        setEmailError('')
+        setPasswordError('')
+        setSubmitError('')
+        setServerError('')
+    },[hideValidationError])
     
     return (
-        <AuthFormFields
-            sendForm={sendForm}
-            email={email}
-            changeEmail={changeEmail}
-            password={password}
-            changePassword={changePassword}
-            emailError={emailError}
-            setEmailError={setEmailError}
-            passwordError={passwordError}
-            setPasswordError={setPasswordError}
-            serverError={serverError}
-            submitError={submitError}
-            loginInformation={loginInformation}
-            adminRegMessage={adminRegMessage}
-        />
+        <div onClick={handleClick} style={{background: 'lightgray', maxWidth: '400px', margin:'auto'}}>
+            <AuthFormFields
+                sendForm={sendForm}
+                email={email}
+                changeEmail={changeEmail}
+                password={password}
+                changePassword={changePassword}
+                emailError={emailError}
+                setEmailError={setEmailError}
+                passwordError={passwordError}
+                setPasswordError={setPasswordError}
+                serverError={serverError}
+                submitError={submitError}
+                loginInformation={loginInformation}
+                adminRegMessage={adminRegMessage}
+            />
+        </div>
     )
 }
 
