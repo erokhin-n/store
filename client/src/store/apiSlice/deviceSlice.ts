@@ -1,5 +1,5 @@
 import { ServerQuery } from "../../enum/enum";
-import { IDevice, IDevicesResponse } from "../../interface/interface";
+import { IDevice, IDevicesResponse, IMessage } from "../../interface/interface";
 import { indexSlice } from "./indexSlice";
 
 const deviceApi = indexSlice.injectEndpoints({
@@ -7,10 +7,19 @@ const deviceApi = indexSlice.injectEndpoints({
         getAllDevices: build.query<IDevicesResponse<IDevice>, void>({
             query: () => ServerQuery.devices
         }),
+        createDevice: build.mutation<IMessage, FormData>({
+            query: (device) => ({
+                url: ServerQuery.devices,
+                method: 'POST',
+                body: device,
+                credentials: "include",
+            })
+        })
     }),
     overrideExisting: false
 })
 
 export const {
-    useGetAllDevicesQuery
+    useGetAllDevicesQuery,
+    useCreateDeviceMutation
 } = deviceApi

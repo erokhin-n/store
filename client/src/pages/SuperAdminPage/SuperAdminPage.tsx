@@ -46,7 +46,7 @@ const SuperAdminPage = () => {
     }
 
     return (
-        <section className={style.body} onClick={hideValidation} style={{background: 'red', height: '1000px'}}>
+        <section className={style.body} onClick={hideValidation} style={{background: 'darkgray', height: 'auto'}}>
             <div>
                 <h3>регистрация администратора</h3>
                 <AuthForm

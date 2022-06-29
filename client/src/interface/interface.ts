@@ -4,7 +4,7 @@ export interface IDevice {
     id: number;
     brandId: number;
     typeId: number;
-    img: string;
+    img: File;
     name: string;
     price: number;
     rating: number;
@@ -75,6 +75,12 @@ export interface IDeviceStoreInitialState {
     brands: ITypeAndBrand[];
     types: ITypeAndBrand[];
     devices: IDevice[];
+}
+
+export interface IDeviceInfo {
+    title: string;
+    description: string;
+    id: string;
 }
 
 

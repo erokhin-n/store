@@ -65,17 +65,18 @@ const AuthForm:FC<IAuthFormProps> = ({
     }
 
     const handleClick:MouseEventHandler<HTMLElement> = (e) => {
-
         e.stopPropagation()
         setHideValidationError(false)
     }
 
     useEffect(()=> {
-        console.log(hideValidationError)
-        setEmailError('')
-        setPasswordError('')
-        setSubmitError('')
-        setServerError('')
+        if(hideValidationError){
+            console.log('hidevalidationStatus: ' + hideValidationError)
+            setEmailError('')
+            setPasswordError('')
+            setSubmitError('')
+            setServerError('')
+        }
     },[hideValidationError])
     
     return (

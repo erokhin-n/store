@@ -37,6 +37,7 @@ const Registration = () => {
     }
 
     const hideValidation:MouseEventHandler<HTMLElement> = (e) => {
+        console.log('i work, sorry!')
         setHideValidationError(true)
     }
 

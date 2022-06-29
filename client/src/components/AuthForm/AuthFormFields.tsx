@@ -69,9 +69,8 @@ const AuthFormFields:FC<IAuthFormFields> = ({
                     "войти" : "регистрация"
                 }
             </button>
-            {loginInformation === "super_admin" ?
-                null:
-                loginInformation === "login" ?
+            {(loginInformation !== "super_admin") &&
+                (loginInformation === "login") ?
                     <div>
                         Нет аккаунта? <Link to={EnumRoute.Registration}>Зарегистрируйся</Link>
                     </div>
