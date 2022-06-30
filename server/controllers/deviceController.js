@@ -7,6 +7,9 @@ class DeviceController {
 	async create(req,res, next) {
 		try{
 			let {name, price, brandId, typeId, info} = req.body
+			const existName = await Device.findOne({where: {name}})
+			console.log(existName)
+			if(existName) throw ApiError.conflict('такое название устройства уже существует')
 			const {img} = req.files
 			let fileName = uuid.v4() + ".jpg"
 			img.mv(path.resolve(__dirname, '..', 'static', fileName))
@@ -25,7 +28,8 @@ class DeviceController {
 
 			return res.json(device)
 		} catch(e) {
-			next(ApiError.badRequest(e.message))
+			console.log(e)
+			next(e)
 		}
 	}
 	async getAll(req,res) {
