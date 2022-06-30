@@ -20,5 +20,4 @@ export const adminFormValidation = (
             return true        
         }
     }
-
 }

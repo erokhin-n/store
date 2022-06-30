@@ -1,5 +1,5 @@
 import { FC, SetStateAction, useState, MouseEvent, ChangeEvent } from "react"
-import { IDeviceInfo, ITypeAndBrand } from "../../../interface/interface"
+import {  IDeviceInfo, ITypeAndBrand } from "../../../interface/interface"
 import style from './DeviceModal.module.css'
 import { v4 as uuidv4 } from 'uuid';
 import { useCreateDeviceMutation } from "../../../store/apiSlice/deviceSlice";
@@ -11,11 +11,16 @@ const DeviceModal
 ({types, brands}) => {
 
     const [typeId, setTypeId] = useState<number>()
+    const [typeIdError, setTypeIdError] = useState<string>('')
     const [brandId, setBrandId] = useState<number>()
+    const [brandIdError, setBrandIdError] = useState<string>('')
     const [name, setName] = useState<string>('')
+    const [nameError, setNameError] = useState<string>('')
     const [price, setPrice] = useState<number>(0)
+    const [priceError, setPriceError] = useState<string>('')
     const [image, setImage] = useState<string | Blob>('')
     const [info, setInfo] = useState<IDeviceInfo[]>([])
+    const [infoError, setInfoError] = useState<any>([])
     const [deviceFormError, setDeviceFormError] = useState<string | ''>('')
 
     const [createDevice, {data, isLoading,isSuccess}] = useCreateDeviceMutation()
@@ -39,15 +44,16 @@ const DeviceModal
 
     const addDevice = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        const typeIdValid = adminFormValidation(typeId, setDeviceFormError)
-        const brandIdValid = adminFormValidation(brandId, setDeviceFormError)
-        const nameValid = adminFormValidation(name, setDeviceFormError)
-        const priceValid = adminFormValidation(price, setDeviceFormError)
-        info.map(i => {
-            adminFormValidation(i.title,setDeviceFormError) 
-            adminFormValidation(i.description,setDeviceFormError)
-            }
-        )
+        const typeIdValid = adminFormValidation(typeId, setTypeIdError)
+        const brandIdValid = adminFormValidation(brandId, setBrandIdError)
+        const nameValid = adminFormValidation(name, setNameError)
+        const priceValid = adminFormValidation(price , setPriceError)
+
+        info.map( i => {
+            infoError.push(adminFormValidation(i.title, setInfoError))
+            infoError.push(adminFormValidation(i.description, setInfoError))
+        })
+        
         if(typeIdValid && brandIdValid && nameValid && image && priceValid) {
             const formData = new FormData()
             formData.append('typeId', String(typeId))
@@ -58,7 +64,7 @@ const DeviceModal
             formData.append('info', JSON.stringify(info))
             createDevice(formData)
         } else {
-            setDeviceFormError('перед сохранением устройства все поля формы должны быть заполнены буквами/цифрами')
+            setDeviceFormError('исправьте форму перед сохранением устройства')
         }
     }
 
@@ -80,6 +86,7 @@ const DeviceModal
                         </option>    
                     )}
                 </select>
+                {typeIdError && <ErrorModal error={typeIdError} />}
                 <select>
                     <option>выберите бренд</option>
                     {brands && brands.map(brand => 
@@ -92,18 +99,21 @@ const DeviceModal
                         </option>    
                     )}
                 </select>
+                {brandIdError && <ErrorModal error={brandIdError} />}
                 <label>название</label>
                 <input 
                     type="text" 
                     value={name} 
                     onChange={e => setName(e.target.value)}
                 />
+                 {nameError && <ErrorModal error={nameError} />}
                 <label>цена</label>
                 <input
                     type="number"
                     value={price} 
                     onChange={e => setPrice(Number(e.target.value))}
                 />
+                {priceError && <ErrorModal error={priceError} />}
                 <label>изображение</label>
                 <input 
                     type="file"
@@ -114,7 +124,7 @@ const DeviceModal
                 >
                     добавить информацию
                 </button>
-                {info && info.map(i => 
+                {info && info.map((i, index) => 
                     <div key={i.id}>
                         <input 
                             value={i.title}
@@ -127,7 +137,7 @@ const DeviceModal
                             placeholder="введите описание"
                         />
                         <button onClick={()=> removeInfo(i.id)}>del</button>
-                    </div>    
+                    </div>   
                 )}
                 <button onClick={e => addDevice(e)}>сохранить устройство</button>
                 {deviceFormError && <ErrorModal error={deviceFormError} />}

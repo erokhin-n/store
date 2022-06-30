@@ -25,7 +25,6 @@ class TypeController {
 	async getAll(req,res,next) {
 		try {
 			const types = await Type.findAll()
-			console.log('TYPE CONTROLL WORKED!')
 			return res.json(types)
 		} catch(e) {
 			next(ApiError.conflict('ошибка загрузки типов'))
