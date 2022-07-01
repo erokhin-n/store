@@ -22,7 +22,7 @@ const DeviceModal
     const [priceError, setPriceError] = useState<string>('')
     const [image, setImage] = useState<string | Blob>('')
     const [info, setInfo] = useState<IDeviceInfo[]>([])
-    const [infoError, setInfoError] = useState<any>([{id:'',titleError:'', descriptionError:''}])
+    const [infoError, setInfoError] = useState<any>('')
     const [deviceFormError, setDeviceFormError] = useState<string | ''>('')
 
     const [createDevice, {data, isLoading,isSuccess}] = useCreateDeviceMutation()
@@ -33,11 +33,17 @@ const DeviceModal
 
     const addInfo = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        setInfo([...info, {title: '', description: '', id: uuidv4()}])
+        setInfo([...info, {
+            title: '',
+            titleValid:"firstTime", 
+            description: '', 
+            descriptionValid:"firstTime", 
+            id: uuidv4()}])
     }
 
     const changeInfo = (key:string, value:string, id:string):void => {
-        setInfo(info.map(i => i.id === id ? {...i, [key]: deviceInfoValidation(value)}: i))
+        setInfoError([])
+        setInfo(info.map(i => i.id === id ? {...i, [key]: value}: i))
     }
 
     const removeInfo = (id:string) => {
@@ -51,26 +57,38 @@ const DeviceModal
         // const nameValid = adminFormValidation(name, setNameError)
         // const priceValid = adminFormValidation(price , setPriceError)
 
-        // info.map( i => {
-        //     infoError.push({id: i.id, titleValid: deviceInfoValidation(i.title)})
-        //     infoError.push({id: i.id, descriptionValid: deviceInfoValidation(i.description)})
-        // })
-        // const infoValid = deviceInfoValidation(info, infoError, setInfoError)
+        setInfo(info.map(i => 
+            ({...i, titleValid:deviceInfoValidation(i.title),
+                descriptionValid:deviceInfoValidation(i.description)
+            }))
+        )
 
         
-        // if(typeIdValid && brandIdValid && nameValid && image && priceValid) {
-            const formData = new FormData()
-            formData.append('typeId', String(typeId))
-            formData.append('brandId', String(brandId))
-            formData.append('name', name)
-            formData.append('price', String(price))
-            formData.append('img', image)
-            formData.append('info', JSON.stringify(info))
-            // createDevice(formData)
-        // } else {
-            // setDeviceFormError('исправьте форму перед сохранением устройства')
-        // }
+        setInfoError(info.filter( i => i.titleValid === "clear"))
+
+        // i.titleValid === "error" || 
+        // i.descriptionValid=== "error" || 
+        // i.titleValid==="firstTime" || 
+        // i.descriptionValid==="firsTime")
+
+
+
+        if(infoError) {
+                const formData = new FormData()
+                formData.append('typeId', String(typeId))
+                formData.append('brandId', String(brandId))
+                formData.append('name', name)
+                formData.append('price', String(price))
+                formData.append('img', image)
+                formData.append('info', JSON.stringify(info))
+                createDevice(formData)
+            } else {
+                setDeviceFormError('исправьте форму перед сохранением устройства')
+            }
     }
+
+    // typeIdValid && brandIdValid && nameValid && 
+    //         // image && priceValid
 
     useEffect(()=> {
         console.log(infoError)
@@ -138,14 +156,16 @@ const DeviceModal
                             value={i.title}
                             onChange={e => changeInfo('title', e.target.value, i.id)}
                             placeholder="введите название"
+                            style={{'background': ((i.titleValid==="clear") || (i.titleValid==="firstTime")) ? "white" : "red"}}
                         />
                         <input 
                             value={i.description}
                             onChange={e => changeInfo('description', e.target.value, i.id)}
                             placeholder="введите описание"
+                            style={{'background':(( i.descriptionValid==="clear" )|| (i.descriptionValid==="firstTime" ))? "white" : "red"}}
                         />
+                        
                         <button onClick={()=> removeInfo(i.id)}>del</button>
-                        {/* {infoError && infoError.map((ie:any) => ie.id === i.id)} */}
                     </div>   
                 )}
                 <button onClick={e => addDevice(e)}>сохранить устройство</button>

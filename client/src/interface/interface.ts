@@ -79,7 +79,9 @@ export interface IDeviceStoreInitialState {
 
 export interface IDeviceInfo {
     title: string;
+    titleValid?: string;
     description: string;
+    descriptionValid?: string;
     id: string;
 }
 
