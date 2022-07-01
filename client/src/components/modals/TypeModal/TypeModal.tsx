@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from "react"
 import { useSaveTypeMutation } from "../../../store/apiSlice/typeSlice"
-import { adminFormValidation } from "../../../validation/AdminFormValidation"   
+import { adminFormValidation } from "../../../validation/DeviceFormValidation"   
 import ErrorModal from "../../ErrorModal"
 
 const TypeModal = () => {
