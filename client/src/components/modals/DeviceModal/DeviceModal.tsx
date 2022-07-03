@@ -71,20 +71,17 @@ const DeviceModal
         // i.titleValid==="firstTime" || 
         // i.descriptionValid==="firsTime")
 
+    }
 
-
-        if(infoError) {
-                const formData = new FormData()
-                formData.append('typeId', String(typeId))
-                formData.append('brandId', String(brandId))
-                formData.append('name', name)
-                formData.append('price', String(price))
-                formData.append('img', image)
-                formData.append('info', JSON.stringify(info))
-                createDevice(formData)
-            } else {
-                setDeviceFormError('исправьте форму перед сохранением устройства')
-            }
+    const sendForm = () => {
+        const formData = new FormData()
+        formData.append('typeId', String(typeId))
+        formData.append('brandId', String(brandId))
+        formData.append('name', name)
+        formData.append('price', String(price))
+        formData.append('img', image)
+        formData.append('info', JSON.stringify(info))
+        createDevice(formData)
     }
 
     // typeIdValid && brandIdValid && nameValid && 
@@ -92,6 +89,11 @@ const DeviceModal
 
     useEffect(()=> {
         console.log(infoError)
+        if(!infoError) {
+            sendForm()
+        } else {
+            setDeviceFormError('исправьте форму перед сохранением устройства')
+        }
     },[infoError])
 
     if(isLoading) return <h3>saved...</h3>
