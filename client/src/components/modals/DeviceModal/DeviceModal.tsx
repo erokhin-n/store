@@ -1,13 +1,11 @@
-import { FC, SetStateAction, useState, MouseEvent, ChangeEvent, useEffect, useLayoutEffect } from "react"
+import { FC, useState, MouseEvent, ChangeEvent, useEffect } from "react"
 import {  IDeviceInfo, ITypeAndBrand } from "../../../interface/interface"
 import style from './DeviceModal.module.css'
 import { v4 as uuidv4 } from 'uuid';
 import { useCreateDeviceMutation } from "../../../store/apiSlice/deviceSlice";
-import { adminFormValidation } from "../../../validation/DeviceFormValidation";
 
 import ErrorModal from "../../ErrorModal";
 import { deviceInfoValidation } from "../../../validation/DeviceInfoValidation";
-import { resolve } from "node:path/win32";
 
 const DeviceModal
 :FC<{types:ITypeAndBrand[] | undefined, brands: ITypeAndBrand[] | undefined}> = 
@@ -66,56 +64,38 @@ const DeviceModal
                 descriptionValid:deviceInfoValidation(i.description)
             }))
         )
-        // function infoResult () {
-        //     const test = info.find(i => i.titleValid === "clear")
-        //     return new Promise((res, rej) => res(test))
-        // }
-        
-        // const result = await infoResult()
-        
-        // console.log(result)
-
-
-        // for(let i = 0; i < info.length; i++) {
-        //     if(deviceInfoValidation(info[i].title) !== "clear"){
-        //         info[i].titleValid = 'error'
-        //         valid = false
+        // info.map(i => {
+        //     if(i.titleValid !== "clear" || i.descriptionValid !== "clear") {
+        //         setInfoError(true)
         //     } else {
-        //         info[i].titleValid = 'clear'
-        //         valid = true
+        //         setInfoError(false)
         //     }
-        // }
-
-
-        // if(valid) {
-        //     sendForm()
-        //     setDeviceFormError('')
-        // } else {
-        //     setDeviceFormError('исправьте форму перед сохранением устройства')
-        // }
+        // })
         sendForm()
     }
 
-    useEffect(()=> {
-        console.log('infoValidation work!' + infoError)
-
-        // setInfo(info.map(i => 
-        //     ({...i, titleValid:deviceInfoValidation(i.title),
-        //         descriptionValid:deviceInfoValidation(i.description)
-        //     }))
-        // )
-    },[infoError])
+    // useEffect(()=> {
+    //     console.log(info)
+    // },[info])
 
     useEffect(()=> {  
-        // console.log('infoError work')
-        info.map(i => {
-            if(i.titleValid !== "clear" || i.descriptionValid !== "clear") {
-                setInfoError(true)
-            } else {
-                setInfoError(false)
-            }
-        })
-    },[info])
+        let titleError = info.find(i => i.titleValid !== "clear" || i.descriptionValid !== "clear")
+        // let descriptionError = info.find(i => i.descriptionValid !== "clear")
+        console.log(titleError)
+        if(titleError) {
+            setInfoError(true)
+        } else {
+            setInfoError(false)
+        }
+
+        // info.map(i => {
+        //     if(i.titleValid !== "clear" || i.descriptionValid !== "clear") {
+        //         setInfoError(true)
+        //     } else {
+        //         setInfoError(false)
+        //     }
+        // })
+    },[info, infoError])
 
 
     const sendForm = () => {
