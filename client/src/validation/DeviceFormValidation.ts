@@ -5,19 +5,19 @@ export const deviceFormValidation = (
     setState:Dispatch<SetStateAction<string>>) => {
     if(typeof str === "string") {
         if(!/^([a-zA-Zа-яА-Я0-9]+\s)*[a-zA-Zа-яА-Я0-9]+$/.test(str) || !str.length) {
-            setState('поле должно содержать только буквы или цифры')
+            // setState('поле должно содержать только буквы или цифры')
             return false
         } else {
-            setState('')
+            // setState('')
             return true
         }
     } else {
         if(!str || typeof str !== "number") {
-            setState('поле должно содержать только цифры')
-            return false
+            // setState('поле должно содержать только цифры')
+            return "error"
         } else {
-            setState('')
-            return true        
+            // setState('')
+            return "valid"        
         }
     }
 }

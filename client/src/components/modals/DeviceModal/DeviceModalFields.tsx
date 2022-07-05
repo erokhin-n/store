@@ -6,8 +6,7 @@ import ErrorModal from '../../ErrorModal'
 import style from './DeviceModal.module.css'
 
 const DeviceModalFields:FC<IDeviceModalFiels> = ({
-    setTypeId,
-    typeIdError,
+    typeId,
     setBrandId,
     brandIdError,
     name,
@@ -22,7 +21,8 @@ const DeviceModalFields:FC<IDeviceModalFiels> = ({
     changeInfo,
     removeInfo,
     addDevice,
-    deviceFormError
+    deviceFormError,
+    changeTypeId
     }) => {
 
     const {data:types,isSuccess:successTypesLoad} = useGetAllTypesQuery()
@@ -31,19 +31,22 @@ const DeviceModalFields:FC<IDeviceModalFiels> = ({
     return (
         <div className={style.deviceForm}>
             <form style={{display:'flex', flexDirection:'column'}}>
-                <select>
-                    <option>выберите тип</option>
+                <select style={{border: ((typeId.typeIdValid === "firstAddition") || 
+                               (typeId.typeIdValid === "valid"))? 
+                                "2px solid black" : "3px solid red"
+                            }}>
+                    <option onClick={() => changeTypeId(0)}>выберите тип</option>
                     {types && types.map(type => 
                         <option
                             key={type.id} 
                             value={type.name}
-                            onClick={() => setTypeId(type.id)}
+                            onClick={() => changeTypeId(type.id)}
                         >
                             {type.name}
                         </option>    
                     )}
                 </select>
-                {typeIdError && <ErrorModal error={typeIdError} />}
+                {typeId.typeIdValid === "error" && <ErrorModal error={"исправьте поле"} />}
                 <select>
                     <option>выберите бренд</option>
                     {brands && brands.map(brand => 

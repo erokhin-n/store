@@ -8,7 +8,7 @@ import { deviceFormValidation } from "../../../validation/DeviceFormValidation";
 import DeviceModalFields from "./DeviceModalFields";
 
 const DeviceModal = () => {
-    const [typeId, setTypeId] = useState<number>()
+    const [typeSelect, setTypeId] = useState<any>({id:'', valid:"firstAddition"})
     const [typeIdError, setTypeIdError] = useState<string>('')
     const [brandId, setBrandId] = useState<number>()
     const [brandIdError, setBrandIdError] = useState<string>('')
@@ -47,12 +47,18 @@ const DeviceModal = () => {
         setInfo(info.filter(i => i.id !== id))
     }
 
+    const changeTypeId = (id:any) => {
+        setTypeId({ id, typeIdValid: deviceFormValidation(id, setTypeIdError) })
+    }
+
     const addDevice = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         const typeIdValid = deviceFormValidation(typeId, setTypeIdError)
         const brandIdValid = deviceFormValidation(brandId, setBrandIdError)
         const nameValid = deviceFormValidation(name, setNameError)
         const priceValid = deviceFormValidation(price , setPriceError)
+        changeTypeId(typeId.id)
+
 
         setInfo(info.map(i => 
             ({...i, titleValid:deviceInfoValidation(i.title),
@@ -75,6 +81,10 @@ const DeviceModal = () => {
         }
     }
 
+    useEffect(()=> {
+        console.log(typeId)
+    },[typeId])
+
     useEffect(()=> {  
         let infoValidError = info.findIndex(i => 
             i.titleValid !== "valid" ||
@@ -93,6 +103,7 @@ const DeviceModal = () => {
 
     return (
         <DeviceModalFields
+            typeId={typeId}
             setTypeId={setTypeId}
             typeIdError={typeIdError}
             setBrandId={setBrandId}
@@ -110,6 +121,7 @@ const DeviceModal = () => {
             removeInfo={removeInfo}
             addDevice={addDevice}
             deviceFormError={deviceFormError}
+            changeTypeId={changeTypeId}
         />
     )
 }

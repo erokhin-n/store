@@ -87,8 +87,8 @@ export interface IDeviceInfo {
 
 
 export interface IDeviceModalFiels {
+    typeSelector: any;
     setTypeId: Dispatch<SetStateAction<number | undefined>>;
-    typeIdError: string;
     setBrandId: Dispatch<SetStateAction<number | undefined>>;
     brandIdError: string;
     name: string;
@@ -104,6 +104,7 @@ export interface IDeviceModalFiels {
     removeInfo: (id:string) => void;
     addDevice: (e:MouseEvent<HTMLButtonElement>) => void;
     deviceFormError:string;
+    changeTypeId: any;
 }
 
 
