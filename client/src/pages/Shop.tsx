@@ -15,8 +15,6 @@ const Shop = () => {
         error
     } = useGetAllDevicesQuery()
 
-    const {data:types} = useGetAllTypesQuery()
-
     let deviceList
 
     if(isLoading) {
@@ -28,8 +26,7 @@ const Shop = () => {
     } else if(isError) {
         deviceList = <div>error</div>
     }
-
-    // const role = useAppSelector((state) => state.user.role)
+    console.log(devices)
 
     return (
         <div>

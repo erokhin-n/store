@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from "react"
 import { useSaveTypeMutation } from "../../../store/apiSlice/typeSlice"
-import { adminFormValidation } from "../../../validation/DeviceFormValidation"   
+import { deviceFormValidation } from "../../../validation/DeviceFormValidation"   
 import ErrorModal from "../../ErrorModal"
 
 const TypeModal = () => {
@@ -13,7 +13,7 @@ const TypeModal = () => {
 
     const saveTypeOnServer = (e:FormEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        const validationSuccess = adminFormValidation(type, setTypeError)
+        const validationSuccess = deviceFormValidation(type, setTypeError)
         if(validationSuccess) {
             saveType({name: type})
             setType('')
@@ -37,7 +37,7 @@ const TypeModal = () => {
     },[errorServerMessage])
 
     const changeType = (e:string) => {
-        if(typeError) adminFormValidation(type, setTypeError)
+        if(typeError) deviceFormValidation(type, setTypeError)
         setServerError('')
         setType(e)
     }

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
 
-export const adminFormValidation = (
+export const deviceFormValidation = (
     str:string | number | undefined, 
     setState:Dispatch<SetStateAction<string>>) => {
     if(typeof str === "string") {

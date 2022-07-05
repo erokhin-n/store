@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from "react"
 import { useSaveBrandMutation } from "../../../store/apiSlice/brandSlice"
-import { adminFormValidation } from "../../../validation/DeviceFormValidation"
+import { deviceFormValidation } from "../../../validation/DeviceFormValidation"
 import ErrorModal from "../../ErrorModal"
 
 const BrandModal = () => {
@@ -13,7 +13,7 @@ const BrandModal = () => {
 
     const saveBrandOnServer = (e:FormEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        const validationSuccess = adminFormValidation(brand, setBrandError)
+        const validationSuccess = deviceFormValidation(brand, setBrandError)
         if(validationSuccess){
             saveBrand({name: brand}) 
             setBrand('')       
@@ -37,7 +37,7 @@ const BrandModal = () => {
     },[errorServerMessage]) 
 
     const changeBrand = (e:string) => {
-        if(brandError) adminFormValidation(brand, setBrandError)
+        if(brandError) deviceFormValidation(brand, setBrandError)
         setServerError('')
         setBrand(e)
     }

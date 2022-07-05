@@ -1,4 +1,4 @@
-import { Dispatch, FormEvent, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, MouseEvent } from "react";
 
 export interface IDevice {
     id: number;
@@ -83,6 +83,27 @@ export interface IDeviceInfo {
     description: string;
     descriptionValid?: string;
     id: string;
+}
+
+
+export interface IDeviceModalFiels {
+    setTypeId: Dispatch<SetStateAction<number | undefined>>;
+    typeIdError: string;
+    setBrandId: Dispatch<SetStateAction<number | undefined>>;
+    brandIdError: string;
+    name: string;
+    setName: Dispatch<SetStateAction<string>>;
+    nameError: string;
+    price: number;
+    setPrice: Dispatch<SetStateAction<number>>;
+    priceError: string;
+    selectImage: (e:ChangeEvent<HTMLInputElement>) => void;
+    addInfo: (e:MouseEvent<HTMLButtonElement>) => void;
+    info: IDeviceInfo[];
+    changeInfo: (key:string, keyValid:string, value:string, id:string) => void;
+    removeInfo: (id:string) => void;
+    addDevice: (e:MouseEvent<HTMLButtonElement>) => void;
+    deviceFormError:string;
 }
 
 

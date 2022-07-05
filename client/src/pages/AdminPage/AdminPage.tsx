@@ -1,4 +1,3 @@
-import { useState } from "react"
 import BrandModal from "../../components/modals/BrandModal/BrandModal"
 import DeviceModal from "../../components/modals/DeviceModal/DeviceModal"
 import TypeModal from "../../components/modals/TypeModal/TypeModal"
@@ -20,7 +19,7 @@ const AdminPage = () => {
                 <h4>создание типа устройства</h4>
                 <TypeModal />
                 <h4>создание устройства</h4>
-                <DeviceModal types={types} brands={brands} />
+                <DeviceModal />
             </div>
             <div>
             <h3>типы устройств:</h3>

@@ -1,16 +1,13 @@
-import { FC, useState, MouseEvent, ChangeEvent, useEffect } from "react"
-import {  IDeviceInfo, ITypeAndBrand } from "../../../interface/interface"
-import style from './DeviceModal.module.css'
+import { useState, MouseEvent, ChangeEvent, useEffect } from "react"
+import {  IDeviceInfo } from "../../../interface/interface"
 import { v4 as uuidv4 } from 'uuid';
 import { useCreateDeviceMutation } from "../../../store/apiSlice/deviceSlice";
 
-import ErrorModal from "../../ErrorModal";
 import { deviceInfoValidation } from "../../../validation/DeviceInfoValidation";
+import { deviceFormValidation } from "../../../validation/DeviceFormValidation";
+import DeviceModalFields from "./DeviceModalFields";
 
-const DeviceModal
-:FC<{types:ITypeAndBrand[] | undefined, brands: ITypeAndBrand[] | undefined}> = 
-({types, brands}) => {
-
+const DeviceModal = () => {
     const [typeId, setTypeId] = useState<number>()
     const [typeIdError, setTypeIdError] = useState<string>('')
     const [brandId, setBrandId] = useState<number>()
@@ -21,7 +18,7 @@ const DeviceModal
     const [priceError, setPriceError] = useState<string>('')
     const [image, setImage] = useState<string | Blob>('')
     const [info, setInfo] = useState<IDeviceInfo[]>([])
-    const [infoError, setInfoError] = useState<any>('')
+    const [infoError, setInfoError] = useState<boolean>(false)
     const [deviceFormError, setDeviceFormError] = useState<string | ''>('')
 
     const [createDevice, {data, isLoading,isSuccess}] = useCreateDeviceMutation()
@@ -41,7 +38,7 @@ const DeviceModal
     }
 
     const changeInfo = (key:string, keyValid:string, value:string, id:string):void => {
-        setInfoError([])
+        setInfoError(false)
         setInfo(info.map(i => i.id === id ? {...i, [key]: value, 
             [keyValid]: deviceInfoValidation(value)}: i))
     }
@@ -52,22 +49,36 @@ const DeviceModal
 
     const addDevice = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        // const typeIdValid = adminFormValidation(typeId, setTypeIdError)
-        // const brandIdValid = adminFormValidation(brandId, setBrandIdError)
-        // const nameValid = adminFormValidation(name, setNameError)
-        // const priceValid = adminFormValidation(price , setPriceError)
+        const typeIdValid = deviceFormValidation(typeId, setTypeIdError)
+        const brandIdValid = deviceFormValidation(brandId, setBrandIdError)
+        const nameValid = deviceFormValidation(name, setNameError)
+        const priceValid = deviceFormValidation(price , setPriceError)
 
         setInfo(info.map(i => 
             ({...i, titleValid:deviceInfoValidation(i.title),
                 descriptionValid:deviceInfoValidation(i.description)
             }))
         )
-        sendForm()
+        if(!infoError && typeIdValid && brandIdValid && 
+            nameValid && image && priceValid) {
+            const formData = new FormData()
+            formData.append('typeId', String(typeId))
+            formData.append('brandId', String(brandId))
+            formData.append('name', name)
+            formData.append('price', String(price))
+            formData.append('img', image)
+            formData.append('info', JSON.stringify(info))
+            createDevice(formData)
+            setDeviceFormError("")
+        } else {
+            setDeviceFormError("исправьте форму перед отправкой")
+        }
     }
 
-
     useEffect(()=> {  
-        let infoValidError = info.findIndex(i => i.titleValid !== "valid" || i.descriptionValid !== "valid")
+        let infoValidError = info.findIndex(i => 
+            i.titleValid !== "valid" ||
+            i.descriptionValid !== "valid")
         if(infoValidError !== -1) {
             setInfoError(true)
         } else {
@@ -77,104 +88,29 @@ const DeviceModal
     },[info, infoError])
 
 
-    const sendForm = () => {
-        if(!infoError) {
-            console.log("SENDED!")
-        } else {
-            console.log("DONT SEND")
-            setDeviceFormError("исправьте форму!")
-        }
-        // const formData = new FormData()
-        // formData.append('typeId', String(typeId))
-        // formData.append('brandId', String(brandId))
-        // formData.append('name', name)
-        // formData.append('price', String(price))
-        // formData.append('img', image)
-        // formData.append('info', JSON.stringify(info))
-        // createDevice(formData)
-    }
-
-    // typeIdValid && brandIdValid && nameValid && 
-    //         // image && priceValid
-
     if(isLoading) return <h3>saved...</h3>
     if(isSuccess) console.log('save complete')
 
     return (
-        <div className={style.deviceForm}>
-            <form style={{display:'flex', flexDirection:'column'}}>
-                <select>
-                    <option>выберите тип</option>
-                    {types && types.map(type => 
-                        <option
-                            key={type.id} 
-                            value={type.name}
-                            onClick={() => setTypeId(type.id)}
-                        >
-                            {type.name}
-                        </option>    
-                    )}
-                </select>
-                {typeIdError && <ErrorModal error={typeIdError} />}
-                <select>
-                    <option>выберите бренд</option>
-                    {brands && brands.map(brand => 
-                        <option
-                            key={brand.id} 
-                            value={brand.name}
-                            onClick={() => setBrandId(brand.id)}
-                        >
-                            {brand.name}
-                        </option>    
-                    )}
-                </select>
-                {brandIdError && <ErrorModal error={brandIdError} />}
-                <label>название</label>
-                <input 
-                    type="text" 
-                    value={name} 
-                    onChange={e => setName(e.target.value)}
-                />
-                 {nameError && <ErrorModal error={nameError} />}
-                <label>цена</label>
-                <input
-                    type="number"
-                    value={price} 
-                    onChange={e => setPrice(Number(e.target.value))}
-                />
-                {priceError && <ErrorModal error={priceError} />}
-                <label>изображение</label>
-                <input 
-                    type="file"
-                    onChange={selectImage}
-                />
-                <button
-                    onClick={addInfo}
-                >
-                    добавить информацию
-                </button>
-                {info && info.map( i => 
-                    <div key={i.id}>
-                        <input 
-                            value={i.title}
-                            onChange={e => changeInfo('title', 'titleValid',e.target.value, i.id)}
-                            placeholder="введите название"
-                            style={{'background': ((i.titleValid==="valid") || (i.titleValid==="firstAddition")) ? "white" : "red"}}
-                        />
-                        <input 
-                            value={i.description}
-                            onChange={e => changeInfo('description', 'descriptionValid',e.target.value, i.id)}
-                            placeholder="введите описание"
-                            style={{'background':(( i.descriptionValid==="valid" )|| (i.descriptionValid==="firstAddition" ))? "white" : "red"}}
-                        />
-                        
-                        <button onClick={()=> removeInfo(i.id)}>del</button>
-                    </div>   
-                )}
-                <button onClick={e => addDevice(e)}>сохранить устройство</button>
-                {deviceFormError && <ErrorModal error={deviceFormError} />}
-            </form>
-        </div>
+        <DeviceModalFields
+            setTypeId={setTypeId}
+            typeIdError={typeIdError}
+            setBrandId={setBrandId}
+            brandIdError={brandIdError}
+            name={name}
+            setName={setName}
+            nameError={nameError}
+            price={price}
+            setPrice={setPrice}
+            priceError={priceError}
+            selectImage={selectImage}
+            addInfo={addInfo}
+            info={info}
+            changeInfo={changeInfo}
+            removeInfo={removeInfo}
+            addDevice={addDevice}
+            deviceFormError={deviceFormError}
+        />
     )
 }
 
