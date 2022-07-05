@@ -23,7 +23,6 @@ const DeviceModal
     const [info, setInfo] = useState<IDeviceInfo[]>([])
     const [infoError, setInfoError] = useState<any>('')
     const [deviceFormError, setDeviceFormError] = useState<string | ''>('')
-    const [clickCount, setClickCount] = useState<any>(1)
 
     const [createDevice, {data, isLoading,isSuccess}] = useCreateDeviceMutation()
 
@@ -35,9 +34,9 @@ const DeviceModal
         e.preventDefault()
         setInfo([...info, {
             title: '',
-            titleValid:"firstTime", 
+            titleValid:"firstAddition", 
             description: '', 
-            descriptionValid:"firstTime", 
+            descriptionValid:"firstAddition", 
             id: uuidv4()}])
     }
 
@@ -53,7 +52,6 @@ const DeviceModal
 
     const addDevice = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        setClickCount(clickCount + 1)
         // const typeIdValid = adminFormValidation(typeId, setTypeIdError)
         // const brandIdValid = adminFormValidation(brandId, setBrandIdError)
         // const nameValid = adminFormValidation(name, setNameError)
@@ -64,37 +62,18 @@ const DeviceModal
                 descriptionValid:deviceInfoValidation(i.description)
             }))
         )
-        // info.map(i => {
-        //     if(i.titleValid !== "clear" || i.descriptionValid !== "clear") {
-        //         setInfoError(true)
-        //     } else {
-        //         setInfoError(false)
-        //     }
-        // })
         sendForm()
     }
 
-    // useEffect(()=> {
-    //     console.log(info)
-    // },[info])
 
     useEffect(()=> {  
-        let titleError = info.find(i => i.titleValid !== "clear" || i.descriptionValid !== "clear")
-        // let descriptionError = info.find(i => i.descriptionValid !== "clear")
-        console.log(titleError)
-        if(titleError) {
+        let infoValidError = info.findIndex(i => i.titleValid !== "valid" || i.descriptionValid !== "valid")
+        if(infoValidError !== -1) {
             setInfoError(true)
         } else {
             setInfoError(false)
         }
 
-        // info.map(i => {
-        //     if(i.titleValid !== "clear" || i.descriptionValid !== "clear") {
-        //         setInfoError(true)
-        //     } else {
-        //         setInfoError(false)
-        //     }
-        // })
     },[info, infoError])
 
 
@@ -180,13 +159,13 @@ const DeviceModal
                             value={i.title}
                             onChange={e => changeInfo('title', 'titleValid',e.target.value, i.id)}
                             placeholder="введите название"
-                            style={{'background': ((i.titleValid==="clear") || (i.titleValid==="firstTime")) ? "white" : "red"}}
+                            style={{'background': ((i.titleValid==="valid") || (i.titleValid==="firstAddition")) ? "white" : "red"}}
                         />
                         <input 
                             value={i.description}
                             onChange={e => changeInfo('description', 'descriptionValid',e.target.value, i.id)}
                             placeholder="введите описание"
-                            style={{'background':(( i.descriptionValid==="clear" )|| (i.descriptionValid==="firstTime" ))? "white" : "red"}}
+                            style={{'background':(( i.descriptionValid==="valid" )|| (i.descriptionValid==="firstAddition" ))? "white" : "red"}}
                         />
                         
                         <button onClick={()=> removeInfo(i.id)}>del</button>
