@@ -1,5 +1,5 @@
 import { useState, MouseEvent, ChangeEvent, useEffect } from "react"
-import {  IDeviceInfo, INameAndPrice, ITypeIdAndBrandId } from "../../../interface/interface"
+import {  IDeviceInfo, IImage, INameAndPrice, ITypeIdAndBrandId } from "../../../interface/interface"
 import { v4 as uuidv4 } from 'uuid';
 import { useCreateDeviceMutation } from "../../../store/apiSlice/deviceSlice";
 
@@ -20,14 +20,14 @@ const DeviceModal = () => {
     const [brandId, setBrandId] = useState<ITypeIdAndBrandId>({id: 0, valid:ValidationResult.firstAddition})
     const [name, setName] = useState<INameAndPrice>({value: '', valid: ValidationResult.firstAddition})
     const [price, setPrice] = useState<INameAndPrice>({value: '', valid: ValidationResult.firstAddition})
-    const [image, setImage] = useState<{file:string | Blob,valid:string}>({file: '',valid:ValidationResult.firstAddition})
+    const [image, setImage] = useState<IImage>({file: '',valid:ValidationResult.firstAddition})
     const [info, setInfo] = useState<IDeviceInfo[]>([])
     const [deviceFormError, setDeviceFormError] = useState<{status:boolean, message: string}>({status:false, message: ''})
 
     const {data:types} = useGetAllTypesQuery()
     const {data:brands} = useGetAllBrandsQuery()
 
-    const [createDevice, { isLoading,isSuccess}] = useCreateDeviceMutation()
+    const [createDevice, { isLoading}] = useCreateDeviceMutation()
 
     const selectImage = (e:ChangeEvent<HTMLInputElement>) => {
         if(e.target.files) setImage({file:e.target.files[0],
@@ -51,13 +51,6 @@ const DeviceModal = () => {
 
     const removeInfo = (id:string) => {
         setInfo(info.filter(i => i.id !== id))
-    }
-
-    const changeTypeId = (id:number) => {
-        setTypeId({ id, valid: deviceFormValidation(id) })
-    }
-    const changeBrandId = (id:number) => {
-        setBrandId({ id, valid: deviceFormValidation(id) })
     }
 
     const changeName = (value:string ) => {
@@ -86,8 +79,8 @@ const DeviceModal = () => {
 
     const addDevice = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        changeTypeId(typeId.id)
-        changeBrandId(brandId.id)
+        setTypeId({ id: typeId.id, valid: deviceFormValidation(typeId.id) })
+        setBrandId({ id:brandId.id, valid: deviceFormValidation(brandId.id) })
         changeName(name.value)
         changePrice(price.value)
         setImage({file:image.file, valid:deviceImageValidation(image.file)})
@@ -126,24 +119,23 @@ const DeviceModal = () => {
                 defaultValue="выберите тип"
                 valid={typeId.valid}
                 elements={types}
-                changeValue={changeTypeId}
+                setValue={setTypeId}
             />
             <Select 
                 defaultValue="выберите бренд"
                 valid={brandId.valid}
                 elements={brands}
-                changeValue={changeBrandId}
+                setValue={setBrandId}
             />
             <Input 
                 inputView="name"
                 element={name}
-                changeValue={changeName} 
+                setValue={setName} 
             />
-
             <Input 
                 inputView="price"
                 element={price}
-                changeValue={changePrice} 
+                setValue={setPrice} 
             />
             <ImageInput
                 image={image} 

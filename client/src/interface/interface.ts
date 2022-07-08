@@ -89,13 +89,13 @@ export interface ISelect {
     defaultValue: string;
     valid:string;
     elements: ITypeAndBrand[] | undefined;
-    changeValue: (id:number) => void
+    setValue: Dispatch<SetStateAction<ITypeIdAndBrandId>>;
 }
 
 export interface INameAndPriceInput {
     inputView: string;
     element: {value: string, valid: string};
-    changeValue: (value: string ) => void
+    setValue: Dispatch<SetStateAction<INameAndPrice>>;
 }
 
 export interface IImageInput {
@@ -113,6 +113,11 @@ export interface INameAndPrice {
     valid: string;
 }
 
+export interface IImage {
+    file:string | Blob;
+    valid:string;
+}
+
 export interface IDeviceInfoComponent {
     info: IDeviceInfo[];
     addInfo: (e:MouseEvent<HTMLButtonElement>) => void;
@@ -120,25 +125,6 @@ export interface IDeviceInfoComponent {
     removeInfo: (id:string) => void;
 }
 
-export interface IDeviceModalFiels {
-    typeIdSelect: any;
-    setBrandId: Dispatch<SetStateAction<number | undefined>>;
-    brandIdError: string;
-    name: string;
-    setName: Dispatch<SetStateAction<string>>;
-    nameError: string;
-    price: number;
-    setPrice: Dispatch<SetStateAction<number>>;
-    priceError: string;
-    selectImage: (e:ChangeEvent<HTMLInputElement>) => void;
-    addInfo: (e:MouseEvent<HTMLButtonElement>) => void;
-    info: IDeviceInfo[];
-    changeInfo: (key:string, keyValid:string, value:string, id:string) => void;
-    removeInfo: (id:string) => void;
-    addDevice: (e:MouseEvent<HTMLButtonElement>) => void;
-    deviceFormError:string;
-    changeTypeId: any;
-}
 
 
 

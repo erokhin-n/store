@@ -1,27 +1,34 @@
 import { FC } from "react"
 import { ValidationResult } from "../../enum/enum"
 import { INameAndPriceInput } from "../../interface/interface"
-import ErrorModal from "../ErrorModal"
+import { deviceFormValidation, priceFormValidation } from "../../validation/DeviceFormValidation"
 
-const Input:FC<INameAndPriceInput> = ({inputView, element, changeValue}) => {
+const Input:FC<INameAndPriceInput> = ({inputView, element, setValue}) => {
 
     let label
     let type
     let errorMessage
+    let validation:(value:string) => string
 
     switch (inputView) {
         case ("name"):
             label = "название";
             type = "text";
             errorMessage = "название некорректно"
+            validation = deviceFormValidation;
             break;
         case ("price"):
             label = "цена";
             type = "text";
-            errorMessage = "цена некорректна"
+            errorMessage = "цена некорректна";
+            validation = priceFormValidation;
             break;
         default:
             break;
+    }
+
+    const changeValue = (value: string) => {
+        setValue({value, valid: validation(value)})    
     }
 
     return (

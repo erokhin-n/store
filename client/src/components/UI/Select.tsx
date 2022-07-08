@@ -1,9 +1,14 @@
 import { FC } from "react"
 import { ValidationResult } from "../../enum/enum"
 import { ISelect } from "../../interface/interface"
+import { deviceFormValidation } from "../../validation/DeviceFormValidation"
 import ErrorModal from "../ErrorModal"
 
-const Select:FC<ISelect> = ({ defaultValue,valid,elements, changeValue, }) => {
+const Select:FC<ISelect> = ({ defaultValue,valid,elements, setValue, }) => {
+
+    const changeValue = (id:number) => {
+        setValue({ id, valid: deviceFormValidation(id) })
+    }
 
     return (
         <div>
