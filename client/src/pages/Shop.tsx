@@ -1,4 +1,4 @@
-import BrandModal from "../components/modals/BrandModal/BrandModal"
+// import BrandModal from "../components/modals/BrandModal/BrandModal"
 import DeviceList from "../components/DeviceList"
 import { useAppSelector } from "../hooks/hooks"
 import { useGetAllDevicesQuery} from "../store/apiSlice/deviceSlice"
@@ -26,7 +26,6 @@ const Shop = () => {
     } else if(isError) {
         deviceList = <div>error</div>
     }
-    console.log(devices)
 
     return (
         <div>

@@ -28,3 +28,9 @@ export enum Tags {
     CREATE_BRAND = "CREATE_BRAND",
     CREATE_DEVICE = "CREATE_DEVICE"
 }
+
+export enum ValidationResult {
+    success="success",
+    error="error",
+    firstAddition="firstAddition"
+}

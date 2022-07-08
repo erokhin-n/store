@@ -13,7 +13,7 @@ const TypeModal = () => {
 
     const saveTypeOnServer = (e:FormEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        const validationSuccess = deviceFormValidation(type, setTypeError)
+        const validationSuccess = deviceFormValidation(type)
         if(validationSuccess) {
             saveType({name: type})
             setType('')
@@ -37,7 +37,7 @@ const TypeModal = () => {
     },[errorServerMessage])
 
     const changeType = (e:string) => {
-        if(typeError) deviceFormValidation(type, setTypeError)
+        if(typeError) deviceFormValidation(type)
         setServerError('')
         setType(e)
     }

@@ -1,5 +1,5 @@
 import { FC } from "react"
-import BrandModal from "../components/modals/BrandModal/BrandModal"
+// import BrandModal from "../components/modals/BrandModal/BrandModal"
 
 
 const DevicePage:FC = () => {

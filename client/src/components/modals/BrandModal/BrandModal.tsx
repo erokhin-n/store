@@ -13,7 +13,7 @@ const BrandModal = () => {
 
     const saveBrandOnServer = (e:FormEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        const validationSuccess = deviceFormValidation(brand, setBrandError)
+        const validationSuccess = deviceFormValidation(brand)
         if(validationSuccess){
             saveBrand({name: brand}) 
             setBrand('')       
@@ -37,7 +37,7 @@ const BrandModal = () => {
     },[errorServerMessage]) 
 
     const changeBrand = (e:string) => {
-        if(brandError) deviceFormValidation(brand, setBrandError)
+        if(brandError) deviceFormValidation(brand)
         setServerError('')
         setBrand(e)
     }

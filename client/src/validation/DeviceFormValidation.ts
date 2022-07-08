@@ -1,23 +1,27 @@
 import { Dispatch, SetStateAction } from "react"
+import { ValidationResult } from "../enum/enum"
 
 export const deviceFormValidation = (
-    str:string | number | undefined, 
-    setState:Dispatch<SetStateAction<string>>) => {
+    str:string | number | undefined) => {
     if(typeof str === "string") {
         if(!/^([a-zA-Zа-яА-Я0-9]+\s)*[a-zA-Zа-яА-Я0-9]+$/.test(str) || !str.length) {
-            // setState('поле должно содержать только буквы или цифры')
-            return false
+            return ValidationResult.error
         } else {
-            // setState('')
-            return true
+            return ValidationResult.success  
         }
     } else {
         if(!str || typeof str !== "number") {
-            // setState('поле должно содержать только цифры')
-            return "error"
+            return ValidationResult.error
         } else {
-            // setState('')
-            return "valid"        
+            return ValidationResult.success       
         }
+    }
+}
+
+export const priceFormValidation = (str:string) => {
+    if(!/^(?:[1-9]\d*|0(?!(?:\.0+)?$))?(?:\.\d+)?$/.test(str)) {
+        return ValidationResult.error
+    } else {
+        return ValidationResult.success 
     }
 }

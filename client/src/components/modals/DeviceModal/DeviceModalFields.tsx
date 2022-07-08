@@ -6,7 +6,6 @@ import ErrorModal from '../../ErrorModal'
 import style from './DeviceModal.module.css'
 
 const DeviceModalFields:FC<IDeviceModalFiels> = ({
-    typeId,
     setBrandId,
     brandIdError,
     name,
@@ -24,14 +23,11 @@ const DeviceModalFields:FC<IDeviceModalFiels> = ({
     deviceFormError,
     changeTypeId
     }) => {
-
-    const {data:types,isSuccess:successTypesLoad} = useGetAllTypesQuery()
-    const {data:brands,isSuccess:successBrandsLoad} = useGetAllBrandsQuery()
     
     return (
         <div className={style.deviceForm}>
             <form style={{display:'flex', flexDirection:'column'}}>
-                <select style={{border: ((typeId.typeIdValid === "firstAddition") || 
+                {/* <select style={{border: ((typeId.typeIdValid === "firstAddition") || 
                                (typeId.typeIdValid === "valid"))? 
                                 "2px solid black" : "3px solid red"
                             }}>
@@ -46,8 +42,8 @@ const DeviceModalFields:FC<IDeviceModalFiels> = ({
                         </option>    
                     )}
                 </select>
-                {typeId.typeIdValid === "error" && <ErrorModal error={"исправьте поле"} />}
-                <select>
+                {typeId.typeIdValid === "error" && <ErrorModal error={"исправьте поле"} />} */}
+                {/* <select>
                     <option>выберите бренд</option>
                     {brands && brands.map(brand => 
                         <option
@@ -58,27 +54,27 @@ const DeviceModalFields:FC<IDeviceModalFiels> = ({
                             {brand.name}
                         </option>    
                     )}
-                </select>
-                {brandIdError && <ErrorModal error={brandIdError} />}
-                <label>название</label>
+                </select> */}
+                {/* {brandIdError && <ErrorModal error={brandIdError} />} */}
+                {/* <label>название</label>
                 <input 
                     type="text" 
                     value={name} 
                     onChange={e => setName(e.target.value)}
-                />
-                 {nameError && <ErrorModal error={nameError} />}
-                <label>цена</label>
+                /> */}
+                 {/* {nameError && <ErrorModal error={nameError} />} */}
+                {/* <label>цена</label>
                 <input
                     type="number"
                     value={price} 
                     onChange={e => setPrice(Number(e.target.value))}
                 />
-                {priceError && <ErrorModal error={priceError} />}
-                <label>изображение</label>
+                {priceError && <ErrorModal error={priceError} />} */}
+                {/* <label>изображение</label>
                 <input 
                     type="file"
                     onChange={selectImage}
-                />
+                /> */}
                 <button
                     onClick={addInfo}
                 >

@@ -1,6 +1,6 @@
 import { FC } from "react"
 
-const ErrorModal:FC<{error:string}> = ({error}) => {
+const ErrorModal:FC<{error:string | undefined}> = ({error}) => {
 
     return (
         <div>

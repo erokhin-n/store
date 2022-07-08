@@ -85,10 +85,35 @@ export interface IDeviceInfo {
     id: string;
 }
 
+export interface ISelect {
+    defaultValue: string;
+    valid:string;
+    elements: ITypeAndBrand[] | undefined;
+    changeValue: (id:number) => void
+}
+
+export interface INameAndPriceInput {
+    inputView: string;
+    element: {value: string, valid: string};
+    changeValue: (value: string ) => void
+}
+
+export interface IImageInput {
+    changeValue: (e:ChangeEvent<HTMLInputElement> ) => void
+}
+
+export interface ITypeIdAndBrandId {
+    id: number;
+    valid: string;
+}
+
+export interface INameAndPrice {
+    value: string;
+    valid: string;
+}
 
 export interface IDeviceModalFiels {
-    typeSelector: any;
-    setTypeId: Dispatch<SetStateAction<number | undefined>>;
+    typeIdSelect: any;
     setBrandId: Dispatch<SetStateAction<number | undefined>>;
     brandIdError: string;
     name: string;
