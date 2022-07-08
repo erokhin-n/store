@@ -112,6 +112,13 @@ export interface INameAndPrice {
     valid: string;
 }
 
+export interface IDeviceInfoComponent {
+    info: IDeviceInfo[];
+    addInfo: (e:MouseEvent<HTMLButtonElement>) => void;
+    changeInfo: (key:string, keyValid:string, value:string, id:string) => void;
+    removeInfo: (id:string) => void;
+}
+
 export interface IDeviceModalFiels {
     typeIdSelect: any;
     setBrandId: Dispatch<SetStateAction<number | undefined>>;

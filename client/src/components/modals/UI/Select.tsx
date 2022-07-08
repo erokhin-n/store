@@ -24,7 +24,7 @@ const Select:FC<ISelect> = ({ defaultValue,valid,elements, changeValue, }) => {
                 </option>    
             )}
         </select>
-        {valid === ValidationResult.error && <ErrorModal error={"выберите значение"} />}
+        {/* {valid === ValidationResult.error && <ErrorModal error={"выберите значение"} />} */}
     </div>
     )
 }

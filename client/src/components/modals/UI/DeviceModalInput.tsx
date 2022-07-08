@@ -31,9 +31,12 @@ const Input:FC<INameAndPriceInput> = ({inputView, element, changeValue}) => {
                 type={type}
                 value={element.value} 
                 onChange={e => changeValue(e.target.value)}
+                style={{background: (element.valid === ValidationResult.error) ?
+                    "red" : "white"
+                }}
             />
-            {element.valid === ValidationResult.error 
-                && <ErrorModal error={errorMessage} />}
+            {/* {element.valid === ValidationResult.error 
+                && <ErrorModal error={errorMessage} />} */}
         </div>
     )
 }

@@ -19,9 +19,17 @@ export const deviceFormValidation = (
 }
 
 export const priceFormValidation = (str:string) => {
-    if(!/^(?:[1-9]\d*|0(?!(?:\.0+)?$))?(?:\.\d+)?$/.test(str)) {
+    if(!/^(?:[1-9]\d*|0(?!(?:\.0+)?$))?(?:\.\d+)?$/.test(str) || !str.length) {
         return ValidationResult.error
     } else {
         return ValidationResult.success 
+    }
+}
+
+export const deviceInfoValidation = (str:string) => {
+    if(/^([a-zA-Zа-яА-Я0-9]+\s)*[a-zA-Zа-яА-Я0-9]+$/.test(str)){
+        return ValidationResult.success
+    } else {
+        return ValidationResult.error
     }
 }

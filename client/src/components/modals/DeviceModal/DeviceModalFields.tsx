@@ -75,7 +75,7 @@ const DeviceModalFields:FC<IDeviceModalFiels> = ({
                     type="file"
                     onChange={selectImage}
                 /> */}
-                <button
+                {/* <button
                     onClick={addInfo}
                 >
                     добавить информацию
@@ -97,7 +97,7 @@ const DeviceModalFields:FC<IDeviceModalFiels> = ({
                         
                         <button onClick={()=> removeInfo(i.id)}>del</button>
                     </div>   
-                )}
+                )} */}
                 <button onClick={e => addDevice(e)}>сохранить устройство</button>
                 {deviceFormError && <ErrorModal error={deviceFormError} />}
             </form>

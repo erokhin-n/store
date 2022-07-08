@@ -3,7 +3,7 @@ import {  IDeviceInfo, INameAndPrice, ITypeIdAndBrandId } from "../../../interfa
 import { v4 as uuidv4 } from 'uuid';
 import { useCreateDeviceMutation } from "../../../store/apiSlice/deviceSlice";
 
-import { deviceInfoValidation } from "../../../validation/DeviceInfoValidation";
+import { deviceInfoValidation } from "../../../validation/DeviceFormValidation";
 import { deviceFormValidation, priceFormValidation } from "../../../validation/DeviceFormValidation";
 import { ValidationResult } from "../../../enum/enum";
 import { useGetAllTypesQuery } from "../../../store/apiSlice/typeSlice";
@@ -11,16 +11,18 @@ import Select from "../UI/Select";
 import { useGetAllBrandsQuery } from "../../../store/apiSlice/brandSlice";
 import Input from "../UI/DeviceModalInput";
 import ImageInput from "../UI/ImageInput";
+import DeviceInfo from "./DeviceInfo";
+import ErrorModal from "../../ErrorModal";
 
 const DeviceModal = () => {
+
     const [typeId, setTypeId] = useState<ITypeIdAndBrandId>({id: 0, valid:ValidationResult.firstAddition})
     const [brandId, setBrandId] = useState<ITypeIdAndBrandId>({id: 0, valid:ValidationResult.firstAddition})
     const [name, setName] = useState<INameAndPrice>({value: '', valid: ValidationResult.firstAddition})
     const [price, setPrice] = useState<INameAndPrice>({value: '', valid: ValidationResult.firstAddition})
     const [image, setImage] = useState<string | Blob>('')
     const [info, setInfo] = useState<IDeviceInfo[]>([])
-    const [infoError, setInfoError] = useState<boolean>(false)
-    const [deviceFormError, setDeviceFormError] = useState<string | ''>('')
+    const [deviceFormError, setDeviceFormError] = useState<{status:boolean, message: string}>({status:false, message: ''})
 
     const {data:types,isSuccess:successTypesLoad} = useGetAllTypesQuery()
     const {data:brands,isSuccess:successBrandsLoad} = useGetAllBrandsQuery()
@@ -42,7 +44,7 @@ const DeviceModal = () => {
     }
 
     const changeInfo = (key:string, keyValid:string, value:string, id:string):void => {
-        setInfoError(false)
+        setDeviceFormError({status:false,message: ''})
         setInfo(info.map(i => i.id === id ? {...i, [key]: value, 
             [keyValid]: deviceInfoValidation(value)}: i))
     }
@@ -66,52 +68,44 @@ const DeviceModal = () => {
         setPrice({value,valid: priceFormValidation(value)})
     }
 
+    useEffect(()=> {
+        let validModal = [typeId.valid, brandId.valid, name.valid, price.valid].findIndex( val => 
+            val !== ValidationResult.success
+        )
+
+        let validInfo = info.findIndex(i => 
+            i.titleValid !== ValidationResult.success ||
+            i.descriptionValid !== ValidationResult.success)
+
+        if(validModal !== -1 || validInfo !== -1 || !image) {
+            setDeviceFormError({...deviceFormError,status:true})
+        } else {
+            setDeviceFormError({status:false, message: ''})
+        }
+    },[typeId, brandId, name, price, image, info])
+
     const addDevice = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        // const typeIdValid = deviceFormValidation(typeId, setTypeIdError)
-        // const brandIdValid = deviceFormValidation(brandId, setBrandIdError)
-        // const nameValid = deviceFormValidation(name, setNameError)
-        // const priceValid = deviceFormValidation(price , setPriceError)
         changeTypeId(typeId.id)
+        changeBrandId(brandId.id)
+        changeName(name.value)
+        changePrice(price.value)
+        setInfo(info.map( i => {...i, i.ti}))
 
-
-        setInfo(info.map(i => 
-            ({...i, titleValid:deviceInfoValidation(i.title),
-                descriptionValid:deviceInfoValidation(i.description)
-            }))
-        )
-        // if(!infoError && typeIdValid && brandIdValid && 
-            // nameValid && image && priceValid) {
+        if(!deviceFormError.status) {
+            setDeviceFormError({...deviceFormError, message:""})
             const formData = new FormData()
             formData.append('typeId', String(typeId.id))
-            formData.append('brandId', String(brandId))
+            formData.append('brandId', String(brandId.id))
             formData.append('name', name.value)
-            formData.append('price', String(price))
+            formData.append('price', price.value)
             formData.append('img', image)
             formData.append('info', JSON.stringify(info))
             createDevice(formData)
-            setDeviceFormError("")
-        // } else {
-            // setDeviceFormError("исправьте форму перед отправкой")
-        // }
-    }
-
-    // useEffect(()=> {
-    //     console.log(typeId)
-    // },[typeId])
-
-    useEffect(()=> {  
-        let infoValidError = info.findIndex(i => 
-            i.titleValid !== ValidationResult.success ||
-            i.descriptionValid !== ValidationResult.success)
-        if(infoValidError !== -1) {
-            setInfoError(true)
         } else {
-            setInfoError(false)
+            setDeviceFormError({...deviceFormError, message:"исправьте форму"})
         }
-
-    },[info, infoError])
-
+    }
 
     if(isLoading) return <h3>saved...</h3>
     if(isSuccess) console.log('save complete')
@@ -144,27 +138,15 @@ const DeviceModal = () => {
             <ImageInput 
                 changeValue={selectImage}
             />
-            
+            <DeviceInfo 
+                info={info}
+                addInfo={addInfo}
+                changeInfo={changeInfo}
+                removeInfo={removeInfo}
+            />
+            <button onClick={e => addDevice(e)}>сохранить устройство</button>
+            {deviceFormError.message && <ErrorModal error={deviceFormError.message} />}
         </div>
-
-        // <DeviceModalFields
-        //     setBrandId={setBrandId}
-        //     brandIdError={brandIdError}
-        //     name={name}
-        //     setName={setName}
-        //     nameError={nameError}
-        //     price={price}
-        //     setPrice={setPrice}
-        //     priceError={priceError}
-        //     selectImage={selectImage}
-        //     addInfo={addInfo}
-        //     info={info}
-        //     changeInfo={changeInfo}
-        //     removeInfo={removeInfo}
-        //     addDevice={addDevice}
-        //     deviceFormError={deviceFormError}
-        //     changeTypeId={changeTypeId}
-        // />
     )
 }
 
