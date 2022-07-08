@@ -7,10 +7,10 @@ import { deviceInfoValidation } from "../../../validation/DeviceFormValidation";
 import { deviceFormValidation, priceFormValidation } from "../../../validation/DeviceFormValidation";
 import { ValidationResult } from "../../../enum/enum";
 import { useGetAllTypesQuery } from "../../../store/apiSlice/typeSlice";
-import Select from "../UI/Select";
+import Select from "../../UI/Select";
 import { useGetAllBrandsQuery } from "../../../store/apiSlice/brandSlice";
-import Input from "../UI/DeviceModalInput";
-import ImageInput from "../UI/ImageInput";
+import Input from "../../UI/DeviceModalInput";
+import ImageInput from "../../UI/ImageInput";
 import DeviceInfo from "./DeviceInfo";
 import ErrorModal from "../../ErrorModal";
 
@@ -24,10 +24,10 @@ const DeviceModal = () => {
     const [info, setInfo] = useState<IDeviceInfo[]>([])
     const [deviceFormError, setDeviceFormError] = useState<{status:boolean, message: string}>({status:false, message: ''})
 
-    const {data:types,isSuccess:successTypesLoad} = useGetAllTypesQuery()
-    const {data:brands,isSuccess:successBrandsLoad} = useGetAllBrandsQuery()
+    const {data:types} = useGetAllTypesQuery()
+    const {data:brands} = useGetAllBrandsQuery()
 
-    const [createDevice, {data, isLoading,isSuccess}] = useCreateDeviceMutation()
+    const [createDevice, { isLoading,isSuccess}] = useCreateDeviceMutation()
 
     const selectImage = (e:ChangeEvent<HTMLInputElement>) => {
         if(e.target.files) setImage(e.target.files[0]) 
@@ -44,7 +44,6 @@ const DeviceModal = () => {
     }
 
     const changeInfo = (key:string, keyValid:string, value:string, id:string):void => {
-        setDeviceFormError({status:false,message: ''})
         setInfo(info.map(i => i.id === id ? {...i, [key]: value, 
             [keyValid]: deviceInfoValidation(value)}: i))
     }
@@ -90,7 +89,11 @@ const DeviceModal = () => {
         changeBrandId(brandId.id)
         changeName(name.value)
         changePrice(price.value)
-        setInfo(info.map( i => {...i, i.ti}))
+        setInfo(info.map(i => 
+            ({...i, titleValid:deviceInfoValidation(i.title),
+                descriptionValid:deviceInfoValidation(i.description)
+            }))
+        )
 
         if(!deviceFormError.status) {
             setDeviceFormError({...deviceFormError, message:""})
@@ -102,13 +105,17 @@ const DeviceModal = () => {
             formData.append('img', image)
             formData.append('info', JSON.stringify(info))
             createDevice(formData)
+            setTypeId({id: 0, valid:ValidationResult.firstAddition})
+            setBrandId({id: 0, valid:ValidationResult.firstAddition})
+            setName({value: '', valid: ValidationResult.firstAddition})
+            setPrice({value: '', valid: ValidationResult.firstAddition})
+            setInfo([])
         } else {
             setDeviceFormError({...deviceFormError, message:"исправьте форму"})
         }
     }
 
     if(isLoading) return <h3>saved...</h3>
-    if(isSuccess) console.log('save complete')
 
     return (
         <div>

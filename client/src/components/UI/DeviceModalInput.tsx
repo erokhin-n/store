@@ -1,7 +1,7 @@
 import { FC } from "react"
-import { ValidationResult } from "../../../enum/enum"
-import { INameAndPriceInput } from "../../../interface/interface"
-import ErrorModal from "../../ErrorModal"
+import { ValidationResult } from "../../enum/enum"
+import { INameAndPriceInput } from "../../interface/interface"
+import ErrorModal from "../ErrorModal"
 
 const Input:FC<INameAndPriceInput> = ({inputView, element, changeValue}) => {
 

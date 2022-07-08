@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { IImageInput } from "../../../interface/interface"
+import { IImageInput } from "../../interface/interface"
 
 const ImageInput:FC<IImageInput> = ({changeValue}) => {
     return (

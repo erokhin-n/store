@@ -1,7 +1,7 @@
 import { FC } from "react"
-import { ValidationResult } from "../../../enum/enum"
-import { ISelect } from "../../../interface/interface"
-import ErrorModal from "../../ErrorModal"
+import { ValidationResult } from "../../enum/enum"
+import { ISelect } from "../../interface/interface"
+import ErrorModal from "../ErrorModal"
 
 const Select:FC<ISelect> = ({ defaultValue,valid,elements, changeValue, }) => {
 
@@ -17,7 +17,7 @@ const Select:FC<ISelect> = ({ defaultValue,valid,elements, changeValue, }) => {
             {elements && elements.map(element => 
                 <option
                     key={element.id} 
-                    value={element.name}
+                    value={element.id}
                     onClick={() => changeValue(element.id!)}
                 >
                     {element.name}
