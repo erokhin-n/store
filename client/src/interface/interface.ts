@@ -99,7 +99,8 @@ export interface INameAndPriceInput {
 }
 
 export interface IImageInput {
-    changeValue: (e:ChangeEvent<HTMLInputElement> ) => void
+    image: {file:string | Blob, valid: string};
+    changeValue: (e:ChangeEvent<HTMLInputElement> ) => void;
 }
 
 export interface ITypeIdAndBrandId {

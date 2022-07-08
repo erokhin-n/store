@@ -33,3 +33,11 @@ export const deviceInfoValidation = (str:string) => {
         return ValidationResult.error
     }
 }
+
+export const deviceImageValidation = (file:string | Blob) => {
+    if(file) {
+        return ValidationResult.success
+    } else {
+        return ValidationResult.error
+    }
+}

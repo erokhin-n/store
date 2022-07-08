@@ -3,7 +3,7 @@ import {  IDeviceInfo, INameAndPrice, ITypeIdAndBrandId } from "../../../interfa
 import { v4 as uuidv4 } from 'uuid';
 import { useCreateDeviceMutation } from "../../../store/apiSlice/deviceSlice";
 
-import { deviceInfoValidation } from "../../../validation/DeviceFormValidation";
+import { deviceImageValidation, deviceInfoValidation } from "../../../validation/DeviceFormValidation";
 import { deviceFormValidation, priceFormValidation } from "../../../validation/DeviceFormValidation";
 import { ValidationResult } from "../../../enum/enum";
 import { useGetAllTypesQuery } from "../../../store/apiSlice/typeSlice";
@@ -20,7 +20,7 @@ const DeviceModal = () => {
     const [brandId, setBrandId] = useState<ITypeIdAndBrandId>({id: 0, valid:ValidationResult.firstAddition})
     const [name, setName] = useState<INameAndPrice>({value: '', valid: ValidationResult.firstAddition})
     const [price, setPrice] = useState<INameAndPrice>({value: '', valid: ValidationResult.firstAddition})
-    const [image, setImage] = useState<string | Blob>('')
+    const [image, setImage] = useState<{file:string | Blob,valid:string}>({file: '',valid:ValidationResult.firstAddition})
     const [info, setInfo] = useState<IDeviceInfo[]>([])
     const [deviceFormError, setDeviceFormError] = useState<{status:boolean, message: string}>({status:false, message: ''})
 
@@ -30,7 +30,8 @@ const DeviceModal = () => {
     const [createDevice, { isLoading,isSuccess}] = useCreateDeviceMutation()
 
     const selectImage = (e:ChangeEvent<HTMLInputElement>) => {
-        if(e.target.files) setImage(e.target.files[0]) 
+        if(e.target.files) setImage({file:e.target.files[0],
+            valid:deviceImageValidation(e.target.files[0])}) 
     }  
 
     const addInfo = (e:MouseEvent<HTMLButtonElement>) => {
@@ -89,6 +90,7 @@ const DeviceModal = () => {
         changeBrandId(brandId.id)
         changeName(name.value)
         changePrice(price.value)
+        setImage({file:image.file, valid:deviceImageValidation(image.file)})
         setInfo(info.map(i => 
             ({...i, titleValid:deviceInfoValidation(i.title),
                 descriptionValid:deviceInfoValidation(i.description)
@@ -102,13 +104,14 @@ const DeviceModal = () => {
             formData.append('brandId', String(brandId.id))
             formData.append('name', name.value)
             formData.append('price', price.value)
-            formData.append('img', image)
+            formData.append('img', image.file)
             formData.append('info', JSON.stringify(info))
             createDevice(formData)
             setTypeId({id: 0, valid:ValidationResult.firstAddition})
             setBrandId({id: 0, valid:ValidationResult.firstAddition})
             setName({value: '', valid: ValidationResult.firstAddition})
             setPrice({value: '', valid: ValidationResult.firstAddition})
+            setImage({file: '',valid:ValidationResult.firstAddition})
             setInfo([])
         } else {
             setDeviceFormError({...deviceFormError, message:"исправьте форму"})
@@ -142,7 +145,8 @@ const DeviceModal = () => {
                 element={price}
                 changeValue={changePrice} 
             />
-            <ImageInput 
+            <ImageInput
+                image={image} 
                 changeValue={selectImage}
             />
             <DeviceInfo 
