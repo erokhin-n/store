@@ -6,12 +6,7 @@ import style from './SuperAdminPage.module.css'
 
 const SuperAdminPage = () => {
 
-    const [
-        registrationAdmin, 
-        {
-        data, 
-        error
-    }] = useRegistrationAdminMutation()
+    const [registrationAdmin, { error}] = useRegistrationAdminMutation()
 
     const [adminRegMessage, setAdminRegMessage] = useState<string | ''>('')
     const [hideValidationError, setHideValidationError] = useState<boolean>(false)
@@ -28,16 +23,16 @@ const SuperAdminPage = () => {
         setTimeout(() => setAdminRegMessage(''), 3000)
     }
 
-    let error_server_message:string | undefined
+    let errorServerMessage:string | undefined
 
     if (error) {
         if ('status' in error) {
-            error_server_message = 'error' in error ? 
+            errorServerMessage = 'error' in error ? 
             error.error : 
                 JSON.stringify(error.data)
             
         } else {
-            error_server_message = error.message
+            errorServerMessage = error.message
         }
     }
 
@@ -45,18 +40,22 @@ const SuperAdminPage = () => {
         setHideValidationError(true)
     }
 
+    const pagesStates = {
+        hideValidationError, 
+        setHideValidationError,
+        adminRegMessage,
+        setAdminRegMessage
+    }
+
     return (
         <section className={style.body} onClick={hideValidation} style={{background: 'darkgray', height: 'auto'}}>
             <div>
                 <h3>регистрация администратора</h3>
                 <AuthForm
-                    hideValidationError={hideValidationError}
-                    setHideValidationError={setHideValidationError}
+                    pagesStates={pagesStates}
                     fetchForm={fetchForm}
-                    error_server_message={error_server_message}
+                    errorServerMessage={errorServerMessage}
                     loginInformation={"super_admin"}
-                    adminRegMessage={adminRegMessage} 
-                    setAdminRegMessage={setAdminRegMessage}
                 />   
             </div> 
             <UserList />

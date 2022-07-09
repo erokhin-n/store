@@ -23,16 +23,17 @@ export interface IDevicesResponse<T> {
     rows: T[];
 }
 
-export interface IAuthFormProps {
-    hideValidationError: boolean;
-    setHideValidationError: Dispatch<SetStateAction<boolean>>;
+export interface IAuthForm {
+    pagesStates: {
+        hideValidationError: boolean;
+        setHideValidationError: Dispatch<SetStateAction<boolean>>;
+        adminRegMessage?: string | '';
+        setAdminRegMessage?: Dispatch<SetStateAction<string>>;
+    }
     fetchForm: (email: string, password: string) => void;
-    error_server_message: string | undefined;
     loginInformation: "login" | "registration" | "super_admin";
-    adminRegMessage?: string | '';
-    setAdminRegMessage?: Dispatch<SetStateAction<string>>;
+    errorServerMessage: string | undefined;
 }
-
 
 export interface IAuthData {
     email: string;
@@ -54,21 +55,27 @@ export interface IMessage {
     message: string;
 }
 
-
 export interface IAuthFormFields {
     sendForm: (e:FormEvent<HTMLButtonElement>) => void;
-    email: string;
-    changeEmail: (e:string) => void;
-    password: string;
-    changePassword:(e:string) => void;
-    emailError:string;
-    setEmailError: Dispatch<SetStateAction<string>>;
-    passwordError:string;
-    setPasswordError:Dispatch<SetStateAction<string>>;
-    serverError:string | undefined;
-    submitError: string;
+    authFormStates: {
+        email: string;
+        setEmail: Dispatch<SetStateAction<string>>;
+        password: string;
+        setPassword:Dispatch<SetStateAction<string>>;
+        emailError:string;
+        setEmailError: Dispatch<SetStateAction<string>>;
+        passwordError:string;
+        setPasswordError:Dispatch<SetStateAction<string>>;
+        serverError:string | undefined;
+        setServerError: Dispatch<SetStateAction<string | undefined>>;
+        submitError: string;
+        setSubmitError: Dispatch<SetStateAction<string>>;
+    }
     loginInformation: "login" | "registration" | "super_admin";
-    adminRegMessage?: string | '';
+    adminRegStates?: {
+        adminRegMessage?: string | '';
+        setAdminRegMessage?: Dispatch<SetStateAction<string | ''>>;
+    }
 }
 
 export interface IDeviceStoreInitialState {

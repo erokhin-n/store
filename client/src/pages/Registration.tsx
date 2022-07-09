@@ -17,15 +17,15 @@ const Registration = () => {
         navigate(EnumRoute.Shop)
     }
 
-    let error_server_message:string | undefined
+    let errorServerMessage:string | undefined
 
     if (error) {
         if ('status' in error) {
-            error_server_message = 'error' in error ? 
+            errorServerMessage = 'error' in error ? 
             error.error : 
                 JSON.stringify(error.data)
         } else {
-            error_server_message = error.message
+            errorServerMessage = error.message
         }
     }
 
@@ -33,13 +33,14 @@ const Registration = () => {
         setHideValidationError(true)
     }
 
+    const pagesStates = {hideValidationError, setHideValidationError}
+
     return (
         <section onClick={hideValidation} style={{background: 'red', height: '1000px'}}>
             <AuthForm
-                hideValidationError={hideValidationError}
-                setHideValidationError={setHideValidationError}
+                pagesStates={pagesStates}
                 fetchForm={fetchForm}
-                error_server_message={error_server_message}
+                errorServerMessage={errorServerMessage}
                 loginInformation={"registration"}
             />
         </section>

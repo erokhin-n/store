@@ -1,64 +1,69 @@
-import { FC, useEffect, useReducer, useState } from "react"
+import { FC } from "react"
 import { Link } from "react-router-dom"
 import { EnumRoute } from "../../enum/enum"
-import { IAuthFormFields } from "../../interface/interface"
+import {  IAuthFormFields } from "../../interface/interface"
 import ErrorModal from "../ErrorModal"
 import { emailValidation, passwordValidation } from "../../validation/AuthValidation"
 import style from './AuthFormFields.module.css'
 
-const AuthFormFields:FC<IAuthFormFields> = ({
-    sendForm,
-    email,
-    changeEmail,
-    password,
-    changePassword,
-    emailError,
-    setEmailError,
-    passwordError,
-    setPasswordError,
-    serverError,
-    submitError,
-    loginInformation,
-    adminRegMessage
-}) => {
+const AuthFormFields:FC<IAuthFormFields>=({sendForm,  
+    authFormStates, 
+    loginInformation, 
+    adminRegStates, }) => {
+
+    const changeEmail = (e:string)  => {
+        if(authFormStates.emailError) emailValidation(e, authFormStates.setEmailError)
+        if(adminRegStates!.setAdminRegMessage) adminRegStates!.setAdminRegMessage('')
+        authFormStates.setServerError('')
+        authFormStates.setSubmitError('')
+        authFormStates.setEmail(e)
+    }
+
+    const changePassword = (e:string) => {
+        console.log(loginInformation)
+        if(authFormStates.passwordError) passwordValidation(e, authFormStates.setPasswordError)
+        if(adminRegStates!.setAdminRegMessage) adminRegStates!.setAdminRegMessage('')
+        authFormStates.setServerError('')
+        authFormStates.setSubmitError('')
+        authFormStates.setPassword(e)
+    } 
 
     return (
         <form 
             className={"authForm"}
         >
-
             <input 
                 type="text" 
                 placeholder="введите почту"
-                className={emailError ? 
+                className={authFormStates.emailError ? 
                     [style.inputError, style.input].join(' ') : 
                     style.input}
-                value={email}
+                value={authFormStates.email}
                 onChange={e => changeEmail(e.target.value)}
-                onBlur={() => emailValidation(email, setEmailError)}
+                onBlur={() => emailValidation(authFormStates.email, authFormStates.setEmailError)}
             />
-            {emailError && <ErrorModal error={emailError} />}
+            {authFormStates.emailError && <ErrorModal error={authFormStates.emailError} />}
             <input
                 type="text"
                 placeholder="введите пароль"
-                className={passwordError ? 
+                className={authFormStates.passwordError ? 
                     [style.inputError, style.input].join(' ') : 
                     style.input}
-                value={password}
+                value={authFormStates.password}
                 onChange={e => changePassword(e.target.value)}
-                onBlur={() =>  passwordValidation(password, setPasswordError)}
+                onBlur={() =>  passwordValidation(authFormStates.password, authFormStates.setPasswordError)}
             />
-            {passwordError && <ErrorModal error={passwordError} />}
-            {submitError && <ErrorModal error={submitError} /> }
-            {serverError && 
+            {authFormStates.passwordError && <ErrorModal error={authFormStates.passwordError} />}
+            {authFormStates.submitError && <ErrorModal error={authFormStates.submitError} /> }
+            {authFormStates.serverError && 
                 <ErrorModal 
-                    error={serverError
+                    error={authFormStates.serverError
                         .split(":")[1]
                         .replace(/[\\\}]/gi, '')
                     } 
                 />
             }
-            {adminRegMessage}
+            {adminRegStates!.adminRegMessage}
             <button 
                 className="authFormButton"
                 onClick={ e =>  sendForm(e)}

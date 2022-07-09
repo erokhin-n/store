@@ -1,16 +1,13 @@
 import { FC, FormEvent, MouseEventHandler, useEffect, useState } from "react"
-import { IAuthFormProps } from "../../interface/interface"
+import { IAuthForm } from "../../interface/interface"
 import AuthFormFields from "./AuthFormFields";
 import { emailValidation, passwordValidation } from "../../validation/AuthValidation";
 
-const AuthForm:FC<IAuthFormProps> = ({
-    hideValidationError,
-    setHideValidationError,
+const AuthForm:FC<IAuthForm> = ({
+    pagesStates,
     fetchForm,
-    error_server_message,
+    errorServerMessage,
     loginInformation,
-    adminRegMessage,
-    setAdminRegMessage
 }) => {
      
     const [email, setEmail] = useState<string>('')
@@ -20,25 +17,24 @@ const AuthForm:FC<IAuthFormProps> = ({
     const [submitError, setSubmitError] = useState<string>('')
     const [serverError, setServerError] = useState<string | undefined>('')
 
-    const changeEmail = (e:string)  => {
-        if(emailError) emailValidation(e, setEmailError)
-        if(setAdminRegMessage) setAdminRegMessage('')
-        setServerError('')
-        setSubmitError('')
-        setEmail(e)
+    const authFormStates = {
+        email, setEmail,
+        emailError, setEmailError,
+        password, setPassword,
+        passwordError, setPasswordError,
+        submitError, setSubmitError, 
+        serverError, setServerError
     }
 
-    const changePassword = (e:string) => {
-        if(passwordError) passwordValidation(e, setPasswordError)
-        if(setAdminRegMessage) setAdminRegMessage('')
-        setServerError('')
-        setSubmitError('')
-        setPassword(e)
+    const adminRegStates = {
+        adminRegMessage: pagesStates.adminRegMessage, 
+        setAdminRegMessage: pagesStates.setAdminRegMessage
     } 
 
+
     useEffect(()=> {
-        setServerError(error_server_message)
-    },[error_server_message])
+        setServerError(errorServerMessage)
+    },[errorServerMessage])
 
 
     const sendForm = (event:FormEvent<HTMLButtonElement>) => {
@@ -52,7 +48,7 @@ const AuthForm:FC<IAuthFormProps> = ({
             password.length
         ) {
             fetchForm(email, password)
-            if(error_server_message) {
+            if(errorServerMessage) {
                 setEmail('')
                 setPassword('')
             }
@@ -65,35 +61,25 @@ const AuthForm:FC<IAuthFormProps> = ({
 
     const handleClick:MouseEventHandler<HTMLElement> = (e) => {
         e.stopPropagation()
-        setHideValidationError(false)
+        pagesStates.setHideValidationError(false)
     }
 
     useEffect(()=> {
-        if(hideValidationError){
-            console.log('hidevalidationStatus: ' + hideValidationError)
+        if(pagesStates.hideValidationError){
             setEmailError('')
             setPasswordError('')
             setSubmitError('')
             setServerError('')
         }
-    },[hideValidationError])
+    },[pagesStates.hideValidationError])
     
     return (
         <div onClick={handleClick} style={{background: 'lightgray', maxWidth: '400px', margin:'auto'}}>
             <AuthFormFields
                 sendForm={sendForm}
-                email={email}
-                changeEmail={changeEmail}
-                password={password}
-                changePassword={changePassword}
-                emailError={emailError}
-                setEmailError={setEmailError}
-                passwordError={passwordError}
-                setPasswordError={setPasswordError}
-                serverError={serverError}
-                submitError={submitError}
+                authFormStates={authFormStates}
                 loginInformation={loginInformation}
-                adminRegMessage={adminRegMessage}
+                adminRegStates={adminRegStates}
             />
         </div>
     )
