@@ -1,4 +1,4 @@
-import { Component, FC, FormEvent, MouseEventHandler, useEffect, useState } from "react"
+import { FC, FormEvent, MouseEventHandler, useEffect, useState } from "react"
 import { IAuthFormProps } from "../../interface/interface"
 import AuthFormFields from "./AuthFormFields";
 import { emailValidation, passwordValidation } from "../../validation/AuthValidation";
@@ -43,7 +43,6 @@ const AuthForm:FC<IAuthFormProps> = ({
 
     const sendForm = (event:FormEvent<HTMLButtonElement>) => {
         event.preventDefault()
-        
         passwordValidation(password, setPasswordError)
         emailValidation(email, setEmailError)
    
@@ -99,7 +98,4 @@ const AuthForm:FC<IAuthFormProps> = ({
         </div>
     )
 }
-
-
-
 export default AuthForm

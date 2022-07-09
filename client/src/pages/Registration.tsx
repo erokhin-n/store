@@ -1,19 +1,12 @@
-import { MouseEventHandler, useEffect, useState } from "react"
+import { MouseEventHandler, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import AuthForm from "../components/AuthForm/AuthForm"
 import { EnumRoute } from "../enum/enum"
-import { useAppDispatch } from "../hooks/hooks"
 import { useRegistrationMutation } from "../store/apiSlice/userSlice"
-import { setEmailinStore, setRole } from "../store/store/userStore"
 
 const Registration = () => {
 
-    const [
-        registration, 
-        {
-        data, 
-        error
-    }] = useRegistrationMutation()
+    const [registration, {data, error}] = useRegistrationMutation()
 
     const [hideValidationError, setHideValidationError] = useState<boolean>(false)
 
@@ -37,7 +30,6 @@ const Registration = () => {
     }
 
     const hideValidation:MouseEventHandler<HTMLElement> = (e) => {
-        console.log('i work, sorry!')
         setHideValidationError(true)
     }
 

@@ -7,11 +7,7 @@ import { useLoginMutation } from "../store/apiSlice/userSlice"
 const Login = () => {
 
     const [
-        login, 
-        {
-        data, 
-        error
-    }] = useLoginMutation()
+        login, {data, error}] = useLoginMutation()
 
     const [hideValidationError, setHideValidationError] = useState<boolean>(false)
 

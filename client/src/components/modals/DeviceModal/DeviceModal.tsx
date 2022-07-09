@@ -34,6 +34,7 @@ const DeviceModal = () => {
         setName({value:name.value,valid: deviceFormValidation(name.value)})
         setPrice({value:price.value,valid: priceFormValidation(price.value)})
         setImage({file:image.file, valid:deviceImageValidation(image.file)})
+        
         setInfo(info.map(i => 
             ({...i, titleValid:deviceInfoValidation(i.title),
                 descriptionValid:deviceInfoValidation(i.description)
