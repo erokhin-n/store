@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, FormEvent, SetStateAction, MouseEvent } from "react";
+import {  Dispatch, FormEvent, SetStateAction, MouseEvent } from "react";
 
 export interface IDevice {
     id: number;
@@ -100,7 +100,7 @@ export interface INameAndPriceInput {
 
 export interface IImageInput {
     image: {file:string | Blob, valid: string};
-    changeValue: (e:ChangeEvent<HTMLInputElement> ) => void;
+    setValue: Dispatch<SetStateAction<IImage>>;
 }
 
 export interface ITypeIdAndBrandId {
@@ -120,9 +120,32 @@ export interface IImage {
 
 export interface IDeviceInfoComponent {
     info: IDeviceInfo[];
-    addInfo: (e:MouseEvent<HTMLButtonElement>) => void;
-    changeInfo: (key:string, keyValid:string, value:string, id:string) => void;
-    removeInfo: (id:string) => void;
+    setValue: Dispatch<SetStateAction<IDeviceInfo[]>>;
+}
+
+export interface IDeviceFormError {
+    status:boolean;
+    message: string;
+}
+
+export interface IDeviceModalFields {
+    deviceStates: {
+        typeId: ITypeIdAndBrandId;
+        setTypeId: React.Dispatch<React.SetStateAction<ITypeIdAndBrandId>>;
+        brandId: ITypeIdAndBrandId;
+        setBrandId: Dispatch<SetStateAction<ITypeIdAndBrandId>>;
+        name: INameAndPrice;
+        setName: React.Dispatch<React.SetStateAction<INameAndPrice>>;
+        price:INameAndPrice;
+        setPrice:React.Dispatch<React.SetStateAction<INameAndPrice>>;
+        image:IImage;
+        setImage: Dispatch<SetStateAction<IImage>>;
+        info: IDeviceInfo[]; 
+        setInfo:Dispatch<SetStateAction<IDeviceInfo[]>>;
+        deviceFormError: IDeviceFormError; 
+        setDeviceFormError: Dispatch<SetStateAction<IDeviceFormError>>;
+    }
+    handleClick: (e:MouseEvent<HTMLButtonElement>) => void;
 }
 
 

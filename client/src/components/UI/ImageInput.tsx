@@ -1,8 +1,15 @@
-import { FC } from "react"
+import { ChangeEvent, FC } from "react"
 import { ValidationResult } from "../../enum/enum"
 import { IImageInput } from "../../interface/interface"
+import { deviceImageValidation } from "../../validation/DeviceFormValidation"
 
-const ImageInput:FC<IImageInput> = ({image,changeValue}) => {
+const ImageInput:FC<IImageInput> = ({image,setValue}) => {
+
+    const selectImage = (e:ChangeEvent<HTMLInputElement>) => {
+        if(e.target.files) setValue({file:e.target.files[0],
+            valid:deviceImageValidation(e.target.files[0])}) 
+    }  
+
     return (
         <div>
             <label>изображение</label>
@@ -11,7 +18,7 @@ const ImageInput:FC<IImageInput> = ({image,changeValue}) => {
                     "red" : "white"
                 }}
                 type="file"
-                onChange={e => changeValue(e)}
+                onChange={e => selectImage(e)}
             />
         </div>
     )

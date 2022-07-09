@@ -1,9 +1,30 @@
-import { FC, useEffect } from "react"
+import { FC, useEffect, MouseEvent} from "react"
 import { ValidationResult } from "../../../enum/enum"
 import { IDeviceInfoComponent } from "../../../interface/interface"
+import { deviceInfoValidation } from "../../../validation/DeviceFormValidation"
+import { v4 as uuidv4 } from 'uuid';
 
 const DeviceInfo:FC<IDeviceInfoComponent> = ({
-    info, addInfo, changeInfo, removeInfo}) => {
+    info, setValue}) => {
+
+    const addInfo = (e:MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        setValue([...info, {
+            title: '',
+            titleValid:ValidationResult.firstAddition, 
+            description: '', 
+            descriptionValid:ValidationResult.firstAddition, 
+            id: uuidv4()}])
+    }
+
+    const changeInfo = (key:string, keyValid:string, value:string, id:string):void => {
+        setValue(info.map(i => i.id === id ? {...i, [key]: value, 
+            [keyValid]: deviceInfoValidation(value)}: i))
+    }
+
+    const removeInfo = (id:string) => {
+        setValue(info.filter(i => i.id !== id))
+    }
     
     return (
         <div>
