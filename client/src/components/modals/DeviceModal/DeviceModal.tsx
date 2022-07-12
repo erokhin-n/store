@@ -35,37 +35,39 @@ const DeviceModal = () => {
 
     const handleClick = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        setTypeId({ id: typeId.id, valid: deviceFormValidation(typeId.id) })
-        setBrandId({ id:brandId.id, valid: deviceFormValidation(brandId.id) })
-        setName({value:name.value,valid: deviceFormValidation(name.value)})
-        setPrice({value:price.value,valid: priceFormValidation(price.value)})
-        setImage({file:image.file, valid:deviceImageValidation(image.file)})
+        // setTypeId({ id: typeId.id, valid: deviceFormValidation(typeId.id) })
+        // setBrandId({ id:brandId.id, valid: deviceFormValidation(brandId.id) })
+        // setName({value:name.value,valid: deviceFormValidation(name.value)})
+        // setPrice({value:price.value,valid: priceFormValidation(price.value)})
+        // setImage({file:image.file, valid:deviceImageValidation(image.file)})
         
-        setInfo(info.map(i => 
-            ({...i, titleValid:deviceInfoValidation(i.title),
-                descriptionValid:deviceInfoValidation(i.description)
-            }))
-        )
+        // setInfo(info.map(i => 
+        //     ({...i, titleValid:deviceInfoValidation(i.title),
+        //         descriptionValid:deviceInfoValidation(i.description)
+        //     }))
+        // )
 
-        if(!deviceFormError.status) {
-            setDeviceFormError({...deviceFormError, message:""})
-            const formData = new FormData()
-            formData.append('typeId', String(typeId.id))
-            formData.append('brandId', String(brandId.id))
-            formData.append('name', name.value)
-            formData.append('price', price.value)
-            formData.append('img', image.file)
-            formData.append('info', JSON.stringify(info))
-            createDevice(formData)
-            setTypeId({id: 0, valid:ValidationResult.firstAddition})
-            setBrandId({id: 0, valid:ValidationResult.firstAddition})
-            setName({value: '', valid: ValidationResult.firstAddition})
-            setPrice({value: '', valid: ValidationResult.firstAddition})
-            setImage({file: '',valid:ValidationResult.firstAddition})
-            setInfo([])
-        } else {
-            setDeviceFormError({...deviceFormError, message:"исправьте форму"})
-        }
+
+
+        // if(!deviceFormError.status) {
+        //     setDeviceFormError({...deviceFormError, message:""})
+        //     const formData = new FormData()
+        //     formData.append('typeId', String(typeId.id))
+        //     formData.append('brandId', String(brandId.id))
+        //     formData.append('name', name.value)
+        //     formData.append('price', price.value)
+        //     formData.append('img', image.file)
+        //     formData.append('info', JSON.stringify(info))
+        //     createDevice(formData)
+        //     setTypeId({id: 0, valid:ValidationResult.firstAddition})
+        //     setBrandId({id: 0, valid:ValidationResult.firstAddition})
+        //     setName({value: '', valid: ValidationResult.firstAddition})
+        //     setPrice({value: '', valid: ValidationResult.firstAddition})
+        //     setImage({file: '',valid:ValidationResult.firstAddition})
+        //     setInfo([])
+        // } else {
+        //     setDeviceFormError({...deviceFormError, message:"исправьте форму"})
+        // }
     }
 
     if(isLoading) return <h3>saved...</h3>

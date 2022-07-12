@@ -18,31 +18,56 @@ const DeviceModalFields:FC<IDeviceModalFields> = ({deviceStates, handleClick}) =
     const state:any = useContext(DeviceModalState)
     const dispatch:any = useContext(DeviceModalDispatch)
 
-    useEffect(()=> {
-        let validModal = [deviceStates.typeId.valid, 
-            deviceStates.brandId.valid, 
-            deviceStates.name.valid, 
-            deviceStates.price.valid,
-            deviceStates.image.valid].findIndex( val => 
-            val !== ValidationResult.success
-        )
+    // useEffect(()=> {
+    //     let validModal = [deviceStates.typeId.valid, 
+    //         deviceStates.brandId.valid, 
+    //         deviceStates.name.valid, 
+    //         deviceStates.price.valid,
+    //         deviceStates.image.valid].findIndex( val => 
+    //         val !== ValidationResult.success
+    //     )
 
-        let validInfo = deviceStates.info.findIndex(i => 
-            i.titleValid !== ValidationResult.success ||
-            i.descriptionValid !== ValidationResult.success)
+    //     let validInfo = deviceStates.info.findIndex(i => 
+    //         i.titleValid !== ValidationResult.success ||
+    //         i.descriptionValid !== ValidationResult.success)
 
-        if(validModal !== -1 || validInfo !== -1 || !deviceStates.image) {
-            deviceStates.setDeviceFormError({...deviceStates.deviceFormError,status:true})
+    //     if(validModal !== -1 || validInfo !== -1 || !deviceStates.image) {
+    //         deviceStates.setDeviceFormError({...deviceStates.deviceFormError,status:true})
+    //     } else {
+    //         deviceStates.setDeviceFormError({status:false, message: ''})
+    //     }
+    // },[ deviceStates.typeId, 
+    //     deviceStates.brandId, 
+    //     deviceStates.name, 
+    //     deviceStates.price, 
+    //     deviceStates.image, 
+    //     deviceStates.info
+    // ])   
+    const testClick = (e:any) => {
+        const val = [
+            state.typeIdValid, 
+            state.brandIdValid,
+            state.nameValid, 
+            state.priceValid, 
+           ].findIndex(val => 
+                val !== ValidationResult.success
+            )
+        if(val === -1) {
+            console.log('send ' + val)
+            console.log(state.typeIdValid, 
+                state.brandIdValid,
+                state.nameValid, 
+                state.priceValid)
         } else {
-            deviceStates.setDeviceFormError({status:false, message: ''})
+            console.log('dont send ' + val)
+            console.log(state.typeIdValid, 
+                state.brandIdValid,
+                state.nameValid, 
+                state.priceValid)
         }
-    },[ deviceStates.typeId, 
-        deviceStates.brandId, 
-        deviceStates.name, 
-        deviceStates.price, 
-        deviceStates.image, 
-        deviceStates.info
-    ])   
+        
+    }
+
     
     return (
         <div>
@@ -52,7 +77,7 @@ const DeviceModalFields:FC<IDeviceModalFields> = ({deviceStates, handleClick}) =
             <PriceInput />
             <ImageInput/>
             <DeviceInfo />
-            <button onClick={e => handleClick(e)}>сохранить устройство</button>
+            <button onClick={e => testClick(e)}>сохранить устройство</button>
             {deviceStates.deviceFormError.message && <ErrorModal error={deviceStates.deviceFormError.message} />}
         </div>
     )

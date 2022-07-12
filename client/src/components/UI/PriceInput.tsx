@@ -16,7 +16,7 @@ const PriceInput = () => {
 
     return (
         <div>
-            <label>{"название"}</label>
+            <label>{"стоимость"}</label>
             <input 
                 value={state.price} 
                 onChange={e => changeValue(e.target.value)}
