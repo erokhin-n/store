@@ -1,7 +1,7 @@
 import { FormEvent, MouseEventHandler, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import AuthForm from "../components/AuthForm/AuthForm"
-import { EnumRoute } from "../enum/enum"
+import { EnumRoute, formView } from "../enum/enum"
 import { useLoginMutation } from "../store/apiSlice/userSlice"
 
 const Login = () => {
@@ -44,7 +44,7 @@ const Login = () => {
                 pagesStates={pagesStates}
                 fetchForm={fetchForm}
                 errorServerMessage={errorServerMessage}
-                loginInformation={"login"}
+                loginInformation={formView.login}
             />
         </section>
     )

@@ -1,7 +1,7 @@
 import { MouseEventHandler, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import AuthForm from "../components/AuthForm/AuthForm"
-import { EnumRoute } from "../enum/enum"
+import { EnumRoute, formView } from "../enum/enum"
 import { useRegistrationMutation } from "../store/apiSlice/userSlice"
 
 const Registration = () => {
@@ -36,12 +36,12 @@ const Registration = () => {
     const pagesStates = {hideValidationError, setHideValidationError}
 
     return (
-        <section onClick={hideValidation} style={{background: 'red', height: '1000px'}}>
+        <section onClick={hideValidation} style={{background: 'lightblue', height: '1000px'}}>
             <AuthForm
                 pagesStates={pagesStates}
                 fetchForm={fetchForm}
                 errorServerMessage={errorServerMessage}
-                loginInformation={"registration"}
+                loginInformation={formView.registration}
             />
         </section>
     )

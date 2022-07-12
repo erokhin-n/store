@@ -2,6 +2,7 @@ import { FC, FormEvent, MouseEventHandler, useEffect, useState } from "react"
 import { IAuthForm } from "../../interface/interface"
 import AuthFormFields from "./AuthFormFields";
 import { emailValidation, passwordValidation } from "../../validation/AuthValidation";
+import { formView } from "../../enum/enum";
 
 const AuthForm:FC<IAuthForm> = ({
     pagesStates,
@@ -55,7 +56,7 @@ const AuthForm:FC<IAuthForm> = ({
 
         } else {
             setSubmitError("необходимо исправить форму перед " + 
-            (loginInformation === "login" ? "входом" : "регистрацией"))
+            (loginInformation === formView.login ? "входом" : "регистрацией"))
         }
     }
 

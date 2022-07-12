@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { Link } from "react-router-dom"
-import { EnumRoute } from "../../enum/enum"
+import { EnumRoute, formView } from "../../enum/enum"
 import {  IAuthFormFields } from "../../interface/interface"
 import ErrorModal from "../ErrorModal"
 import { emailValidation, passwordValidation } from "../../validation/AuthValidation"
@@ -20,7 +20,6 @@ const AuthFormFields:FC<IAuthFormFields>=({sendForm,
     }
 
     const changePassword = (e:string) => {
-        console.log(loginInformation)
         if(authFormStates.passwordError) passwordValidation(e, authFormStates.setPasswordError)
         if(adminRegStates!.setAdminRegMessage) adminRegStates!.setAdminRegMessage('')
         authFormStates.setServerError('')
@@ -68,21 +67,22 @@ const AuthFormFields:FC<IAuthFormFields>=({sendForm,
                 className="authFormButton"
                 onClick={ e =>  sendForm(e)}
             >
-                {loginInformation === "super_admin" ? 
+                {loginInformation === formView.super_admin ? 
                     'регистрация админа' : 
-                    loginInformation === "login" ?
+                    loginInformation === formView.login ?
                     "войти" : "регистрация"
                 }
             </button>
-            {(loginInformation !== "super_admin") &&
-                (loginInformation === "login") ?
-                    <div>
-                        Нет аккаунта? <Link to={EnumRoute.Registration}>Зарегистрируйся</Link>
-                    </div>
-                    :
-                    <div>
-                        есть аккаунт? <Link to={EnumRoute.Login}>Войдите</Link>
-                    </div>                                
+            {loginInformation === formView.super_admin ?
+                null :
+                (loginInformation === formView.login) ?
+                <div>
+                    Нет аккаунта? <Link to={EnumRoute.Registration}>Зарегистрируйся</Link>
+                </div>
+                :
+                <div>
+                    есть аккаунт? <Link to={EnumRoute.Login}>Войдите</Link>
+                </div>    
             }
         </form>
     )

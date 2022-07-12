@@ -1,6 +1,7 @@
 import { MouseEventHandler, useState } from "react"
 import AuthForm from "../../components/AuthForm/AuthForm"
 import UserList from "../../components/UserList/UserList"
+import { formView } from "../../enum/enum"
 import { useRegistrationAdminMutation } from "../../store/apiSlice/userSlice"
 import style from './SuperAdminPage.module.css'
 
@@ -55,7 +56,7 @@ const SuperAdminPage = () => {
                     pagesStates={pagesStates}
                     fetchForm={fetchForm}
                     errorServerMessage={errorServerMessage}
-                    loginInformation={"super_admin"}
+                    loginInformation={formView.super_admin}
                 />   
             </div> 
             <UserList />

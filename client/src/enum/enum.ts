@@ -18,7 +18,8 @@ export enum ServerQuery {
     check = '/user/auth',
     removeCookie = '/user/remove_cookie',
     registrationAdmin = '/user/registration_admin',
-    getUsers = '/user/userlist'
+    getUsers = '/user/userlist',
+    getBasket = '/basket'
 }
 
 export enum Tags {
@@ -33,4 +34,10 @@ export enum ValidationResult {
     success="success",
     error="error",
     firstAddition="firstAddition"
+}
+
+export enum formView {
+    registration = "registration",
+    login = "login",
+    super_admin = "super_admin"
 }
