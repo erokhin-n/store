@@ -1,18 +1,22 @@
-import { FC, useEffect } from "react"
+import { FC, useContext, useEffect } from "react"
 import { ValidationResult } from "../../../enum/enum"
 import { IDeviceModalFields } from "../../../interface/interface"
 import { useGetAllBrandsQuery } from "../../../store/apiSlice/brandSlice"
 import { useGetAllTypesQuery } from "../../../store/apiSlice/typeSlice"
 import ErrorModal from "../../ErrorModal"
+import BrandIdSelect from "../../UI/BrandIdSelect"
 import Input from "../../UI/DeviceModalInput"
 import ImageInput from "../../UI/ImageInput"
-import Select from "../../UI/Select"
+import NameInput from "../../UI/NameInput"
+import PriceInput from "../../UI/PriceInput"
+import TypeIdSelect from "../../UI/TypeIdSelect"
 import DeviceInfo from "./DeviceInfo"
+import { DeviceModalDispatch, DeviceModalState } from "./DeviceModal"
 
 const DeviceModalFields:FC<IDeviceModalFields> = ({deviceStates, handleClick}) => {
 
-    const {data:types} = useGetAllTypesQuery()
-    const {data:brands} = useGetAllBrandsQuery()
+    const state:any = useContext(DeviceModalState)
+    const dispatch:any = useContext(DeviceModalDispatch)
 
     useEffect(()=> {
         let validModal = [deviceStates.typeId.valid, 
@@ -37,40 +41,17 @@ const DeviceModalFields:FC<IDeviceModalFields> = ({deviceStates, handleClick}) =
         deviceStates.name, 
         deviceStates.price, 
         deviceStates.image, 
-        deviceStates.info])
+        deviceStates.info
+    ])   
     
     return (
         <div>
-            <Select 
-                defaultValue="выберите тип"
-                valid={deviceStates.typeId.valid}
-                elements={types}
-                setValue={deviceStates.setTypeId}
-            />
-            <Select 
-                defaultValue="выберите бренд"
-                valid={deviceStates.brandId.valid}
-                elements={brands}
-                setValue={deviceStates.setBrandId}
-            />
-            <Input 
-                inputView="name"
-                element={deviceStates.name}
-                setValue={deviceStates.setName} 
-            />
-            <Input 
-                inputView="price"
-                element={deviceStates.price}
-                setValue={deviceStates.setPrice} 
-            />
-            <ImageInput
-                image={deviceStates.image} 
-                setValue={deviceStates.setImage}
-            />
-            <DeviceInfo 
-                info={deviceStates.info}
-                setValue={deviceStates.setInfo}
-            />
+            <TypeIdSelect />
+            <BrandIdSelect />
+            <NameInput />
+            <PriceInput />
+            <ImageInput/>
+            <DeviceInfo />
             <button onClick={e => handleClick(e)}>сохранить устройство</button>
             {deviceStates.deviceFormError.message && <ErrorModal error={deviceStates.deviceFormError.message} />}
         </div>

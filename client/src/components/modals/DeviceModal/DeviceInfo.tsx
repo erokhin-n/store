@@ -1,29 +1,39 @@
-import { FC, useEffect, MouseEvent} from "react"
+import { FC, useEffect, MouseEvent, useContext} from "react"
 import { ValidationResult } from "../../../enum/enum"
 import { IDeviceInfoComponent } from "../../../interface/interface"
-import { deviceInfoValidation } from "../../../validation/DeviceFormValidation"
+import { deviceFormValidation, deviceInfoValidation } from "../../../validation/DeviceFormValidation"
 import { v4 as uuidv4 } from 'uuid';
+import { DeviceModalDispatch, DeviceModalState } from "./DeviceModal";
 
-const DeviceInfo:FC<IDeviceInfoComponent> = ({
-    info, setValue}) => {
+const DeviceInfo = () => {
+
+    const state:any = useContext(DeviceModalState)
+    const dispatch:any = useContext(DeviceModalDispatch)
 
     const addInfo = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        setValue([...info, {
+        dispatch({type: "addInfo" ,payload: [...state.info, {
             title: '',
             titleValid:ValidationResult.firstAddition, 
             description: '', 
             descriptionValid:ValidationResult.firstAddition, 
-            id: uuidv4()}])
+            id: uuidv4()}]})
     }
 
-    const changeInfo = (key:string, keyValid:string, value:string, id:string):void => {
-        setValue(info.map(i => i.id === id ? {...i, [key]: value, 
-            [keyValid]: deviceInfoValidation(value)}: i))
+    const changeTitle = (value:any,id:any) => {
+        dispatch({type:'changeTitle',
+            payload: {value, id, valid:deviceFormValidation(value)}
+        })
+    } 
+
+    const changeDescription = (value:any, id: any) => {
+        dispatch({type: 'changeDescription',
+            payload: {value, id, valid:deviceFormValidation(value)}
+        })
     }
 
     const removeInfo = (id:string) => {
-        setValue(info.filter(i => i.id !== id))
+        dispatch({type:'removeInfo', payload: id})
     }
     
     return (
@@ -33,21 +43,21 @@ const DeviceInfo:FC<IDeviceInfoComponent> = ({
             >
                 добавить информацию
             </button>
-            {info && info.map( i => 
+            {state.info && state.info.map( (i:any) => 
                 <div key={i.id}>
                     <input 
                         value={i.title}
-                        onChange={e => changeInfo('title', 'titleValid',e.target.value, i.id)}
+                        onChange = {e => changeTitle(e.target.value, i.id)}
                         placeholder="введите название"
-                        style={{'background': ((i.titleValid===ValidationResult.success) || 
-                            (i.titleValid===ValidationResult.firstAddition)) ? "white" : "red"}}
+                        style={{'background': (i.titleValid !== ValidationResult.error)  ? 
+                        "white" : "red"}}
                     />
                     <input 
                         value={i.description}
-                        onChange={e => changeInfo('description', 'descriptionValid',e.target.value, i.id)}
+                        onChange={(e:any) => changeDescription(e.target.value, i.id)}
                         placeholder="введите описание"
-                        style={{'background':(( i.descriptionValid===ValidationResult.success ) || 
-                            (i.descriptionValid===ValidationResult.firstAddition ))? "white" : "red"}}
+                        style={{'background':( i.descriptionValid !== ValidationResult.error ) ? 
+                        "white" : "red"}}
                     />
                     
                     <button onClick={()=> removeInfo(i.id)}>del</button>

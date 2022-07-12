@@ -1,20 +1,25 @@
-import { ChangeEvent, FC } from "react"
+import { ChangeEvent, FC, useContext } from "react"
 import { ValidationResult } from "../../enum/enum"
 import { IImageInput } from "../../interface/interface"
 import { deviceImageValidation } from "../../validation/DeviceFormValidation"
+import { DeviceModalDispatch, DeviceModalState } from "../modals/DeviceModal/DeviceModal"
 
-const ImageInput:FC<IImageInput> = ({image,setValue}) => {
+const ImageInput = () => {
+
+    const state:any = useContext(DeviceModalState)
+    const dispatch:any = useContext(DeviceModalDispatch)
 
     const selectImage = (e:ChangeEvent<HTMLInputElement>) => {
-        if(e.target.files) setValue({file:e.target.files[0],
-            valid:deviceImageValidation(e.target.files[0])}) 
+        if(e.target.files) {
+            dispatch({type:'selectImage', payload:e.target.files[0]})
+            dispatch({type: 'setImageValid', payload:deviceImageValidation(e.target.files[0])})}
     }  
 
     return (
         <div>
             <label>изображение</label>
             <input 
-                style={{background: (image.valid === ValidationResult.error) ?
+                style={{background: (state.image.valid === ValidationResult.error) ?
                     "red" : "white"
                 }}
                 type="file"

@@ -1,11 +1,17 @@
-import { useState, MouseEvent } from "react"
+import { useState, MouseEvent, createContext, useReducer } from "react"
 import {  IDeviceFormError, IDeviceInfo, IImage, INameAndPrice, ITypeIdAndBrandId } from "../../../interface/interface"
 import { useCreateDeviceMutation } from "../../../store/apiSlice/deviceSlice";
 import { deviceImageValidation, deviceInfoValidation , deviceFormValidation, priceFormValidation} from "../../../validation/DeviceFormValidation";
 import { ValidationResult } from "../../../enum/enum";
 import DeviceModalFields from "./DeviceModalFields";
+import { deviceModalReducer, initialState } from "../../../store/reactReducer/deviceModalReducer";
+
+export const DeviceModalDispatch:any = createContext(null)
+export const DeviceModalState:any = createContext(null)
 
 const DeviceModal = () => {
+
+    const [state, dispatch] = useReducer(deviceModalReducer, initialState)
 
     const [typeId, setTypeId] = useState<ITypeIdAndBrandId>({id: 0, valid:ValidationResult.firstAddition})
     const [brandId, setBrandId] = useState<ITypeIdAndBrandId>({id: 0, valid:ValidationResult.firstAddition})
@@ -65,10 +71,15 @@ const DeviceModal = () => {
     if(isLoading) return <h3>saved...</h3>
 
     return (
-        <DeviceModalFields 
-            deviceStates={deviceStates} 
-            handleClick={handleClick} 
-        />
+        <DeviceModalState.Provider value={state}>
+            <DeviceModalDispatch.Provider value={dispatch}>
+                <DeviceModalFields 
+                    deviceStates={deviceStates} 
+                    handleClick={handleClick} 
+
+                />
+            </DeviceModalDispatch.Provider>
+        </DeviceModalState.Provider>
     )
 }
 
