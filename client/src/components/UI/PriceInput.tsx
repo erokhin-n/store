@@ -6,21 +6,20 @@ import { DeviceModalDispatch, DeviceModalState } from "../modals/DeviceModal/Dev
 
 const PriceInput = () => {
 
-    const state:any = useContext(DeviceModalState)
-    const dispatch:any = useContext(DeviceModalDispatch)
+    const state = useContext(DeviceModalState)
+    const dispatch = useContext(DeviceModalDispatch)
 
     const changeValue = (value: string) => {
-        dispatch({type:'changePrice', payload: value})
-        dispatch({type:'setPriceValid', payload: priceFormValidation(value)})    
+        dispatch!({type:'changePrice', payload: {value, valid: priceFormValidation(value)}})  
     }
 
     return (
         <div>
             <label>{"стоимость"}</label>
             <input 
-                value={state.price} 
+                value={state!.price.value} 
                 onChange={e => changeValue(e.target.value)}
-                style={{background: (state.priceValid === ValidationResult.error) ?
+                style={{background: (state!.price.valid === ValidationResult.error) ?
                     "red" : "white"
                 }}
             />

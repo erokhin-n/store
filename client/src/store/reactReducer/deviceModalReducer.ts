@@ -1,43 +1,47 @@
 import { ValidationResult } from "../../enum/enum";
-import { IDevice, IDeviceInfo } from "../../interface/interface";
+import { IDevice, IDeviceInfo, IDeviceModalState, IDeviceReducerActions } from "../../interface/interface";
 
-export const initialState:any = {
-    typeId: 0,
-    typeIdValid: ValidationResult.firstAddition,
-    brandId: 0,
-    brandIdValid: ValidationResult.firstAddition,
-    name: '',
-    nameValid: ValidationResult.firstAddition,
-    price: '',
-    priceValid: ValidationResult.firstAddition,
-    image: '',
-    imageValid: ValidationResult.firstAddition,
+export const initialState = {
+    typeId: {value:0, valid: ValidationResult.firstAddition},
+    brandId: {value: 0, valid: ValidationResult.firstAddition},
+    name: {value: '', valid: ValidationResult.firstAddition},
+    price: {value: '', valid: ValidationResult.firstAddition},
+    image: {value:'', valid: ValidationResult.firstAddition},
     info: [],
-    deviceFormError:'',
 }
 
-export const deviceModalReducer:any = (state:any, action:any) => {
+export const deviceModalReducer = (state:IDeviceModalState, action:IDeviceReducerActions) => {
     switch(action.type){
         case 'changeTypeId':
-            return {...state, typeId: action.payload};
-        case 'setTypeIdValid':
-            return {...state, typeIdValid: action.payload};
+            return {...state, typeId:{
+                value: action.payload.value, 
+                valid: action.payload.valid
+                }
+            };
         case 'changeBrandId':
-            return {...state, brandId: action.payload};
-        case 'setBrandIdValid':
-            return {...state, brandIdValid: action.payload};
+            return {...state, brandId:{
+                value: action.payload.value, 
+                valid: action.payload.valid
+                }
+            };
         case 'changeName':
-            return {...state, name: action.payload};
-        case 'setNameValid':
-            return {...state, nameValid: action.payload};
+            return {...state, name:{
+                value: action.payload.value, 
+                valid: action.payload.valid
+                }
+            };
         case 'changePrice':
-            return {...state, price: action.payload};
-        case 'setPriceValid':
-            return {...state, priceValid: action.payload};
+            return {...state, price:{
+                value: action.payload.value, 
+                valid: action.payload.valid
+                }
+            };
         case 'selectImage':
-            return {...state, image: action.payload};
-        case 'setImageValid':
-                return {...state, imageValid: action.payload};
+            return {...state, image:{
+                value: action.payload.value, 
+                valid: action.payload.valid
+                }
+            };
         case 'addInfo':
             return {...state, info: action.payload};
         case 'changeTitle':
@@ -54,5 +58,6 @@ export const deviceModalReducer:any = (state:any, action:any) => {
             return {...state, info: state.info.filter((i:IDeviceInfo) => 
                 i.id !== action.payload)
             }
+            
     }
 }

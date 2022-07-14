@@ -1,4 +1,5 @@
 import {  Dispatch, FormEvent, SetStateAction, MouseEvent } from "react";
+import { deviceModalReducer } from "../store/reactReducer/deviceModalReducer";
 
 export interface IDevice {
     id: number;
@@ -135,26 +136,29 @@ export interface IDeviceFormError {
     message: string;
 }
 
-export interface IDeviceModalFields {
-    deviceStates: {
-        typeId: ITypeIdAndBrandId;
-        setTypeId: React.Dispatch<React.SetStateAction<ITypeIdAndBrandId>>;
-        brandId: ITypeIdAndBrandId;
-        setBrandId: Dispatch<SetStateAction<ITypeIdAndBrandId>>;
-        name: INameAndPrice;
-        setName: React.Dispatch<React.SetStateAction<INameAndPrice>>;
-        price:INameAndPrice;
-        setPrice:React.Dispatch<React.SetStateAction<INameAndPrice>>;
-        image:IImage;
-        setImage: Dispatch<SetStateAction<IImage>>;
-        info: IDeviceInfo[]; 
-        setInfo:Dispatch<SetStateAction<IDeviceInfo[]>>;
-        deviceFormError: IDeviceFormError; 
-        setDeviceFormError: Dispatch<SetStateAction<IDeviceFormError>>;
-    }
-    handleClick: (e:MouseEvent<HTMLButtonElement>) => void;
+export type IDeviceReducerActions = 
+    | {type: 'changeTypeId'; payload: {value: number, valid: string}}
+    | {type: 'changeBrandId'; payload: {value: number, valid: string}}
+    | {type: 'changeName'; payload: {value: string, valid: string}}
+    | {type: 'changePrice'; payload: {value: string, valid: string}}
+    | {type: 'selectImage'; payload: {value: string | Blob, valid: string}}
+    | {type: 'addInfo'; payload: IDeviceInfo[]}
+    | {type: 'changeTitle'; payload: {value: string, id: string, valid: string}}
+    | {type: 'changeDescription'; payload: {value: string, id: string, valid: string}}
+    | {type: 'removeInfo'; payload: string};
+    
+
+
+export interface IDeviceModalState {
+    typeId: {value:number, valid: string},
+    brandId: {value:number, valid: string},
+    name: {value:string, valid: string},
+    price: {value:string, valid: string},
+    image: {value:string  | Blob, valid: string},
+    info: IDeviceInfo[],
 }
 
-
-
-
+export interface IBasket {
+    id: string;
+    userId: string;
+}

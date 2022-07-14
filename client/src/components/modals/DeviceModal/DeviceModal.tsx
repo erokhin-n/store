@@ -1,51 +1,20 @@
-import { useState, MouseEvent, createContext, useReducer } from "react"
-import {  IDeviceFormError, IDeviceInfo, IImage, INameAndPrice, ITypeIdAndBrandId } from "../../../interface/interface"
+import { MouseEvent, createContext, useReducer, Dispatch } from "react"
+import {  IDeviceModalState, IDeviceReducerActions } from "../../../interface/interface"
 import { useCreateDeviceMutation } from "../../../store/apiSlice/deviceSlice";
-import { deviceImageValidation, deviceInfoValidation , deviceFormValidation, priceFormValidation} from "../../../validation/DeviceFormValidation";
-import { ValidationResult } from "../../../enum/enum";
 import DeviceModalFields from "./DeviceModalFields";
 import { deviceModalReducer, initialState } from "../../../store/reactReducer/deviceModalReducer";
 
-export const DeviceModalDispatch:any = createContext(null)
-export const DeviceModalState:any = createContext(null)
+export const DeviceModalDispatch = createContext<Dispatch<IDeviceReducerActions> | null>(null)
+export const DeviceModalState= createContext<IDeviceModalState | null>(null)
 
 const DeviceModal = () => {
 
     const [state, dispatch] = useReducer(deviceModalReducer, initialState)
 
-    const [typeId, setTypeId] = useState<ITypeIdAndBrandId>({id: 0, valid:ValidationResult.firstAddition})
-    const [brandId, setBrandId] = useState<ITypeIdAndBrandId>({id: 0, valid:ValidationResult.firstAddition})
-    const [name, setName] = useState<INameAndPrice>({value: '', valid: ValidationResult.firstAddition})
-    const [price, setPrice] = useState<INameAndPrice>({value: '', valid: ValidationResult.firstAddition})
-    const [image, setImage] = useState<IImage>({file: '',valid:ValidationResult.firstAddition})
-    const [info, setInfo] = useState<IDeviceInfo[]>([])
-    const [deviceFormError, setDeviceFormError] = useState<IDeviceFormError>({status:false, message: ''})
-
-    const deviceStates = {
-        typeId, setTypeId, 
-        brandId, setBrandId, 
-        name, setName,
-        price, setPrice, 
-        image, setImage,
-        info, setInfo,
-        deviceFormError, setDeviceFormError
-    }
-
     const [createDevice, { isLoading}] = useCreateDeviceMutation()
 
     const handleClick = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        // setTypeId({ id: typeId.id, valid: deviceFormValidation(typeId.id) })
-        // setBrandId({ id:brandId.id, valid: deviceFormValidation(brandId.id) })
-        // setName({value:name.value,valid: deviceFormValidation(name.value)})
-        // setPrice({value:price.value,valid: priceFormValidation(price.value)})
-        // setImage({file:image.file, valid:deviceImageValidation(image.file)})
-        
-        // setInfo(info.map(i => 
-        //     ({...i, titleValid:deviceInfoValidation(i.title),
-        //         descriptionValid:deviceInfoValidation(i.description)
-        //     }))
-        // )
 
 
 
@@ -59,12 +28,6 @@ const DeviceModal = () => {
         //     formData.append('img', image.file)
         //     formData.append('info', JSON.stringify(info))
         //     createDevice(formData)
-        //     setTypeId({id: 0, valid:ValidationResult.firstAddition})
-        //     setBrandId({id: 0, valid:ValidationResult.firstAddition})
-        //     setName({value: '', valid: ValidationResult.firstAddition})
-        //     setPrice({value: '', valid: ValidationResult.firstAddition})
-        //     setImage({file: '',valid:ValidationResult.firstAddition})
-        //     setInfo([])
         // } else {
         //     setDeviceFormError({...deviceFormError, message:"исправьте форму"})
         // }
@@ -75,11 +38,7 @@ const DeviceModal = () => {
     return (
         <DeviceModalState.Provider value={state}>
             <DeviceModalDispatch.Provider value={dispatch}>
-                <DeviceModalFields 
-                    deviceStates={deviceStates} 
-                    handleClick={handleClick} 
-
-                />
+                <DeviceModalFields />
             </DeviceModalDispatch.Provider>
         </DeviceModalState.Provider>
     )

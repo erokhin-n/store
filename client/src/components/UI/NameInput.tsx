@@ -6,21 +6,20 @@ import { DeviceModalDispatch, DeviceModalState } from "../modals/DeviceModal/Dev
 
 const NameInput = () => {
 
-    const state:any = useContext(DeviceModalState)
-    const dispatch:any = useContext(DeviceModalDispatch)
+    const state = useContext(DeviceModalState)
+    const dispatch = useContext(DeviceModalDispatch)
 
     const changeValue = (value: string) => {
-        dispatch({type:'changeName', payload: value})
-        dispatch({type:'setNameValid', payload: deviceFormValidation(value)})    
+        dispatch!({type:'changeName', payload: {value, valid:deviceFormValidation(value)}})  
     }
 
     return (
         <div>
             <label>{"название"}</label>
             <input 
-                value={state.name} 
+                value={state!.name.value} 
                 onChange={e => changeValue(e.target.value)}
-                style={{background: (state.nameValid === ValidationResult.error) ?
+                style={{background: (state!.name.valid === ValidationResult.error) ?
                     "red" : "white"
                 }}
             />

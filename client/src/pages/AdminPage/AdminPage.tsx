@@ -7,27 +7,8 @@ import { useGetAllBrandsQuery } from "../../store/apiSlice/brandSlice"
 import { useGetAllTypesQuery } from "../../store/apiSlice/typeSlice"
 import styles from './AdminPage.module.css'
 
-export const TestDispatch:any = createContext(null)
-export const TestState:any = createContext(null)
-
-const initialState:any = {
-    testState: ''
-}
-
-function reducer(state:any, action:any) {
-    switch(action.type) {
-        case 'plus':
-            return {...state, testState: action.payload};
-        case 'minus':
-            return {testState: state.testState - 1};
-        default:
-            throw new Error()
-    }
-}
 
 const AdminPage = () => {
-
-    const [test, dispatch] = useReducer(reducer, initialState)
 
     const {data:types,isSuccess:successTypesLoad} = useGetAllTypesQuery()
     const {data:brands,isSuccess:successBrandsLoad} = useGetAllBrandsQuery()
@@ -40,11 +21,7 @@ const AdminPage = () => {
                 <h4>создание типа устройства</h4>
                 <TypeModal /> */}
                 <h4>создание устройства</h4>
-                <TestDispatch.Provider value={dispatch}>
-                    <TestState.Provider value={test}>
-                    <DeviceModal />
-                    </TestState.Provider>
-                </TestDispatch.Provider>
+                <DeviceModal />
             </div>
             <div>
             <h3>типы устройств:</h3>

@@ -1,18 +1,18 @@
 import { FC, useEffect, MouseEvent, useContext} from "react"
 import { ValidationResult } from "../../../enum/enum"
-import { IDeviceInfoComponent } from "../../../interface/interface"
+import { IDeviceInfo, IDeviceInfoComponent } from "../../../interface/interface"
 import { deviceFormValidation, deviceInfoValidation } from "../../../validation/DeviceFormValidation"
 import { v4 as uuidv4 } from 'uuid';
 import { DeviceModalDispatch, DeviceModalState } from "./DeviceModal";
 
 const DeviceInfo = () => {
 
-    const state:any = useContext(DeviceModalState)
-    const dispatch:any = useContext(DeviceModalDispatch)
+    const state = useContext(DeviceModalState)
+    const dispatch = useContext(DeviceModalDispatch)
 
     const addInfo = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        dispatch({type: "addInfo" ,payload: [...state.info, {
+        dispatch!({type: "addInfo" ,payload: [...state!.info, {
             title: '',
             titleValid:ValidationResult.firstAddition, 
             description: '', 
@@ -20,20 +20,20 @@ const DeviceInfo = () => {
             id: uuidv4()}]})
     }
 
-    const changeTitle = (value:any,id:any) => {
-        dispatch({type:'changeTitle',
+    const changeTitle = (value:string,id:string) => {
+        dispatch!({type:'changeTitle',
             payload: {value, id, valid:deviceFormValidation(value)}
         })
     } 
 
-    const changeDescription = (value:any, id: any) => {
-        dispatch({type: 'changeDescription',
+    const changeDescription = (value:string, id:string) => {
+        dispatch!({type: 'changeDescription',
             payload: {value, id, valid:deviceFormValidation(value)}
         })
     }
 
     const removeInfo = (id:string) => {
-        dispatch({type:'removeInfo', payload: id})
+        dispatch!({type:'removeInfo', payload: id})
     }
     
     return (
@@ -43,7 +43,7 @@ const DeviceInfo = () => {
             >
                 добавить информацию
             </button>
-            {state.info && state.info.map( (i:any) => 
+            {state!.info && state!.info.map( (i:IDeviceInfo) => 
                 <div key={i.id}>
                     <input 
                         value={i.title}
@@ -54,7 +54,7 @@ const DeviceInfo = () => {
                     />
                     <input 
                         value={i.description}
-                        onChange={(e:any) => changeDescription(e.target.value, i.id)}
+                        onChange={e => changeDescription(e.target.value, i.id)}
                         placeholder="введите описание"
                         style={{'background':( i.descriptionValid !== ValidationResult.error ) ? 
                         "white" : "red"}}

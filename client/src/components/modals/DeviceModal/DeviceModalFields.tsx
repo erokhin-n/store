@@ -1,11 +1,6 @@
-import { FC, useContext, useEffect } from "react"
+import { useContext, MouseEvent } from "react"
 import { ValidationResult } from "../../../enum/enum"
-import { IDeviceModalFields } from "../../../interface/interface"
-import { useGetAllBrandsQuery } from "../../../store/apiSlice/brandSlice"
-import { useGetAllTypesQuery } from "../../../store/apiSlice/typeSlice"
-import ErrorModal from "../../ErrorModal"
 import BrandIdSelect from "../../UI/BrandIdSelect"
-import Input from "../../UI/DeviceModalInput"
 import ImageInput from "../../UI/ImageInput"
 import NameInput from "../../UI/NameInput"
 import PriceInput from "../../UI/PriceInput"
@@ -13,57 +8,49 @@ import TypeIdSelect from "../../UI/TypeIdSelect"
 import DeviceInfo from "./DeviceInfo"
 import { DeviceModalDispatch, DeviceModalState } from "./DeviceModal"
 
-const DeviceModalFields:FC<IDeviceModalFields> = ({deviceStates, handleClick}) => {
+const DeviceModalFields = () => {
 
-    const state:any = useContext(DeviceModalState)
-    const dispatch:any = useContext(DeviceModalDispatch)
+    const state = useContext(DeviceModalState)
+    const dispatch = useContext(DeviceModalDispatch)
 
-    // useEffect(()=> {
-    //     let validModal = [deviceStates.typeId.valid, 
-    //         deviceStates.brandId.valid, 
-    //         deviceStates.name.valid, 
-    //         deviceStates.price.valid,
-    //         deviceStates.image.valid].findIndex( val => 
-    //         val !== ValidationResult.success
-    //     )
+    const checkFielsBeforeSend = () => {
+        (state!.typeId.valid === ValidationResult.firstAddition) && 
+            dispatch!({type:'changeTypeId', payload:{value: 0, valid: ValidationResult.error}});
 
-    //     let validInfo = deviceStates.info.findIndex(i => 
-    //         i.titleValid !== ValidationResult.success ||
-    //         i.descriptionValid !== ValidationResult.success)
+        (state!.brandId.valid === ValidationResult.firstAddition) && 
+            dispatch!({type:'changeBrandId', payload:{value: 0, valid: ValidationResult.error}});
 
-    //     if(validModal !== -1 || validInfo !== -1 || !deviceStates.image) {
-    //         deviceStates.setDeviceFormError({...deviceStates.deviceFormError,status:true})
-    //     } else {
-    //         deviceStates.setDeviceFormError({status:false, message: ''})
-    //     }
-    // },[ deviceStates.typeId, 
-    //     deviceStates.brandId, 
-    //     deviceStates.name, 
-    //     deviceStates.price, 
-    //     deviceStates.image, 
-    //     deviceStates.info
-    // ])   
-    const testClick = (e:any) => {
+        (state!.name.valid === ValidationResult.firstAddition) && 
+            dispatch!({type:'changeName', payload:{value: '', valid: ValidationResult.error}});
+
+        (state!.price.valid === ValidationResult.firstAddition) && 
+            dispatch!({type:'changePrice', payload:{value: '', valid: ValidationResult.error}});
+
+        (state!.image.valid === ValidationResult.firstAddition) && 
+            dispatch!({type:'selectImage', payload:{value: '', valid: ValidationResult.error}});
+
+        
+        
+    }
+  
+    const testClick = (e:MouseEvent<HTMLButtonElement>) => {
+
+        checkFielsBeforeSend()
+
         const val = [
-            state.typeIdValid, 
-            state.brandIdValid,
-            state.nameValid, 
-            state.priceValid, 
+            state!.typeId.valid, 
+            state!.brandId.valid,
+            state!.name.valid, 
+            state!.price.valid,
+            state!.image.valid 
            ].findIndex(val => 
                 val !== ValidationResult.success
             )
+        
         if(val === -1) {
-            console.log('send ' + val)
-            console.log(state.typeIdValid, 
-                state.brandIdValid,
-                state.nameValid, 
-                state.priceValid)
+            console.log('send')
         } else {
-            console.log('dont send ' + val)
-            console.log(state.typeIdValid, 
-                state.brandIdValid,
-                state.nameValid, 
-                state.priceValid)
+            console.log('dont send')
         }
         
     }
@@ -78,7 +65,6 @@ const DeviceModalFields:FC<IDeviceModalFields> = ({deviceStates, handleClick}) =
             <ImageInput/>
             <DeviceInfo />
             <button onClick={e => testClick(e)}>сохранить устройство</button>
-            {deviceStates.deviceFormError.message && <ErrorModal error={deviceStates.deviceFormError.message} />}
         </div>
     )
 }
