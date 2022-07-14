@@ -57,7 +57,6 @@ export const deviceModalReducer = (state:IDeviceModalState, action:IDeviceReduce
         case 'removeInfo':
             return {...state, info: state.info.filter((i:IDeviceInfo) => 
                 i.id !== action.payload)
-            }
-            
+            }  
     }
 }

@@ -13,24 +13,15 @@ const DeviceModal = () => {
 
     const [createDevice, { isLoading}] = useCreateDeviceMutation()
 
-    const handleClick = (e:MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
-
-
-
-        // if(!deviceFormError.status) {
-        //     setDeviceFormError({...deviceFormError, message:""})
-        //     const formData = new FormData()
-        //     formData.append('typeId', String(typeId.id))
-        //     formData.append('brandId', String(brandId.id))
-        //     formData.append('name', name.value)
-        //     formData.append('price', price.value)
-        //     formData.append('img', image.file)
-        //     formData.append('info', JSON.stringify(info))
-        //     createDevice(formData)
-        // } else {
-        //     setDeviceFormError({...deviceFormError, message:"исправьте форму"})
-        // }
+    const sendDeviceForm = () => {
+        const formData = new FormData()
+        formData.append('typeId', String(state.typeId.value))
+        formData.append('brandId', String(state.brandId.value))
+        formData.append('name', state.name.value)
+        formData.append('price', state.price.value)
+        formData.append('img', state.image.value)
+        formData.append('info', JSON.stringify(state.info))
+        createDevice(formData)
     }
 
     if(isLoading) return <h3>saved...</h3>
@@ -38,7 +29,7 @@ const DeviceModal = () => {
     return (
         <DeviceModalState.Provider value={state}>
             <DeviceModalDispatch.Provider value={dispatch}>
-                <DeviceModalFields />
+                <DeviceModalFields sendDeviceForm={sendDeviceForm} />
             </DeviceModalDispatch.Provider>
         </DeviceModalState.Provider>
     )

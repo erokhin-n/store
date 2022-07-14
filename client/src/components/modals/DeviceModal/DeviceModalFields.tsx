@@ -1,5 +1,6 @@
-import { useContext, MouseEvent } from "react"
+import { useContext, MouseEvent, FC } from "react"
 import { ValidationResult } from "../../../enum/enum"
+import { IDeviceFormFields } from "../../../interface/interface"
 import BrandIdSelect from "../../UI/BrandIdSelect"
 import ImageInput from "../../UI/ImageInput"
 import NameInput from "../../UI/NameInput"
@@ -8,7 +9,7 @@ import TypeIdSelect from "../../UI/TypeIdSelect"
 import DeviceInfo from "./DeviceInfo"
 import { DeviceModalDispatch, DeviceModalState } from "./DeviceModal"
 
-const DeviceModalFields = () => {
+const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
 
     const state = useContext(DeviceModalState)
     const dispatch = useContext(DeviceModalDispatch)
@@ -29,33 +30,30 @@ const DeviceModalFields = () => {
         (state!.image.valid === ValidationResult.firstAddition) && 
             dispatch!({type:'selectImage', payload:{value: '', valid: ValidationResult.error}});
 
-        
+        state!.info.map(i => (i.titleValid === ValidationResult.firstAddition) && 
+            dispatch!({type:'changeTitle', payload: {value: '', id:i.id, valid:ValidationResult.error}}))
+
+        state!.info.map(i => (i.descriptionValid === ValidationResult.firstAddition) && 
+            dispatch!({type:'changeDescription', payload: {value: '', id:i.id, valid:ValidationResult.error}}))
         
     }
   
     const testClick = (e:MouseEvent<HTMLButtonElement>) => {
-
+        e.preventDefault()
         checkFielsBeforeSend()
 
-        const val = [
-            state!.typeId.valid, 
-            state!.brandId.valid,
-            state!.name.valid, 
-            state!.price.valid,
-            state!.image.valid 
-           ].findIndex(val => 
-                val !== ValidationResult.success
-            )
+        const modalValid = [state!.typeId.valid, state!.brandId.valid,
+            state!.name.valid, state!.price.valid,state!.image.valid ].findIndex(
+                element => element !== ValidationResult.success)
+
+        const infoTitleValid = state!.info.findIndex(i => i.titleValid !== ValidationResult.success)
+        const infoDescriptionValid = state!.info.findIndex(i => i.descriptionValid !== ValidationResult.success)
         
-        if(val === -1) {
-            console.log('send')
-        } else {
-            console.log('dont send')
+        if((modalValid === -1 &&  infoTitleValid === -1 && infoDescriptionValid === -1 )) {
+            sendDeviceForm()  
         }
         
     }
-
-    
     return (
         <div>
             <TypeIdSelect />

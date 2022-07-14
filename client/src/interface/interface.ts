@@ -162,3 +162,7 @@ export interface IBasket {
     id: string;
     userId: string;
 }
+
+export interface IDeviceFormFields {
+    sendDeviceForm: () => void
+}
