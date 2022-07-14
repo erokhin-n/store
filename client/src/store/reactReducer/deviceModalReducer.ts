@@ -1,5 +1,9 @@
 import { ValidationResult } from "../../enum/enum";
-import { IDevice, IDeviceInfo, IDeviceModalState, IDeviceReducerActions } from "../../interface/interface";
+import { IDeviceInfo, IDeviceModalState, IDeviceReducerActions } from "../../interface/interface";
+
+export const init = (initialState:any) => {
+    return {...initialState}
+}
 
 export const initialState = {
     typeId: {value:0, valid: ValidationResult.firstAddition},
@@ -57,6 +61,8 @@ export const deviceModalReducer = (state:IDeviceModalState, action:IDeviceReduce
         case 'removeInfo':
             return {...state, info: state.info.filter((i:IDeviceInfo) => 
                 i.id !== action.payload)
-            }  
+            }
+        case 'reset':
+            return init(action.payload)  
     }
 }

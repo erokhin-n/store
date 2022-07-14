@@ -145,7 +145,8 @@ export type IDeviceReducerActions =
     | {type: 'addInfo'; payload: IDeviceInfo[]}
     | {type: 'changeTitle'; payload: {value: string, id: string, valid: string}}
     | {type: 'changeDescription'; payload: {value: string, id: string, valid: string}}
-    | {type: 'removeInfo'; payload: string};
+    | {type: 'removeInfo'; payload: string}
+    | {type: 'reset'; payload: IDeviceModalState};
     
 
 

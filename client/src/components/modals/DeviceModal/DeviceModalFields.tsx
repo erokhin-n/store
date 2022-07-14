@@ -1,6 +1,7 @@
 import { useContext, MouseEvent, FC } from "react"
 import { ValidationResult } from "../../../enum/enum"
 import { IDeviceFormFields } from "../../../interface/interface"
+import { initialState } from "../../../store/reactReducer/deviceModalReducer"
 import BrandIdSelect from "../../UI/BrandIdSelect"
 import ImageInput from "../../UI/ImageInput"
 import NameInput from "../../UI/NameInput"
@@ -38,7 +39,7 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
         
     }
   
-    const testClick = (e:MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         checkFielsBeforeSend()
 
@@ -50,7 +51,8 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
         const infoDescriptionValid = state!.info.findIndex(i => i.descriptionValid !== ValidationResult.success)
         
         if((modalValid === -1 &&  infoTitleValid === -1 && infoDescriptionValid === -1 )) {
-            sendDeviceForm()  
+            sendDeviceForm() 
+            dispatch!({type:'reset', payload: initialState}) 
         }
         
     }
@@ -62,7 +64,7 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
             <PriceInput />
             <ImageInput/>
             <DeviceInfo />
-            <button onClick={e => testClick(e)}>сохранить устройство</button>
+            <button onClick={e => handleClick(e)}>сохранить устройство</button>
         </div>
     )
 }

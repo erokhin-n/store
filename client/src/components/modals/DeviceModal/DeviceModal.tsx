@@ -2,14 +2,14 @@ import { MouseEvent, createContext, useReducer, Dispatch } from "react"
 import {  IDeviceModalState, IDeviceReducerActions } from "../../../interface/interface"
 import { useCreateDeviceMutation } from "../../../store/apiSlice/deviceSlice";
 import DeviceModalFields from "./DeviceModalFields";
-import { deviceModalReducer, initialState } from "../../../store/reactReducer/deviceModalReducer";
+import { deviceModalReducer, init, initialState } from "../../../store/reactReducer/deviceModalReducer";
 
 export const DeviceModalDispatch = createContext<Dispatch<IDeviceReducerActions> | null>(null)
 export const DeviceModalState= createContext<IDeviceModalState | null>(null)
 
 const DeviceModal = () => {
 
-    const [state, dispatch] = useReducer(deviceModalReducer, initialState)
+    const [state, dispatch] = useReducer(deviceModalReducer, initialState, init)
 
     const [createDevice, { isLoading}] = useCreateDeviceMutation()
 
