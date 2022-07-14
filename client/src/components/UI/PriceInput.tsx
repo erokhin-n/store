@@ -1,6 +1,5 @@
 import { FC, useContext } from "react"
 import { ValidationResult } from "../../enum/enum"
-import { INameAndPriceInput } from "../../interface/interface"
 import { priceFormValidation } from "../../validation/DeviceFormValidation"
 import { DeviceModalDispatch, DeviceModalState } from "../modals/DeviceModal/DeviceModal"
 

@@ -1,6 +1,5 @@
 import { ChangeEvent, FC, useContext } from "react"
 import { ValidationResult } from "../../enum/enum"
-import { IImageInput } from "../../interface/interface"
 import { deviceImageValidation } from "../../validation/DeviceFormValidation"
 import { DeviceModalDispatch, DeviceModalState } from "../modals/DeviceModal/DeviceModal"
 

@@ -1,6 +1,5 @@
 import { FC, useContext } from "react"
 import { ValidationResult } from "../../enum/enum"
-import { ISelect, ITypeAndBrand } from "../../interface/interface"
 import { useGetAllBrandsQuery } from "../../store/apiSlice/brandSlice"
 import { deviceFormValidation } from "../../validation/DeviceFormValidation"
 import ErrorModal from "../ErrorModal"

@@ -79,61 +79,12 @@ export interface IAuthFormFields {
     }
 }
 
-export interface IDeviceStoreInitialState {
-    brands: ITypeAndBrand[];
-    types: ITypeAndBrand[];
-    devices: IDevice[];
-}
-
 export interface IDeviceInfo {
     title: string;
     titleValid?: string;
     description: string;
     descriptionValid?: string;
     id: string;
-}
-
-export interface ISelect {
-    defaultValue: string;
-    valid:string;
-    elements: ITypeAndBrand[] | undefined;
-    setValue: Dispatch<SetStateAction<ITypeIdAndBrandId>>;
-}
-
-export interface INameAndPriceInput {
-    inputView: string;
-    element: {value: string, valid: string};
-    setValue: Dispatch<SetStateAction<INameAndPrice>>;
-}
-
-export interface IImageInput {
-    image: {file:string | Blob, valid: string};
-    setValue: Dispatch<SetStateAction<IImage>>;
-}
-
-export interface ITypeIdAndBrandId {
-    id: number;
-    valid: string;
-}
-
-export interface INameAndPrice {
-    value: string;
-    valid: string;
-}
-
-export interface IImage {
-    file:string | Blob;
-    valid:string;
-}
-
-export interface IDeviceInfoComponent {
-    info: IDeviceInfo[];
-    setValue: Dispatch<SetStateAction<IDeviceInfo[]>>;
-}
-
-export interface IDeviceFormError {
-    status:boolean;
-    message: string;
 }
 
 export type IDeviceReducerActions = 

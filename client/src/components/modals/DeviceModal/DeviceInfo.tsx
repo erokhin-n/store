@@ -1,6 +1,6 @@
 import { FC, useEffect, MouseEvent, useContext} from "react"
 import { ValidationResult } from "../../../enum/enum"
-import { IDeviceInfo, IDeviceInfoComponent } from "../../../interface/interface"
+import { IDeviceInfo } from "../../../interface/interface"
 import { deviceFormValidation, deviceInfoValidation } from "../../../validation/DeviceFormValidation"
 import { v4 as uuidv4 } from 'uuid';
 import { DeviceModalDispatch, DeviceModalState } from "./DeviceModal";
