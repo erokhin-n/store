@@ -1,23 +1,17 @@
-import { Dispatch, SetStateAction } from "react"
+import { ValidationResult } from "../enum/enum"
 
-export const emailValidation = (
-    str:string, 
-    setEmailError:Dispatch<SetStateAction<string>>
-) => {
+export const emailValidation = (str:string) => {
     if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(str)) {
-        setEmailError('необходимо заполнить почту в формате: "yourmail@mail.com"')
+        return ValidationResult.error
     } else {
-        setEmailError('')
+        return ValidationResult.success
     }
 }
 
-export const passwordValidation = (
-    str:string, 
-    setPasswordError:Dispatch<SetStateAction<string>>
-) => {
+export const passwordValidation = (str:string) => {
     if(!str.match(/^[A-Za-z]\w{7,14}$/)) {
-        setPasswordError("пароль должен начинаться с буквы, длинна пароля должна быть от 7 до 16 букв или цифр")
+        return ValidationResult.error
     } else {
-        setPasswordError('')
+        return ValidationResult.success
     }
 }

@@ -1,31 +1,60 @@
-import { FC } from "react"
+import { FC, useContext, MouseEvent } from "react"
 import { Link } from "react-router-dom"
-import { EnumRoute, formView } from "../../enum/enum"
+import { EnumRoute, formView, ValidationResult } from "../../enum/enum"
 import {  IAuthFormFields } from "../../interface/interface"
 import ErrorModal from "../ErrorModal"
 import { emailValidation, passwordValidation } from "../../validation/AuthValidation"
 import style from './AuthFormFields.module.css'
+import { LoginActions, LoginState } from "../../pages/Login"
 
 const AuthFormFields:FC<IAuthFormFields>=({sendForm,  
     authFormStates, 
     loginInformation, 
     adminRegStates, }) => {
 
+    const state = useContext(LoginState)
+    const dispatch = useContext(LoginActions)
+
     const changeEmail = (e:string)  => {
-        if(authFormStates.emailError) emailValidation(e, authFormStates.setEmailError)
-        if(adminRegStates!.setAdminRegMessage) adminRegStates!.setAdminRegMessage('')
-        authFormStates.setServerError('')
-        authFormStates.setSubmitError('')
-        authFormStates.setEmail(e)
+        if(state?.email.valid === ValidationResult.error) {
+            dispatch!({type:"setEmailValueAndValidation",
+                payload: {value: e,valid:emailValidation(e)}
+            })
+        }
+        // if(adminRegStates!.setAdminRegMessage) adminRegStates!.setAdminRegMessage('')
+        // authFormStates.setServerError('')
+        // authFormStates.setSubmitError('')
+        // authFormStates.setEmail(e)
+        dispatch!({type:'setEmail', payload: e})
+        
     }
 
     const changePassword = (e:string) => {
-        if(authFormStates.passwordError) passwordValidation(e, authFormStates.setPasswordError)
-        if(adminRegStates!.setAdminRegMessage) adminRegStates!.setAdminRegMessage('')
-        authFormStates.setServerError('')
-        authFormStates.setSubmitError('')
-        authFormStates.setPassword(e)
+        if(state?.password.valid === ValidationResult.error) {
+            dispatch!({type:"setPasswordValueAndValidation",
+                payload: {value: e,valid:passwordValidation(e)}
+            })
+        }
+        // if(adminRegStates!.setAdminRegMessage) adminRegStates!.setAdminRegMessage('')
+        // authFormStates.setServerError('')
+        // authFormStates.setSubmitError('')
+        // authFormStates.setEmail(e)
+        dispatch!({type:'setPassword', payload: e})
     } 
+
+    const sendFormOnServer = (e:MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        console.log("email " + state!.email.valid)
+        console.log("password " + state!.password.valid)
+        dispatch!({
+            type:"setEmailValidation", 
+            payload: emailValidation(state!.email.value)
+        })
+        dispatch!({
+            type:"setPasswordValidation", 
+            payload: passwordValidation(state!.password.value)
+        })
+    }
 
     return (
         <form 
@@ -34,23 +63,23 @@ const AuthFormFields:FC<IAuthFormFields>=({sendForm,
             <input 
                 type="text" 
                 placeholder="введите почту"
-                className={authFormStates.emailError ? 
+                className={state!.email.valid === ValidationResult.error ? 
                     [style.inputError, style.input].join(' ') : 
                     style.input}
-                value={authFormStates.email}
+                value={state?.email.value}
                 onChange={e => changeEmail(e.target.value)}
-                onBlur={() => emailValidation(authFormStates.email, authFormStates.setEmailError)}
+                // onBlur={() => emailValidation(authFormStates.email, authFormStates.setEmailError)}
             />
             {authFormStates.emailError && <ErrorModal error={authFormStates.emailError} />}
             <input
                 type="text"
                 placeholder="введите пароль"
-                className={authFormStates.passwordError ? 
+                className={state!.password.valid === ValidationResult.error ? 
                     [style.inputError, style.input].join(' ') : 
                     style.input}
-                value={authFormStates.password}
+                value={state!.password.value}
                 onChange={e => changePassword(e.target.value)}
-                onBlur={() =>  passwordValidation(authFormStates.password, authFormStates.setPasswordError)}
+                // onBlur={() =>  passwordValidation(authFormStates.password, authFormStates.setPasswordError)}
             />
             {authFormStates.passwordError && <ErrorModal error={authFormStates.passwordError} />}
             {authFormStates.submitError && <ErrorModal error={authFormStates.submitError} /> }
@@ -65,7 +94,7 @@ const AuthFormFields:FC<IAuthFormFields>=({sendForm,
             {adminRegStates!.adminRegMessage}
             <button 
                 className="authFormButton"
-                onClick={ e =>  sendForm(e)}
+                onClick={ e =>  sendFormOnServer(e)}
             >
                 {loginInformation === formView.super_admin ? 
                     'регистрация админа' : 

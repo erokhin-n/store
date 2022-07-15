@@ -26,15 +26,34 @@ export interface IDevicesResponse<T> {
 
 export interface IAuthForm {
     pagesStates: {
-        hideValidationError: boolean;
-        setHideValidationError: Dispatch<SetStateAction<boolean>>;
-        adminRegMessage?: string | '';
-        setAdminRegMessage?: Dispatch<SetStateAction<string>>;
+        // hideValidationError: boolean;
+        // setHideValidationError: Dispatch<SetStateAction<boolean>>;
+        // adminRegMessage?: string | '';
+        // setAdminRegMessage?: Dispatch<SetStateAction<string>>;
     }
     fetchForm: (email: string, password: string) => void;
-    loginInformation: "login" | "registration" | "super_admin";
-    errorServerMessage: string | undefined;
+    // loginInformation: "login" | "registration" | "super_admin";
+    // errorServerMessage: string | undefined;
 }
+
+export interface IAuthFormState {
+    pageView: string,
+    hideValidationError: boolean,
+    adminRegMessage: string,
+    serverErrorMessage: string,  
+    email: {value: string, valid:string},
+    password: {value: string, valid:string},
+}
+
+export type IAuthFormActions = 
+    | {type: 'setPageView', payload: string}
+    | {type: 'setHideValidationError', payload: boolean}
+    | {type: 'setEmail', payload: string}
+    | {type: 'setEmailValidation', payload: string}
+    | {type: 'setEmailValueAndValidation', payload: {value: string,valid:string}}
+    | {type: 'setPassword', payload: string}
+    | {type: 'setPasswordValidation', payload: string}
+    | {type: 'setPasswordValueAndValidation', payload: {value: string,valid:string}}
 
 export interface IAuthData {
     email: string;

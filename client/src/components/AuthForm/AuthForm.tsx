@@ -1,15 +1,18 @@
-import { FC, FormEvent, MouseEventHandler, useEffect, useState } from "react"
+import { FC, FormEvent, MouseEventHandler, useContext, useEffect, useState } from "react"
 import { IAuthForm } from "../../interface/interface"
 import AuthFormFields from "./AuthFormFields";
 import { emailValidation, passwordValidation } from "../../validation/AuthValidation";
 import { formView } from "../../enum/enum";
+import { LoginActions } from "../../pages/Login";
 
-const AuthForm:FC<IAuthForm> = ({
+const AuthForm:FC<any> = ({
     pagesStates,
     fetchForm,
     errorServerMessage,
     loginInformation,
 }) => {
+
+    const dispatch = useContext(LoginActions)
      
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
@@ -40,8 +43,8 @@ const AuthForm:FC<IAuthForm> = ({
 
     const sendForm = (event:FormEvent<HTMLButtonElement>) => {
         event.preventDefault()
-        passwordValidation(password, setPasswordError)
-        emailValidation(email, setEmailError)
+        // passwordValidation(password, setPasswordError)
+        // emailValidation(email, setEmailError)
    
         if( !emailError && 
             !passwordError &&
@@ -62,7 +65,7 @@ const AuthForm:FC<IAuthForm> = ({
 
     const handleClick:MouseEventHandler<HTMLElement> = (e) => {
         e.stopPropagation()
-        pagesStates.setHideValidationError(false)
+        dispatch!({type:'setHideValidationError', payload:false})
     }
 
     useEffect(()=> {

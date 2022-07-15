@@ -1,12 +1,19 @@
-import { FormEvent, MouseEventHandler, useState } from "react"
+import { createContext, FormEvent, MouseEventHandler, useState, Dispatch, useReducer } from "react"
 import { useNavigate } from "react-router-dom"
 import AuthForm from "../components/AuthForm/AuthForm"
 import { EnumRoute, formView } from "../enum/enum"
+import { IAuthFormActions, IAuthFormState } from "../interface/interface"
 import { useLoginMutation } from "../store/apiSlice/userSlice"
+import { authFormReducer, initialState } from "../store/reactReducer/authFormReducer"
+
+export const LoginState = createContext<IAuthFormState | null>(null)
+export const LoginActions = createContext<Dispatch<IAuthFormActions> | null>(null)
 
 const Login = () => {
 
     const [login, {data, error, isSuccess}] = useLoginMutation()
+
+    const [state, dispatch] = useReducer(authFormReducer, initialState)
 
     const [hideValidationError, setHideValidationError] = useState<boolean>(false)
 
@@ -33,21 +40,26 @@ const Login = () => {
     }
 
     const hideValidation:MouseEventHandler<HTMLElement> = (e):void => {
-        setHideValidationError(true)
+        dispatch({type:"setHideValidationError", payload: true})
     }
 
     const pagesStates = {hideValidationError, setHideValidationError}
 
     return (
-        <section onClick={hideValidation} style={{background: 'lightblue', height: '1000px'}}>
-            <AuthForm
-                pagesStates={pagesStates}
-                fetchForm={fetchForm}
-                errorServerMessage={errorServerMessage}
-                loginInformation={formView.login}
-            />
-        </section>
+        <LoginState.Provider value={state}>
+            <LoginActions.Provider value={dispatch}>
+                <section onClick={hideValidation} style={{background: 'lightblue', height: '1000px'}}>
+                    <AuthForm
+                        pagesStates={pagesStates}
+                        fetchForm={fetchForm}
+                        errorServerMessage={errorServerMessage}
+                        loginInformation={formView.login}
+                    />
+                </section>
+            </LoginActions.Provider>
+        </LoginState.Provider>
     )
 }
 
 export default Login
+
