@@ -1,8 +1,8 @@
-import { ValidationResult } from "../../enum/enum";
+import { formView, ValidationResult } from "../../enum/enum";
 import { IAuthFormActions, IAuthFormState } from "../../interface/interface"
 
 export const initialState = {
-    pageView: '',
+    formView: formView.login,
     serverErrorMessage: '',
     hideValidationError: false,
     adminRegMessage: '',
@@ -28,5 +28,7 @@ export const authFormReducer = (state:IAuthFormState, action:IAuthFormActions) =
             return {...state, password: {...state.password, valid: action.payload}}
         case 'setPasswordValueAndValidation':
             return {...state, password: {value: action.payload.valid, valid: action.payload.valid}}
+        case 'setFormView':
+            return {...state, formView: action.payload}
     }
 }

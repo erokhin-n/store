@@ -12,6 +12,7 @@ export const LoginActions = createContext<Dispatch<IAuthFormActions> | null>(nul
 const Login = () => {
 
     const [login, {data, error, isSuccess}] = useLoginMutation()
+    console.log(data)
 
     const [state, dispatch] = useReducer(authFormReducer, initialState)
 
@@ -49,12 +50,7 @@ const Login = () => {
         <LoginState.Provider value={state}>
             <LoginActions.Provider value={dispatch}>
                 <section onClick={hideValidation} style={{background: 'lightblue', height: '1000px'}}>
-                    <AuthForm
-                        pagesStates={pagesStates}
-                        fetchForm={fetchForm}
-                        errorServerMessage={errorServerMessage}
-                        loginInformation={formView.login}
-                    />
+                    <AuthForm />
                 </section>
             </LoginActions.Provider>
         </LoginState.Provider>

@@ -52,12 +52,7 @@ const SuperAdminPage = () => {
         <section className={style.body} onClick={hideValidation} style={{background: 'darkgray', height: 'auto'}}>
             <div>
                 <h3>регистрация администратора</h3>
-                <AuthForm
-                    pagesStates={pagesStates}
-                    fetchForm={fetchForm}
-                    errorServerMessage={errorServerMessage}
-                    loginInformation={formView.super_admin}
-                />   
+                <AuthForm/>   
             </div> 
             <UserList />
         </section>

@@ -1,51 +1,37 @@
-import { FC, useContext, MouseEvent } from "react"
-import { Link } from "react-router-dom"
-import { EnumRoute, formView, ValidationResult } from "../../enum/enum"
-import {  IAuthFormFields } from "../../interface/interface"
-import ErrorModal from "../ErrorModal"
+import { useContext, MouseEvent } from "react"
+import { formView, ValidationResult } from "../../enum/enum"
 import { emailValidation, passwordValidation } from "../../validation/AuthValidation"
 import style from './AuthFormFields.module.css'
 import { LoginActions, LoginState } from "../../pages/Login"
+import { useLoginMutation } from "../../store/apiSlice/userSlice"
 
-const AuthFormFields:FC<IAuthFormFields>=({sendForm,  
-    authFormStates, 
-    loginInformation, 
-    adminRegStates, }) => {
+const AuthFormFields= () => {
 
     const state = useContext(LoginState)
     const dispatch = useContext(LoginActions)
 
+    const [login, {data, error, isSuccess}] = useLoginMutation()
+
     const changeEmail = (e:string)  => {
-        if(state?.email.valid === ValidationResult.error) {
+        if(state?.email.valid !== ValidationResult.firstAddition) {
             dispatch!({type:"setEmailValueAndValidation",
                 payload: {value: e,valid:emailValidation(e)}
             })
         }
-        // if(adminRegStates!.setAdminRegMessage) adminRegStates!.setAdminRegMessage('')
-        // authFormStates.setServerError('')
-        // authFormStates.setSubmitError('')
-        // authFormStates.setEmail(e)
         dispatch!({type:'setEmail', payload: e})
-        
     }
 
     const changePassword = (e:string) => {
-        if(state?.password.valid === ValidationResult.error) {
+        if(state?.password.valid !== ValidationResult.firstAddition) {
             dispatch!({type:"setPasswordValueAndValidation",
                 payload: {value: e,valid:passwordValidation(e)}
             })
         }
-        // if(adminRegStates!.setAdminRegMessage) adminRegStates!.setAdminRegMessage('')
-        // authFormStates.setServerError('')
-        // authFormStates.setSubmitError('')
-        // authFormStates.setEmail(e)
         dispatch!({type:'setPassword', payload: e})
     } 
 
-    const sendFormOnServer = (e:MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        console.log("email " + state!.email.valid)
-        console.log("password " + state!.password.valid)
         dispatch!({
             type:"setEmailValidation", 
             payload: emailValidation(state!.email.value)
@@ -54,6 +40,21 @@ const AuthFormFields:FC<IAuthFormFields>=({sendForm,
             type:"setPasswordValidation", 
             payload: passwordValidation(state!.password.value)
         })
+        if(state!.email.valid === ValidationResult.success &&
+            state!.password.valid === ValidationResult.success   
+        ) {
+            console.log('send')
+            if(state!.formView === formView.login) {
+                console.log('login')
+                login({email: state!.email.value, password: state!.password.value})
+            } else if (state!.formView === formView.registration) {
+                console.log('registration')
+            } else if(state!.formView === formView.super_admin) {
+                console.log('super_admin')
+            }
+        } else {
+            console.log('dont send')
+        }
     }
 
     return (
@@ -70,7 +71,7 @@ const AuthFormFields:FC<IAuthFormFields>=({sendForm,
                 onChange={e => changeEmail(e.target.value)}
                 // onBlur={() => emailValidation(authFormStates.email, authFormStates.setEmailError)}
             />
-            {authFormStates.emailError && <ErrorModal error={authFormStates.emailError} />}
+            {/* {authFormStates.emailError && <ErrorModal error={authFormStates.emailError} />} */}
             <input
                 type="text"
                 placeholder="введите пароль"
@@ -81,36 +82,46 @@ const AuthFormFields:FC<IAuthFormFields>=({sendForm,
                 onChange={e => changePassword(e.target.value)}
                 // onBlur={() =>  passwordValidation(authFormStates.password, authFormStates.setPasswordError)}
             />
-            {authFormStates.passwordError && <ErrorModal error={authFormStates.passwordError} />}
-            {authFormStates.submitError && <ErrorModal error={authFormStates.submitError} /> }
-            {authFormStates.serverError && 
+            {/* {authFormStates.passwordError && <ErrorModal error={authFormStates.passwordError} />} */}
+            {/* {authFormStates.submitError && <ErrorModal error={authFormStates.submitError} /> } */}
+            {/* {authFormStates.serverError && 
                 <ErrorModal 
                     error={authFormStates.serverError
                         .split(":")[1]
                         .replace(/[\\\}]/gi, '')
                     } 
                 />
-            }
-            {adminRegStates!.adminRegMessage}
+            } */}
+            {/* {adminRegStates!.adminRegMessage} */}
             <button 
                 className="authFormButton"
-                onClick={ e =>  sendFormOnServer(e)}
+                onClick={ e =>  handleClick(e)}
             >
-                {loginInformation === formView.super_admin ? 
+                {state!.formView === formView.super_admin ? 
                     'регистрация админа' : 
-                    loginInformation === formView.login ?
+                    state!.formView === formView.login ?
                     "войти" : "регистрация"
                 }
             </button>
-            {loginInformation === formView.super_admin ?
+            {state!.formView === formView.super_admin ?
                 null :
-                (loginInformation === formView.login) ?
+                (state!.formView === formView.login) ?
                 <div>
-                    Нет аккаунта? <Link to={EnumRoute.Registration}>Зарегистрируйся</Link>
+                    Нет аккаунта? 
+                    <div onClick={()=> dispatch!({type:'setFormView', payload: formView.registration})}
+                        style={{cursor:'pointer', color:'blue'}}
+                    >
+                        зарегистрируйтесь
+                    </div>
                 </div>
                 :
                 <div>
-                    есть аккаунт? <Link to={EnumRoute.Login}>Войдите</Link>
+                    есть аккаунт? 
+                    <div onClick={()=> dispatch!({type:'setFormView', payload: formView.login})}
+                        style={{cursor:'pointer', color:'blue'}}
+                    >   
+                        войдите
+                    </div>
                 </div>    
             }
         </form>

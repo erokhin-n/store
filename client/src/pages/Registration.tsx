@@ -37,12 +37,7 @@ const Registration = () => {
 
     return (
         <section onClick={hideValidation} style={{background: 'lightblue', height: '1000px'}}>
-            <AuthForm
-                pagesStates={pagesStates}
-                fetchForm={fetchForm}
-                errorServerMessage={errorServerMessage}
-                loginInformation={formView.registration}
-            />
+            <AuthForm/>
         </section>
     )
 }

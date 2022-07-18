@@ -1,4 +1,5 @@
 import {  Dispatch, FormEvent, SetStateAction, MouseEvent } from "react";
+import { formView } from "../enum/enum";
 import { deviceModalReducer } from "../store/reactReducer/deviceModalReducer";
 
 export interface IDevice {
@@ -24,20 +25,9 @@ export interface IDevicesResponse<T> {
     rows: T[];
 }
 
-export interface IAuthForm {
-    pagesStates: {
-        // hideValidationError: boolean;
-        // setHideValidationError: Dispatch<SetStateAction<boolean>>;
-        // adminRegMessage?: string | '';
-        // setAdminRegMessage?: Dispatch<SetStateAction<string>>;
-    }
-    fetchForm: (email: string, password: string) => void;
-    // loginInformation: "login" | "registration" | "super_admin";
-    // errorServerMessage: string | undefined;
-}
 
 export interface IAuthFormState {
-    pageView: string,
+    formView: formView.login | formView.registration | formView.super_admin,
     hideValidationError: boolean,
     adminRegMessage: string,
     serverErrorMessage: string,  
@@ -54,6 +44,7 @@ export type IAuthFormActions =
     | {type: 'setPassword', payload: string}
     | {type: 'setPasswordValidation', payload: string}
     | {type: 'setPasswordValueAndValidation', payload: {value: string,valid:string}}
+    | {type: 'setFormView', payload: formView.login | formView.registration | formView.super_admin}
 
 export interface IAuthData {
     email: string;
@@ -73,29 +64,6 @@ export interface ITypeAndBrand {
 
 export interface IMessage {
     message: string;
-}
-
-export interface IAuthFormFields {
-    sendForm: (e:FormEvent<HTMLButtonElement>) => void;
-    authFormStates: {
-        email: string;
-        setEmail: Dispatch<SetStateAction<string>>;
-        password: string;
-        setPassword:Dispatch<SetStateAction<string>>;
-        emailError:string;
-        setEmailError: Dispatch<SetStateAction<string>>;
-        passwordError:string;
-        setPasswordError:Dispatch<SetStateAction<string>>;
-        serverError:string | undefined;
-        setServerError: Dispatch<SetStateAction<string | undefined>>;
-        submitError: string;
-        setSubmitError: Dispatch<SetStateAction<string>>;
-    }
-    loginInformation: "login" | "registration" | "super_admin";
-    adminRegStates?: {
-        adminRegMessage?: string | '';
-        setAdminRegMessage?: Dispatch<SetStateAction<string | ''>>;
-    }
 }
 
 export interface IDeviceInfo {
