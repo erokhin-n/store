@@ -1,7 +1,7 @@
 import { ValidationResult } from "../../enum/enum";
 import { IDeviceInfo, IDeviceModalState, IDeviceReducerActions } from "../../interface/interface";
 
-export const init = (initialState:any) => {
+export const init = (initialState:IDeviceModalState) => {
     return {...initialState}
 }
 

@@ -6,13 +6,9 @@ import { IAuthFormActions, IAuthFormState } from "../interface/interface"
 import { useLoginMutation } from "../store/apiSlice/userSlice"
 import { authFormReducer, initialState } from "../store/reactReducer/authFormReducer"
 
-export const LoginState = createContext<IAuthFormState | null>(null)
-export const LoginActions = createContext<Dispatch<IAuthFormActions> | null>(null)
-
 const Login = () => {
 
     const [login, {data, error, isSuccess}] = useLoginMutation()
-    console.log(data)
 
     const [state, dispatch] = useReducer(authFormReducer, initialState)
 
@@ -47,13 +43,9 @@ const Login = () => {
     const pagesStates = {hideValidationError, setHideValidationError}
 
     return (
-        <LoginState.Provider value={state}>
-            <LoginActions.Provider value={dispatch}>
-                <section onClick={hideValidation} style={{background: 'lightblue', height: '1000px'}}>
-                    <AuthForm />
-                </section>
-            </LoginActions.Provider>
-        </LoginState.Provider>
+        <section onClick={hideValidation} style={{background: 'lightblue', height: '1000px'}}>
+            <AuthForm />
+        </section>
     )
 }
 

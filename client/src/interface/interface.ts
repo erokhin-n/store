@@ -1,6 +1,4 @@
-import {  Dispatch, FormEvent, SetStateAction, MouseEvent } from "react";
 import { formView } from "../enum/enum";
-import { deviceModalReducer } from "../store/reactReducer/deviceModalReducer";
 
 export interface IDevice {
     id: number;
@@ -36,7 +34,6 @@ export interface IAuthFormState {
 }
 
 export type IAuthFormActions = 
-    | {type: 'setPageView', payload: string}
     | {type: 'setHideValidationError', payload: boolean}
     | {type: 'setEmail', payload: string}
     | {type: 'setEmailValidation', payload: string}
@@ -45,6 +42,8 @@ export type IAuthFormActions =
     | {type: 'setPasswordValidation', payload: string}
     | {type: 'setPasswordValueAndValidation', payload: {value: string,valid:string}}
     | {type: 'setFormView', payload: formView.login | formView.registration | formView.super_admin}
+    | {type: 'reset'}
+    | {type: 'superAdminReset'};
 
 export interface IAuthData {
     email: string;

@@ -1,7 +1,9 @@
+import { useContext } from "react"
 import { NavLink } from "react-router-dom"
 import { EnumRoute } from "../../enum/enum"
 import { useCheckQuery, useRemoveCookieMutation } from "../../store/apiSlice/userSlice"
 import style from './Navbar.module.css'
+import { LoginActions, LoginState } from "../../App"
 
 const Navbar = () => {
 
@@ -9,8 +11,11 @@ const Navbar = () => {
 
     const {data, isError,isSuccess, isLoading} = useCheckQuery()
 
+    const dispatch = useContext(LoginActions)
+
     const logout = () => {
         removeCookie()
+        dispatch!({type: 'reset'})
     }
 
     if(isLoading){

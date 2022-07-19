@@ -2,7 +2,7 @@ import { useContext, MouseEvent } from "react"
 import { formView, ValidationResult } from "../../enum/enum"
 import { emailValidation, passwordValidation } from "../../validation/AuthValidation"
 import style from './AuthFormFields.module.css'
-import { LoginActions, LoginState } from "../../pages/Login"
+import { LoginActions, LoginState } from "../../App"
 import { useLoginMutation } from "../../store/apiSlice/userSlice"
 
 const AuthFormFields= () => {
@@ -47,10 +47,12 @@ const AuthFormFields= () => {
             if(state!.formView === formView.login) {
                 console.log('login')
                 login({email: state!.email.value, password: state!.password.value})
+                dispatch!({type:'reset'})
             } else if (state!.formView === formView.registration) {
                 console.log('registration')
             } else if(state!.formView === formView.super_admin) {
                 console.log('super_admin')
+                dispatch!({type:'superAdminReset'})
             }
         } else {
             console.log('dont send')

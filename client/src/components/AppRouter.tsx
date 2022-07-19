@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom"
-import { useAppSelector } from "../hooks/hooks"
+import { useAppSelector } from "../hooks/dispatchAndSelectorHook"
 import WrongRoutePage from "../pages/WrongRoutePage"
 import { adminRoutes, publicRoutes, superAdminRoutes, userRoutes } from "../routes/routes"
 import { useCheckQuery } from "../store/apiSlice/userSlice"

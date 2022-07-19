@@ -3,8 +3,7 @@ import AdminPage from "../pages/AdminPage/AdminPage";
 import DevicePage from "../pages/DevicePage";
 import Shop from "../pages/Shop";
 import Basket from "../pages/Basket";
-import Registration from "../pages/Registration";
-import Login from "../pages/Login";
+import Login from "../pages/Enter";
 import SuperAdminPage from "../pages/SuperAdminPage/SuperAdminPage";
 
 export const adminRoutes = [
@@ -18,7 +17,6 @@ export const userRoutes = [
 export const publicRoutes = [
     {path: EnumRoute.Shop, element: Shop},
     {path: EnumRoute.Login, element: Login},
-    {path: EnumRoute.Registration, element: Registration},
     {path: EnumRoute.DevicePage, element: DevicePage},
 ]
 

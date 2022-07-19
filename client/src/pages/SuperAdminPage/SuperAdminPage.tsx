@@ -1,4 +1,5 @@
-import { MouseEventHandler, useState } from "react"
+import { MouseEventHandler, useContext, useEffect, useState } from "react"
+import { LoginActions } from "../../App"
 import AuthForm from "../../components/AuthForm/AuthForm"
 import UserList from "../../components/UserList/UserList"
 import { formView } from "../../enum/enum"
@@ -9,20 +10,12 @@ const SuperAdminPage = () => {
 
     const [registrationAdmin, { error}] = useRegistrationAdminMutation()
 
-    const [adminRegMessage, setAdminRegMessage] = useState<string | ''>('')
-    const [hideValidationError, setHideValidationError] = useState<boolean>(false)
+    const dispatch = useContext(LoginActions)
 
-    const fetchForm = async (email:string, password:string) => {
-        const response = await registrationAdmin({email, password})
-        if('data' in response) {
-            if('message' in response.data)
-            setAdminRegMessage(response.data.message)    
-        }
-    }
+    useEffect(()=> {
+        dispatch!({type:'setFormView', payload: formView.super_admin})
+    }, [])
 
-    if(adminRegMessage) {
-        setTimeout(() => setAdminRegMessage(''), 3000)
-    }
 
     let errorServerMessage:string | undefined
 
@@ -38,14 +31,7 @@ const SuperAdminPage = () => {
     }
 
     const hideValidation:MouseEventHandler<HTMLElement> = (e) => {
-        setHideValidationError(true)
-    }
-
-    const pagesStates = {
-        hideValidationError, 
-        setHideValidationError,
-        adminRegMessage,
-        setAdminRegMessage
+        // setHideValidationError(true)
     }
 
     return (
