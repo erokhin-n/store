@@ -1,5 +1,5 @@
 import { FC, useEffect, MouseEvent, useContext} from "react"
-import { ValidationResult } from "../../../enum/enum"
+import { ValidationResult } from "../../../enums/enums"
 import { IDeviceInfo } from "../../../interface/interface"
 import { deviceFormValidation, deviceInfoValidation } from "../../../validation/DeviceFormValidation"
 import { v4 as uuidv4 } from 'uuid';
@@ -14,9 +14,9 @@ const DeviceInfo = () => {
         e.preventDefault()
         dispatch!({type: "addInfo" ,payload: [...state!.info, {
             title: '',
-            titleValid:ValidationResult.firstAddition, 
+            titleValid:ValidationResult.FIRST_ADDITION, 
             description: '', 
-            descriptionValid:ValidationResult.firstAddition, 
+            descriptionValid:ValidationResult.FIRST_ADDITION, 
             id: uuidv4()}]})
     }
 
@@ -49,14 +49,14 @@ const DeviceInfo = () => {
                         value={i.title}
                         onChange = {e => changeTitle(e.target.value, i.id)}
                         placeholder="введите название"
-                        style={{'background': (i.titleValid !== ValidationResult.error)  ? 
+                        style={{'background': (i.titleValid !== ValidationResult.ERROR)  ? 
                         "white" : "red"}}
                     />
                     <input 
                         value={i.description}
                         onChange={e => changeDescription(e.target.value, i.id)}
                         placeholder="введите описание"
-                        style={{'background':( i.descriptionValid !== ValidationResult.error ) ? 
+                        style={{'background':( i.descriptionValid !== ValidationResult.ERROR ) ? 
                         "white" : "red"}}
                     />
                     

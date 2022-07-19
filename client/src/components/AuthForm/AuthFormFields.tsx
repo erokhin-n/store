@@ -1,5 +1,5 @@
 import { useContext, MouseEvent } from "react"
-import { formView, ValidationResult } from "../../enum/enum"
+import { formView, ValidationResult } from "../../enums/enums"
 import { emailValidation, passwordValidation } from "../../validation/AuthValidation"
 import style from './AuthFormFields.module.css'
 import { LoginActions, LoginState } from "../../App"
@@ -13,19 +13,19 @@ const AuthFormFields= () => {
     const [login, {data, error, isSuccess}] = useLoginMutation()
 
     const changeEmail = (e:string)  => {
-        if(state?.email.valid !== ValidationResult.firstAddition) {
-            dispatch!({type:"setEmailValueAndValidation",
-                payload: {value: e,valid:emailValidation(e)}
-            })
+        dispatch!({type:'setEmailValidationResult', payload: emailValidation(e)})
+        if(state?.email.validInfo !== ValidationResult.FIRST_ADDITION) {
+            dispatch!({type:"setEmail",payload: e})
+            dispatch!({type:"setEmailValidationInfo", payload: emailValidation(e)})
         }
         dispatch!({type:'setEmail', payload: e})
     }
 
     const changePassword = (e:string) => {
-        if(state?.password.valid !== ValidationResult.firstAddition) {
-            dispatch!({type:"setPasswordValueAndValidation",
-                payload: {value: e,valid:passwordValidation(e)}
-            })
+        dispatch!({type:'setPasswordValidationResult', payload: passwordValidation(e)})
+        if(state?.password.validInfo !== ValidationResult.FIRST_ADDITION) {
+            dispatch!({type:"setPassword", payload: e})
+            dispatch!({type:"setPasswordValidationInfo", payload: passwordValidation(e)})
         }
         dispatch!({type:'setPassword', payload: e})
     } 
@@ -33,15 +33,15 @@ const AuthFormFields= () => {
     const handleClick = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         dispatch!({
-            type:"setEmailValidation", 
+            type:"setEmailValidationInfo", 
             payload: emailValidation(state!.email.value)
         })
         dispatch!({
-            type:"setPasswordValidation", 
+            type:"setPasswordValidationInfo", 
             payload: passwordValidation(state!.password.value)
         })
-        if(state!.email.valid === ValidationResult.success &&
-            state!.password.valid === ValidationResult.success   
+        if(state!.email.validResult === ValidationResult.SUCCESS &&
+            state!.password.validResult ===  ValidationResult.SUCCESS   
         ) {
             console.log('send')
             if(state!.formView === formView.login) {
@@ -66,7 +66,7 @@ const AuthFormFields= () => {
             <input 
                 type="text" 
                 placeholder="введите почту"
-                className={state!.email.valid === ValidationResult.error ? 
+                className={state!.email.validInfo === ValidationResult.ERROR ? 
                     [style.inputError, style.input].join(' ') : 
                     style.input}
                 value={state?.email.value}
@@ -77,7 +77,7 @@ const AuthFormFields= () => {
             <input
                 type="text"
                 placeholder="введите пароль"
-                className={state!.password.valid === ValidationResult.error ? 
+                className={state!.password.validInfo === ValidationResult.ERROR ? 
                     [style.inputError, style.input].join(' ') : 
                     style.input}
                 value={state!.password.value}

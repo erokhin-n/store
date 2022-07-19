@@ -1,4 +1,4 @@
-import { ValidationResult } from "../../enum/enum";
+import { ValidationResult } from "../../enums/enums";
 import { IDeviceInfo, IDeviceModalState, IDeviceReducerActions } from "../../interface/interface";
 
 export const init = (initialState:IDeviceModalState) => {
@@ -6,11 +6,11 @@ export const init = (initialState:IDeviceModalState) => {
 }
 
 export const initialState = {
-    typeId: {value:0, valid: ValidationResult.firstAddition},
-    brandId: {value: 0, valid: ValidationResult.firstAddition},
-    name: {value: '', valid: ValidationResult.firstAddition},
-    price: {value: '', valid: ValidationResult.firstAddition},
-    image: {value:'', valid: ValidationResult.firstAddition},
+    typeId: {value:0, valid: ValidationResult.FIRST_ADDITION},
+    brandId: {value: 0, valid: ValidationResult.FIRST_ADDITION},
+    name: {value: '', valid: ValidationResult.FIRST_ADDITION},
+    price: {value: '', valid: ValidationResult.FIRST_ADDITION},
+    image: {value:'', valid: ValidationResult.FIRST_ADDITION},
     info: [],
 }
 

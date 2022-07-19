@@ -1,5 +1,5 @@
 import {  useContext } from "react"
-import { ValidationResult } from "../../enum/enum"
+import { ValidationResult } from "../../enums/enums"
 import { ITypeAndBrand } from "../../interface/interface"
 import { useGetAllTypesQuery } from "../../store/apiSlice/typeSlice"
 import { deviceFormValidation } from "../../validation/DeviceFormValidation"
@@ -20,7 +20,7 @@ const TypeIdSelect = () => {
         <div>
             <select 
                 style={{
-                    border: (state!.typeId.valid === ValidationResult.error) ? 
+                    border: (state!.typeId.valid === ValidationResult.ERROR) ? 
                     "3px solid red" : "1px solid black"
                 }}
             >

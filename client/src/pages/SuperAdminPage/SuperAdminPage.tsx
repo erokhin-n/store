@@ -2,7 +2,7 @@ import { MouseEventHandler, useContext, useEffect, useState } from "react"
 import { LoginActions } from "../../App"
 import AuthForm from "../../components/AuthForm/AuthForm"
 import UserList from "../../components/UserList/UserList"
-import { formView } from "../../enum/enum"
+import { formView } from "../../enums/enums"
 import { useRegistrationAdminMutation } from "../../store/apiSlice/userSlice"
 import style from './SuperAdminPage.module.css'
 

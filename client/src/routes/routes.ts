@@ -1,4 +1,4 @@
-import { EnumRoute } from "../enum/enum";
+import { EnumRoute } from "../enums/enums";
 import AdminPage from "../pages/AdminPage/AdminPage";
 import DevicePage from "../pages/DevicePage";
 import Shop from "../pages/Shop";
@@ -7,19 +7,19 @@ import Login from "../pages/Enter";
 import SuperAdminPage from "../pages/SuperAdminPage/SuperAdminPage";
 
 export const adminRoutes = [
-    {path:EnumRoute.AdminPage, element:AdminPage},
+    {path:EnumRoute.ADMIN_PAGE, element:AdminPage},
 ]
 
 export const userRoutes = [
-    {path: EnumRoute.Basket, element:Basket},
+    {path: EnumRoute.BASKET, element:Basket},
 ]
 
 export const publicRoutes = [
-    {path: EnumRoute.Shop, element: Shop},
-    {path: EnumRoute.Login, element: Login},
-    {path: EnumRoute.DevicePage, element: DevicePage},
+    {path: EnumRoute.SHOP, element: Shop},
+    {path: EnumRoute.LOGIN, element: Login},
+    {path: EnumRoute.DEVICE_PAGE, element: DevicePage},
 ]
 
 export const superAdminRoutes = [
-    {path:EnumRoute.SuperAdminPage, element:SuperAdminPage},
+    {path:EnumRoute.SUPER_ADMIN_PAGE, element:SuperAdminPage},
 ]

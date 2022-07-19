@@ -1,4 +1,4 @@
-import { formView, ValidationResult } from "../../enum/enum";
+import { formView, ValidationResult } from "../../enums/enums";
 import { IAuthFormActions, IAuthFormState } from "../../interface/interface"
 
 export const init = (initialState:IAuthFormState) => {
@@ -10,8 +10,8 @@ export const initialState = {
     serverErrorMessage: '',
     hideValidationError: false,
     adminRegMessage: '',
-    email: {value: '', valid:ValidationResult.firstAddition},
-    password: {value: '', valid:ValidationResult.firstAddition},
+    email: {value: '', validInfo:ValidationResult.FIRST_ADDITION, validResult: ValidationResult.FIRST_ADDITION},
+    password: {value: '', validInfo:ValidationResult.FIRST_ADDITION,validResult: ValidationResult.FIRST_ADDITION},
 }
 
 export const authFormReducer = (state:IAuthFormState, action:IAuthFormActions) => {
@@ -22,22 +22,26 @@ export const authFormReducer = (state:IAuthFormState, action:IAuthFormActions) =
             return {...state, hideValidationError: action.payload}
         case 'setEmail':
             return {...state, email: {...state.email, value: action.payload}}
-        case 'setEmailValidation':
-            return {...state, email: {...state.email, valid: action.payload}}
-        case 'setEmailValueAndValidation':
-            return {...state, email: {value: action.payload.valid, valid: action.payload.valid}}
+        case 'setEmailValidationInfo':
+            return {...state, email: {...state.email, validInfo: action.payload}}
+        case 'setEmailValidationResult':
+            return {...state, email: {...state.email, validResult: action.payload}}
         case 'setPassword':
             return {...state, password: {...state.password, value: action.payload}}
-        case 'setPasswordValidation':
-            return {...state, password: {...state.password, valid: action.payload}}
-        case 'setPasswordValueAndValidation':
-            return {...state, password: {value: action.payload.valid, valid: action.payload.valid}}
+        case 'setPasswordValidationInfo':
+            return {...state, password: {...state.password, validInfo: action.payload}}
+        case 'setPasswordValidationResult':
+            return {...state, password: {...state.password, validResult: action.payload}}
         case 'reset':
             return init(initialState)
         case 'superAdminReset':
             return {...state, 
-                email: {value: '', valid:ValidationResult.firstAddition},
-                password: {value: '', valid:ValidationResult.firstAddition} 
+                email: {value: '', validInfo:ValidationResult.FIRST_ADDITION,
+                    validResult: ValidationResult.FIRST_ADDITION
+                },
+                password: {value: '', validInfo:ValidationResult.FIRST_ADDITION, 
+                    validResult: ValidationResult.FIRST_ADDITION
+                } 
             }
     }
 }

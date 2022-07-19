@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Tags } from '../../enum/enum'
+import { Tags } from '../../enums/enums'
 
 export const indexSlice = createApi({
     reducerPath: 'api',

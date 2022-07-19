@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useContext } from "react"
-import { ValidationResult } from "../../enum/enum"
+import { ValidationResult } from "../../enums/enums"
 import { deviceImageValidation } from "../../validation/DeviceFormValidation"
 import { DeviceModalDispatch, DeviceModalState } from "../modals/DeviceModal/DeviceModal"
 
@@ -20,7 +20,7 @@ const ImageInput = () => {
         <div>
             <label>изображение</label>
             <input 
-                style={{background: (state!.image.valid === ValidationResult.error) ?
+                style={{background: (state!.image.valid === ValidationResult.ERROR) ?
                     "red" : "white"
                 }}
                 type="file"

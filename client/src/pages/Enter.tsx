@@ -1,7 +1,7 @@
 import { createContext, FormEvent, MouseEventHandler, useState, Dispatch, useReducer } from "react"
 import { useNavigate } from "react-router-dom"
 import AuthForm from "../components/AuthForm/AuthForm"
-import { EnumRoute, formView } from "../enum/enum"
+import { EnumRoute, formView } from "../enums/enums"
 import { IAuthFormActions, IAuthFormState } from "../interface/interface"
 import { useLoginMutation } from "../store/apiSlice/userSlice"
 import { authFormReducer, initialState } from "../store/reactReducer/authFormReducer"
@@ -12,17 +12,8 @@ const Login = () => {
 
     const [state, dispatch] = useReducer(authFormReducer, initialState)
 
-    const [hideValidationError, setHideValidationError] = useState<boolean>(false)
-
     const navigate = useNavigate()
 
-    const fetchForm = (email:string, password:string) => {
-        login({email, password})  
-        if(isSuccess) {
-            navigate(EnumRoute.Shop)
-        }
-        
-    }
 
     let errorServerMessage:string | undefined
 
@@ -39,8 +30,6 @@ const Login = () => {
     const hideValidation:MouseEventHandler<HTMLElement> = (e):void => {
         dispatch({type:"setHideValidationError", payload: true})
     }
-
-    const pagesStates = {hideValidationError, setHideValidationError}
 
     return (
         <section onClick={hideValidation} style={{background: 'lightblue', height: '1000px'}}>

@@ -1,5 +1,5 @@
 import { FC, useContext } from "react"
-import { ValidationResult } from "../../enum/enum"
+import { ValidationResult } from "../../enums/enums"
 import { useGetAllBrandsQuery } from "../../store/apiSlice/brandSlice"
 import { deviceFormValidation } from "../../validation/DeviceFormValidation"
 import ErrorModal from "../ErrorModal"
@@ -20,7 +20,7 @@ const BrandIdSelect = () => {
         <div>
             <select 
                 style={{
-                    border: (state!.brandId.valid === ValidationResult.error) ? 
+                    border: (state!.brandId.valid === ValidationResult.ERROR) ? 
                     "3px solid red" : "1px solid black"
                 }}
             >

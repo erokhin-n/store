@@ -1,4 +1,4 @@
-import { ServerQuery, Tags } from "../../enum/enum";
+import { ServerQuery, Tags } from "../../enums/enums";
 import { IMessage, ITypeAndBrand } from "../../interface/interface";
 import { indexSlice } from "./indexSlice";
 
@@ -6,7 +6,7 @@ const typeSlice = indexSlice.injectEndpoints({
     endpoints: (build) => ({
         saveType: build.mutation<IMessage, ITypeAndBrand>({
             query: name => ({
-                url: ServerQuery.type,
+                url: ServerQuery.TYPE,
                 method: 'POST',
                 body: name,
                 credentials: "include",
@@ -14,7 +14,7 @@ const typeSlice = indexSlice.injectEndpoints({
             invalidatesTags:[Tags.CREATE_TYPE]
         }),
         getAllTypes: build.query<ITypeAndBrand[], void>({
-            query: ()=> ServerQuery.type,
+            query: ()=> ServerQuery.TYPE,
             providesTags: [Tags.CREATE_TYPE],
         }),
     }),

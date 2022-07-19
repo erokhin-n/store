@@ -1,5 +1,5 @@
 import { useContext, MouseEvent, FC } from "react"
-import { ValidationResult } from "../../../enum/enum"
+import { ValidationResult } from "../../../enums/enums"
 import { IDeviceFormFields } from "../../../interface/interface"
 import { initialState } from "../../../store/reactReducer/deviceModalReducer"
 import BrandIdSelect from "../../UI/BrandIdSelect"
@@ -16,26 +16,26 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
     const dispatch = useContext(DeviceModalDispatch)
 
     const checkFielsBeforeSend = () => {
-        (state!.typeId.valid === ValidationResult.firstAddition) && 
-            dispatch!({type:'changeTypeId', payload:{value: 0, valid: ValidationResult.error}});
+        (state!.typeId.valid === ValidationResult.FIRST_ADDITION) && 
+            dispatch!({type:'changeTypeId', payload:{value: 0, valid: ValidationResult.ERROR}});
 
-        (state!.brandId.valid === ValidationResult.firstAddition) && 
-            dispatch!({type:'changeBrandId', payload:{value: 0, valid: ValidationResult.error}});
+        (state!.brandId.valid === ValidationResult.FIRST_ADDITION) && 
+            dispatch!({type:'changeBrandId', payload:{value: 0, valid: ValidationResult.ERROR}});
 
-        (state!.name.valid === ValidationResult.firstAddition) && 
-            dispatch!({type:'changeName', payload:{value: '', valid: ValidationResult.error}});
+        (state!.name.valid === ValidationResult.FIRST_ADDITION) && 
+            dispatch!({type:'changeName', payload:{value: '', valid: ValidationResult.ERROR}});
 
-        (state!.price.valid === ValidationResult.firstAddition) && 
-            dispatch!({type:'changePrice', payload:{value: '', valid: ValidationResult.error}});
+        (state!.price.valid === ValidationResult.FIRST_ADDITION) && 
+            dispatch!({type:'changePrice', payload:{value: '', valid: ValidationResult.ERROR}});
 
-        (state!.image.valid === ValidationResult.firstAddition) && 
-            dispatch!({type:'selectImage', payload:{value: '', valid: ValidationResult.error}});
+        (state!.image.valid === ValidationResult.FIRST_ADDITION) && 
+            dispatch!({type:'selectImage', payload:{value: '', valid: ValidationResult.ERROR}});
 
-        state!.info.map(i => (i.titleValid === ValidationResult.firstAddition) && 
-            dispatch!({type:'changeTitle', payload: {value: '', id:i.id, valid:ValidationResult.error}}))
+        state!.info.map(i => (i.titleValid === ValidationResult.FIRST_ADDITION) && 
+            dispatch!({type:'changeTitle', payload: {value: '', id:i.id, valid:ValidationResult.ERROR}}))
 
-        state!.info.map(i => (i.descriptionValid === ValidationResult.firstAddition) && 
-            dispatch!({type:'changeDescription', payload: {value: '', id:i.id, valid:ValidationResult.error}}))
+        state!.info.map(i => (i.descriptionValid === ValidationResult.FIRST_ADDITION) && 
+            dispatch!({type:'changeDescription', payload: {value: '', id:i.id, valid:ValidationResult.ERROR}}))
         
     }
   
@@ -45,10 +45,10 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
 
         const modalValid = [state!.typeId.valid, state!.brandId.valid,
             state!.name.valid, state!.price.valid,state!.image.valid ].findIndex(
-                element => element !== ValidationResult.success)
+                element => element !== ValidationResult.SUCCESS)
 
-        const infoTitleValid = state!.info.findIndex(i => i.titleValid !== ValidationResult.success)
-        const infoDescriptionValid = state!.info.findIndex(i => i.descriptionValid !== ValidationResult.success)
+        const infoTitleValid = state!.info.findIndex(i => i.titleValid !== ValidationResult.SUCCESS)
+        const infoDescriptionValid = state!.info.findIndex(i => i.descriptionValid !== ValidationResult.SUCCESS)
         
         if((modalValid === -1 &&  infoTitleValid === -1 && infoDescriptionValid === -1 )) {
             sendDeviceForm() 

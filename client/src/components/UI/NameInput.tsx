@@ -1,5 +1,5 @@
 import { FC, useContext } from "react"
-import { ValidationResult } from "../../enum/enum"
+import { ValidationResult } from "../../enums/enums"
 import { deviceFormValidation, priceFormValidation } from "../../validation/DeviceFormValidation"
 import { DeviceModalDispatch, DeviceModalState } from "../modals/DeviceModal/DeviceModal"
 
@@ -18,7 +18,7 @@ const NameInput = () => {
             <input 
                 value={state!.name.value} 
                 onChange={e => changeValue(e.target.value)}
-                style={{background: (state!.name.valid === ValidationResult.error) ?
+                style={{background: (state!.name.valid === ValidationResult.ERROR) ?
                     "red" : "white"
                 }}
             />

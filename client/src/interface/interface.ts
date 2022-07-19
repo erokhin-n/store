@@ -1,4 +1,4 @@
-import { formView } from "../enum/enum";
+import { formView } from "../enums/enums";
 
 export interface IDevice {
     id: number;
@@ -29,18 +29,18 @@ export interface IAuthFormState {
     hideValidationError: boolean,
     adminRegMessage: string,
     serverErrorMessage: string,  
-    email: {value: string, valid:string},
-    password: {value: string, valid:string},
+    email: {value: string, validInfo:string, validResult: string},
+    password: {value: string, validInfo:string, validResult: string},
 }
 
 export type IAuthFormActions = 
     | {type: 'setHideValidationError', payload: boolean}
     | {type: 'setEmail', payload: string}
-    | {type: 'setEmailValidation', payload: string}
-    | {type: 'setEmailValueAndValidation', payload: {value: string,valid:string}}
+    | {type: 'setEmailValidationInfo', payload: string}
+    | {type: 'setEmailValidationResult', payload: string}
     | {type: 'setPassword', payload: string}
-    | {type: 'setPasswordValidation', payload: string}
-    | {type: 'setPasswordValueAndValidation', payload: {value: string,valid:string}}
+    | {type: 'setPasswordValidationInfo', payload: string}
+    | {type: 'setPasswordValidationResult', payload: string}
     | {type: 'setFormView', payload: formView.login | formView.registration | formView.super_admin}
     | {type: 'reset'}
     | {type: 'superAdminReset'};

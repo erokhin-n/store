@@ -1,7 +1,7 @@
 import { FC, FormEvent, MouseEventHandler, useContext, useEffect, useState } from "react"
 import AuthFormFields from "./AuthFormFields";
 import { emailValidation, passwordValidation } from "../../validation/AuthValidation";
-import { formView } from "../../enum/enum";
+import { formView } from "../../enums/enums";
 import { LoginActions, LoginState } from "../../App";
 
 const AuthForm = () => {
