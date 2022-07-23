@@ -6,7 +6,7 @@ export const init = (initialState:IAuthFormState) => {
 }
 
 export const initialState = {
-    formView: formView.login,
+    formView: formView.FORM_LOGIN,
     serverErrorMessage: '',
     hideValidationError: false,
     adminRegMessage: '',

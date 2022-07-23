@@ -13,7 +13,7 @@ const SuperAdminPage = () => {
     const dispatch = useContext(LoginActions)
 
     useEffect(()=> {
-        dispatch!({type:'setFormView', payload: formView.super_admin})
+        dispatch!({type:'setFormView', payload: formView.FORM_SUPER_ADMIN})
     }, [])
 
 

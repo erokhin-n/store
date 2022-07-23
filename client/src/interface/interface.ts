@@ -25,7 +25,7 @@ export interface IDevicesResponse<T> {
 
 
 export interface IAuthFormState {
-    formView: formView.login | formView.registration | formView.super_admin,
+    formView: formView.FORM_LOGIN | formView.FORM_REGISTRATION | formView.FORM_SUPER_ADMIN,
     hideValidationError: boolean,
     adminRegMessage: string,
     serverErrorMessage: string,  
@@ -41,7 +41,7 @@ export type IAuthFormActions =
     | {type: 'setPassword', payload: string}
     | {type: 'setPasswordValidationInfo', payload: string}
     | {type: 'setPasswordValidationResult', payload: string}
-    | {type: 'setFormView', payload: formView.login | formView.registration | formView.super_admin}
+    | {type: 'setFormView', payload: formView.FORM_LOGIN | formView.FORM_REGISTRATION | formView.FORM_SUPER_ADMIN}
     | {type: 'reset'}
     | {type: 'superAdminReset'};
 

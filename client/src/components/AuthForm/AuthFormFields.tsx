@@ -44,13 +44,13 @@ const AuthFormFields= () => {
             state!.password.validResult ===  ValidationResult.SUCCESS   
         ) {
             console.log('send')
-            if(state!.formView === formView.login) {
+            if(state!.formView === formView.FORM_LOGIN) {
                 console.log('login')
                 login({email: state!.email.value, password: state!.password.value})
                 dispatch!({type:'reset'})
-            } else if (state!.formView === formView.registration) {
+            } else if (state!.formView === formView.FORM_REGISTRATION) {
                 console.log('registration')
-            } else if(state!.formView === formView.super_admin) {
+            } else if(state!.formView === formView.FORM_SUPER_ADMIN) {
                 console.log('super_admin')
                 dispatch!({type:'superAdminReset'})
             }
@@ -99,18 +99,18 @@ const AuthFormFields= () => {
                 className="authFormButton"
                 onClick={ e =>  handleClick(e)}
             >
-                {state!.formView === formView.super_admin ? 
+                {state!.formView === formView.FORM_SUPER_ADMIN ? 
                     'регистрация админа' : 
-                    state!.formView === formView.login ?
+                    state!.formView === formView.FORM_LOGIN ?
                     "войти" : "регистрация"
                 }
             </button>
-            {state!.formView === formView.super_admin ?
+            {state!.formView === formView.FORM_SUPER_ADMIN ?
                 null :
-                (state!.formView === formView.login) ?
+                (state!.formView === formView.FORM_LOGIN) ?
                 <div>
                     Нет аккаунта? 
-                    <div onClick={()=> dispatch!({type:'setFormView', payload: formView.registration})}
+                    <div onClick={()=> dispatch!({type:'setFormView', payload: formView.FORM_REGISTRATION})}
                         style={{cursor:'pointer', color:'blue'}}
                     >
                         зарегистрируйтесь
@@ -119,7 +119,7 @@ const AuthFormFields= () => {
                 :
                 <div>
                     есть аккаунт? 
-                    <div onClick={()=> dispatch!({type:'setFormView', payload: formView.login})}
+                    <div onClick={()=> dispatch!({type:'setFormView', payload: formView.FORM_LOGIN})}
                         style={{cursor:'pointer', color:'blue'}}
                     >   
                         войдите
