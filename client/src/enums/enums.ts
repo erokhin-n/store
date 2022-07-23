@@ -1,6 +1,5 @@
-export enum EnumRoute {
-    LOGIN = "/login",
-    REGISTRATION = "/registration",
+export enum PagesEnum {
+    ENTER = "/enter",
     DEVICE_PAGE = "/device_page",
     ADMIN_PAGE = "/admin_page",
     SUPER_ADMIN_PAGE = "/super_admin_page",

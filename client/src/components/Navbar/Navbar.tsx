@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { NavLink } from "react-router-dom"
-import { EnumRoute } from "../../enums/enums"
+import { PagesEnum } from "../../enums/enums"
 import { useCheckQuery, useRemoveCookieMutation } from "../../store/apiSlice/userSlice"
 import style from './Navbar.module.css'
 import { LoginActions, LoginState } from "../../App"
@@ -27,7 +27,7 @@ const Navbar = () => {
             {data?.role ?
                 <NavLink
                     className={"navbarElement"}
-                    to={EnumRoute.LOGIN}
+                    to={PagesEnum.ENTER}
                     onClick={() => logout()}
                 >
                     выйти        
@@ -35,21 +35,21 @@ const Navbar = () => {
                 :
                 <NavLink
                     className={"navbarElement"}
-                    to={EnumRoute.LOGIN}
+                    to={PagesEnum.ENTER}
                 >
                     войти
                 </NavLink>
             }
             <NavLink
                 className={"navbarElement"}
-                to={EnumRoute.SHOP}
+                to={PagesEnum.SHOP}
             >
                 магазин
             </NavLink>
             {(data?.role ===  "ADMIN" ) && 
                 <NavLink
                     className={"navbarElement"} 
-                    to={EnumRoute.ADMIN_PAGE}
+                    to={PagesEnum.ADMIN_PAGE}
                 >
                     админ панель
                 </NavLink>
@@ -57,7 +57,7 @@ const Navbar = () => {
             {(data?.role === "SUPER_ADMIN") && 
                 <NavLink
                     className={"navbarElement"} 
-                    to={EnumRoute.SUPER_ADMIN_PAGE}
+                    to={PagesEnum.SUPER_ADMIN_PAGE}
                 >
                     super admin page
                 </NavLink>
@@ -65,7 +65,7 @@ const Navbar = () => {
             {(data?.role === "USER") && 
                 <NavLink
                     className={"navbarElement"} 
-                    to={EnumRoute.BASKET}
+                    to={PagesEnum.BASKET}
                 >
                     корзина
                 </NavLink>

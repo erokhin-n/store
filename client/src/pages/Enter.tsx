@@ -1,12 +1,12 @@
 import { createContext, FormEvent, MouseEventHandler, useState, Dispatch, useReducer } from "react"
 import { useNavigate } from "react-router-dom"
 import AuthForm from "../components/AuthForm/AuthForm"
-import { EnumRoute, formView } from "../enums/enums"
+import { PagesEnum, formView } from "../enums/enums"
 import { IAuthFormActions, IAuthFormState } from "../interface/interface"
 import { useLoginMutation } from "../store/apiSlice/userSlice"
 import { authFormReducer, initialState } from "../store/reactReducer/authFormReducer"
 
-const Login = () => {
+const Enter = () => {
 
     const [login, {data, error, isSuccess}] = useLoginMutation()
 
@@ -38,5 +38,5 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Enter
 
