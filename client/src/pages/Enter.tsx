@@ -2,30 +2,16 @@ import { createContext, FormEvent, MouseEventHandler, useState, Dispatch, useRed
 import { useNavigate } from "react-router-dom"
 import AuthForm from "../components/AuthForm/AuthForm"
 import { PagesEnum, formView } from "../enums/enums"
+import { useServerError } from "../hooks/useServerError"
 import { IAuthFormActions, IAuthFormState } from "../interface/interface"
 import { useLoginMutation } from "../store/apiSlice/userSlice"
 import { authFormReducer, initialState } from "../store/reactReducer/authFormReducer"
 
 const Enter = () => {
 
-    const [login, {data, error, isSuccess}] = useLoginMutation()
-
     const [state, dispatch] = useReducer(authFormReducer, initialState)
 
     const navigate = useNavigate()
-
-
-    let errorServerMessage:string | undefined
-
-    if (error) {
-        if ('status' in error) {
-            errorServerMessage = 'error' in error ? 
-            error.error : 
-                JSON.stringify(error.data)
-        } else {
-            errorServerMessage = error.message
-        }
-    }
 
     const hideValidation:MouseEventHandler<HTMLElement> = (e):void => {
         dispatch({type:"setHideValidationError", payload: true})

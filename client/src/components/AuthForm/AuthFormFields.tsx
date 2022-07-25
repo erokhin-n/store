@@ -4,6 +4,8 @@ import { emailValidation, passwordValidation } from "../../validation/AuthValida
 import style from './AuthFormFields.module.css'
 import { LoginActions, LoginState } from "../../App"
 import { useLoginMutation } from "../../store/apiSlice/userSlice"
+import { initialState } from "../../store/reactReducer/authFormReducer"
+import { useServerError } from "../../hooks/useServerError"
 
 const AuthFormFields= () => {
 
@@ -47,7 +49,7 @@ const AuthFormFields= () => {
             if(state!.formView === formView.FORM_LOGIN) {
                 console.log('login')
                 login({email: state!.email.value, password: state!.password.value})
-                dispatch!({type:'reset'})
+                dispatch!({type:'reset', payload: initialState})
             } else if (state!.formView === formView.FORM_REGISTRATION) {
                 console.log('registration')
             } else if(state!.formView === formView.FORM_SUPER_ADMIN) {
@@ -57,6 +59,11 @@ const AuthFormFields= () => {
         } else {
             console.log('dont send')
         }
+    }
+
+    const serverError = useServerError(error)
+    if(serverError) {
+        dispatch!({type:'setServerErrorMessage', payload: serverError})
     }
 
     return (
@@ -84,6 +91,7 @@ const AuthFormFields= () => {
                 onChange={e => changePassword(e.target.value)}
                 // onBlur={() =>  passwordValidation(authFormStates.password, authFormStates.setPasswordError)}
             />
+            {serverError}
             {/* {authFormStates.passwordError && <ErrorModal error={authFormStates.passwordError} />} */}
             {/* {authFormStates.submitError && <ErrorModal error={authFormStates.submitError} /> } */}
             {/* {authFormStates.serverError && 

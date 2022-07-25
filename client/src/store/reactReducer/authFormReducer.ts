@@ -32,8 +32,10 @@ export const authFormReducer = (state:IAuthFormState, action:IAuthFormActions) =
             return {...state, password: {...state.password, validInfo: action.payload}}
         case 'setPasswordValidationResult':
             return {...state, password: {...state.password, validResult: action.payload}}
+        case 'setServerErrorMessage':
+            return {...state, serverErrorMessage: action.payload}
         case 'reset':
-            return init(initialState)
+            return init(action.payload)
         case 'superAdminReset':
             return {...state, 
                 email: {value: '', validInfo:ValidationResult.FIRST_ADDITION,

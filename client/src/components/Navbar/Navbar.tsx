@@ -4,6 +4,7 @@ import { PagesEnum } from "../../enums/enums"
 import { useCheckQuery, useRemoveCookieMutation } from "../../store/apiSlice/userSlice"
 import style from './Navbar.module.css'
 import { LoginActions, LoginState } from "../../App"
+import { initialState } from "../../store/reactReducer/authFormReducer"
 
 const Navbar = () => {
 
@@ -15,7 +16,7 @@ const Navbar = () => {
 
     const logout = () => {
         removeCookie()
-        dispatch!({type: 'reset'})
+        dispatch!({type: 'reset', payload: initialState})
     }
 
     if(isLoading){

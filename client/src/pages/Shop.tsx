@@ -1,6 +1,6 @@
 // import BrandModal from "../components/modals/BrandModal/BrandModal"
 import DeviceList from "../components/DeviceList"
-import { useAppSelector } from "../hooks/dispatchAndSelectorHook"
+import { useAppSelector } from "../hooks/useDispatchAndSelector"
 import { useGetAllDevicesQuery} from "../store/apiSlice/deviceSlice"
 import { useGetAllTypesQuery } from "../store/apiSlice/typeSlice"
 
