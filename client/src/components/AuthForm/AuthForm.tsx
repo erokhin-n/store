@@ -4,7 +4,7 @@ import { emailValidation, passwordValidation } from "../../validation/AuthValida
 import { formView } from "../../enums/enums";
 import { LoginActions, LoginState } from "../../App";
 import { useLoginMutation } from "../../store/apiSlice/userSlice";
-import { useServerError } from "../../hooks/useServerError";
+import { serverError } from "../../hooks/serverError";
 
 const AuthForm = () => {
 

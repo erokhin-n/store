@@ -1,4 +1,4 @@
-export const useServerError = (error:any) => {
+export const serverError = (error:any) => {
 
     if (error) {
         if ('status' in error) {

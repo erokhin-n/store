@@ -19,16 +19,6 @@ const SuperAdminPage = () => {
 
     let errorServerMessage:string | undefined
 
-    if (error) {
-        if ('status' in error) {
-            errorServerMessage = 'error' in error ? 
-            error.error : 
-                JSON.stringify(error.data)
-            
-        } else {
-            errorServerMessage = error.message
-        }
-    }
 
     const hideValidation:MouseEventHandler<HTMLElement> = (e) => {
         // setHideValidationError(true)

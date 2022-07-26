@@ -2,7 +2,6 @@ import { createContext, FormEvent, MouseEventHandler, useState, Dispatch, useRed
 import { useNavigate } from "react-router-dom"
 import AuthForm from "../components/AuthForm/AuthForm"
 import { PagesEnum, formView } from "../enums/enums"
-import { useServerError } from "../hooks/useServerError"
 import { IAuthFormActions, IAuthFormState } from "../interface/interface"
 import { useLoginMutation } from "../store/apiSlice/userSlice"
 import { authFormReducer, initialState } from "../store/reactReducer/authFormReducer"
