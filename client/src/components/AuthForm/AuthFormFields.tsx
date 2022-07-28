@@ -1,38 +1,42 @@
 import { useContext, MouseEvent, useState, useEffect } from "react"
-import { formView, ValidationResult } from "../../enums/enums"
+import { formView, PagesEnum, ValidationResult } from "../../enums/enums"
 import { emailValidation, passwordValidation } from "../../validation/AuthValidation"
 import style from './AuthFormFields.module.css'
 import { LoginActions, LoginState } from "../../App"
 import { useLoginMutation, useRegistrationAdminMutation, useRegistrationMutation } from "../../store/apiSlice/userSlice"
 import { initialState } from "../../store/reactReducer/authFormReducer"
-import { serverError } from "../../hooks/serverError"
+import { serverErrorHandler } from "../../hooks/serverError"
+import { useNavigate } from "react-router-dom"
+import {  IDataUserResponse, ITest } from "../../interface/interface"
 
 const AuthFormFields= () => {
 
     const state = useContext(LoginState)
     const dispatch = useContext(LoginActions)
 
-    const [login, {error: loginError,}] = useLoginMutation()
+    const [login, { error: loginError,}] = useLoginMutation()
     const [registration, {error: registrationError}] = useRegistrationMutation()
     const [registrationAdmin, { error: adminRegError}] = useRegistrationAdminMutation()
+
+    const navigate = useNavigate()
 
     useEffect(()=> {
         switch(state!.formView){
             case formView.FORM_LOGIN:
-                dispatch!({type:'setServerErrorMessage', payload: serverError(loginError)});
+                dispatch!({type:'setServerMessage', payload: serverErrorHandler(loginError)});
                 break;
             case formView.FORM_REGISTRATION:
-                dispatch!({type: 'setServerErrorMessage', payload: serverError(registrationError)});
+                dispatch!({type: 'setServerMessage', payload: serverErrorHandler(registrationError)});
                 break;
             case formView.FORM_SUPER_ADMIN:
-                dispatch!({type: 'setServerErrorMessage', payload: serverError(adminRegError)});
+                dispatch!({type: 'setServerMessage', payload: serverErrorHandler(adminRegError)});
                 break;
         }
     },[loginError, registrationError, adminRegError])
     
 
     const changeEmail = (e:string)  => {
-        dispatch!({type:'setServerErrorMessage', payload: ''})
+        dispatch!({type:'setServerMessage', payload: ''})
         dispatch!({type:'setEmailValidationResult', payload: emailValidation(e)})
         if(state?.email.validInfo !== ValidationResult.FIRST_ADDITION) {
             dispatch!({type:"setEmail",payload: e})
@@ -42,7 +46,7 @@ const AuthFormFields= () => {
     }
 
     const changePassword = (e:string) => {
-        dispatch!({type:'setServerErrorMessage', payload: ''})
+        dispatch!({type:'setServerMessage', payload: ''})
         dispatch!({type:'setPasswordValidationResult', payload: passwordValidation(e)})
         if(state?.password.validInfo !== ValidationResult.FIRST_ADDITION) {
             dispatch!({type:"setPassword", payload: e})
@@ -66,16 +70,28 @@ const AuthFormFields= () => {
         ) {
             switch(state!.formView) {
                 case formView.FORM_LOGIN:
-                    login({email: state!.email.value, password: state!.password.value});
-                    // dispatch!({type:'reset', payload: initialState});
+                    login({email: state!.email.value, password: state!.password.value})
+                    .unwrap()
+                    .then((res) => {
+                        dispatch!({type:'reset', payload: initialState});
+                        navigate(PagesEnum.SHOP)}
+                    )
                     break;
                 case formView.FORM_REGISTRATION:
-                    registration({email: state!.email.value, password: state!.password.value});
-                    // dispatch!({type:'reset', payload: initialState});
+                    registration({email: state!.email.value, password: state!.password.value})
+                    .unwrap()
+                    .then((res) => {
+                        dispatch!({type:'reset', payload: initialState});
+                        navigate(PagesEnum.SHOP)}
+                    )
                     break;
                 case formView.FORM_SUPER_ADMIN:
-                    registrationAdmin({email: state!.email.value, password: state!.password.value});
-                    dispatch!({type:'superAdminReset'});
+                    registrationAdmin({email: state!.email.value, password: state!.password.value})
+                    .unwrap()
+                    .then((res) => {
+                        dispatch!({type:'superAdminReset'})
+                        dispatch!({type:'setServerMessage', payload: 'регистрация прошла успешно'})
+                    })
                     break;
             }
         } else {
@@ -110,7 +126,7 @@ const AuthFormFields= () => {
                 onChange={e => changePassword(e.target.value)}
                 // onBlur={() =>  passwordValidation(authFormStates.password, authFormStates.setPasswordError)}
             />
-            {state!.serverErrorMessage}
+            {state!.serverMessage}
             {/* {authFormStates.passwordError && <ErrorModal error={authFormStates.passwordError} />} */}
             {/* {authFormStates.submitError && <ErrorModal error={authFormStates.submitError} /> } */}
             {/* {authFormStates.serverError && 

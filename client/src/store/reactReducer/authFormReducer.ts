@@ -7,7 +7,7 @@ export const init = (initialState:IAuthFormState) => {
 
 export const initialState = {
     formView: formView.FORM_LOGIN,
-    serverErrorMessage: '',
+    serverMessage: '',
     hideValidationError: false,
     adminRegMessage: '',
     email: {value: '', validInfo:ValidationResult.FIRST_ADDITION, validResult: ValidationResult.FIRST_ADDITION},
@@ -32,8 +32,8 @@ export const authFormReducer = (state:IAuthFormState, action:IAuthFormActions) =
             return {...state, password: {...state.password, validInfo: action.payload}}
         case 'setPasswordValidationResult':
             return {...state, password: {...state.password, validResult: action.payload}}
-        case 'setServerErrorMessage':
-            return {...state, serverErrorMessage: action.payload}
+        case 'setServerMessage':
+            return {...state, serverMessage: action.payload}
         case 'reset':
             return init(action.payload)
         case 'superAdminReset':

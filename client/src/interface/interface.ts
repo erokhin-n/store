@@ -28,7 +28,7 @@ export interface IAuthFormState {
     formView: formView.FORM_LOGIN | formView.FORM_REGISTRATION | formView.FORM_SUPER_ADMIN,
     hideValidationError: boolean,
     adminRegMessage: string,
-    serverErrorMessage: string | undefined,  
+    serverMessage: string | undefined,  
     email: {value: string, validInfo:string, validResult: string},
     password: {value: string, validInfo:string, validResult: string},
 }
@@ -41,7 +41,7 @@ export type IAuthFormActions =
     | {type: 'setPassword', payload: string}
     | {type: 'setPasswordValidationInfo', payload: string}
     | {type: 'setPasswordValidationResult', payload: string}
-    | {type: 'setServerErrorMessage', payload: string | undefined}
+    | {type: 'setServerMessage', payload: string | undefined}
     | {type: 'setFormView', payload: formView.FORM_LOGIN | formView.FORM_REGISTRATION | formView.FORM_SUPER_ADMIN}
     | {type: 'reset', payload: IAuthFormState}
     | {type: 'superAdminReset'};
@@ -56,6 +56,16 @@ export interface IDataUserResponse {
     email: string;
     id?:string;
 }
+
+export interface ITest {
+    data: IDataUserResponse;
+    error: {
+        status: number;
+        data:{
+            message: string;
+        }
+    }};
+
 
 export interface ITypeAndBrand {
     id?: number;
