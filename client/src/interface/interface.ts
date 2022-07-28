@@ -1,4 +1,5 @@
 import { formView } from "../enums/enums";
+import { MouseEvent } from 'react'
 
 export interface IDevice {
     id: number;
@@ -22,7 +23,6 @@ export interface IDevicesResponse<T> {
     count: number;
     rows: T[];
 }
-
 
 export interface IAuthFormState {
     formView: formView.FORM_LOGIN | formView.FORM_REGISTRATION | formView.FORM_SUPER_ADMIN,
@@ -96,8 +96,6 @@ export type IDeviceReducerActions =
     | {type: 'removeInfo'; payload: string}
     | {type: 'reset'; payload: IDeviceModalState};
     
-
-
 export interface IDeviceModalState {
     typeId: {value:number, valid: string},
     brandId: {value:number, valid: string},
@@ -114,4 +112,10 @@ export interface IBasket {
 
 export interface IDeviceFormFields {
     sendDeviceForm: () => void
+}
+
+export interface IAuthFormFields {
+    changeEmail: (e:string) => void;
+    changePassword: (e:string) => void;
+    handleClick: (e:MouseEvent<HTMLButtonElement>) => void;
 }
