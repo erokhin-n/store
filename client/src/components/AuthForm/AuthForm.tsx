@@ -7,6 +7,7 @@ import { useLoginMutation, useRegistrationAdminMutation, useRegistrationMutation
 import { serverErrorHandler } from "../../hooks/serverError";
 import { useNavigate } from "react-router-dom";
 import { initialState } from "../../store/reactReducer/authFormReducer";
+import React from "react";
 
 const AuthForm = () => {
 

@@ -3,6 +3,8 @@ import { formView, ValidationResult } from "../../enums/enums"
 import style from './AuthFormFields.module.css'
 import { LoginActions, LoginState } from "../../App"
 import { IAuthFormFields } from "../../interface/interface"
+import React from "react"
+
 
 const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleClick}) => {
 
@@ -22,6 +24,7 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
                 value={state?.email.value}
                 onChange={e => changeEmail(e.target.value)}
             />
+            {state!.email.validInfo === ValidationResult.ERROR && "введите почту в формате email@mail.com"}
             <input
                 type="text"
                 placeholder="введите пароль"
@@ -31,6 +34,7 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
                 value={state!.password.value}
                 onChange={e => changePassword(e.target.value)}
             />
+            {state!.password.validInfo === ValidationResult.ERROR && "пароль должен состоять из 8ми букв"}
             {state!.serverMessage}
             <button 
                 className="authFormButton"
