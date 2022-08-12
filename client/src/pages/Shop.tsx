@@ -20,9 +20,13 @@ const Shop = () => {
     if(isLoading) {
         deviceList = "load..."
     } else if(isSuccess){
-        deviceList = (devices.rows.length) ? 
+        if(devices.rows) {
+            deviceList = (devices.rows.length) ? 
             <DeviceList devices={devices.rows} /> : 
             <h3>устройств нет</h3>
+        } else {
+            deviceList = <h3>no devices in mocks</h3>
+        }
     } else if(isError) {
         deviceList = <div>error</div>
     }

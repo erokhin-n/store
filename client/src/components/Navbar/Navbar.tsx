@@ -20,7 +20,7 @@ const Navbar = () => {
     }
 
     if(isLoading){
-        return <h3>loading</h3>
+        return <h3>loading navbar...</h3>
     }
 
     return (
