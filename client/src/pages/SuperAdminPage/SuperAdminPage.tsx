@@ -19,7 +19,6 @@ const SuperAdminPage = () => {
 
     let errorServerMessage:string | undefined
 
-
     const hideValidation:MouseEventHandler<HTMLElement> = (e) => {
         // setHideValidationError(true)
     }

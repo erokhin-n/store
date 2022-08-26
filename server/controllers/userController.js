@@ -15,6 +15,7 @@ const generateJwt = (id, email, role) => {
 
 class UserController {
 	async registration(req,res,next) {
+
 		try {
 
 			const errors = validationResult(req);
@@ -83,10 +84,10 @@ class UserController {
 	}
 
 	async login(req,res,next) {
+		console.log('LOGIN AT BACK WORK!')
 		try {
-
 			const errors = validationResult(req);
-			
+
 			if (!errors.isEmpty()) {
 				validationErrorHandler(errors)
 			}

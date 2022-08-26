@@ -1,9 +1,9 @@
 import { FC } from "react"
 
-const ErrorModal:FC<{error:string | undefined}> = ({error}) => {
+const ErrorModal:FC<{error:any}> = ({error}) => {
 
     return (
-        <div>
+        <div data-testid="errorId">
             {error}
         </div>
     )

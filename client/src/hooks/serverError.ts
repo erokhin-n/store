@@ -1,6 +1,7 @@
 export const serverErrorHandler = (error:any) => {
 
     if (error) {
+        
         if ('status' in error) {
             error = 'error' in error ? 
             error.error : 

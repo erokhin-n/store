@@ -4,6 +4,7 @@ import style from './AuthFormFields.module.css'
 import { LoginActions, LoginState } from "../../App"
 import { IAuthFormFields } from "../../interface/interface"
 import React from "react"
+import ErrorModal from "../ErrorModal"
 
 
 const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleClick}) => {
@@ -15,7 +16,7 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
         <form 
             className={"authForm"}
         >
-            <input 
+            <input
                 type="text" 
                 placeholder="введите почту"
                 className={state!.email.validInfo === ValidationResult.ERROR ? 
@@ -24,7 +25,9 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
                 value={state?.email.value}
                 onChange={e => changeEmail(e.target.value)}
             />
-            {state!.email.validInfo === ValidationResult.ERROR && "введите почту в формате email@mail.com"}
+            {state!.email.validInfo === ValidationResult.ERROR && 
+                <ErrorModal error="введите почту в формате email@mail.com" />
+            }
             <input
                 type="text"
                 placeholder="введите пароль"
@@ -34,8 +37,11 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
                 value={state!.password.value}
                 onChange={e => changePassword(e.target.value)}
             />
-            {state!.password.validInfo === ValidationResult.ERROR && "пароль должен состоять из 8ми букв"}
-            {state!.serverMessage}
+            {state!.password.validInfo === ValidationResult.ERROR && 
+                <ErrorModal error="пароль должен состоять из 8ми букв" />
+            }
+            {state!.serverMessage && <ErrorModal error={state!.serverMessage} />}
+            {/* <div>"test message"</div> */}
             <button 
                 className="authFormButton"
                 onClick={ e =>  handleClick(e)}

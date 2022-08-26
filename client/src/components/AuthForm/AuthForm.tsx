@@ -22,15 +22,15 @@ const AuthForm = () => {
 
     useEffect(()=> {
         switch(state!.formView){
-            case formView.FORM_LOGIN:
-                dispatch!({type:'setServerMessage', payload: serverErrorHandler(loginError)});
-                break;
-            case formView.FORM_REGISTRATION:
-                dispatch!({type: 'setServerMessage', payload: serverErrorHandler(registrationError)});
-                break;
-            case formView.FORM_SUPER_ADMIN:
-                dispatch!({type: 'setServerMessage', payload: serverErrorHandler(adminRegError)});
-                break;
+            // case formView.FORM_LOGIN:
+            //     ;
+            //     break;
+            // case formView.FORM_REGISTRATION:
+                // dispatch!({type: 'setServerMessage', payload: serverErrorHandler(registrationError)});
+                // break;
+            // case formView.FORM_SUPER_ADMIN:
+            //     dispatch!({type: 'setServerMessage', payload: serverErrorHandler(adminRegError)});
+            //     break;
         }
     },[loginError, registrationError, adminRegError])
     
@@ -73,16 +73,18 @@ const AuthForm = () => {
                     .unwrap()
                     .then((res) => {
                         dispatch!({type:'reset', payload: initialState});
-                        navigate(PagesEnum.SHOP)}
-                    )
+                        navigate(PagesEnum.SHOP)
+                    })
+                    .catch(e => dispatch!({type:'setServerMessage', payload: serverErrorHandler(e)}))
                     break;
                 case formView.FORM_REGISTRATION:
                     registration({email: state!.email.value, password: state!.password.value})
                     .unwrap()
                     .then((res) => {
                         dispatch!({type:'reset', payload: initialState});
-                        navigate(PagesEnum.SHOP)}
-                    )
+                        navigate(PagesEnum.SHOP)
+                    })
+                    .catch(e => dispatch!({type:'setServerMessage', payload: serverErrorHandler(e)}))
                     break;
                 case formView.FORM_SUPER_ADMIN:
                     registrationAdmin({email: state!.email.value, password: state!.password.value})
@@ -91,6 +93,7 @@ const AuthForm = () => {
                         dispatch!({type:'superAdminReset'})
                         dispatch!({type:'setServerMessage', payload: 'регистрация прошла успешно'})
                     })
+                    .catch(e => dispatch!({type:'setServerMessage', payload: serverErrorHandler(e)}))
                     break;
             }
         } 
