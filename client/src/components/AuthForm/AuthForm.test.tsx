@@ -59,7 +59,7 @@ test('test for AuthInputs', async () => {
     const passwordInput = screen.getByPlaceholderText('введите пароль')
     const submitButton = screen.getByRole('button')
 
-	const mail:string =  's_ldvm@mail.com'
+	const mail:string =  's_ldvm4vd@mail.com'
 
 	fireEvent.change(emailInput!, {target: {value: mail}})
 	fireEvent.change(passwordInput!, {target: {value: 'password'}})

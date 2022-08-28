@@ -14,25 +14,11 @@ const AuthForm = () => {
     const state = useContext(LoginState)
     const dispatch = useContext(LoginActions)
 
-    const [login, { error: loginError,}] = useLoginMutation()
-    const [registration, {error: registrationError}] = useRegistrationMutation()
-    const [registrationAdmin, { error: adminRegError}] = useRegistrationAdminMutation()
+    const [login] = useLoginMutation()
+    const [registration] = useRegistrationMutation()
+    const [registrationAdmin] = useRegistrationAdminMutation()
 
     const navigate = useNavigate()
-
-    useEffect(()=> {
-        switch(state!.formView){
-            // case formView.FORM_LOGIN:
-            //     ;
-            //     break;
-            // case formView.FORM_REGISTRATION:
-                // dispatch!({type: 'setServerMessage', payload: serverErrorHandler(registrationError)});
-                // break;
-            // case formView.FORM_SUPER_ADMIN:
-            //     dispatch!({type: 'setServerMessage', payload: serverErrorHandler(adminRegError)});
-            //     break;
-        }
-    },[loginError, registrationError, adminRegError])
     
     const changeEmail = (e:string)  => {
         dispatch!({type:'setServerMessage', payload: ''})
@@ -91,7 +77,7 @@ const AuthForm = () => {
                     .unwrap()
                     .then((res) => {
                         debugger
-                        // dispatch!({type:'superAdminReset'})
+                        dispatch!({type:'superAdminReset'})
                         dispatch!({type:'setServerMessage', payload: res.message})
                     })
                     .catch(e => {debugger; dispatch!({type:'setServerMessage', payload: serverErrorHandler(e)})})
