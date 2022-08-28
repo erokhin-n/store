@@ -55,16 +55,17 @@ test('test for AuthInputs', async () => {
 
 	render(<SuperAdminPage />)
    	
-
     const emailInput = screen.getByPlaceholderText('введите почту')
     const passwordInput = screen.getByPlaceholderText('введите пароль')
     const submitButton = screen.getByRole('button')
 
-	fireEvent.change(emailInput!, {target: {value: 's_adfm@mail.com'}})
-	fireEvent.change(passwordInput!, {target: {value: 'passdword'}})
+	const mail:string =  's_ldvm@mail.com'
+
+	fireEvent.change(emailInput!, {target: {value: mail}})
+	fireEvent.change(passwordInput!, {target: {value: 'password'}})
 	fireEvent.click(submitButton)
 	
-	const serverError = await screen.findByText('регистрация прошла успешно')
-	expect(serverError).toHaveTextContent('"пользователь не найден"')
+	const serverError = await waitFor(()=> screen.findByTestId('errorId'), {timeout: 2000})
+	expect(serverError).toHaveTextContent(`администратор ${mail} зарегистрирован`)
 })
 

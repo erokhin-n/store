@@ -90,10 +90,11 @@ const AuthForm = () => {
                     registrationAdmin({email: state!.email.value, password: state!.password.value})
                     .unwrap()
                     .then((res) => {
-                        dispatch!({type:'superAdminReset'})
-                        dispatch!({type:'setServerMessage', payload: 'регистрация прошла успешно'})
+                        debugger
+                        // dispatch!({type:'superAdminReset'})
+                        dispatch!({type:'setServerMessage', payload: res.message})
                     })
-                    .catch(e => dispatch!({type:'setServerMessage', payload: serverErrorHandler(e)}))
+                    .catch(e => {debugger; dispatch!({type:'setServerMessage', payload: serverErrorHandler(e)})})
                     break;
             }
         } 
