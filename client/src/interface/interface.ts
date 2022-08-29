@@ -1,4 +1,4 @@
-import { formView } from "../enums/enums";
+import { formView, ValidationResult } from "../enums/enums";
 import { MouseEvent } from 'react'
 import { FetchBaseQueryArgs, FetchBaseQueryError } from "@reduxjs/toolkit/dist/query/fetchBaseQuery";
 
@@ -119,4 +119,9 @@ export interface IAuthFormFields {
     changeEmail: (e:string) => void;
     changePassword: (e:string) => void;
     handleClick: (e:MouseEvent<HTMLButtonElement>) => void;
+}
+
+export interface ITypeAndBrandModal {
+    value: string;
+    valid: ValidationResult.ERROR | ValidationResult.FIRST_ADDITION | ValidationResult.SUCCESS;
 }

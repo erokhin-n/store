@@ -1,45 +1,29 @@
 import { FormEvent, useEffect, useState } from "react"
+import { ValidationResult } from "../../../enums/enums"
+import { ITypeAndBrandModal } from "../../../interface/interface"
 import { useSaveBrandMutation } from "../../../store/apiSlice/brandSlice"
 import { deviceFormValidation } from "../../../validation/DeviceFormValidation"
 import ErrorModal from "../../ErrorModal"
 
 const BrandModal = () => {
 
-    const [brand, setBrand] = useState<string>('')
-    const [brandError, setBrandError] = useState<string>('')
-    const [serverError, setServerError] = useState<string>('')
+    const [brand, setBrand] = useState<ITypeAndBrandModal>({value: '', valid: ValidationResult.FIRST_ADDITION})
 
     const [saveBrand, {isLoading, error}] = useSaveBrandMutation()
 
     const saveBrandOnServer = (e:FormEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        const validationSuccess = deviceFormValidation(brand)
-        if(validationSuccess){
-            saveBrand({name: brand}) 
-            setBrand('')       
-        }
+        saveBrand({name: brand.value}) 
     }
 
     let errorServerMessage:string | undefined
 
-    if (error) {
-        if ('status' in error) {
-            errorServerMessage = 'error' in error ? 
-            error.error : 
-                JSON.stringify(error.data)
-        } else {
-            errorServerMessage = error.message
-        }
-    }
-
-    useEffect(()=>{
-        if(errorServerMessage) setServerError(errorServerMessage)     
-    },[errorServerMessage]) 
 
     const changeBrand = (e:string) => {
-        if(brandError) deviceFormValidation(brand)
-        setServerError('')
-        setBrand(e)
+        // if(brandError) setBrandError(deviceFormValidation(brand))
+        // setServerError('')
+        // setBrand(e)
+        setBrand({...brand, value: e, valid: deviceFormValidation(e)})
     }
 
     if (isLoading) {
@@ -51,14 +35,11 @@ const BrandModal = () => {
             <input 
                 type = "text"
                 placeholder="название бренда"
-                value={brand}  
+                value={brand.value}  
                 onChange={e => changeBrand(e.target.value)}
             />
             <button onClick={e => saveBrandOnServer(e)}>save</button>
-            {brandError && <ErrorModal error={brandError} />}
-            {serverError && <ErrorModal error={serverError
-                .split(":")[1]
-                .replace(/[\\\}]/gi, '')}/>}
+            {brand.valid === ValidationResult.ERROR && <ErrorModal error={"пошел на хуй"} />}
         </form>
     )
 }
