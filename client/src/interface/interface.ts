@@ -120,5 +120,3 @@ export interface IAuthFormFields {
     changePassword: (e:string) => void;
     handleClick: (e:MouseEvent<HTMLButtonElement>) => void;
 }
-
-export type TestType = FetchBaseQueryError as string

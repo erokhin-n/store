@@ -33,11 +33,14 @@ import SuperAdminPage from '../../pages/SuperAdminPage/SuperAdminPage'
 // 	})
 // )
 
+
 // beforeAll(() => {
 // 	server.listen()
 // })
 
-// afterEach(() => server.resetHandlers())
+// afterEach(() => {
+// 	server.resetHandlers()
+// })
 
 // afterAll(() => server.close())
 
@@ -53,19 +56,21 @@ test('test for AuthInputs', async () => {
 	// 	}),
 	//   )
 
-	render(<SuperAdminPage />)
+	render(<AuthForm />)
    	
     const emailInput = screen.getByPlaceholderText('введите почту')
     const passwordInput = screen.getByPlaceholderText('введите пароль')
     const submitButton = screen.getByRole('button')
+	// const changeFormView = screen.getByText('зарегистрируйтесь')
 
-	const mail:string =  's_ldvm4vd@mail.com'
+	const mail:string =  's_adsdfsdfm@mail.com'
 
+	// fireEvent.click(changeFormView)
 	fireEvent.change(emailInput!, {target: {value: mail}})
-	fireEvent.change(passwordInput!, {target: {value: 'password'}})
+	fireEvent.change(passwordInput!, {target: {value: 'passwdord'}})
 	fireEvent.click(submitButton)
 	
-	const serverError = await waitFor(()=> screen.findByTestId('errorId'), {timeout: 2000})
-	expect(serverError).toHaveTextContent(`администратор ${mail} зарегистрирован`)
+	const serverError = await waitFor(()=> screen.findByText('poshel ti na hui'), {timeout: 2000})
+	expect(serverError).toBeInTheDocument()
 })
 

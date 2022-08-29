@@ -4,7 +4,6 @@ import { emailValidation, passwordValidation } from "../../validation/AuthValida
 import { formView, PagesEnum, ValidationResult } from "../../enums/enums";
 import { LoginActions, LoginState } from "../../App";
 import { useLoginMutation, useRegistrationAdminMutation, useRegistrationMutation } from "../../store/apiSlice/userSlice";
-import { serverErrorHandler } from "../../hooks/serverError";
 import { useNavigate } from "react-router-dom";
 import { initialState } from "../../store/reactReducer/authFormReducer";
 import React from "react";
@@ -61,7 +60,7 @@ const AuthForm = () => {
                         dispatch!({type:'reset', payload: initialState});
                         navigate(PagesEnum.SHOP)
                     })
-                    .catch(e => dispatch!({type:'setServerMessage', payload: serverErrorHandler(e)}))
+                    .catch(e => dispatch!({type:'setServerMessage', payload: e.data.message}))
                     break;
                 case formView.FORM_REGISTRATION:
                     registration({email: state!.email.value, password: state!.password.value})
@@ -70,7 +69,7 @@ const AuthForm = () => {
                         dispatch!({type:'reset', payload: initialState});
                         navigate(PagesEnum.SHOP)
                     })
-                    .catch(e => dispatch!({type:'setServerMessage', payload: serverErrorHandler(e)}))
+                    .catch(e => dispatch!({type:'setServerMessage', payload: e.data.message}))
                     break;
                 case formView.FORM_SUPER_ADMIN:
                     registrationAdmin({email: state!.email.value, password: state!.password.value})
@@ -79,7 +78,7 @@ const AuthForm = () => {
                         dispatch!({type:'superAdminReset'})
                         dispatch!({type:'setServerMessage', payload: res.message})
                     })
-                    .catch(e => dispatch!({type:'setServerMessage', payload: serverErrorHandler(e)}))
+                    .catch(e => dispatch!({type:'setServerMessage', payload: e.data.message}))
                     break;
             }
         } 

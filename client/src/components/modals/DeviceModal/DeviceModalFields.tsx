@@ -15,7 +15,7 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
     const state = useContext(DeviceModalState)
     const dispatch = useContext(DeviceModalDispatch)
 
-    const checkFielsBeforeSend = () => {
+    const checkFieldsBeforeSend = () => {
         (state!.typeId.valid === ValidationResult.FIRST_ADDITION) && 
             dispatch!({type:'changeTypeId', payload:{value: 0, valid: ValidationResult.ERROR}});
 
@@ -41,7 +41,7 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
   
     const handleClick = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        checkFielsBeforeSend()
+        checkFieldsBeforeSend()
 
         const modalValid = [state!.typeId.valid, state!.brandId.valid,
             state!.name.valid, state!.price.valid,state!.image.valid ].findIndex(

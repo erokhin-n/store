@@ -7,7 +7,7 @@ const validator = require('../middleware/authFormValidation');
 
 router.post('/registration', validator, userController.registration)
 router.post('/login', validator, userController.login)
-router.post('/registration_admin', validator, userController.registrationAdmin)
+router.post('/registration_admin', checkRoleMiddleware('SUPER_ADMIN'), validator, userController.registrationAdmin)
 router.get('/auth',authMiddleware, userController.check)
 router.get('/remove_cookie',userController.removeCookie)
 router.get('/userlist',userController.getUsers)

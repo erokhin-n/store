@@ -1,6 +1,8 @@
 // import BrandModal from "../../components/modals/BrandModal/BrandModal"
 import { createContext, useReducer } from "react"
+import BrandModal from "../../components/modals/BrandModal/BrandModal"
 import DeviceModal from "../../components/modals/DeviceModal/DeviceModal"
+import TypeModal from "../../components/modals/TypeModal/TypeModal"
 // import TypeModal from "../../components/modals/TypeModal/TypeModal"
 import { ITypeAndBrand } from "../../interface/interface"
 import { useGetAllBrandsQuery } from "../../store/apiSlice/brandSlice"
@@ -16,10 +18,10 @@ const AdminPage = () => {
     return (
         <section className={styles.page}>
             <div className={styles.deviceForm}>
-                {/* <h4>создание бренда</h4>
+                <h4>создание бренда</h4>
                 <BrandModal />
                 <h4>создание типа устройства</h4>
-                <TypeModal /> */}
+                <TypeModal />
                 <h4>создание устройства</h4>
                 <DeviceModal />
             </div>
