@@ -76,11 +76,10 @@ const AuthForm = () => {
                     registrationAdmin({email: state!.email.value, password: state!.password.value})
                     .unwrap()
                     .then((res) => {
-                        debugger
                         dispatch!({type:'superAdminReset'})
                         dispatch!({type:'setServerMessage', payload: res.message})
                     })
-                    .catch(e => {debugger; dispatch!({type:'setServerMessage', payload: serverErrorHandler(e)})})
+                    .catch(e => dispatch!({type:'setServerMessage', payload: serverErrorHandler(e)}))
                     break;
             }
         } 

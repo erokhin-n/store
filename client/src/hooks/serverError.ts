@@ -1,11 +1,13 @@
-export const serverErrorHandler = (error:any) => {
+import { SerializedError } from "@reduxjs/toolkit"
+import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query"
+
+
+export const serverErrorHandler = (error: any) => {
 
     if (error) {
-        
         if ('status' in error) {
-            console.log('its work!')
             error = 'error' in error ? 
-            error.error : 
+                error.error : 
                 JSON.stringify(error.data)
             return error.split(":")[1].replace(/[\\\}]/gi, '')
         } else {

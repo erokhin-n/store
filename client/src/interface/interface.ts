@@ -1,5 +1,6 @@
 import { formView } from "../enums/enums";
 import { MouseEvent } from 'react'
+import { FetchBaseQueryArgs, FetchBaseQueryError } from "@reduxjs/toolkit/dist/query/fetchBaseQuery";
 
 export interface IDevice {
     id: number;
@@ -119,3 +120,5 @@ export interface IAuthFormFields {
     changePassword: (e:string) => void;
     handleClick: (e:MouseEvent<HTMLButtonElement>) => void;
 }
+
+export type TestType = FetchBaseQueryError as string
