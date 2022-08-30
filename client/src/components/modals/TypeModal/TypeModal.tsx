@@ -1,64 +1,68 @@
 import { FormEvent, useEffect, useState } from "react"
+import { ValidationResult } from "../../../enums/enums"
+import { ITypeAndBrandModal } from "../../../interface/interface"
 import { useSaveTypeMutation } from "../../../store/apiSlice/typeSlice"
-import { deviceFormValidation } from "../../../validation/DeviceFormValidation"   
+import { deviceFormValidation } from "../../../validation/DeviceFormValidation"
 import ErrorModal from "../../ErrorModal"
 
 const TypeModal = () => {
 
-    const [type, setType] = useState<string>('')
-    const [typeError, setTypeError] = useState<string>('')
-    const [serverError, setServerError] = useState<string>('')
+    const [type, setType] = useState<ITypeAndBrandModal>({
+        value: '', 
+        valid: ValidationResult.FIRST_ADDITION, 
+        serverInfo: ''
+    })
 
-    const [saveType, {isLoading, isError, error}] = useSaveTypeMutation()
+    useEffect(()=> {
+        console.log(type.serverInfo)
+    },[type.serverInfo])
+
+    useEffect(()=> {
+        if(!type.value.length) {
+            setType({...type, valid: ValidationResult.FIRST_ADDITION})
+        }
+    }, [type.value])
+
+    const [saveType, {isLoading}] = useSaveTypeMutation()
 
     const saveTypeOnServer = (e:FormEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        const validationSuccess = deviceFormValidation(type)
-        if(validationSuccess) {
-            saveType({name: type})
-            setType('')
+        if(type.valid === ValidationResult.SUCCESS) {
+            saveType({name: type.value})
+            .unwrap()
+            .then( res => setType({...type, serverInfo: res.message}))
+            .catch(e => setType({...type, serverInfo: e.data.message}))
+        } else {   
+            setType({
+                ...type, 
+                valid: ValidationResult.ERROR,
+                serverInfo: "Необходимо исправить поле перед отправкой"
+            })
         }
     }
-
-    let errorServerMessage:string | undefined
-
-    if (error) {
-        if ('status' in error) {
-            errorServerMessage = 'error' in error ? 
-            error.error : 
-                JSON.stringify(error.data)
-        } else {
-            errorServerMessage = error.message
-        }
-    }
-
-    useEffect(()=>{
-        if(errorServerMessage) setServerError(errorServerMessage)     
-    },[errorServerMessage])
 
     const changeType = (e:string) => {
-        if(typeError) deviceFormValidation(type)
-        setServerError('')
-        setType(e)
+        setType({...type, value: e, valid: deviceFormValidation(e), serverInfo: ''})
     }
 
     if (isLoading) {
-        return <h3>type save loading ....</h3>
+        return <h3>type save loading ...</h3>
     }
 
     return (
         <form>
             <input 
                 type = "text"
-                placeholder="название типа"
-                value={type}  
+                placeholder="название бренда"
+                value={type.value}  
                 onChange={e => changeType(e.target.value)}
+                style={{border: type.valid === ValidationResult.ERROR ?
+                    "2px solid red" : "1px solid black"
+                }}
             />
             <button onClick={e => saveTypeOnServer(e)}>save</button>
-            {typeError && <ErrorModal error={typeError} />}
-            {serverError && <ErrorModal error={serverError
-                .split(":")[1]
-                .replace(/[\\\}]/gi, '')}/>}
+            {type.serverInfo}
+            
         </form>
     )
 }

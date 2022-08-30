@@ -63,14 +63,14 @@ test('test for AuthInputs', async () => {
     const submitButton = screen.getByRole('button')
 	// const changeFormView = screen.getByText('зарегистрируйтесь')
 
-	const mail:string =  's_adsdfsdfm@mail.com'
+	const mail:string =  's_adm@mail.com'
 
 	// fireEvent.click(changeFormView)
 	fireEvent.change(emailInput!, {target: {value: mail}})
 	fireEvent.change(passwordInput!, {target: {value: 'passwdord'}})
 	fireEvent.click(submitButton)
 	
-	const serverError = await waitFor(()=> screen.findByText('poshel ti na hui'), {timeout: 2000})
-	expect(serverError).toBeInTheDocument()
+	const serverError = await waitFor(()=> screen.findByTestId('errorId'))
+	expect(serverError).toHaveTextContent('неправльный пароль')
 })
 

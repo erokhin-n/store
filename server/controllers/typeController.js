@@ -16,7 +16,7 @@ class TypeController {
 			const existType = await Type.findOne({where: {name}})
 			if(existType) throw ApiError.conflict('такой тип уже существует')
 			const type = await Type.create({name})
-			return res.json(type)
+			res.json({message: `type ${name} saved`})
 		} catch(e){
 			next(e)
 		}

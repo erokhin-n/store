@@ -14,7 +14,7 @@ const BrandModal = () => {
 
     useEffect(()=> {
         if(!brand.value.length) {
-            setBrand({...brand, valid: ValidationResult.FIRST_ADDITION, serverInfo: ''})
+            setBrand({...brand, valid: ValidationResult.FIRST_ADDITION})
         }
     }, [brand.value])
 
@@ -22,7 +22,6 @@ const BrandModal = () => {
 
     const saveBrandOnServer = (e:FormEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        setBrand({...brand, valid: deviceFormValidation(brand.value)})
         if(brand.valid === ValidationResult.SUCCESS) {
             saveBrand({name: brand.value})
             .unwrap()
