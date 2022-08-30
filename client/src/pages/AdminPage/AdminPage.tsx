@@ -15,6 +15,8 @@ const AdminPage = () => {
     const {data:types,isSuccess:successTypesLoad} = useGetAllTypesQuery()
     const {data:brands,isSuccess:successBrandsLoad} = useGetAllBrandsQuery()
 
+    
+
     return (
         <section className={styles.page}>
             <div className={styles.deviceForm}>
