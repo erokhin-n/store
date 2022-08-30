@@ -7,22 +7,23 @@ import ErrorModal from "../../ErrorModal"
 
 const BrandModal = () => {
 
-    const [brand, setBrand] = useState<ITypeAndBrandModal>({value: '', valid: ValidationResult.FIRST_ADDITION})
+    const [brand, setBrand] = useState<ITypeAndBrandModal>({
+        value: '', 
+        valid: ValidationResult.FIRST_ADDITION, 
+        serverInfo: ''
+    })
 
-    const [saveBrand, {isLoading, error}] = useSaveBrandMutation()
+    const [saveBrand, {isLoading}] = useSaveBrandMutation()
 
     const saveBrandOnServer = (e:FormEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        saveBrand({name: brand.value}) 
+        saveBrand({name: brand.value})
+        .unwrap()
+        .then( res =>setBrand({...brand, serverInfo: res.message}))
+        .catch(e => {console.log(e.data.message); setBrand({...brand, serverInfo: e.data.message})})
     }
 
-    let errorServerMessage:string | undefined
-
-
     const changeBrand = (e:string) => {
-        // if(brandError) setBrandError(deviceFormValidation(brand))
-        // setServerError('')
-        // setBrand(e)
         setBrand({...brand, value: e, valid: deviceFormValidation(e)})
     }
 
@@ -40,6 +41,8 @@ const BrandModal = () => {
             />
             <button onClick={e => saveBrandOnServer(e)}>save</button>
             {brand.valid === ValidationResult.ERROR && <ErrorModal error={"пошел на хуй"} />}
+            {brand.serverInfo}
+            
         </form>
     )
 }

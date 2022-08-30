@@ -124,4 +124,5 @@ export interface IAuthFormFields {
 export interface ITypeAndBrandModal {
     value: string;
     valid: ValidationResult.ERROR | ValidationResult.FIRST_ADDITION | ValidationResult.SUCCESS;
+    serverInfo: string;
 }
