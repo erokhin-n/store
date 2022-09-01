@@ -1,21 +1,15 @@
-// import BrandModal from "../../components/modals/BrandModal/BrandModal"
-import { createContext, useReducer } from "react"
 import BrandModal from "../../components/modals/BrandModal/BrandModal"
 import DeviceModal from "../../components/modals/DeviceModal/DeviceModal"
 import TypeModal from "../../components/modals/TypeModal/TypeModal"
-// import TypeModal from "../../components/modals/TypeModal/TypeModal"
 import { ITypeAndBrand } from "../../interface/interface"
 import { useGetAllBrandsQuery } from "../../store/apiSlice/brandSlice"
 import { useGetAllTypesQuery } from "../../store/apiSlice/typeSlice"
 import styles from './AdminPage.module.css'
 
-
 const AdminPage = () => {
 
     const {data:types,isSuccess:successTypesLoad} = useGetAllTypesQuery()
     const {data:brands,isSuccess:successBrandsLoad} = useGetAllBrandsQuery()
-
-    
 
     return (
         <section className={styles.page}>
@@ -40,7 +34,7 @@ const AdminPage = () => {
             </div>
             <div>
             <h3>бренды:</h3>
-            {successBrandsLoad? 
+            {successBrandsLoad ? 
                 brands.map((brand:ITypeAndBrand) => 
                     <h3 key={brand.name}>{brand.name}</h3>    
                 ) :

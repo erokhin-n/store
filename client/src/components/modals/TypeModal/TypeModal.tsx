@@ -14,10 +14,6 @@ const TypeModal = () => {
     })
 
     useEffect(()=> {
-        console.log(type.serverInfo)
-    },[type.serverInfo])
-
-    useEffect(()=> {
         if(!type.value.length) {
             setType({...type, valid: ValidationResult.FIRST_ADDITION})
         }
@@ -53,7 +49,7 @@ const TypeModal = () => {
         <form>
             <input 
                 type = "text"
-                placeholder="название бренда"
+                placeholder="название типа устройства"
                 value={type.value}  
                 onChange={e => changeType(e.target.value)}
                 style={{border: type.valid === ValidationResult.ERROR ?
@@ -61,8 +57,11 @@ const TypeModal = () => {
                 }}
             />
             <button onClick={e => saveTypeOnServer(e)}>save</button>
-            {type.serverInfo}
-            
+            <h5>{type.serverInfo}</h5>
+            {
+                type.valid === ValidationResult.ERROR &&
+                    <h4>поле содержит недопустимые символы</h4>
+            }
         </form>
     )
 }

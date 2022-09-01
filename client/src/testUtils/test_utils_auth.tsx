@@ -6,8 +6,6 @@ import { authFormReducer, init, initialState } from '../store/reactReducer/authF
 import { store } from '../store'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { PagesEnum } from '../enums/enums'
-import Shop from '../pages/Shop'
 import AppRouter from '../components/AppRouter'
 
 const AllTheProviders: FC<{children: React.ReactNode}> = ({children}) => {

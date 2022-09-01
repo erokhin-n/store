@@ -57,8 +57,11 @@ const BrandModal = () => {
                 }}
             />
             <button onClick={e => saveBrandOnServer(e)}>save</button>
-            {brand.serverInfo}
-            
+            <h5>{brand.serverInfo}</h5>
+            {
+                brand.valid === ValidationResult.ERROR &&
+                    <h4>поле содержит недопустимые символы</h4>
+            }
         </form>
     )
 }
