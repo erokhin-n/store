@@ -23,6 +23,7 @@ const BrandIdSelect = () => {
                     border: (state!.brandId.valid === ValidationResult.ERROR) ? 
                     "3px solid red" : "1px solid black"
                 }}
+                data-testid="select"
             >
             <option onClick={() => changeValue(0)}>{"выберите бренд"}</option>
             {brands && brands.map(brand => 
@@ -31,7 +32,7 @@ const BrandIdSelect = () => {
                     value={state!.brandId.value}
                     onClick={() => changeValue(brand.id!)}
                 >
-                    {brand.name}
+                    <h4>{brand.name}</h4>
                 </option>    
             )}
         </select>
