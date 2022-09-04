@@ -32,10 +32,11 @@ const BrandIdSelect = () => {
                     value={state!.brandId.value}
                     onClick={() => changeValue(brand.id!)}
                 >
-                    <h4>{brand.name}</h4>
+                    {brand.name}
                 </option>    
             )}
         </select>
+        {state?.brandId.valid === ValidationResult.ERROR && <h4>нужно выбрать бренд</h4>}
     </div>
     )
 }

@@ -7,26 +7,41 @@ import userEvent from '@testing-library/user-event'
 
 
 test('test for typeModal', async ()=> {
-    const userAction = userEvent.setup()
+    // const userAction = userEvent.setup()
     render(<DeviceModal />)
 
-    const brandIdSelect = await waitFor(()=> screen.findByText("выберите бренд"))
-    // const  = await waitFor(()=> screen.findByPlaceholderText("введите название"))
-    // const button = await waitFor(()=> screen.findByRole('button'))
 
-    const typeName = "TLtype&2"
+    const selectBrand = screen.findByText("выберите бренд")
+    const selectType = screen.findByText("выберите тип")
+    const nameInput = screen.getByPlaceholderText("введите название")
 
-    // userAction.type(nameInput, typeName )
-    // fireEvent.change(nameInput, {target: {value: typeName}})
-    // fireEvent.click(button)
+    const samsung = await waitFor(()=> screen.findByText("Samsung"))
+    const icemachine = await waitFor(()=> screen.findByText("холодильники"))
 
-    userAction.selectOptions(screen.getByTestId("select"), screen.getByText())
+    const button = screen.getByText("сохранить устройство")
 
-    // expect(await waitFor(()=> screen.findByText(`Необходимо исправить поле перед отправкой`)))
-    // expect(await waitFor(()=> screen.findByText(`поле содержит недопустимые символы`)))
-    // expect(await waitFor(()=> screen.findByText(`type ${typeName} saved`)))
-    // expect(await waitFor(()=> screen.findByText("такой тип уже существует"),{timeout: 3000}))
 
-    expect(await waitFor(()=> brandIdSelect)).toHaveValue("Samsung")
+    // fireEvent.click(selectBrand)
+    // fireEvent.click(samsung)
+    // fireEvent.click(selectBrand)
+
+    // fireEvent.click(samsung)
+
+    // fireEvent.click(selectBrand)
+
+    // fireEvent.click(icemachine)
+    // fireEvent.click(selectType)
+
+    fireEvent.change(nameInput,{target: {value: ' hi'}})
+
+    // const errorMessageBrand = await waitFor(()=> screen.findByText("нужно выбрать бренд"))
+    // const errorMessageType = await waitFor(()=> screen.findByText("нужно выбрать тип"))
+    const errorMessageNameInput = await waitFor(()=> screen.findByText("поле содержит недопустимые символы"))   
+    
+    fireEvent.click(button)
+
+    // expect(await waitFor(()=> errorMessageBrand)).toHaveTextContent("нужно выбрать бренд")
+    // expect(await waitFor(()=> errorMessageType)).toHaveTextContent("нужно выбрать тип")
+    expect(await waitFor(()=> errorMessageNameInput)).toHaveTextContent("поле сод ержит недопустимые символы")
     // .toBeInTheDocument()
 })

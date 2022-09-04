@@ -35,6 +35,7 @@ const TypeIdSelect = () => {
                 </option>    
             )}
         </select>
+        {state!.typeId.valid === ValidationResult.ERROR && <h4>нужно выбрать тип</h4>}
     </div>
     )
 }

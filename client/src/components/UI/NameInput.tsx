@@ -24,8 +24,8 @@ const NameInput = () => {
                 }}
             />
             {
-            state!.name.valid === ValidationResult.ERROR && 
-                <h4>поле содержит недопустимые символы</h4>
+                state!.name.valid === ValidationResult.ERROR && 
+                    <h4>поле содержит недопустимые символы</h4>
             }
         </div>
     )
