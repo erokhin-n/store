@@ -42,6 +42,6 @@ test('test for typeModal', async ()=> {
 
     // expect(await waitFor(()=> errorMessageBrand)).toHaveTextContent("нужно выбрать бренд")
     // expect(await waitFor(()=> errorMessageType)).toHaveTextContent("нужно выбрать тип")
-    expect(await waitFor(()=> errorMessageNameInput)).toHaveTextContent("поле сод ержит недопустимые символы")
+    expect(await waitFor(()=> errorMessageNameInput)).toHaveTextContent("поле содержит недопустимые символы")
     // .toBeInTheDocument()
 })
