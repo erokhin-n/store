@@ -15,15 +15,17 @@ function setup(tsx:any) {
 
 
 test('test for deviceModal', async ()=> {
-
         
     const {user} = setup(<BrandIdSelect />)
 
     const selectBrand:any = screen.getByText("выберите бренд")
 
-    const samsung = screen.getByText("Samsung")
+	user.click(selectBrand)
 
-    user.selectOptions(await selectBrand, samsung)
+    const samsung = await waitFor(()=> screen.findByText("Samsung"))
+
+	// user.click(samsung)
+    // user.selectOptions(await selectBrand, samsung)
 
     // const button = screen.getByText("сохранить устройство")
     
@@ -32,6 +34,6 @@ test('test for deviceModal', async ()=> {
     // const errorMessageBrand = await waitFor(()=> screen.findByText("нужно выбрать бренд")) 
 
     // expect(await waitFor(()=> errorMessageBrand)).toHaveTextContent("добавьте изображение")
-    expect(selectBrand).toHaveValue("Samsung")
+    expect(samsung).toHaveValue("Samsung")
 
 })
