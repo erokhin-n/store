@@ -20,12 +20,15 @@ const ImageInput = () => {
         <div>
             <label>изображение</label>
             <input 
+                placeholder="добавьте изображение"
                 style={{background: (state!.image.valid === ValidationResult.ERROR) ?
                     "red" : "white"
                 }}
                 type="file"
                 onChange={e => selectImage(e)}
             />
+            {state!.image.valid === ValidationResult.ERROR &&
+                <h4>добавьте изображение</h4> }
         </div>
     )
 }
