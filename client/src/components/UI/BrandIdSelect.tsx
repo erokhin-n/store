@@ -1,4 +1,4 @@
-import { FC, useContext } from "react"
+import { ChangeEvent, FC, useContext } from "react"
 import { ValidationResult } from "../../enums/enums"
 import { useGetAllBrandsQuery } from "../../store/apiSlice/brandSlice"
 import { deviceFormValidation } from "../../validation/DeviceFormValidation"
@@ -13,7 +13,6 @@ const BrandIdSelect = () => {
     const dispatch = useContext(DeviceModalDispatch)
 
     const changeValue = (id:number) => {
-        console.log(id)
         dispatch!({type:"changeBrandId", payload:{value: id, valid: deviceFormValidation(id)}}) 
     }
 
@@ -24,8 +23,8 @@ const BrandIdSelect = () => {
                     border: (state!.brandId.valid === ValidationResult.ERROR) ? 
                     "3px solid red" : "1px solid black"
                 }}
-                data-testid="select"
-                onChange={(e:any)=> changeValue(e.target.value)}
+                data-testid="BrandSelect"
+                onChange={(e:ChangeEvent<HTMLSelectElement>)=> changeValue(Number(e.target.value))}
                 value={state?.brandId.value}
             >
             <option value={0}>{"выберите бренд"}</option>
@@ -33,7 +32,6 @@ const BrandIdSelect = () => {
                 <option
                     key={brand.id} 
                     value={brand.id}
-                    // onClick={() => changeValue(brand.id!)}
                 >
                     {brand.name}
                 </option>    

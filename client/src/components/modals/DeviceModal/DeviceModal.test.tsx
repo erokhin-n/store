@@ -15,29 +15,29 @@ function setup(tsx:any) {
   }
 
 
-test('test for deviceModal', async ()=> {
+test('test for BrandModal', async ()=> {
         
     const {user} = setup(<DeviceModal />)
 
-	const select = screen.getByTestId('select')
+    user.selectOptions(screen.getByTestId('BrandSelect'), await screen.findByText("Samsung"))
+    user.selectOptions(screen.getByTestId('BrandSelect'), screen.getByText("выберите бренд"))
+    user.click(screen.getByText("сохранить устройство"))
 
-    const selectBrand = screen.getByText("выберите бренд")
-	// const nameInput = await waitFor(()=> screen.findByPlaceholderText("введите название"))
+    expect(await waitFor(()=> screen.findByText("нужно выбрать бренд")))
+    .toHaveTextContent("нужно выбрать бренд")
 
-	// user.click(selectBrand)
-    const samsung = await waitFor(()=> screen.findByText("Samsung"),{timeout: 1500})
+})
 
-	// user.click(samsung)
-    user.selectOptions(select, samsung)
-    user.selectOptions(select, selectBrand)
+test('test for TypeModal', async ()=> {
+        
+    const {user} = setup(<DeviceModal />)
 
-    // const button = screen.getByText("сохранить устройство")
-    
-    // fireEvent.click(button)
+    user.selectOptions(screen.getByTestId('TypeSelect'), await screen.findByText("холодильники"))
+    user.selectOptions(screen.getByTestId('TypeSelect'), screen.getByText("выберите тип"))
+    user.selectOptions(screen.getByTestId('TypeSelect'), await screen.findByText("холодильники"))
+    user.click(screen.getByText("сохранить устройство"))
 
-    const errorMessageBrand = await waitFor(()=> screen.findByText("нужно выбрать бренд"),{timeout: 3500}) 
-
-    // expect(await waitFor(()=> errorMessageBrand)).toHaveTextContent("добавьте изображение")
-    expect(select).toHaveTextContent("Samsung")
+    expect(await waitFor(()=> screen.findByText("нужно выбрать тип")))
+    .toHaveTextContent("нужно выбрать тип")
 
 })

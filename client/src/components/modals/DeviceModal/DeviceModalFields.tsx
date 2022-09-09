@@ -2,6 +2,7 @@ import { useContext, MouseEvent, FC } from "react"
 import { ValidationResult } from "../../../enums/enums"
 import { IDeviceFormFields } from "../../../interface/interface"
 import { initialState } from "../../../store/reactReducer/deviceModalReducer"
+import { deviceFormValidation } from "../../../validation/DeviceFormValidation"
 import BrandIdSelect from "../../UI/BrandIdSelect"
 import ImageInput from "../../UI/ImageInput"
 import NameInput from "../../UI/NameInput"
@@ -15,9 +16,8 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
     const state = useContext(DeviceModalState)
     const dispatch = useContext(DeviceModalDispatch)
 
-    const checkFieldsBeforeSend = () => {
-        (state!.typeId.valid === ValidationResult.FIRST_ADDITION) && 
-            dispatch!({type:'changeTypeId', payload:{value: 0, valid: ValidationResult.ERROR}});
+    const checkFieldsBeforeSend = () => { 
+        dispatch!({type:'changeTypeId', payload:{value: state!.typeId.value, valid: deviceFormValidation(state!.typeId.value)}});
 
         (state!.brandId.valid === ValidationResult.FIRST_ADDITION) && 
             dispatch!({type:'changeBrandId', payload:{value: 0, valid: ValidationResult.ERROR}});

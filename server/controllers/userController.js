@@ -84,7 +84,6 @@ class UserController {
 	}
 
 	async login(req,res,next) {
-		console.log('LOGIN AT BACK WORK!')
 		try {
 			const errors = validationResult(req);
 

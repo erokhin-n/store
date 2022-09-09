@@ -1,4 +1,4 @@
-import {  useContext } from "react"
+import {  ChangeEvent, useContext } from "react"
 import { ValidationResult } from "../../enums/enums"
 import { ITypeAndBrand } from "../../interface/interface"
 import { useGetAllTypesQuery } from "../../store/apiSlice/typeSlice"
@@ -13,7 +13,7 @@ const TypeIdSelect = () => {
     const dispatch = useContext(DeviceModalDispatch)
 
     const changeValue = (id:number) => {
-        dispatch!({type:"changeTypeId", payload:{value:id, valid: deviceFormValidation(id)}}) 
+        dispatch!({type:"changeTypeId", payload:{value:id, valid: ValidationResult.FIRST_ADDITION}}) 
     }
 
     return (
@@ -23,13 +23,15 @@ const TypeIdSelect = () => {
                     border: (state!.typeId.valid === ValidationResult.ERROR) ? 
                     "3px solid red" : "1px solid black"
                 }}
+                value={state!.typeId.value}
+                onChange={(e:ChangeEvent<HTMLSelectElement>) => changeValue(Number(e.target.value))}
+                data-testid="TypeSelect"
             >
-            <option onClick={() => changeValue(0)}>{"выберите тип"}</option>
+            <option value={0}>{"выберите тип"}</option>
             {types && types.map((type:ITypeAndBrand) => 
                 <option
                     key={type.id} 
-                    value={state!.typeId.value}
-                    onClick={() => changeValue(type.id!)}
+                    value={type.id}
                 >
                     {type.name}
                 </option>    
