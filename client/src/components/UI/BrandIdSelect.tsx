@@ -13,6 +13,7 @@ const BrandIdSelect = () => {
     const dispatch = useContext(DeviceModalDispatch)
 
     const changeValue = (id:number) => {
+        console.log(id)
         dispatch!({type:"changeBrandId", payload:{value: id, valid: deviceFormValidation(id)}}) 
     }
 
@@ -24,20 +25,22 @@ const BrandIdSelect = () => {
                     "3px solid red" : "1px solid black"
                 }}
                 data-testid="select"
+                onChange={(e:any)=> changeValue(e.target.value)}
+                value={state?.brandId.value}
             >
-            <option onClick={() => changeValue(0)}>{"выберите бренд"}</option>
+            <option value={0}>{"выберите бренд"}</option>
             {brands && brands.map(brand => 
                 <option
                     key={brand.id} 
-                    value={state!.brandId.value}
-                    onClick={() => changeValue(brand.id!)}
+                    value={brand.id}
+                    // onClick={() => changeValue(brand.id!)}
                 >
                     {brand.name}
                 </option>    
             )}
-        </select>
+            </select>
         {state?.brandId.valid === ValidationResult.ERROR && <h4>нужно выбрать бренд</h4>}
-    </div>
+        </div>
     )
 }
 

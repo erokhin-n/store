@@ -38,6 +38,6 @@ test('test for deviceModal', async ()=> {
     const errorMessageBrand = await waitFor(()=> screen.findByText("нужно выбрать бренд"),{timeout: 3500}) 
 
     // expect(await waitFor(()=> errorMessageBrand)).toHaveTextContent("добавьте изображение")
-    expect(errorMessageBrand).toHaveTextContent("Samsung")
+    expect(select).toHaveTextContent("Samsung")
 
 })
