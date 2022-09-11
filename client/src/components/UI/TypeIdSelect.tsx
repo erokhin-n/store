@@ -1,4 +1,4 @@
-import {  ChangeEvent, useContext } from "react"
+import {  ChangeEvent, useContext, useEffect } from "react"
 import { ValidationResult } from "../../enums/enums"
 import { ITypeAndBrand } from "../../interface/interface"
 import { useGetAllTypesQuery } from "../../store/apiSlice/typeSlice"
@@ -13,8 +13,14 @@ const TypeIdSelect = () => {
     const dispatch = useContext(DeviceModalDispatch)
 
     const changeValue = (id:number) => {
-        dispatch!({type:"changeTypeId", payload:{value:id, valid: ValidationResult.FIRST_ADDITION}}) 
+        dispatch!({type:"changeTypeIdValue", payload:id })
     }
+
+    useEffect(()=>{
+        if(state!.typeId.valid === ValidationResult.ERROR) {
+            dispatch!({type:"changeTypeIdValid", payload: deviceFormValidation(state!.typeId.value)})
+        } 
+    },[state!.typeId.value])
 
     return (
         <div>

@@ -16,10 +16,16 @@ export const initialState = {
 
 export const deviceModalReducer = (state:IDeviceModalState, action:IDeviceReducerActions) => {
     switch(action.type){
-        case 'changeTypeId':
+        case 'changeTypeIdValue':
             return {...state, typeId:{
-                value: action.payload.value, 
-                valid: action.payload.valid
+                ...state.typeId,
+                value: action.payload
+                }
+            };
+        case 'changeTypeIdValid':
+            return {...state, typeId:{
+                ...state.typeId,
+                valid: action.payload
                 }
             };
         case 'changeBrandId':

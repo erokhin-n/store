@@ -17,10 +17,10 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
     const dispatch = useContext(DeviceModalDispatch)
 
     const checkFieldsBeforeSend = () => { 
-        dispatch!({type:'changeTypeId', payload:{value: state!.typeId.value, valid: deviceFormValidation(state!.typeId.value)}});
+        dispatch!({type:'changeTypeIdValid', payload:deviceFormValidation(state!.typeId.value)});
 
-        (state!.brandId.valid === ValidationResult.FIRST_ADDITION) && 
-            dispatch!({type:'changeBrandId', payload:{value: 0, valid: ValidationResult.ERROR}});
+        // (state!.brandId.valid === ValidationResult.FIRST_ADDITION) && 
+
 
         (state!.name.valid === ValidationResult.FIRST_ADDITION) && 
             dispatch!({type:'changeName', payload:{value: '', valid: ValidationResult.ERROR}});

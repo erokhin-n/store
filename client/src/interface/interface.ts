@@ -86,7 +86,8 @@ export interface IDeviceInfo {
 }
 
 export type IDeviceReducerActions = 
-    | {type: 'changeTypeId'; payload: {value: number, valid: string}}
+    | {type: 'changeTypeIdValue'; payload:number}
+    | {type: 'changeTypeIdValid'; payload:string}
     | {type: 'changeBrandId'; payload: {value: number, valid: string}}
     | {type: 'changeName'; payload: {value: string, valid: string}}
     | {type: 'changePrice'; payload: {value: string, valid: string}}
