@@ -28,10 +28,16 @@ export const deviceModalReducer = (state:IDeviceModalState, action:IDeviceReduce
                 valid: action.payload
                 }
             };
-        case 'changeBrandId':
+        case 'changeBrandIdValue':
             return {...state, brandId:{
-                value: action.payload.value, 
-                valid: action.payload.valid
+                ...state.brandId,
+                value: action.payload, 
+                }
+            };
+        case 'changeBrandIdValid':
+            return {...state, brandId:{
+                ...state.brandId,
+                valid: action.payload, 
                 }
             };
         case 'changeName':

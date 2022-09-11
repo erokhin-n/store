@@ -19,8 +19,7 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
     const checkFieldsBeforeSend = () => { 
         dispatch!({type:'changeTypeIdValid', payload:deviceFormValidation(state!.typeId.value)});
 
-        // (state!.brandId.valid === ValidationResult.FIRST_ADDITION) && 
-
+        dispatch!({type:'changeBrandIdValid', payload:deviceFormValidation(state!.brandId.value)});
 
         (state!.name.valid === ValidationResult.FIRST_ADDITION) && 
             dispatch!({type:'changeName', payload:{value: '', valid: ValidationResult.ERROR}});

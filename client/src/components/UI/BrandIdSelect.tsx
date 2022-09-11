@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useContext } from "react"
+import { ChangeEvent, FC, useContext, useEffect } from "react"
 import { ValidationResult } from "../../enums/enums"
 import { useGetAllBrandsQuery } from "../../store/apiSlice/brandSlice"
 import { deviceFormValidation } from "../../validation/DeviceFormValidation"
@@ -13,8 +13,14 @@ const BrandIdSelect = () => {
     const dispatch = useContext(DeviceModalDispatch)
 
     const changeValue = (id:number) => {
-        dispatch!({type:"changeBrandId", payload:{value: id, valid: deviceFormValidation(id)}}) 
+        dispatch!({type:"changeBrandIdValue", payload:id}) 
     }
+
+    useEffect(()=>{
+        if(state!.brandId.valid === ValidationResult.ERROR) {
+            dispatch!({type:"changeBrandIdValid", payload: deviceFormValidation(state!.brandId.value)})
+        } 
+    },[state!.brandId.value])
 
     return (
         <div>

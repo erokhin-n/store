@@ -88,7 +88,8 @@ export interface IDeviceInfo {
 export type IDeviceReducerActions = 
     | {type: 'changeTypeIdValue'; payload:number}
     | {type: 'changeTypeIdValid'; payload:string}
-    | {type: 'changeBrandId'; payload: {value: number, valid: string}}
+    | {type: 'changeBrandIdValue'; payload:number}
+    | {type: 'changeBrandIdValid'; payload:string}
     | {type: 'changeName'; payload: {value: string, valid: string}}
     | {type: 'changePrice'; payload: {value: string, valid: string}}
     | {type: 'selectImage'; payload: {value: string | Blob, valid: string}}
