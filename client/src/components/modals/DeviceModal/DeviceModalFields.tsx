@@ -2,7 +2,7 @@ import { useContext, MouseEvent, FC } from "react"
 import { ValidationResult } from "../../../enums/enums"
 import { IDeviceFormFields } from "../../../interface/interface"
 import { initialState } from "../../../store/reactReducer/deviceModalReducer"
-import { deviceFormValidation } from "../../../validation/DeviceFormValidation"
+import { deviceFormValidation, priceFormValidation } from "../../../validation/DeviceFormValidation"
 import BrandIdSelect from "../../UI/BrandIdSelect"
 import ImageInput from "../../UI/ImageInput"
 import NameInput from "../../UI/NameInput"
@@ -23,8 +23,7 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
 
         dispatch!({type:"changeNameValid", payload: deviceFormValidation(state!.name.value)});
 
-        (state!.price.valid === ValidationResult.FIRST_ADDITION) && 
-            dispatch!({type:'changePrice', payload:{value: '', valid: ValidationResult.ERROR}});
+        dispatch!({type:'changePriceValid', payload:priceFormValidation(state!.price.value)});
 
         (state!.image.valid === ValidationResult.FIRST_ADDITION) && 
             dispatch!({type:'selectImage', payload:{value: '', valid: ValidationResult.ERROR}});

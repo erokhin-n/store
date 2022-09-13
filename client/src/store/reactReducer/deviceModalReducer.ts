@@ -52,10 +52,16 @@ export const deviceModalReducer = (state:IDeviceModalState, action:IDeviceReduce
                 valid: action.payload
                 }
             };
-        case 'changePrice':
+        case 'changePriceValue':
             return {...state, price:{
-                value: action.payload.value, 
-                valid: action.payload.valid
+                ...state.price,
+                value: action.payload
+                }
+            };
+        case 'changePriceValid':
+            return {...state, price:{
+                ...state.price,
+                valid: action.payload
                 }
             };
         case 'selectImage':

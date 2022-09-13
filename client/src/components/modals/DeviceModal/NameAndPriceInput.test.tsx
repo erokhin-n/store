@@ -26,15 +26,52 @@ test('test for nameInput', async ()=> {
 	user.click(screen.getByText("сохранить устройство"))
 
     await waitFor(() => user.type(inputName, "test"))
-    await waitFor(() =>user.keyboard('{BackSpace>4/}t'))
+    await waitFor(() =>user.keyboard('{BackSpace>4/}'))
+
+    user.click(screen.getByText("сохранить устройство"))
 
 
 	// await waitFor(()=>user.selectOptions(screen.getByTestId('TypeSelect'), screen.getByText("холодильники"))) 
 
-    expect(inputName).toHaveValue('y')
+    // expect(inputName).toHaveValue('y')
 
-    // expect(await waitFor(()=> screen.findByText("поле содержит недопустимые символы")))
+    expect(await waitFor(()=> screen.findByText("поле содержит недопустимые символы")))
+    .toBeInTheDocument()
+
+    
+
+    // expect(await waitFor(()=> screen.findByText("нужно выбрать тип")))
     // .toBeInTheDocument()
+})
+
+test('test for priceInput', async ()=> {
+        
+    const {user} = setup(<DeviceModal />)
+
+    const priceInput = screen.getByPlaceholderText("введите цену")
+
+    // user.type(inputName, ' $')
+    await waitFor(() => user.type(priceInput, "test"))
+    await waitFor(() =>user.keyboard('{BackSpace>4/}'))
+    await waitFor(() => user.type(priceInput, "4"))
+    // await waitFor(() => user.type(inputName, "testdevice "))
+
+	// user.click(screen.getByText("сохранить устройство"))
+
+    user.click(screen.getByText("сохранить устройство"))
+
+    await waitFor(() =>user.keyboard('{BackSpace>2/}'))
+
+    await waitFor(() => user.type(priceInput, "&4"))
+    await waitFor(() =>user.keyboard('{BackSpace>2/}4.30%'))
+
+
+	// await waitFor(()=>user.selectOptions(screen.getByTestId('TypeSelect'), screen.getByText("холодильники"))) 
+
+    // expect(priceInput).toHaveValue('y')
+
+    expect(await waitFor(()=> screen.findByText("цена содержит недопустимые символы")))
+    .toBeInTheDocument()
 
     
 

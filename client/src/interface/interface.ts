@@ -81,7 +81,8 @@ export type IDeviceReducerActions =
     | {type: 'changeBrandIdValid'; payload:string}
     | {type: 'changeNameValue'; payload: string}
     | {type: 'changeNameValid'; payload: string }
-    | {type: 'changePrice'; payload: {value: string, valid: string}}
+    | {type: 'changePriceValue'; payload: string}
+    | {type: 'changePriceValid'; payload: string}
     | {type: 'selectImage'; payload: {value: string | Blob, valid: string}}
     | {type: 'addInfo'; payload: IDeviceInfo[]}
     | {type: 'changeTitle'; payload: {value: string, id: string, valid: string}}

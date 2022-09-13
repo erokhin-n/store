@@ -25,6 +25,7 @@ const NameInput = () => {
         <div>
             <label>{"название"}</label>
             <input 
+                type="text"
                 placeholder="введите название"
                 value={state!.name.value} 
                 onChange={e => changeValue(e.target.value)}

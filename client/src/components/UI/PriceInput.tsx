@@ -1,4 +1,4 @@
-import { FC, useContext } from "react"
+import { FC, useContext, useEffect } from "react"
 import { ValidationResult } from "../../enums/enums"
 import { priceFormValidation } from "../../validation/DeviceFormValidation"
 import { DeviceModalDispatch, DeviceModalState } from "../modals/DeviceModal/DeviceModal"
@@ -9,8 +9,16 @@ const PriceInput = () => {
     const dispatch = useContext(DeviceModalDispatch)
 
     const changeValue = (value: string) => {
-        dispatch!({type:'changePrice', payload: {value, valid: priceFormValidation(value)}})  
+        dispatch!({type:'changePriceValue', payload: value})  
     }
+
+    useEffect(()=> {
+        if(!state!.price.value.length) {
+            dispatch!({type:"changePriceValid", payload: ValidationResult.FIRST_ADDITION})
+        } else {
+            dispatch!({type:"changePriceValid", payload: priceFormValidation(state!.price.value)})
+        }
+    },[state!.price.value])
 
     return (
         <div>
