@@ -29,7 +29,6 @@ const BrandIdSelect = () => {
                     border: (state!.brandId.valid === ValidationResult.ERROR) ? 
                     "3px solid red" : "1px solid black"
                 }}
-                data-testid="BrandSelect"
                 onChange={(e:ChangeEvent<HTMLSelectElement>)=> changeValue(Number(e.target.value))}
                 value={state?.brandId.value}
             >

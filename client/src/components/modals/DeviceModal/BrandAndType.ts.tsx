@@ -1,21 +1,18 @@
-import {fireEvent, render, waitFor} from '../../../testUtils/test_utils_device'
+import {render, waitFor} from '../../../testUtils/test_utils_device'
 import {screen} from '@testing-library/dom'
 import '@testing-library/jest-dom'
-import DeviceModal from '../DeviceModal/DeviceModal'
-import AdminPage from '../../../pages/AdminPage/AdminPage'
+import DeviceModal from './DeviceModal'
 import userEvent from '@testing-library/user-event'
-import BrandIdSelect from '../../UI/BrandIdSelect'
-import NameInput from '../../UI/NameInput'
 
 function setup(tsx:any) {
     return {
       user: userEvent.setup(),
       ...render(tsx),
     }
-  }
+}
 
 
-test('test for BrandModal', async ()=> {
+test('test for BrandSelect', async ()=> {
         
     const {user} = setup(<DeviceModal />)
 
@@ -25,13 +22,18 @@ test('test for BrandModal', async ()=> {
     user.click(screen.getByText("сохранить устройство"))
 
 	await waitFor(()=>user.selectOptions(screen.getByTestId('BrandSelect'), screen.getByText("Samsung"))) 
+    user.selectOptions(screen.getByTestId('BrandSelect'), screen.getByText("выберите бренд"))
+
+    user.click(screen.getByText("сохранить устройство"))
+
+    // await waitFor(()=>user.selectOptions(screen.getByTestId('BrandSelect'), screen.getByText("Samsung"))) 
 
     expect(await waitFor(()=> screen.findByText("нужно выбрать бренд")))
     .toHaveTextContent("нужно выбрать бренд")
 
 })
 
-test('test for TypeModal', async ()=> {
+test('test for TypeSelect', async ()=> {
         
     const {user} = setup(<DeviceModal />)
 
@@ -55,3 +57,5 @@ test('test for TypeModal', async ()=> {
     // expect(await waitFor(()=> screen.findByText("нужно выбрать тип")))
     // .toBeInTheDocument()
 })
+
+

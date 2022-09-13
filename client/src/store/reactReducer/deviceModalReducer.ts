@@ -40,10 +40,16 @@ export const deviceModalReducer = (state:IDeviceModalState, action:IDeviceReduce
                 valid: action.payload, 
                 }
             };
-        case 'changeName':
+        case 'changeNameValue':
             return {...state, name:{
-                value: action.payload.value, 
-                valid: action.payload.valid
+                ...state.name, 
+                value: action.payload
+                }
+            };
+        case 'changeNameValid':
+            return {...state, name:{ 
+                ...state.name,
+                valid: action.payload
                 }
             };
         case 'changePrice':

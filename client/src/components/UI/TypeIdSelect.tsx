@@ -31,7 +31,7 @@ const TypeIdSelect = () => {
                 }}
                 value={state!.typeId.value}
                 onChange={(e:ChangeEvent<HTMLSelectElement>) => changeValue(Number(e.target.value))}
-                data-testid="TypeSelect"
+               
             >
             <option value={0}>{"выберите тип"}</option>
             {types && types.map((type:ITypeAndBrand) => 

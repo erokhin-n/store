@@ -21,8 +21,7 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
 
         dispatch!({type:'changeBrandIdValid', payload:deviceFormValidation(state!.brandId.value)});
 
-        (state!.name.valid === ValidationResult.FIRST_ADDITION) && 
-            dispatch!({type:'changeName', payload:{value: '', valid: ValidationResult.ERROR}});
+        dispatch!({type:"changeNameValid", payload: deviceFormValidation(state!.name.value)});
 
         (state!.price.valid === ValidationResult.FIRST_ADDITION) && 
             dispatch!({type:'changePrice', payload:{value: '', valid: ValidationResult.ERROR}});

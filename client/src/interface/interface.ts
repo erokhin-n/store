@@ -1,6 +1,5 @@
 import { formView, ValidationResult } from "../enums/enums";
 import { MouseEvent } from 'react'
-import { FetchBaseQueryArgs, FetchBaseQueryError } from "@reduxjs/toolkit/dist/query/fetchBaseQuery";
 
 export interface IDevice {
     id: number;
@@ -58,16 +57,6 @@ export interface IDataUserResponse {
     id?:string;
 }
 
-export interface ITest {
-    data: IDataUserResponse;
-    error: {
-        status: number;
-        data:{
-            message: string;
-        }
-    }};
-
-
 export interface ITypeAndBrand {
     id?: number;
     name: string;
@@ -90,7 +79,8 @@ export type IDeviceReducerActions =
     | {type: 'changeTypeIdValid'; payload:string}
     | {type: 'changeBrandIdValue'; payload:number}
     | {type: 'changeBrandIdValid'; payload:string}
-    | {type: 'changeName'; payload: {value: string, valid: string}}
+    | {type: 'changeNameValue'; payload: string}
+    | {type: 'changeNameValid'; payload: string }
     | {type: 'changePrice'; payload: {value: string, valid: string}}
     | {type: 'selectImage'; payload: {value: string | Blob, valid: string}}
     | {type: 'addInfo'; payload: IDeviceInfo[]}

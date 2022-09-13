@@ -1,4 +1,4 @@
-import { FC, useContext } from "react"
+import { useContext, useEffect } from "react"
 import { ValidationResult } from "../../enums/enums"
 import { deviceFormValidation } from "../../validation/DeviceFormValidation"
 import { DeviceModalDispatch, DeviceModalState } from "../modals/DeviceModal/DeviceModal"
@@ -8,9 +8,18 @@ const NameInput = () => {
     const state = useContext(DeviceModalState)
     const dispatch = useContext(DeviceModalDispatch)
 
+
     const changeValue = (value: string) => {
-        dispatch!({type:'changeName', payload: {value, valid:deviceFormValidation(value)}})  
+        dispatch!({type:"changeNameValue", payload: value})
     }
+
+    useEffect(()=> {
+        if(!state!.name.value.length) {
+            dispatch!({type:"changeNameValid", payload: ValidationResult.FIRST_ADDITION})
+        } else {
+            dispatch!({type:"changeNameValid", payload: deviceFormValidation(state!.name.value)})
+        }
+    },[state!.name.value])
 
     return (
         <div>
