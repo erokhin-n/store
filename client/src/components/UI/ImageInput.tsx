@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useContext } from "react"
+import { ChangeEvent, createRef, FC, RefObject, useContext } from "react"
 import { ValidationResult } from "../../enums/enums"
 import { deviceImageValidation } from "../../validation/DeviceFormValidation"
 import { DeviceModalDispatch, DeviceModalState } from "../modals/DeviceModal/DeviceModal"
@@ -8,13 +8,19 @@ const ImageInput = () => {
     const state = useContext(DeviceModalState)
     const dispatch = useContext(DeviceModalDispatch)
 
-    const selectImage = (e:ChangeEvent<HTMLInputElement>) => {
-        if(e.target.files) {
+    const fileInput:RefObject<HTMLInputElement> = createRef()
+
+    const selectImage = () => {
+        if(fileInput!.current!.files![0]) {
             dispatch!({type:'selectImage', payload:{
-                value:e.target.files[0], 
-                valid:deviceImageValidation(e.target.files[0])}})
+                value:fileInput!.current!.files![0], 
+                valid:deviceImageValidation(fileInput!.current!.files![0])}})
         }
-    }  
+    } 
+    
+    const deleteImage = () => {
+        dispatch!({type:'selectImage', payload: {value: '', valid: ValidationResult.FIRST_ADDITION}})
+    }
 
     return (
         <div>
@@ -26,8 +32,10 @@ const ImageInput = () => {
                 }}
                 type="file"
                 id="file-uploader"
-                // onChange={e => selectImage(e)}
+                ref={fileInput}
+                onChange={() => selectImage()}
             />
+            <button onClick={()=> deleteImage()} >X</button>
             {state!.image.valid === ValidationResult.ERROR &&
                 <h4>добавьте изображение</h4> }
         </div>
