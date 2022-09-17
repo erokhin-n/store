@@ -19,6 +19,7 @@ const ImageInput = () => {
     } 
     
     const deleteImage = () => {
+        fileInput!.current!.value = ''
         dispatch!({type:'selectImage', payload: {value: '', valid: ValidationResult.FIRST_ADDITION}})
     }
 
@@ -35,7 +36,7 @@ const ImageInput = () => {
                 ref={fileInput}
                 onChange={() => selectImage()}
             />
-            <button onClick={()=> deleteImage()} >X</button>
+            <button onClick={deleteImage} >X</button>
             {state!.image.valid === ValidationResult.ERROR &&
                 <h4>добавьте изображение</h4> }
         </div>

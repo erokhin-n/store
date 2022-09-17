@@ -52,6 +52,7 @@ const DeviceInfo = () => {
                         style={{'background': (i.titleValid !== ValidationResult.ERROR)  ? 
                         "white" : "red"}}
                     />
+                    {i.titleValid === ValidationResult.ERROR && <span>title err</span>}
                     <input 
                         value={i.description}
                         onChange={e => changeDescription(e.target.value, i.id)}
@@ -59,7 +60,7 @@ const DeviceInfo = () => {
                         style={{'background':( i.descriptionValid !== ValidationResult.ERROR ) ? 
                         "white" : "red"}}
                     />
-                    
+                    {i.descriptionValid === ValidationResult.ERROR && <span>description err</span>}
                     <button onClick={()=> removeInfo(i.id)}>del</button>
                 </div>   
             )}

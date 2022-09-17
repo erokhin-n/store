@@ -10,7 +10,7 @@ function setup(tsx:any) {
       ...render(tsx),
     }
 }
-// туду: сделать кнопку удаления и протестить
+
 test('test for fileInput', async ()=> {
         
     const {user} = setup(<DeviceModal />)
@@ -21,14 +21,18 @@ test('test for fileInput', async ()=> {
 
     await user.upload(fileInput, file)
 
-    // user.clear(fileInput)
 
-    // expect(fileInput.files[0]).toBe("file")
-    user.click(screen.getByText("сохранить устройство"))
+    // user.click(screen.getByText("сохранить устройство"))
 
-    // await user.upload(fileInput, file)
+    await user.click(screen.getByText(/x/i))
 
-    expect(await waitFor(()=> screen.findByText("добавьте изображение")))
-    .toBeInTheDocument()
+	// user.click(screen.getByText("сохранить устройство"))
+
+    await user.upload(fileInput, file)
+
+	expect(fileInput).toHaveValue('')
+
+    // expect(await waitFor(()=> screen.findByText("добавьте изображение")))
+    // .toBeInTheDocument()
 })
 
