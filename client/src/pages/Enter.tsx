@@ -1,23 +1,17 @@
-import { createContext, FormEvent, MouseEventHandler, useState, Dispatch, useReducer } from "react"
-import { useNavigate } from "react-router-dom"
+import { MouseEventHandler, useReducer } from "react"
 import AuthForm from "../components/AuthForm/AuthForm"
-import { PagesEnum, formView } from "../enums/enums"
-import { IAuthFormActions, IAuthFormState } from "../interface/interface"
-import { useLoginMutation } from "../store/apiSlice/userSlice"
 import { authFormReducer, initialState } from "../store/reactReducer/authFormReducer"
 
 const Enter = () => {
 
     const [state, dispatch] = useReducer(authFormReducer, initialState)
 
-    const navigate = useNavigate()
-
     const hideValidation:MouseEventHandler<HTMLElement> = (e):void => {
         dispatch({type:"setHideValidationError", payload: true})
     }
 
     return (
-        <section onClick={hideValidation} style={{background: 'lightblue', height: '1000px'}}>
+        <section onClick={hideValidation}>
             <AuthForm />
         </section>
     )

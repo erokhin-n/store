@@ -1,6 +1,5 @@
-* {
-    font-family: monospace;
-}
+@import "../src/style/normalize.css";
+@import "../src/style/mobile.css";
 
 .navbar {
     display:flex; 
