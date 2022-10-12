@@ -43,24 +43,29 @@ const DeviceInfo = () => {
             >
                 добавить информацию
             </button>
-            {state!.info && state!.info.map( (i:IDeviceInfo) => 
+            {state!.info && state!.info.map( (i:IDeviceInfo, index) => 
                 <div key={i.id}>
-                    <input 
-                        value={i.title}
-                        onChange = {e => changeTitle(e.target.value, i.id)}
-                        placeholder="введите название"
-                        style={{'background': (i.titleValid !== ValidationResult.ERROR)  ? 
-                        "white" : "red"}}
-                    />
-                    {i.titleValid === ValidationResult.ERROR && <span>title err</span>}
-                    <input 
-                        value={i.description}
-                        onChange={e => changeDescription(e.target.value, i.id)}
-                        placeholder="введите описание"
-                        style={{'background':( i.descriptionValid !== ValidationResult.ERROR ) ? 
-                        "white" : "red"}}
-                    />
-                    {i.descriptionValid === ValidationResult.ERROR && <span>description err</span>}
+                    <div data-testid={"titleContainer"+index}>
+                        <input 
+                            value={i.title}
+                            onChange = {e => changeTitle(e.target.value, i.id)}
+                            placeholder="введите заголовок"
+                            style={{'background': (i.titleValid !== ValidationResult.ERROR)  ? 
+                            "white" : "red"}}
+                            
+                        />
+                        {i.titleValid === ValidationResult.ERROR && <span>title err</span>}
+                    </div>
+                    <div data-testid={"descriptionContainer"+index}>
+                        <input 
+                            value={i.description}
+                            onChange={e => changeDescription(e.target.value, i.id)}
+                            placeholder="введите описание"
+                            style={{'background':( i.descriptionValid !== ValidationResult.ERROR ) ? 
+                            "white" : "red"}}
+                        />
+                        {i.descriptionValid === ValidationResult.ERROR && <span>description err</span>}
+                    </div>
                     <button onClick={()=> removeInfo(i.id)}>del</button>
                 </div>   
             )}

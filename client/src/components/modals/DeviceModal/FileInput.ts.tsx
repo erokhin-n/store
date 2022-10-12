@@ -21,7 +21,6 @@ test('test for fileInput', async ()=> {
 
     await user.upload(fileInput, file)
 
-
     // user.click(screen.getByText("сохранить устройство"))
 
     await user.click(screen.getByText(/x/i))
