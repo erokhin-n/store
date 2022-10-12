@@ -1,5 +1,40 @@
-@media screen and (orientation: portrait) and (min-width: 320px) {
-    body{
-         background: red;
+@media screen and (orientation: portrait) and (min-width: 319px) {
+
+    html {
+        font-size: calc(2vw + 1.5rem);
+    }
+
+    *, *::before, *::after {
+        font-size: inherit;    
+    }
+
+    .navbar_button {
+        cursor: pointer;
+        background: #f3f3;
+        font-size: 3rem;
+    }
+
+    .navbar_hidden {
+        width: 0;
+        height: 0;
+        font-size: 0;
+    }
+
+    .navbar {
+        position: absolute;
+        min-width: 100vw;
+        min-height: 100vh;
+        background: rgb(225,225,15, 0.3);
+    }
+
+    .enter {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 90vh;
+    }
+
+    .authForm {
+        border: 1px solid black;
     }
 }

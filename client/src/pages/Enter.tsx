@@ -11,7 +11,7 @@ const Enter = () => {
     }
 
     return (
-        <section onClick={hideValidation}>
+        <section onClick={hideValidation} className="enter">
             <AuthForm />
         </section>
     )
