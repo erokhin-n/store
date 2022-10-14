@@ -9,7 +9,7 @@ const Navbar = () => {
 
     const [removeCookie] = useRemoveCookieMutation()
 
-    const {data, isError,isSuccess, isLoading} = useCheckQuery()
+    const {data, isLoading} = useCheckQuery()
 
     const dispatch = useContext(LoginActions)
 
@@ -20,7 +20,7 @@ const Navbar = () => {
         dispatch!({type: 'reset', payload: initialState})
     }
 
-    const showNavbar = ()=> {
+    const navbarView = ()=> {
         setNavbarVisible(!navbarVisible)
     }
 
@@ -29,60 +29,73 @@ const Navbar = () => {
     }
 
     return (
-        <div className={navbarVisible ? "navbar" : "navbar_hidden"}>
-            <div 
-                className="navbar_button"
-                onClick={()=> showNavbar()}
-            >
-                |||
+        <div className="navbar">
+            <div className="button_search_navbar_container">
+                <div 
+                    className="navbar_button"
+                    onClick={()=> navbarView()}
+                >
+                    {/* {navbarVisible ? "X" : "|||"} */}
+                </div>
+                <input 
+                    placeholder="поиск устройства"
+                    type="text"
+                    className="navbar_search"
+                />
             </div>
-            {data?.role ?
-                <NavLink
-                    // className={"navbarElement"}
-                    to={PagesEnum.ENTER}
-                    onClick={() => logout()}
-                >
-                    выйти        
-                </NavLink>
-                :
-                <NavLink
-                    // className={"navbarElement"}
-                    to={PagesEnum.ENTER}
-                >
-                    войти
-                </NavLink>
-            }
-            <NavLink
-                // className={"navbarElement"}
-                to={PagesEnum.SHOP}
+            <div className={
+                (navbarVisible) ? 
+                "navbar_elements_container" : 
+                "navbar_elements_container_hidden"}
             >
-                магазин
-            </NavLink>
-            {(data?.role ===  "ADMIN" ) && 
+                {data?.role ?
+                    <NavLink
+                        className={ "navbar_element"}
+                        to={PagesEnum.ENTER}
+                        onClick={() => logout()}
+                    >
+                        выйти        
+                    </NavLink>
+                    :
+                    <NavLink
+                        className={ "navbar_element" }
+                        to={PagesEnum.ENTER}
+                    >
+                        войти
+                    </NavLink>
+                }
                 <NavLink
-                    // className={"navbarElement"} 
-                    to={PagesEnum.ADMIN_PAGE}
+                    className={  "navbar_element" }
+                    to={PagesEnum.SHOP}
                 >
-                    админ панель
+                    магазин
                 </NavLink>
-            }
-            {(data?.role === "SUPER_ADMIN") && 
-                <NavLink
-                    // className={"navbarElement"} 
-                    to={PagesEnum.SUPER_ADMIN_PAGE}
-                >
-                    super admin page
-                </NavLink>
-            }
-            {(data?.role === "USER") && 
-                <NavLink
-                    // className={"navbarElement"} 
-                    to={PagesEnum.BASKET}
-                >
-                    корзина
-                </NavLink>
-            }
-            <div>{data?.email}</div>
+                {(data?.role ===  "ADMIN" ) && 
+                    <NavLink
+                        className={ "navbar_element" } 
+                        to={PagesEnum.ADMIN_PAGE}
+                    >
+                        админ панель
+                    </NavLink>
+                }
+                {(data?.role === "SUPER_ADMIN") && 
+                    <NavLink
+                        className={ "navbar_element" } 
+                        to={PagesEnum.SUPER_ADMIN_PAGE}
+                    >
+                        super admin page
+                    </NavLink>
+                }
+                {(data?.role === "USER") && 
+                    <NavLink
+                        className={ "navbar_element" } 
+                        to={PagesEnum.BASKET}
+                    >
+                        корзина
+                    </NavLink>
+                }
+                <div>{data?.email}</div>
+            </div>
         </div>
     )
 }
