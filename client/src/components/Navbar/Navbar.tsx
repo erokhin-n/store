@@ -4,9 +4,9 @@ import { PagesEnum } from "../../enums/enums"
 import { useCheckQuery, useRemoveCookieMutation } from "../../store/apiSlice/userSlice"
 import { LoginActions } from "../../App"
 import { initialState } from "../../store/reactReducer/authFormReducer"
-import { Star } from "../svg/Star"
-import { Cross } from "../svg/Cross"
 import { animated, useSpring } from '@react-spring/web'
+import Icon from "../svg/Navbar_lines/Navbar_icon"
+
 
 const Navbar = () => {
 
@@ -17,16 +17,6 @@ const Navbar = () => {
     const dispatch = useContext(LoginActions)
 
     const [navbarVisible, setNavbarVisible] = useState<boolean>(false)
-
-    const styles = useSpring({
-        from: {
-          opacity: 0.5
-        },
-        to: {
-          opacity: 1
-        },
-        reset: true,
-      })
 
     const logout = () => {
         removeCookie()
@@ -44,13 +34,12 @@ const Navbar = () => {
     return (
         <div className="navbar">
             <div className="button_search_navbar_container">
-                <animated.div 
-                    className="navbar_button"
+                <div 
+                    // className={navbarVisible ? "navbar_cross" : "navbar_button"}
                     onClick={()=> navbarView()}
-                    style={styles}
                 >
-                    {navbarVisible ? <Cross /> : <Star />}
-                </animated.div>
+                    <Icon navbarVisible={navbarVisible} />
+                </div>
                 <input 
                     placeholder="поиск устройства"
                     type="text"

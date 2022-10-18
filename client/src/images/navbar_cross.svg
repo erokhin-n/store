@@ -1,0 +1,51 @@
+import React from "react";
+
+function Icon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      shapeRendering="geometricPrecision"
+      textRendering="geometricPrecision"
+      viewBox="0 0 600 600"
+    >
+      <rect
+        width="548.772"
+        height="558.234"
+        fill="#313337"
+        strokeWidth="0"
+        rx="0"
+        ry="0"
+        transform="matrix(1.01478 0 0 1 21.559 22.978)"
+      ></rect>
+      <rect
+        width="351.431"
+        height="43.253"
+        fill="#d2dbed"
+        strokeWidth="0"
+        rx="0"
+        ry="0"
+        transform="matrix(1.25765 -.01022 .00813 .99997 78.836 132.907)"
+      ></rect>
+      <rect
+        width="351.431"
+        height="43.253"
+        fill="#d2dbed"
+        strokeWidth="0"
+        rx="0"
+        ry="0"
+        transform="matrix(1.25768 .00562 -.00447 .99999 79.103 277.387)"
+      ></rect>
+      <rect
+        width="351.431"
+        height="43.253"
+        fill="#d2dbed"
+        strokeWidth="0"
+        rx="0"
+        ry="0"
+        transform="matrix(1.25766 .0086 -.00684 .99998 79.157 422.908)"
+      ></rect>
+    </svg>
+  );
+}
+
+export default Icon;

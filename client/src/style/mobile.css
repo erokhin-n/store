@@ -9,6 +9,11 @@
         font-size: inherit;    
     }
 
+    @keyframes visible {
+        0% {opacity: 1}
+        100% {opacity: 0}
+    }
+
     .navbar_button {
         cursor: pointer;
         flex: 0 0 2rem;
@@ -16,6 +21,22 @@
         flex-direction: row;
         justify-content: end;
         align-items: center;
+        background: url('../images/navbar_cross.svg');
+    }
+
+    .navbar_cross {
+        cursor: pointer;
+        flex: 0 0 2rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        align-items: center;
+        background: url('../images/navbar_cross2.svg');
+    }
+
+    .navbar_button:active,
+    .navbar_cross:active {
+        animation: visible 0.5s;
     }
 
     .navbar_search {
@@ -66,5 +87,9 @@
     .navbar_element {
         color: #fff;
         display: block;
+    }
+
+    .divvv{
+        min-width: 100%;
     }
 }
