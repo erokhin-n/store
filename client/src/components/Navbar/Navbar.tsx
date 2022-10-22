@@ -5,7 +5,11 @@ import { useCheckQuery, useRemoveCookieMutation } from "../../store/apiSlice/use
 import { LoginActions } from "../../App"
 import { initialState } from "../../store/reactReducer/authFormReducer"
 import { animated, useSpring } from '@react-spring/web'
-import Icon from "../svg/Navbar_lines/Navbar_icon"
+import NavbarBurger from "../svg/Navbar_lines/NavbarBurger"
+import Locker from "../svg/enter/Locker"
+import ShopIcon from "../svg/shop/ShopIcon"
+import SuperAdminIcon from "../svg/SuperAdminIcon"
+import BasketIcon from "../svg/BasketIcon"
 
 
 const Navbar = () => {
@@ -27,18 +31,25 @@ const Navbar = () => {
         setNavbarVisible(!navbarVisible)
     }
 
+    const testAnimation = useSpring({
+        // opacity: navbarVisible ? 1 : 0,
+        transform: navbarVisible ? "translateX(0px)" : "translateX(-1000px)",
+    })
+
     if(isLoading){
         return <h3>loading navbar...</h3>
     }
+
+
 
     return (
         <div className="navbar">
             <div className="button_search_navbar_container">
                 <div 
-                    // className={navbarVisible ? "navbar_cross" : "navbar_button"}
+                    className={navbarVisible ? "navbar_cross" : "navbar_button"}
                     onClick={()=> navbarView()}
                 >
-                    <Icon navbarVisible={navbarVisible} />
+                    <NavbarBurger navbarVisible={navbarVisible} />
                 </div>
                 <input 
                     placeholder="поиск устройства"
@@ -46,32 +57,37 @@ const Navbar = () => {
                     className="navbar_search"
                 />
             </div>
-            <div className={
-                (navbarVisible) ? 
-                "navbar_elements_container" : 
-                "navbar_elements_container_hidden"}
+            <animated.div 
+                style={testAnimation}
+                className={
+                    "navbar_elements_container"
+                }
             >
                 {data?.role ?
                     <NavLink
                         className={ "navbar_element"}
                         to={PagesEnum.ENTER}
                         onClick={() => logout()}
-                    >
-                        выйти        
+                    >   
+                        <Locker />
+                        <span className="navbarText">выйти</span>        
                     </NavLink>
                     :
                     <NavLink
-                        className={ "navbar_element" }
+                        className={ "navbar_element"}
                         to={PagesEnum.ENTER}
                     >
-                        войти
+                        <Locker />
+                        <span className="navbarText">войти</span>
                     </NavLink>
+                
                 }
                 <NavLink
                     className={  "navbar_element" }
                     to={PagesEnum.SHOP}
                 >
-                    магазин
+                    <ShopIcon />
+                    <span className="navbarText">магазин</span>
                 </NavLink>
                 {(data?.role ===  "ADMIN" ) && 
                     <NavLink
@@ -86,7 +102,8 @@ const Navbar = () => {
                         className={ "navbar_element" } 
                         to={PagesEnum.SUPER_ADMIN_PAGE}
                     >
-                        super admin page
+                        <SuperAdminIcon />
+                        <span className="navbarText">super admin page</span>
                     </NavLink>
                 }
                 {(data?.role === "USER") && 
@@ -94,11 +111,12 @@ const Navbar = () => {
                         className={ "navbar_element" } 
                         to={PagesEnum.BASKET}
                     >
-                        корзина
+                        <BasketIcon />
+                        <span className="navbarText">корзина</span>
                     </NavLink>
                 }
                 <div>{data?.email}</div>
-            </div>
+            </animated.div>
         </div>
     )
 }

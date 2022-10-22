@@ -8,24 +8,27 @@ import Line2 from "./Navbar_line2";
 // import Line3 from "./Navbar_line3";
 
 
-const Icon:FC<{navbarVisible:boolean}> = ({navbarVisible}) => {
+const NavbarBurger:FC<{navbarVisible:boolean}> = ({navbarVisible}) => {
 
     const line1Spring = useSpring({
-        transform: navbarVisible ? 
-            "translate(30%, 30%) rotate(45deg)" :
-            "translate(20%, 25%) rotate(0deg)"
+        transform: !navbarVisible ? 
+            "translate(20%, 25%) rotate(0deg)" :
+            "translate(31%, 28%) rotate(45deg)" 
+           
     })
 
     const line2Spring = useSpring({
-        transform: navbarVisible ? 
-            "translate(30%, 30%) rotate(45deg)" :
-            "translate(20%, 47%) rotate(0deg)"
+        transform: !navbarVisible ? 
+            "translate(20%, 47%) rotate(0deg)" :
+            "translate(31%, 28%) rotate(45deg)" 
+            
     })
 
     const line3Spring = useSpring({
-        transform: navbarVisible ? 
-            "translate(27%, 72%) rotate(-45deg)" :
-            "translate(20%, 68%) rotate(0deg)"
+        transform: !navbarVisible ? 
+            "translate(20%, 68%) rotate(0deg)" :
+            "translate(26%, 70%) rotate(-45deg)" 
+            
     })
     
     return (
@@ -34,6 +37,7 @@ const Icon:FC<{navbarVisible:boolean}> = ({navbarVisible}) => {
             shapeRendering="geometricPrecision"
             textRendering="geometricPrecision"
             viewBox="0 0 600 600"
+            className="burger"
         >
             <rect
                 width="548.772"
@@ -51,4 +55,4 @@ const Icon:FC<{navbarVisible:boolean}> = ({navbarVisible}) => {
     );
 }
 
-export default Icon;
+export default NavbarBurger;
