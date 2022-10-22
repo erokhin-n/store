@@ -55,18 +55,19 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
                 null :
                 (state!.formView === formView.FORM_LOGIN) ?
                 <div>
-                    Нет аккаунта? 
-                    <div onClick={()=> dispatch!({type:'setFormView', payload: formView.FORM_REGISTRATION})}
-                        style={{cursor:'pointer', color:'blue'}}
+                    <span className="accountInfo">Нет аккаунта?</span> 
+                    <span 
+                        className="regAndLoginToggle"
+                        onClick={()=> dispatch!({type:'setFormView', payload: formView.FORM_REGISTRATION})}
                     >
                         зарегистрируйтесь
-                    </div>
+                    </span>
                 </div>
                 :
                 <div>
                     есть аккаунт? 
                     <div onClick={()=> dispatch!({type:'setFormView', payload: formView.FORM_LOGIN})}
-                        style={{cursor:'pointer', color:'blue'}}
+                        
                     >   
                         войдите
                     </div>

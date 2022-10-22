@@ -32,7 +32,6 @@ const Navbar = () => {
     }
 
     const testAnimation = useSpring({
-        // opacity: navbarVisible ? 1 : 0,
         transform: navbarVisible ? "translateX(0px)" : "translateX(-1000px)",
     })
 
@@ -94,7 +93,8 @@ const Navbar = () => {
                         className={ "navbar_element" } 
                         to={PagesEnum.ADMIN_PAGE}
                     >
-                        админ панель
+                        <SuperAdminIcon />
+                        <span className="navbarText">админ панель</span>
                     </NavLink>
                 }
                 {(data?.role === "SUPER_ADMIN") && 
