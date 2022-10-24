@@ -9,18 +9,40 @@
         font-size: inherit;    
     }
 
+    @keyframes bodyAnimation {
+        0% {
+            color: #fff;
+            background: repeating-conic-gradient(from 45deg,
+                #000 0% 30%,
+                #3cc5e1 60% 100%
+            )
+        }
+
+        50% {
+            background: repeating-conic-gradient(from 45deg,
+                #000 0% 30%,
+                #87e13c 60% 100%
+            )
+        }
+
+        100% {
+            color: red;
+            background: repeating-conic-gradient(from 45deg,
+                #000 0% 30%,
+                #683ce1 60% 100%
+            )
+        }
+    }
+
+    body {
+        animation: bodyAnimation 2s linear infinite alternate ;  
+    }
+
     input {
         background: rgb(0,0, 0, 0.2);
         color: #f3f3f4;  
         margin: 0.3rem;
         border-radius: 5px;
-    }
-
-    body {
-        background: repeating-conic-gradient(from 45deg,
-        #000 0% 30%,
-        #3cc5e1 60% 100%
-      )
     }
 
     .navbar_button {
@@ -30,34 +52,13 @@
         flex-direction: row;
         justify-content: end;
         align-items: center;
-        background: url('../images/navbar_cross.svg');
-    }
-
-    .navbar_cross {
-        cursor: pointer;
-        flex: 0 0 2rem;
-        display: flex;
-        flex-direction: row;
-        justify-content: end;
-        align-items: center;
-        background: url('../images/navbar_cross2.svg');
-    }
-
-    .navbar_button:active,
-    .navbar_cross:active {
-        animation: visible 0.5s;
+        border-radius: 0.5rem;
     }
 
     .navbar_search {
         flex: 1 1 auto;
         margin: 0.1rem;
     }
-
-    /* .navbar_elements_container_hidden {
-        width: 0;
-        height: 0;
-        font-size: 0;
-    } */
 
     .navbar {
         position: absolute;
@@ -68,12 +69,12 @@
         display: flex;
         flex-direction: row;
         justify-content: space-around;
+        margin: 0.2rem 0 0 0;
     }
 
     .navbar_elements_container {
         position: absolute;
         width: 100vw;
-        /* background: rgb(0,0,0, 0.5); */
         display: flex;
         justify-content: start;
         flex-direction: column;
@@ -88,11 +89,10 @@
 
     .authForm {
         display: flex;
-        padding: 2rem;
         max-width: 100vw;
         flex-direction: column;
         background: rgb(0,0, 0, 0.2);
-        align-items: flex-start;
+        align-items: column;
     }
 
     .NavLinkContaiter {
@@ -107,6 +107,8 @@
 
     .burger {
         max-width: 2rem;
+        border-radius: 0.5rem;
+        margin: 0 0 0 0.1rem;
     }
 
     .locker {
@@ -125,16 +127,32 @@
     .accountInfo {
         font-size: 0.7rem;
         color: #fff;
+        margin: 0 0 0 0.3rem;
+    }
+
+    .regAndLoginContainer {
+        display: flex;
     }
 
     .regAndLoginToggle {
         font-size: 0.7rem;
         color: #fff;
+        cursor: pointer;
+        margin: 0 0 0 0.3rem;
+        text-decoration: underline;
     }
-    
+
     .authFormButton {
-        background: rgb(0,0, 0, 0.7);
+        background: rgb(0,0, 0, 0.5);
         border-radius: 5px;
-        width: 4rem;
+        color: #fff;
+        margin: 0.3rem;
+        align-self: center;
+    }
+
+    .authFormLabel {
+        color: #fff;
+        font-size: 0.8rem;
+        align-self: center;
     }
 }

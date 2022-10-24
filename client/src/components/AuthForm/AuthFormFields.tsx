@@ -2,7 +2,6 @@ import { FC, useContext } from "react"
 import { formView, ValidationResult } from "../../enums/enums"
 import { LoginActions, LoginState } from "../../App"
 import { IAuthFormFields } from "../../interface/interface"
-import React from "react"
 import ErrorModal from "../ErrorModal"
 
 
@@ -15,12 +14,16 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
         <form 
             className="authForm"
         >
+            {/* <span className="authFormLabel">{state?.formView === formView.FORM_LOGIN ? 
+                "ВХОД" :
+                state?.formView === formView.FORM_REGISTRATION ?
+                "РЕГИСТРАЦИЯ" :
+                "РЕГИСТРАЦИЯ АДМИНА"
+                }
+            </span> */}
             <input
                 type="text" 
                 placeholder="введите почту"
-                // className={state!.email.validInfo === ValidationResult.ERROR ? 
-                //     [style.inputError, style.input].join(' ') : 
-                //     style.input}
                 value={state?.email.value}
                 onChange={e => changeEmail(e.target.value)}
             />
@@ -30,9 +33,6 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
             <input
                 type="text"
                 placeholder="введите пароль"
-                // className={state!.password.validInfo === ValidationResult.ERROR ? 
-                //     [style.inputError, style.input].join(' ') : 
-                //     style.input}
                 value={state!.password.value}
                 onChange={e => changePassword(e.target.value)}
             />
@@ -40,7 +40,6 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
                 <ErrorModal error="пароль должен состоять из 8ми букв" />
             }
             {state!.serverMessage && <ErrorModal error={state!.serverMessage} />}
-            {/* <div>"test message"</div> */}
             <button 
                 className="authFormButton"
                 onClick={ e =>  handleClick(e)}
@@ -54,7 +53,7 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
             {state!.formView === formView.FORM_SUPER_ADMIN ?
                 null :
                 (state!.formView === formView.FORM_LOGIN) ?
-                <div>
+                <div className="regAndLoginContainer">
                     <span className="accountInfo">Нет аккаунта?</span> 
                     <span 
                         className="regAndLoginToggle"
@@ -64,13 +63,14 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
                     </span>
                 </div>
                 :
-                <div>
-                    есть аккаунт? 
-                    <div onClick={()=> dispatch!({type:'setFormView', payload: formView.FORM_LOGIN})}
-                        
+                <div className="regAndLoginContainer">
+                    <span className="accountInfo">есть аккаунт?</span> 
+                    <span
+                        onClick={()=> dispatch!({type:'setFormView', payload: formView.FORM_LOGIN})}
+                        className="regAndLoginToggle"
                     >   
                         войдите
-                    </div>
+                    </span>
                 </div>    
             }
         </form>

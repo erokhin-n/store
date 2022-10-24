@@ -39,13 +39,11 @@ const Navbar = () => {
         return <h3>loading navbar...</h3>
     }
 
-
-
     return (
         <div className="navbar">
             <div className="button_search_navbar_container">
                 <div 
-                    className={navbarVisible ? "navbar_cross" : "navbar_button"}
+                    className="navbar_button"
                     onClick={()=> navbarView()}
                 >
                     <NavbarBurger navbarVisible={navbarVisible} />
