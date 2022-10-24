@@ -2,11 +2,6 @@ import React, { FC } from "react";
 import { animated, useSpring } from "react-spring";
 import { transform } from "typescript";
 import Line1 from "./Navbar_line1";
-import Line2 from "./Navbar_line2";
-// import Line1 from "./Navbar_line1";
-// import Line2 from "./Navbar_line2";
-// import Line3 from "./Navbar_line3";
-
 
 const NavbarBurger:FC<{navbarVisible:boolean}> = ({navbarVisible}) => {
 

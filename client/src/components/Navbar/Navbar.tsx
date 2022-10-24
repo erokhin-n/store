@@ -73,6 +73,7 @@ const Navbar = () => {
                     <NavLink
                         className={ "navbar_element"}
                         to={PagesEnum.ENTER}
+                        onClick={()=> navbarView()}
                     >
                         <Locker />
                         <span className="navbarText">войти</span>
@@ -84,7 +85,12 @@ const Navbar = () => {
                     to={PagesEnum.SHOP}
                 >
                     <ShopIcon />
-                    <span className="navbarText">магазин</span>
+                    <span 
+                        onClick={()=> navbarView()}
+                        className="navbarText"
+                    >
+                        магазин
+                    </span>
                 </NavLink>
                 {(data?.role ===  "ADMIN" ) && 
                     <NavLink

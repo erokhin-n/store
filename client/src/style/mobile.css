@@ -9,33 +9,12 @@
         font-size: inherit;    
     }
 
-    @keyframes bodyAnimation {
-        0% {
-            color: #fff;
-            background: repeating-conic-gradient(from 45deg,
-                #000 0% 30%,
-                #3cc5e1 60% 100%
-            )
-        }
-
-        50% {
-            background: repeating-conic-gradient(from 45deg,
-                #000 0% 30%,
-                #87e13c 60% 100%
-            )
-        }
-
-        100% {
-            color: red;
-            background: repeating-conic-gradient(from 45deg,
-                #000 0% 30%,
-                #683ce1 60% 100%
-            )
-        }
-    }
-
     body {
-        animation: bodyAnimation 2s linear infinite alternate ;  
+        background: repeating-conic-gradient(
+            from 45deg,
+            #000 0% 30%,
+            #3cc5e1 60% 100%
+        ) 
     }
 
     input {
@@ -61,8 +40,8 @@
     }
 
     .navbar {
-        position: absolute;
         min-width: 100vw;
+        max-height: 9rem;
     }
 
     .button_search_navbar_container {
@@ -84,7 +63,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        height: 100vh;
+        height: 91vh;
     }
 
     .authForm {
@@ -92,7 +71,8 @@
         max-width: 100vw;
         flex-direction: column;
         background: rgb(0,0, 0, 0.2);
-        align-items: column;
+        align-items: center;
+
     }
 
     .NavLinkContaiter {
@@ -154,5 +134,18 @@
         color: #fff;
         font-size: 0.8rem;
         align-self: center;
+    }
+
+    .deviceName {
+        margin: 0;
+        padding: 0;
+    }
+
+    .shop {
+        height: 100vh;
+    } 
+
+    .productCard {
+        
     }
 }

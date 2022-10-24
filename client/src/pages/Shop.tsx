@@ -32,7 +32,7 @@ const Shop = () => {
     }
 
     return (
-        <div>
+        <div className="shop">
             {/* {role} */}
             {deviceList}
         </div>
