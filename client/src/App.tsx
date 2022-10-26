@@ -16,8 +16,10 @@ export function App() {
         <LoginState.Provider value={state}>
             <LoginActions.Provider value={dispatch}>
                 <BrowserRouter>
-                    <Navbar />
-                    <AppRouter />
+                    <div className="NavbarAppRouterContainer">
+                        <Navbar />
+                        <AppRouter />
+                    </div>
                 </BrowserRouter>
             </LoginActions.Provider>
         </LoginState.Provider>

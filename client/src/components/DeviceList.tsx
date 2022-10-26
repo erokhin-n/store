@@ -4,7 +4,7 @@ import DeviceItem from "./DeviceItem"
 
 const DeviceList:FC<IDevicesProps<IDevice[]>> = ({devices}) => {
     return (
-        <div>
+        <div className="deviceList">
             {devices.map((device:IDevice) => 
                 <DeviceItem 
                     key={device.id}

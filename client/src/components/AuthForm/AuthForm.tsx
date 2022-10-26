@@ -85,13 +85,11 @@ const AuthForm = () => {
     }
 
     return (
-        <div>
-            <AuthFormFields
-                changeEmail={changeEmail}
-                changePassword={changePassword}
-                handleClick={handleClick}
-            />
-        </div>
+        <AuthFormFields
+            changeEmail={changeEmail}
+            changePassword={changePassword}
+            handleClick={handleClick}
+        />
     )
 }
 export default AuthForm
