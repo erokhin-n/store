@@ -7,7 +7,7 @@ export const useSortUsers = (
     alphabetOrder:string, 
     letterFilter:string) => {
     
-    const sortPosts = useMemo(()=> {
+    const sortUsers = useMemo(()=> {
         if(users) {
             let sortedUsers:IDataUserResponse[]
 
@@ -35,5 +35,5 @@ export const useSortUsers = (
             return sortedUsers         
         } 
     },[users, filterRole, alphabetOrder, letterFilter])
-    return sortPosts
+    return sortUsers
 }

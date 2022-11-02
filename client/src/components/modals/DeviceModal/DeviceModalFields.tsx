@@ -54,7 +54,7 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
         
     }
     return (
-        <div>
+        <div className="deviceModal">
             <TypeIdSelect />
             <BrandIdSelect />
             <NameInput />

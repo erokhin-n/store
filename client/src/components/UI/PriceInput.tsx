@@ -21,8 +21,8 @@ const PriceInput = () => {
     },[state!.price.value])
 
     return (
-        <div>
-            <label>{"стоимость"}</label>
+        <div className="modalInputContainer">
+            <label className="deviceModalLabel">{"стоимость"}</label>
             <input 
                 placeholder="введите цену"
                 value={state!.price.value} 

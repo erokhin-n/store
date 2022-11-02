@@ -22,8 +22,8 @@ const NameInput = () => {
     },[state!.name.value])
 
     return (
-        <div>
-            <label>{"название"}</label>
+        <div className="modalInputContainer">
+            <label className="deviceModalLabel">{"название"}</label>
             <input 
                 type="text"
                 placeholder="введите название"

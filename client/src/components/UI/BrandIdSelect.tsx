@@ -25,6 +25,7 @@ const BrandIdSelect = () => {
     return (
         <div>
             <select 
+                className="brandAndTypeSelect"
                 style={{
                     border: (state!.brandId.valid === ValidationResult.ERROR) ? 
                     "3px solid red" : "1px solid black"
@@ -32,11 +33,17 @@ const BrandIdSelect = () => {
                 onChange={(e:ChangeEvent<HTMLSelectElement>)=> changeValue(Number(e.target.value))}
                 value={state?.brandId.value}
             >
-            <option value={0}>{"выберите бренд"}</option>
+            <option 
+                value={0}
+                className="optionText"
+            >
+                {"выберите бренд"}
+            </option>
             {brands && brands.map(brand => 
                 <option
                     key={brand.id} 
                     value={brand.id}
+                    className="optionText"
                 >
                     {brand.name}
                 </option>    

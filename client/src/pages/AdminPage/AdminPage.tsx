@@ -4,7 +4,6 @@ import TypeModal from "../../components/modals/TypeModal/TypeModal"
 import { ITypeAndBrand } from "../../interface/interface"
 import { useGetAllBrandsQuery } from "../../store/apiSlice/brandSlice"
 import { useGetAllTypesQuery } from "../../store/apiSlice/typeSlice"
-import styles from './AdminPage.module.css'
 
 const AdminPage = () => {
 
@@ -12,16 +11,13 @@ const AdminPage = () => {
     const {data:brands,isSuccess:successBrandsLoad} = useGetAllBrandsQuery()
 
     return (
-        <section className={styles.page}>
-            <div className={styles.deviceForm}>
-                <h4>создание бренда</h4>
+        <section className="adminPage">
+            <div className="adminDeviceForm">
                 <BrandModal />
-                <h4>создание типа устройства</h4>
                 <TypeModal />
-                <h4>создание устройства</h4>
                 <DeviceModal />
             </div>
-            <div>
+            <div className="typeListContainer">
             <h3>типы устройств:</h3>
             {successTypesLoad ? 
                 types.map((type:ITypeAndBrand) => 
@@ -32,7 +28,7 @@ const AdminPage = () => {
                 <h3>типы не найдены</h3>
             }
             </div>
-            <div>
+            <div className="typeListContainer">
             <h3>бренды:</h3>
             {successBrandsLoad ? 
                 brands.map((brand:ITypeAndBrand) => 

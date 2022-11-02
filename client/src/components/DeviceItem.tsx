@@ -10,7 +10,9 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device}) => {
             <img className="productCardImage" width={150} height={150} src={'http://localhost:5000/' + device.img} />
             <span className="productCardRating">рейтинг: {device.rating}</span>
             <span className="productCardPrice">цена: {device.price}</span>
-            <BasketButton />
+            <div className="productCardButtonContainer">
+                <BasketButton />
+            </div>
         </div>
     )
 }

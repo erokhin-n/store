@@ -46,23 +46,31 @@ const TypeModal = () => {
     }
 
     return (
-        <form>
-            <input 
-                type = "text"
-                placeholder="название типа устройства"
-                value={type.value}  
-                onChange={e => changeType(e.target.value)}
-                style={{border: type.valid === ValidationResult.ERROR ?
-                    "2px solid red" : "1px solid black"
-                }}
-            />
-            <button onClick={e => saveTypeOnServer(e)}>save</button>
-            <h5>{type.serverInfo}</h5>
-            {
-                type.valid === ValidationResult.ERROR &&
-                    <h4>поле содержит недопустимые символы</h4>
-            }
+        <div  className="brandAndTypeForm">
+            <h4 className="modalTitle">создание типа</h4>
+            <form className="inputButtonModalForm">
+                <input 
+                    type = "text"
+                    placeholder="название типа устройства"
+                    value={type.value}  
+                    onChange={e => changeType(e.target.value)}
+                    style={{border: type.valid === ValidationResult.ERROR ?
+                        "2px solid red" : "1px solid black"
+                    }}
+                />
+                <button
+                    onClick={e => saveTypeOnServer(e)}
+                    className="modalButton"
+                >
+                    save
+                </button>
+                <h5 className="modalTitle">{type.serverInfo}</h5>
+                {
+                    type.valid === ValidationResult.ERROR &&
+                        <h4>поле содержит недопустимые символы</h4>
+                }
         </form>
+        </div>
     )
 }
 

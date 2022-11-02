@@ -25,8 +25,14 @@ const ImageInput = () => {
 
     return (
         <div>
-            <label htmlFor="file-uploader">изображение</label>
+            <label
+                htmlFor="file-uploader"
+                className="deviceModalLabel"
+            >
+                изображение
+            </label>
             <input 
+                className="fileInput"
                 placeholder="добавьте изображение"
                 style={{background: (state!.image.valid === ValidationResult.ERROR) ?
                     "red" : "white"
@@ -36,7 +42,7 @@ const ImageInput = () => {
                 ref={fileInput}
                 onChange={() => selectImage()}
             />
-            <button onClick={deleteImage} >X</button>
+            <button onClick={deleteImage} className="deviceModalTextLabel" >X</button>
             {state!.image.valid === ValidationResult.ERROR &&
                 <h4>добавьте изображение</h4> }
         </div>

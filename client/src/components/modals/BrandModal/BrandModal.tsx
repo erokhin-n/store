@@ -46,23 +46,31 @@ const BrandModal = () => {
 
 
     return (
-        <form>
-            <input 
-                type = "text"
-                placeholder="название бренда"
-                value={brand.value}  
-                onChange={e => changeBrand(e.target.value)}
-                style={{border: brand.valid === ValidationResult.ERROR ?
-                    "2px solid red" : "1px solid black"
-                }}
-            />
-            <button onClick={e => saveBrandOnServer(e)}>save</button>
-            <h5>{brand.serverInfo}</h5>
-            {
-                brand.valid === ValidationResult.ERROR &&
-                    <h4>поле содержит недопустимые символы</h4>
-            }
-        </form>
+        <div className="brandAndTypeForm">
+            <h4 className="modalTitle">создание бренда</h4>
+            <form className="inputButtonModalForm">
+                <input 
+                    type = "text"
+                    placeholder="название бренда"
+                    value={brand.value}  
+                    onChange={e => changeBrand(e.target.value)}
+                    style={{border: brand.valid === ValidationResult.ERROR ?
+                        "2px solid red" : "1px solid black"
+                    }}
+                />
+                <button 
+                    onClick={e => saveBrandOnServer(e)}
+                    className="modalButton"
+                >
+                    save
+                </button>
+                <h5 className="modalTitle">{brand.serverInfo}</h5>
+                {
+                    brand.valid === ValidationResult.ERROR &&
+                        <h4>поле содержит недопустимые символы</h4>
+                }
+            </form>
+        </div>
     )
 }
 

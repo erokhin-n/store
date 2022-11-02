@@ -1,9 +1,0 @@
-.page {
-    display: flex;
-    justify-content: space-around;
-}
-
-.deviceForm {
-    background-color: lightgray;
-    border: 2px solid black;
-}
