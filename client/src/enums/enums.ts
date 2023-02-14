@@ -18,7 +18,9 @@ export enum ServerQuery {
     REMOVE_COOKIE = '/user/remove_cookie',
     AUTH_REGISTRATION_ADMIN = '/user/registration_admin',
     GET_USERS = '/user/userlist',
-    GET_BASKET = '/basket'
+    GET_BASKET = '/basket',
+    ADD_DEVICE = '/basket/add_device',
+    GET_BASKET_DEVICES = '/basket/get_basket_devices'
 }
 
 export enum Tags {
@@ -26,7 +28,8 @@ export enum Tags {
     REG_ADMIN = "REG_ADMIN",
     CREATE_TYPE = "CREATE_TYPE",
     CREATE_BRAND = "CREATE_BRAND",
-    CREATE_DEVICE = "CREATE_DEVICE"
+    CREATE_DEVICE = "CREATE_DEVICE",
+    GET_BASKET_NUMBER = "GET_BASKET_NUMBER"
 }
 
 export enum ValidationResult {

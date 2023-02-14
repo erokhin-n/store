@@ -1,4 +1,4 @@
-import { FC, FormEvent, MouseEventHandler, useContext, MouseEvent, useEffect, useState } from "react"
+import { useContext, MouseEvent } from "react"
 import AuthFormFields from "./AuthFormFields";
 import { emailValidation, passwordValidation } from "../../validation/AuthValidation";
 import { formView, PagesEnum, ValidationResult } from "../../enums/enums";
@@ -6,7 +6,6 @@ import { LoginActions, LoginState } from "../../App";
 import { useLoginMutation, useRegistrationAdminMutation, useRegistrationMutation } from "../../store/apiSlice/userSlice";
 import { useNavigate } from "react-router-dom";
 import { initialState } from "../../store/reactReducer/authFormReducer";
-import React from "react";
 
 const AuthForm = () => {
 

@@ -13,6 +13,7 @@ export interface IDevice {
 
 export interface IDeviceProps<T> {
     device: T;
+    basketId?: string;
 }
 
 export interface IDevicesProps<T> {
@@ -118,4 +119,9 @@ export interface ITypeAndBrandModal {
     value: string;
     valid: ValidationResult.ERROR | ValidationResult.FIRST_ADDITION | ValidationResult.SUCCESS;
     serverInfo: string;
+}
+
+export interface IBasketDevice<T> {
+    device: T;
+    basketId?: string;
 }

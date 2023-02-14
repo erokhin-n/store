@@ -5,11 +5,11 @@ import { useCheckQuery, useRemoveCookieMutation } from "../../store/apiSlice/use
 import { LoginActions } from "../../App"
 import { initialState } from "../../store/reactReducer/authFormReducer"
 import { animated, useSpring } from '@react-spring/web'
-import NavbarBurger from "../svg/Navbar_lines/NavbarBurger"
-import Locker from "../svg/enter/Locker"
-import ShopIcon from "../svg/shop/ShopIcon"
-import SuperAdminIcon from "../svg/SuperAdminIcon"
-import BasketIcon from "../svg/BasketIcon"
+import NavbarBurger from "../../images/svg/Navbar_lines/NavbarBurger"
+import Locker from "../../images/svg/enter/Locker"
+import ShopIcon from "../../images/svg/shop/ShopIcon"
+import SuperAdminIcon from "../../images/svg/SuperAdminIcon"
+import BasketIcon from "../../images/svg/BasketIcon"
 
 
 const Navbar = () => {
@@ -114,6 +114,7 @@ const Navbar = () => {
                     <NavLink
                         className={ "navbar_element" } 
                         to={PagesEnum.BASKET}
+                        onClick={()=> navbarView()}
                     >
                         <BasketIcon />
                         <span className="navbarText">корзина</span>
