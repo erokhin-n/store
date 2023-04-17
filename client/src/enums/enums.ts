@@ -20,7 +20,8 @@ export enum ServerQuery {
     GET_USERS = '/user/userlist',
     GET_BASKET = '/basket',
     ADD_DEVICE = '/basket/add_device',
-    GET_BASKET_DEVICES = '/basket/get_basket_devices'
+    GET_BASKET_NUMBER = '/basket/get_basket_number',
+    GET_BASKET_DEVICE = '/basket/get_basket_device'
 }
 
 export enum Tags {
@@ -29,7 +30,7 @@ export enum Tags {
     CREATE_TYPE = "CREATE_TYPE",
     CREATE_BRAND = "CREATE_BRAND",
     CREATE_DEVICE = "CREATE_DEVICE",
-    GET_BASKET_NUMBER = "GET_BASKET_NUMBER"
+    GET_BASKET_DEVICES = "GET_BASKET_DEVICES"
 }
 
 export enum ValidationResult {

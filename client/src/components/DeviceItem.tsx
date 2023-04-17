@@ -9,7 +9,6 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
 
     const [addDevice, {data}] = useAddDeviceMutation()
 
-
     const saveDeviceInBasket = () => {
         addDevice({device, basketId}) 
     }

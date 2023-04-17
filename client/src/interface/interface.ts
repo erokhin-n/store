@@ -125,3 +125,9 @@ export interface IBasketDevice<T> {
     device: T;
     basketId?: string;
 }
+
+export interface IBasketResponse {
+    id: string;
+    basketId: string;
+    deviceId: string;
+}

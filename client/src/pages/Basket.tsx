@@ -1,25 +1,28 @@
-import { useGetBasketDevicesQuery, useGetBasketQuery } from "../store/apiSlice/basketSlice"
+import { useEffect } from "react"
+import BasketDevice from "../components/BasketDevice/BasketDevice"
+import { IBasket, IBasketDevice, IBasketResponse } from "../interface/interface"
+import { useGetBasketDeviceQuery, useGetBasketQuery } from "../store/apiSlice/basketSlice"
 
 const Basket = () => {
     
     const {data, isLoading, isError} = useGetBasketQuery()
-
-    let basketId = undefined;
-
-    if(data) {
-        basketId = data.id
-    }
-
-    // const { data: devices } = useGetBasketDevicesQuery(data)
-
+    
+    
     if(isError) {
         return <h3>error in basket!</h3>
+    }
+
+    if(data) {
+        console.log(data)
     }
 
     return(
         <div>
             <h3>basket</h3>
-            {data && <span>{data.id}</span>}
+            {data ? data.map((basketDevice:IBasketResponse) => 
+                <BasketDevice key={basketDevice.id} device={basketDevice} />) 
+                : <h4>нет устройств</h4>
+            }
         </div>
     )
 }

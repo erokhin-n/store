@@ -6,6 +6,13 @@ export const indexSlice = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: "http://localhost:5000/api",
     }),
-    tagTypes: [Tags.USER,Tags.REG_ADMIN,Tags.CREATE_TYPE, Tags.CREATE_BRAND,Tags.CREATE_DEVICE],
+    tagTypes: [
+        Tags.USER,
+        Tags.REG_ADMIN,
+        Tags.CREATE_TYPE, 
+        Tags.CREATE_BRAND,
+        Tags.CREATE_DEVICE,
+        Tags.GET_BASKET_DEVICES
+    ],
     endpoints: () => ({})
 })

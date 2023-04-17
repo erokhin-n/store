@@ -1,16 +1,23 @@
 import { ServerQuery, Tags } from "../../enums/enums";
-import { IBasket, IBasketDevice, IDevice } from "../../interface/interface";
+import { IBasket, IBasketDevice, IBasketResponse, IDevice, IDeviceFormFields } from "../../interface/interface";
 // import { IMessage, ITypeAndBrand } from "../../interface/interface";
 import { indexSlice } from "./indexSlice";
 
 const basketSlice = indexSlice.injectEndpoints({
     endpoints: (build) => ({
-        getBasket: build.query<IBasket, void>({
+        getBasket: build.query<IBasketResponse[], void>({
             query: ()=> ({
                 url:ServerQuery.GET_BASKET,
                 credentials: "include"
             }),
-            providesTags:[Tags.GET_BASKET_NUMBER] 
+            providesTags:[Tags.USER]
+        }),
+        getBasketNumber: build.query<IBasket, void>({
+            query: ()=> ({
+                url:ServerQuery.GET_BASKET_NUMBER,
+                credentials: "include"
+            }),
+            providesTags:[Tags.USER]
         }),
         addDevice: build.mutation<void, IBasketDevice<IDevice>>({
             query: device => ({ 
@@ -19,11 +26,11 @@ const basketSlice = indexSlice.injectEndpoints({
                 body: device,
                 credentials: "include",    
             }),
-            // invalidatesTags:[Tags.GET_BASKET_NUMBER] 
+            invalidatesTags:[Tags.GET_BASKET_DEVICES]
         }),
-        getBasketDevices: build.query<IDevice[], IBasket>({
-            query: (basketId) => ({
-                url: ServerQuery.GET_BASKET_DEVICES, 
+        getBasketDevice: build.query<IDevice, IBasketResponse>({
+            query: (device) => ({
+                url: ServerQuery.GET_BASKET_DEVICE, 
                 method: 'GET',
                 credentials: 'include'
             })
@@ -35,5 +42,6 @@ const basketSlice = indexSlice.injectEndpoints({
 export const {
     useGetBasketQuery, 
     useAddDeviceMutation, 
-    useGetBasketDevicesQuery
+    useGetBasketNumberQuery,
+    useGetBasketDeviceQuery
 } = basketSlice

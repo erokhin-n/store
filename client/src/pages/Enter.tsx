@@ -1,6 +1,7 @@
-import { MouseEventHandler, useReducer } from "react"
+    import { MouseEventHandler, useReducer } from "react"
 import AuthForm from "../components/AuthForm/AuthForm"
 import { authFormReducer, initialState } from "../store/reactReducer/authFormReducer"
+import "./Enter.css"
 
 const Enter = () => {
 
