@@ -30,7 +30,7 @@ const basketSlice = indexSlice.injectEndpoints({
         }),
         getBasketDevice: build.query<IDevice, IBasketResponse>({
             query: (device) => ({
-                url: ServerQuery.GET_BASKET_DEVICE, 
+                url: ServerQuery.GET_BASKET_DEVICE + '/' + device.deviceId, 
                 method: 'GET',
                 credentials: 'include'
             })

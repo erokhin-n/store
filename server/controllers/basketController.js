@@ -1,4 +1,4 @@
-const {Basket, BasketDevice} = require('../models/models')
+const {Basket, BasketDevice, Device} = require('../models/models')
 
 class BasketController {
 	async getBasket(req,res, next){
@@ -35,8 +35,11 @@ class BasketController {
 	}
 	async getBasketDevices(req, res, next) {
 		try {
-			const data = await req.body
-			console.log('DATA: ' + data)
+			const data = await req.params
+			const basketDevice = await Device.findOne({
+				where: {id:data.id}
+			})
+			res.json(basketDevice)
 		} catch(e) {
 			console.log(console.log('error in getBasketDevice'))
 			next(e)

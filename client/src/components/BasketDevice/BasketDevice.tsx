@@ -2,11 +2,12 @@ import { FC } from "react"
 import { IBasket, IBasketDevice, IBasketResponse, IDevice } from "../../interface/interface"
 import { useGetBasketDeviceQuery } from "../../store/apiSlice/basketSlice"
 
-const BasketDevice:FC<{device:IBasketResponse}> = ({device}) => {
+const BasketDevice:FC<IBasketDevice<IBasketResponse>> = ({device}) => {
     const {data, isError} = useGetBasketDeviceQuery(device)
+    // console.log(index)
     return(
         <div>
-            <h4>{data?.brandId}</h4>    
+            { data &&  <div>{data?.name}</div>}  
         </div>
     )
 }

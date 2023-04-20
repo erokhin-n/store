@@ -12,15 +12,20 @@ const Basket = () => {
         return <h3>error in basket!</h3>
     }
 
-    if(data) {
-        console.log(data)
+    if(isLoading) {
+        return <h3>loading...</h3>
     }
 
     return(
         <div>
             <h3>basket</h3>
-            {data ? data.map((basketDevice:IBasketResponse) => 
-                <BasketDevice key={basketDevice.id} device={basketDevice} />) 
+            {data ? data.map((basketDevice:IBasketResponse, index) =>
+                <BasketDevice 
+                    key={basketDevice.id} 
+                    device={basketDevice} 
+                    index={index + 1}
+                />
+                ) 
                 : <h4>нет устройств</h4>
             }
         </div>
