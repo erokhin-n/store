@@ -4,7 +4,6 @@ import { useGetBasketDeviceQuery } from "../../store/apiSlice/basketSlice"
 
 const BasketDevice:FC<IBasketDevice<IBasketResponse>> = ({device}) => {
     const {data, isError} = useGetBasketDeviceQuery(device)
-    // console.log(index)
     return(
         <div>
             { data &&  <div>{data?.name}</div>}  

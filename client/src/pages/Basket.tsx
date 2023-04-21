@@ -23,7 +23,6 @@ const Basket = () => {
                 <BasketDevice 
                     key={basketDevice.id} 
                     device={basketDevice} 
-                    index={index + 1}
                 />
                 ) 
                 : <h4>нет устройств</h4>
