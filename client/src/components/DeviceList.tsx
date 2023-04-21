@@ -6,7 +6,6 @@ import DeviceItem from "./DeviceItem"
 const DeviceList:FC<IDevicesProps<IDevice[]>> = ({devices}) => {
     const {data} = useGetBasketNumberQuery()
     const basketId = data?.id
-    console.log(`DATA IN DEVICE LIST: ${basketId}`)
     return (
         <div className="deviceList">
             {devices.map((device:IDevice) => 

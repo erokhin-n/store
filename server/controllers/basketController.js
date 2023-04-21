@@ -31,7 +31,6 @@ class BasketController {
 			console.log('error in addDevice in basket')
 			next(e)
 		}
-		
 	}
 	async getBasketDevices(req, res, next) {
 		try {

@@ -22,7 +22,8 @@ const Basket = () => {
             {data ? data.map((basketDevice:IBasketResponse, index) =>
                 <BasketDevice 
                     key={basketDevice.id} 
-                    device={basketDevice} 
+                    device={basketDevice}
+                    count={index} 
                 />
                 ) 
                 : <h4>нет устройств</h4>

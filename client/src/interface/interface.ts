@@ -124,6 +124,7 @@ export interface ITypeAndBrandModal {
 export interface IBasketDevice<T> {
     device: T;
     basketId?: string;
+    count?: number;
 }
 
 export interface IBasketResponse {
