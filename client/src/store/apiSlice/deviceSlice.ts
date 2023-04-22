@@ -8,6 +8,13 @@ const deviceApi = indexSlice.injectEndpoints({
             query: () => ServerQuery.DEVICE,
             providesTags: [Tags.CREATE_DEVICE]
         }),
+        getProductCard: build.query<IDevice, string>({
+            query: (deviceId) => ({
+                url: ServerQuery.GET_PRODUCT_CARD + "/" + deviceId,
+                method: 'GET',
+                credentials: "include"
+            })
+        }),
         createDevice: build.mutation<IMessage, FormData>({
             query: (device) => ({
                 url: ServerQuery.DEVICE,
@@ -23,5 +30,6 @@ const deviceApi = indexSlice.injectEndpoints({
 
 export const {
     useGetAllDevicesQuery,
-    useCreateDeviceMutation
+    useCreateDeviceMutation,
+    useGetProductCardQuery,
 } = deviceApi

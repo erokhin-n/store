@@ -1,6 +1,6 @@
 export enum PagesEnum {
     ENTER = "/enter",
-    DEVICE_PAGE = "/device_page",
+    PRODUCT_CARD = "/product_card",
     ADMIN_PAGE = "/admin_page",
     SUPER_ADMIN_PAGE = "/super_admin_page",
     BASKET = "/basket",
@@ -10,6 +10,7 @@ export enum PagesEnum {
 
 export enum ServerQuery {
     DEVICE = '/device',
+    GET_PRODUCT_CARD = '/device/get_product_card',
     AUTH_REGISTRATION = '/user/registration',
     AUTH_LOGIN = '/user/login',
     BRAND = '/brand',

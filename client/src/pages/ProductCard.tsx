@@ -2,7 +2,7 @@ import { FC } from "react"
 // import BrandModal from "../components/modals/BrandModal/BrandModal"
 
 
-const DevicePage:FC = () => {
+const ProductCard:FC = () => {
     return (
         <section>
             <button>create huibala</button>
@@ -10,4 +10,4 @@ const DevicePage:FC = () => {
     )
 }
 
-export default DevicePage
+export default ProductCard
