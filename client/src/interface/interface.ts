@@ -9,6 +9,7 @@ export interface IDevice {
     name: string;
     price: number;
     rating: number;
+    info?: [{title: string, description: string}];
 }
 
 export interface IDeviceProps<T> {

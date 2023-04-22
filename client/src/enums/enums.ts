@@ -10,7 +10,7 @@ export enum PagesEnum {
 
 export enum ServerQuery {
     DEVICE = '/device',
-    GET_PRODUCT_CARD = '/device/get_product_card',
+    PRODUCT_CARD = '/device/product_card',
     AUTH_REGISTRATION = '/user/registration',
     AUTH_LOGIN = '/user/login',
     BRAND = '/brand',

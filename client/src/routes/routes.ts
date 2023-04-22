@@ -17,7 +17,7 @@ export const userRoutes = [
 export const publicRoutes = [
     {path: PagesEnum.SHOP, element: Shop},
     {path: PagesEnum.ENTER, element: Enter},
-    {path: PagesEnum.PRODUCT_CARD, element: ProductCard},
+    {path: PagesEnum.PRODUCT_CARD + '/' + ':id', element: ProductCard},
 ]
 
 export const superAdminRoutes = [

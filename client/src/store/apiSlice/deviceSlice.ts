@@ -10,7 +10,7 @@ const deviceApi = indexSlice.injectEndpoints({
         }),
         getProductCard: build.query<IDevice, string>({
             query: (deviceId) => ({
-                url: ServerQuery.GET_PRODUCT_CARD + "/" + deviceId,
+                url: ServerQuery.PRODUCT_CARD + "/" + deviceId,
                 method: 'GET',
                 credentials: "include"
             })
