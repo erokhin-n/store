@@ -10,7 +10,7 @@ const basketSlice = indexSlice.injectEndpoints({
                 url:ServerQuery.GET_BASKET,
                 credentials: "include"
             }),
-            providesTags:[Tags.USER]
+            providesTags:[Tags.USER, Tags.GET_BASKET_DEVICES]
         }),
         getBasketNumber: build.query<IBasket, void>({
             query: ()=> ({
@@ -33,7 +33,7 @@ const basketSlice = indexSlice.injectEndpoints({
                 url: ServerQuery.GET_BASKET_DEVICE + '/' + device.deviceId, 
                 method: 'GET',
                 credentials: 'include'
-            })
+            }),
         })
     }),
     overrideExisting: false
