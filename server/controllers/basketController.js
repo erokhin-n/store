@@ -25,8 +25,13 @@ class BasketController {
 			const data = await req.body
 			const deviceId = await data.device.id
 			const basketId = await data.basketId
+			const doubleDevice = await BasketDevice.findOne({
+				where:{id: basketId},
+				include: deviceId
+			})
+			console.log('HER ' + doubleDevice)
 			const basketDevice = await BasketDevice.create({deviceId, basketId})
-			res.json({messege: `устройство в корзине`})
+			return res.json({messege: `устройство в корзине`})
 		} catch(e) {
 			console.log('error in addDevice in basket')
 			next(e)
