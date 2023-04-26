@@ -13,7 +13,8 @@ const Basket = sequelize.define('basket',{
 })
 
 const BasketDevice = sequelize.define('basket_device', {
-		id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, unique: true}
+		id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, unique: true},
+		count: {type: DataTypes.INTEGER, defaultValue: 0}
 })
 
 const Device = sequelize.define('device', {
