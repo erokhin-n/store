@@ -25,18 +25,19 @@ class BasketController {
 			const deviceId = await data.device.id
 			const basketId = await data.basketId
 			
-			const doubleDevice = await BasketDevice.findOne({
-				where:{basketId}
-			})
+			const doubleDevice = await BasketDevice.findAll({
+				where:{basketId, deviceId}
+			}).then((res) => res.json()).catch(e => console.log(e))
+
 			// if(doubleDevice) {
 			// 	console.log('hi')
-			// 	return res.json(doubleDevice)
+			// 	res.json(doubleDevice + ' ' + 'устройство уже в корзине' )
+			// } else {
+			// 	const basketDevice = await BasketDevice.create({deviceId, basketId})
+			// 	// return res.json(doubleDevice)
+			// 	res.json({messege: `устройство добавленно в корзину`})
 			// }
-			// const basketDevice = await BasketDevice.create(deviceId, {
-			// 	where: basketId
-			// })
-			return res.json(doubleDevice)
-			// return res.json({messege: `устройство в корзине`})
+			
 		} catch(e) {
 			next(e)
 		}
