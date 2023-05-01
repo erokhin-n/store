@@ -33,9 +33,9 @@ class BasketController {
 			})
 
 			if(created) {
-				res.json({message: `устройство добавлено в корзину ${deviceInBasket}` })
+				res.json({message: `устройство добавлено в корзину` })
 			} else {
-				res.json({message:'устройство уже в корозине'})
+				res.json({message:'устройство уже в корзине'})
 			}
 		} catch(e) {
 			next(e)
