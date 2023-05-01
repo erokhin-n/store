@@ -28,6 +28,7 @@ const Basket = () => {
                 ) 
                 : <h4>нет устройств</h4>
             }
+            <button> send order </button>
         </div>
     )
 }

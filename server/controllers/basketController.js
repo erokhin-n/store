@@ -49,7 +49,6 @@ class BasketController {
 			})
 			res.json(basketDevice)
 		} catch(e) {
-			console.log(console.log('error in getBasketDevice'))
 			next(e)
 		}
 	}

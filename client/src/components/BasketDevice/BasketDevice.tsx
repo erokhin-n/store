@@ -27,8 +27,12 @@ const BasketDevice:FC<IBasketDevice<IBasketResponse>> = ({device, count}) => {
     return(
         <div>
             { data &&  
-                <div onClick={() => goToProductCard()}>
-                    {count! + 1}. {data?.name} - {data.price} $
+                <div>
+                    <div onClick={() => goToProductCard()}>
+                        {count! + 1}. {data?.name} - {data.price} $
+                    </div>
+                    <input type="number" min={1} defaultValue="1"/>
+                    <button>delete</button>
                 </div>
             }     
         </div>
