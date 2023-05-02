@@ -40,7 +40,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className="navbar">
+        <div id="slide-out" className="sidenav">
             <div className="button_search_navbar_container">
                 <div 
                     className="navbar_button"
@@ -48,11 +48,6 @@ const Navbar = () => {
                 >
                     <NavbarBurger navbarVisible={navbarVisible} />
                 </div>
-                <input 
-                    placeholder="поиск устройства"
-                    type="text"
-                    className="navbar_search"
-                />
             </div>
             <animated.div 
                 style={testAnimation}

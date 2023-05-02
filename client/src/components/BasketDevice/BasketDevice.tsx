@@ -21,7 +21,7 @@ const BasketDevice:FC<IBasketDevice<IBasketResponse>> = ({device, count}) => {
     }
 
     if (isError) {
-        <div>ошибка загрузки файла</div>
+        <div>ошибка загрузки устройства</div>
     }
 
     return(
@@ -32,7 +32,7 @@ const BasketDevice:FC<IBasketDevice<IBasketResponse>> = ({device, count}) => {
                         {count! + 1}. {data?.name} - {data.price} $
                     </div>
                     <input type="number" min={1} defaultValue="1"/>
-                    <button>delete</button>
+                    <button className="waves-effect waves-light btn">delete</button>
                 </div>
             }     
         </div>
