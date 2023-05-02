@@ -20,7 +20,7 @@ const Navbar = () => {
 
     const dispatch = useContext(LoginActions)
 
-    const [navbarVisible, setNavbarVisible] = useState<boolean>(false)
+    const [navbarVisible, setNavbarVisible] = useState<boolean>(true)
 
     const logout = () => {
         removeCookie()
@@ -40,20 +40,17 @@ const Navbar = () => {
     }
 
     return (
-        <div id="slide-out" className="sidenav">
-            <div className="button_search_navbar_container">
+        <nav>
+            {/* <div className="button_search_navbar_container">
                 <div 
                     className="navbar_button"
                     onClick={()=> navbarView()}
                 >
                     <NavbarBurger navbarVisible={navbarVisible} />
                 </div>
-            </div>
-            <animated.div 
-                style={testAnimation}
-                className={
-                    "navbar_elements_container"
-                }
+            </div> */}
+            <div 
+                className={"nav-wrapper row"}
             >
                 {data?.role ?
                     <NavLink
@@ -61,7 +58,7 @@ const Navbar = () => {
                         to={PagesEnum.ENTER}
                         onClick={() => logout()}
                     >   
-                        <Locker />
+                        {/* <Locker /> */}
                         <span className="navbarText">выйти</span>        
                     </NavLink>
                     :
@@ -70,8 +67,8 @@ const Navbar = () => {
                         to={PagesEnum.ENTER}
                         onClick={()=> navbarView()}
                     >
-                        <Locker />
-                        <span className="navbarText">войти</span>
+                        {/* <Locker /> */}
+                        <span className="col s2">войти</span>
                     </NavLink>
                 
                 }
@@ -79,10 +76,10 @@ const Navbar = () => {
                     className={  "navbar_element" }
                     to={PagesEnum.SHOP}
                 >
-                    <ShopIcon />
+                    {/* <ShopIcon /> */}
                     <span 
                         onClick={()=> navbarView()}
-                        className="navbarText"
+                        className="col s4"
                     >
                         магазин
                     </span>
@@ -92,7 +89,7 @@ const Navbar = () => {
                         className={ "navbar_element" } 
                         to={PagesEnum.ADMIN_PAGE}
                     >
-                        <SuperAdminIcon />
+                        {/* <SuperAdminIcon /> */}
                         <span className="navbarText">админ панель</span>
                     </NavLink>
                 }
@@ -101,7 +98,7 @@ const Navbar = () => {
                         className={ "navbar_element" } 
                         to={PagesEnum.SUPER_ADMIN_PAGE}
                     >
-                        <SuperAdminIcon />
+                        {/* <SuperAdminIcon /> */}
                         <span className="navbarText">super admin page</span>
                     </NavLink>
                 }
@@ -111,13 +108,13 @@ const Navbar = () => {
                         to={PagesEnum.BASKET}
                         onClick={()=> navbarView()}
                     >
-                        <BasketIcon />
+                        {/* <BasketIcon /> */}
                         <span className="navbarText">корзина</span>
                     </NavLink>
                 }
                 <div>{data?.email}</div>
-            </animated.div>
-        </div>
+            </div>
+        </nav>
     )
 }
 

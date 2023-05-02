@@ -4,6 +4,7 @@ import AppRouter from "./components/AppRouter";
 import Navbar from "./components/Navbar/Navbar";
 import { IAuthFormActions, IAuthFormState } from "./interface/interface";
 import { authFormReducer, init, initialState } from "./store/reactReducer/authFormReducer";
+import Footer from "./components/Footer";
 
 export const LoginState = createContext<IAuthFormState | null>(null)
 export const LoginActions = createContext<Dispatch<IAuthFormActions> | null>(null)
@@ -18,7 +19,10 @@ export function App() {
                 <BrowserRouter>
                     <div className="NavbarAppRouterContainer">
                         <Navbar />
-                        <AppRouter />
+                            <div className="container">
+                                <AppRouter />
+                            </div>
+                        <Footer />
                     </div>
                 </BrowserRouter>
             </LoginActions.Provider>

@@ -35,7 +35,6 @@ const Shop = () => {
     return (
         <div className="shop">
             {deviceList}
-            <Footer />
         </div>
     )
 }

@@ -1,9 +1,0 @@
-.navbar {
-    background-color: #89d4cf;
-    background-image: linear-gradient(315deg, #89d4cf 0%, #6e45e1 74%);      
-    display:flex; 
-    min-width:'100%'; 
-    border: 1px solid gray; 
-    min-height:5rem;
-    align-items: center;
-}
