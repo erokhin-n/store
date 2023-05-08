@@ -3,8 +3,6 @@ import AuthForm from './AuthForm'
 import {screen} from '@testing-library/dom'
 import '@testing-library/jest-dom'
 
-
-
 // const server = setupServer(
 
 //  	// rest.post('http://localhost:5000/api/user/login', (req, res, ctx) => {
