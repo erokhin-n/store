@@ -10,6 +10,9 @@ import Locker from "../../images/svg/enter/Locker"
 import ShopIcon from "../../images/svg/shop/ShopIcon"
 import SuperAdminIcon from "../../images/svg/SuperAdminIcon"
 import BasketIcon from "../../images/svg/BasketIcon"
+import LockIcon from '@mui/icons-material/Lock';
+import AddBusinessOutlinedIcon from '@mui/icons-material/AddBusinessOutlined';
+import AppBar from '@mui/material/AppBar';
 
 
 const Navbar = () => {
@@ -40,7 +43,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav>
+        <AppBar>
             {/* <div className="button_search_navbar_container">
                 <div 
                     className="navbar_button"
@@ -67,8 +70,8 @@ const Navbar = () => {
                         to={PagesEnum.ENTER}
                         onClick={()=> navbarView()}
                     >
-                        {/* <Locker /> */}
-                        <span className="col s2">войти</span>
+                        <span>войти</span>
+                        <LockIcon/>
                     </NavLink>
                 
                 }
@@ -76,13 +79,13 @@ const Navbar = () => {
                     className={  "navbar_element" }
                     to={PagesEnum.SHOP}
                 >
-                    {/* <ShopIcon /> */}
                     <span 
                         onClick={()=> navbarView()}
                         className="col s4"
                     >
                         магазин
                     </span>
+                    <AddBusinessOutlinedIcon />
                 </NavLink>
                 {(data?.role ===  "ADMIN" ) && 
                     <NavLink
@@ -114,7 +117,7 @@ const Navbar = () => {
                 }
                 <div>{data?.email}</div>
             </div>
-        </nav>
+        </AppBar>
     )
 }
 

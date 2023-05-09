@@ -3,6 +3,7 @@ import { formView, ValidationResult } from "../../enums/enums"
 import { LoginActions, LoginState } from "../../App"
 import { IAuthFormFields } from "../../interface/interface"
 import ErrorModal from "../ErrorModal"
+import Button from '@mui/material/Button';
 
 
 const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleClick}) => {
@@ -40,8 +41,8 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
                 <ErrorModal error="пароль должен состоять из 8ми букв" />
             }
             {state!.serverMessage && <ErrorModal error={state!.serverMessage} />}
-            <button 
-                className="authFormButton"
+            <Button 
+                variant="contained"
                 onClick={ e =>  handleClick(e)}
             >
                 {state!.formView === formView.FORM_SUPER_ADMIN ? 
@@ -49,28 +50,28 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
                     state!.formView === formView.FORM_LOGIN ?
                     "войти" : "регистрация"
                 }
-            </button>
+            </Button>
             {state!.formView === formView.FORM_SUPER_ADMIN ?
                 null :
                 (state!.formView === formView.FORM_LOGIN) ?
                 <div className="regAndLoginContainer">
                     <span className="accountInfo">Нет аккаунта?</span> 
-                    <span 
-                        className="regAndLoginToggle"
+                    <Button 
+                        variant="contained"
                         onClick={()=> dispatch!({type:'setFormView', payload: formView.FORM_REGISTRATION})}
                     >
                         зарегистрируйтесь
-                    </span>
+                    </Button>
                 </div>
                 :
                 <div className="regAndLoginContainer">
                     <span className="accountInfo">есть аккаунт?</span> 
-                    <span
+                    <Button
                         onClick={()=> dispatch!({type:'setFormView', payload: formView.FORM_LOGIN})}
-                        className="regAndLoginToggle"
+                        variant="contained"
                     >   
                         войдите
-                    </span>
+                    </Button>
                 </div>    
             }
         </form>
