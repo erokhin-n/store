@@ -4,12 +4,14 @@ import AppRouter from "./components/AppRouter";
 import Navbar from "./components/Navbar/Navbar";
 import { IAuthFormActions, IAuthFormState } from "./interface/interface";
 import { authFormReducer, init, initialState } from "./store/reactReducer/authFormReducer";
-import Footer from "./components/Footer";
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import CssBaseline from '@mui/material/CssBaseline';
+import Toolbar from '@mui/material/Toolbar';
+import Footer from "./components/Footer";
+import BottomNavigation from '@mui/material/BottomNavigation';
 
 
 export const LoginState = createContext<IAuthFormState | null>(null)
@@ -25,9 +27,7 @@ export function App() {
                 <BrowserRouter>
                     <CssBaseline />
                     <Navbar />
-                        <div className="container">
-                            <AppRouter />
-                        </div>
+                    <AppRouter />
                     <Footer />
                 </BrowserRouter>
             </LoginActions.Provider>

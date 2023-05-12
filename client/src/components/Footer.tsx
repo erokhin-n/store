@@ -1,6 +1,14 @@
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import Delete from "@mui/icons-material/Delete"
+
 const Footer = () => {
     return (
-        <footer className="page-footer">сайт создан в качестве демонстрации </footer>
+        <BottomNavigation
+            
+        > 
+            <BottomNavigationAction label="Recents" icon={<Delete />} /> 
+        </BottomNavigation>
     )
 }
 
