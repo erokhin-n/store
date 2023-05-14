@@ -13,6 +13,8 @@ import BasketIcon from "../../images/svg/BasketIcon"
 import LockIcon from '@mui/icons-material/Lock';
 import AddBusinessOutlinedIcon from '@mui/icons-material/AddBusinessOutlined';
 import AppBar from '@mui/material/AppBar';
+import Logo from "../../images/svg/Logo"
+import { Avatar } from "@mui/material"
 
 
 const Navbar = () => {
@@ -34,10 +36,6 @@ const Navbar = () => {
         setNavbarVisible(!navbarVisible)
     }
 
-    const testAnimation = useSpring({
-        transform: navbarVisible ? "translateX(0px)" : "translateX(-1000px)",
-    })
-
     if(isLoading){
         return <h3>loading navbar...</h3>
     }
@@ -55,6 +53,13 @@ const Navbar = () => {
             <div 
                 className={"nav-wrapper row"}
             >
+                <Avatar 
+                    variant="square"
+                    sx={{bgcolor:rgb(0,0,0,0)}}
+                >
+                    <Logo />
+                </Avatar>
+                
                 {data?.role ?
                     <NavLink
                         className={ "navbar_element"}
