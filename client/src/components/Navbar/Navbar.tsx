@@ -41,7 +41,10 @@ const Navbar = () => {
     }
 
     return (
-        <AppBar position="static">
+        <AppBar 
+            position="static"
+            sx={{bgcolor: '#D3D3D3'}}
+        >
                 <Logo_2 
                     sx={{fontSize: 100}}
                 />
