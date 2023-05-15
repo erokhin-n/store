@@ -13,7 +13,7 @@ import BasketIcon from "../../images/svg/BasketIcon"
 import LockIcon from '@mui/icons-material/Lock';
 import AddBusinessOutlinedIcon from '@mui/icons-material/AddBusinessOutlined';
 import AppBar from '@mui/material/AppBar';
-import { Avatar } from "@mui/material"
+import { Avatar, Paper } from "@mui/material"
 import Logo_2 from "../../images/svg/Logo_2"
 
 
@@ -41,20 +41,9 @@ const Navbar = () => {
     }
 
     return (
-        <AppBar>
-            {/* <div className="button_search_navbar_container">
-                <div 
-                    className="navbar_button"
-                    onClick={()=> navbarView()}
-                >
-                    <NavbarBurger navbarVisible={navbarVisible} />
-                </div>
-            </div> */}
-            <div 
-                className={"nav-wrapper row"}
-            >
+        <AppBar position="static">
                 <Logo_2 
-                    sx={{fontSize: 120}}
+                    sx={{fontSize: 100}}
                 />
                 
                 {data?.role ?
@@ -118,7 +107,7 @@ const Navbar = () => {
                     </NavLink>
                 }
                 <div>{data?.email}</div>
-            </div>
+           
         </AppBar>
     )
 }
