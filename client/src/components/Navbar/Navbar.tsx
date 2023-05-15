@@ -13,8 +13,8 @@ import BasketIcon from "../../images/svg/BasketIcon"
 import LockIcon from '@mui/icons-material/Lock';
 import AddBusinessOutlinedIcon from '@mui/icons-material/AddBusinessOutlined';
 import AppBar from '@mui/material/AppBar';
-import Logo from "../../images/svg/Logo"
 import { Avatar } from "@mui/material"
+import Logo_2 from "../../images/svg/Logo_2"
 
 
 const Navbar = () => {
@@ -53,12 +53,9 @@ const Navbar = () => {
             <div 
                 className={"nav-wrapper row"}
             >
-                <Avatar 
-                    variant="square"
-                    sx={{bgcolor:rgb(0,0,0,0)}}
-                >
-                    <Logo />
-                </Avatar>
+                <Logo_2 
+                    sx={{fontSize: 120}}
+                />
                 
                 {data?.role ?
                     <NavLink
