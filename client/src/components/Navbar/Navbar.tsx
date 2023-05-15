@@ -13,11 +13,36 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Logo_2 from '../../images/svg/Logo_2';
+import { NavLink } from 'react-router-dom';
+import { PagesEnum } from '../../enums/enums';
+import { useRemoveCookieMutation } from '../../store/apiSlice/userSlice';
+import { useContext } from 'react';
+import { LoginActions } from '../../App';
+import { initialState } from '../../store/reactReducer/authFormReducer';
 
-const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
+    
+const [removeCookie] = useRemoveCookieMutation()
+
+const dispatch = useContext(LoginActions)
+
+const logout = () => {
+    removeCookie()
+    dispatch!({type: 'reset', payload: initialState})
+}
+
+
+const exit = <NavLink
+        to={PagesEnum.ENTER}
+        onClick={() => logout()}
+    >   
+    <span className="navbarText">выйти</span>        
+    </NavLink>
+
+const pages = [exit, 'Pricing', 'Blog'];
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -90,7 +115,7 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem  onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -117,7 +142,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                // key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
