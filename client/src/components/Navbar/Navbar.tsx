@@ -15,7 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import Logo_2 from '../../images/svg/Logo_2';
 import { NavLink } from 'react-router-dom';
 import { PagesEnum } from '../../enums/enums';
-import { useRemoveCookieMutation } from '../../store/apiSlice/userSlice';
+import { useCheckQuery, useRemoveCookieMutation } from '../../store/apiSlice/userSlice';
 import { useContext } from 'react';
 import { LoginActions } from '../../App';
 import { initialState } from '../../store/reactReducer/authFormReducer';
@@ -23,67 +23,95 @@ import { initialState } from '../../store/reactReducer/authFormReducer';
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
+
+	const {data, isLoading} = useCheckQuery()
     
-const [removeCookie] = useRemoveCookieMutation()
+	const [removeCookie] = useRemoveCookieMutation()
 
-const dispatch = useContext(LoginActions)
+	const dispatch = useContext(LoginActions)
 
-const logout = () => {
-    removeCookie()
-    dispatch!({type: 'reset', payload: initialState})
-}
+	const logout = () => {
+		removeCookie()
+		dispatch!({type: 'reset', payload: initialState})
+	}
 
 
-const exit = <NavLink
-        to={PagesEnum.ENTER}
-        onClick={() => logout()}
-    >   
-    <span className="navbarText">выйти</span>        
-    </NavLink>
+	const exit = data?.role ?
+		<NavLink
+			className={ "navbar_element"}
+			to={PagesEnum.ENTER}
+			onClick={() => logout()}
+		>   
+			{/* <Locker /> */}
+			<span className="navbarText">выйти</span>        
+		</NavLink>
+		:
+		<NavLink
+			className={ "navbar_element"}
+			to={PagesEnum.ENTER}
+		>
+			<span>войти</span>
+		</NavLink>
 
-const pages = [exit, 'Pricing', 'Blog'];
+	const shop = <NavLink
+			to={PagesEnum.SHOP}
+		>
+			<span >
+				магазин
+			</span>
+		</NavLink>
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+	const admin = data?.role === "ADMIN"  && 
+		<NavLink
+			className={ "navbar_element" } 
+			to={PagesEnum.ADMIN_PAGE}
+		>
+			<span className="navbarText">админ панель</span>
+		</NavLink>
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
+	const superAdmin = data?.role === "SUPER_ADMIN" && 
+		<NavLink
+			className={ "navbar_element" } 
+			to={PagesEnum.SUPER_ADMIN_PAGE}
+		>
+			<span className="navbarText">super admin page</span>
+		</NavLink>
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+	const user = data?.role === "USER" && 
+		<NavLink
+			className={ "navbar_element" } 
+			to={PagesEnum.BASKET}
+		>
+			{/* <BasketIcon /> */}
+			<span className="navbarText">корзина</span>
+		</NavLink>
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+
+	const pages = [exit, shop, admin, superAdmin, user];
+
+	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
+	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorElNav(event.currentTarget);
+	};
+	const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorElUser(event.currentTarget);
+	};
+
+	const handleCloseNavMenu = () => {
+		setAnchorElNav(null);
+	};
+
+	const handleCloseUserMenu = () => {
+		setAnchorElUser(null);
+	};
 
   return (
     <AppBar position="static" sx={{bgcolor: "#D3D3D3"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          {/* <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography> */}
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
