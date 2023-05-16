@@ -35,7 +35,6 @@ function ResponsiveAppBar() {
 		dispatch!({type: 'reset', payload: initialState})
 	}
 
-
 	const exit = data?.role ?
 		<NavLink
 			className={ "navbar_element"}
@@ -61,21 +60,31 @@ function ResponsiveAppBar() {
 			</span>
 		</NavLink>
 
-	const admin = data?.role === "ADMIN"  && 
+	const admin = data?.role === "ADMIN"  ? 
 		<NavLink
 			className={ "navbar_element" } 
 			to={PagesEnum.ADMIN_PAGE}
 		>
 			<span className="navbarText">админ панель</span>
 		</NavLink>
+		:
+		null
 
-	const superAdmin = data?.role === "SUPER_ADMIN" && 
+	const superAdmin = data?.role === "SUPER_ADMIN" ?
 		<NavLink
 			className={ "navbar_element" } 
 			to={PagesEnum.SUPER_ADMIN_PAGE}
 		>
 			<span className="navbarText">super admin page</span>
 		</NavLink>
+		:
+		null
+
+	function testadm() {
+		if(admin) {
+				
+		}
+	}
 
 	const user = data?.role === "USER" && 
 		<NavLink
@@ -87,7 +96,7 @@ function ResponsiveAppBar() {
 		</NavLink>
 
 
-	const pages = [exit, shop, admin, superAdmin, user];
+	let pages = [exit, shop];
 
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -106,6 +115,8 @@ function ResponsiveAppBar() {
 	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
 	};
+
+	console.log(pages)
 
   return (
     <AppBar position="static" sx={{bgcolor: "#D3D3D3"}}>
