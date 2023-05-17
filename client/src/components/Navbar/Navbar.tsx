@@ -176,7 +176,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            Art AI 
+            Robo Art 
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
