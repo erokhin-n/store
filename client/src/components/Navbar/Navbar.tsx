@@ -37,16 +37,17 @@ function ResponsiveAppBar() {
 
 	const exit = data?.role ?
 		<NavLink
-			className={ "navbar_element"}
+			// className={ "navbar_element"}
 			to={PagesEnum.ENTER}
 			onClick={() => logout()}
 		>   
-			<span className="navbarText">выйти</span>        
+			<span>выйти</span>        
 		</NavLink>
 		:
 		<NavLink
 			to={PagesEnum.ENTER}
-		>	<span>войти</span>
+		>	
+			<span>войти</span>
 		</NavLink>
 
 	const shop = <NavLink
@@ -74,11 +75,9 @@ function ResponsiveAppBar() {
 
 	const user = data?.role === "USER" && 
 		<NavLink
-			className={ "navbar_element" } 
 			to={PagesEnum.BASKET}
 		>
-			{/* <BasketIcon /> */}
-			<span className="navbarText">корзина</span>
+			<span>корзина</span>
 		</NavLink>
 
 
@@ -121,31 +120,38 @@ function ResponsiveAppBar() {
 				>
 					<MenuIcon sx={{color: 'black', fontSize: 35}} />
 				</IconButton>
+				{/* mobile version */}
 				<Menu
-				id="menu-appbar"
-				anchorEl={anchorElNav}
-				anchorOrigin={{
-					vertical: 'bottom',
-					horizontal: 'left',
-				}}
-				keepMounted
-				transformOrigin={{
-					vertical: 'top',
-					horizontal: 'left',
-				}}
-				open={Boolean(anchorElNav)}
-				onClose={handleCloseNavMenu}
-				sx={{
-					display: { xs: 'block', md: 'none' },
+					id="menu-appbar"
+					anchorEl={anchorElNav}
+					anchorOrigin={{
+						vertical: 'bottom',
+						horizontal: 'left',
+					}}
+					keepMounted
+					transformOrigin={{
+						vertical: 'top',
+						horizontal: 'left',
+					}}
+					open={Boolean(anchorElNav)}
+					onClose={handleCloseNavMenu}
+					sx={{
+						display: { xs: 'block', md: 'none' },
 				}}
 				>
 				{pages.map((page) => (
 					<MenuItem  onClick={handleCloseNavMenu}>
-						<Typography textAlign="center">{page}</Typography>
+						<Typography 
+							textAlign="center"
+							color="pink"
+						>
+							{page}
+						</Typography>
 					</MenuItem>
 				))}
 				</Menu>
 			</Box>
+
 			<Logo_2 sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, fontSize: 75 }} />
 			<Typography
 				variant="h6"
@@ -154,8 +160,7 @@ function ResponsiveAppBar() {
 					mr: 2,
 					display: { xs: 'flex', md: 'none' },
 					flexGrow: 1,
-					fontFamily: 'monospace',
-					fontWeight: 570,
+					fontWeight: 470,
 					color: '#000',
 					textDecoration: 'none',
 				}}
@@ -164,41 +169,41 @@ function ResponsiveAppBar() {
 			</Typography>
 			<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 				{pages.map((page) => (
-				<Button
-					// key={page}
-					onClick={handleCloseNavMenu}
-					sx={{ my: 2, color: 'white', display: 'block' }}
-				>
-					{page}
-				</Button>
+					<Button
+						// key={page}
+						onClick={handleCloseNavMenu}
+						sx={{ my: 2, color: 'black', display: 'block' }}
+					>
+						{page}
+					</Button>
 				))}
 			</Box>
 
 			<Box sx={{ flexGrow: 0 }}>
 				<Tooltip title="Open settings">
-				<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-					<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-				</IconButton>
+					<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+						<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+					</IconButton>
 				</Tooltip>
 				<Menu
-				sx={{ mt: '45px' }}
-				id="menu-appbar"
-				anchorEl={anchorElUser}
-				anchorOrigin={{
-					vertical: 'top',
-					horizontal: 'right',
-				}}
-				keepMounted
-				transformOrigin={{
-					vertical: 'top',
-					horizontal: 'right',
-				}}
-				open={Boolean(anchorElUser)}
-				onClose={handleCloseUserMenu}
+					sx={{ mt: '45px' }}
+					id="menu-appbar"
+					anchorEl={anchorElUser}
+					anchorOrigin={{
+						vertical: 'top',
+						horizontal: 'right',
+					}}
+					keepMounted
+					transformOrigin={{
+						vertical: 'top',
+						horizontal: 'right',
+					}}
+					open={Boolean(anchorElUser)}
+					onClose={handleCloseUserMenu}
 				>
 				{settings.map((setting) => (
 					<MenuItem key={setting} onClick={handleCloseUserMenu}>
-					<Typography textAlign="center">{setting}</Typography>
+						<Typography textAlign="center">{setting}</Typography>
 					</MenuItem>
 				))}
 				</Menu>
