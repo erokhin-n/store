@@ -5,11 +5,11 @@ interface LogoProps extends OverrideProps<SvgIconTypeMap<{}, "svg">, "svg"> {
   // Define any additional props specific to your Logo component
 }
 
-function Logo_2(props:LogoProps  ) {
+function Logo2(props:LogoProps  ) {
     return (
       <SvgIcon {...props}>
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-		width="100%" viewBox="0 0 1024 1024" enable-background="new 0 0 1024 1024" xmlSpace="preserve">
+		width="100%" viewBox="0 0 1024 1024" enableBackground="new 0 0 1024 1024" xmlSpace="preserve">
 
 	<path fill="#fff" opacity="0" stroke="none" 
 		d="
@@ -7961,4 +7961,4 @@ function Logo_2(props:LogoProps  ) {
     );
   }
   
-  export default Logo_2
+  export default Logo2

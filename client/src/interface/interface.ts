@@ -133,3 +133,9 @@ export interface IBasketResponse {
     basketId: string;
     deviceId: string;
 }
+
+export interface MuiNavLinkProps {
+    to: string;
+    onClick?: () => void;
+    children: React.ReactNode;
+  }

@@ -14,7 +14,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import AddBusinessOutlinedIcon from '@mui/icons-material/AddBusinessOutlined';
 import AppBar from '@mui/material/AppBar';
 import { Avatar, Paper } from "@mui/material"
-import Logo_2 from "../../images/svg/Logo_2"
+import Logo_2 from "../../images/svg/Logo2"
 
 
 const Navbar = () => {
