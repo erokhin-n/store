@@ -37,7 +37,7 @@ function ResponsiveAppBar() {
 		dispatch!({type: 'reset', payload: initialState})
 	}
 	  
-	const MuiNavLink: React.FC<MuiNavLinkProps> = ({ to, onClick, children}) => (
+const MuiNavLink: React.FC<MuiNavLinkProps> = ({ to, onClick, children}) => (
 		<NavLink to={to} onClick={onClick}>
 			{children}
 		</NavLink>
@@ -103,7 +103,8 @@ function ResponsiveAppBar() {
 		<AppBar position="static" sx={{bgcolor: "#D3D3D3"}}>
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
-					{/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
+					{/* <AdbIcon /> */}
+					<Logo2  sx=	{{ display: { xs: 'none', md: 'flex' }, mr: 1 }}/>
 					<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }}}>
 						<IconButton
 							size="large"
@@ -112,8 +113,9 @@ function ResponsiveAppBar() {
 							aria-haspopup="true"
 							onClick={handleOpenNavMenu}
 							color="inherit"
-						//   sx={{color: 'black', fontSize: 150}}
-						>
+						//  sx={{color: 'black', fontSize: 150}}
+						>   
+
 							<MenuIcon sx={{color: 'black', fontSize: 35}} />
 						</IconButton>
 						<Menu
@@ -129,7 +131,7 @@ function ResponsiveAppBar() {
 								horizontal: 'left',
 							}}
 							open={Boolean(anchorElNav)}
-							onClose={handleCloseNavMenu}
+							onClose={handleCloseNavMenu} 
 							sx={{
 								display: { xs: 'block', md: 'none' },
 								'& .MuiMenu-list': {
@@ -173,17 +175,16 @@ function ResponsiveAppBar() {
 					</Typography>
 					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 						{pages.map((page, index) => (
-							<Button
+							<MenuItem  
 								key={index}
 								onClick={handleCloseNavMenu}
-								// sx={{ my: 2, color: 'black', display: 'block' }}
+								sx={{fontSize: '1.5rem'}}
 							>
 								{/* desktop */}
 								{page}
-							</Button>
+							</MenuItem>
 						))}
 					</Box>
-
 					<Box sx={{ flexGrow: 0 }}>
 						<Tooltip title="Open settings">
 							<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
