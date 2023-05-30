@@ -104,7 +104,7 @@ const MuiNavLink: React.FC<MuiNavLinkProps> = ({ to, onClick, children}) => (
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					{/* <AdbIcon /> */}
-					<Logo2  sx=	{{ display: { xs: 'none', md: 'flex' }, mr: 1 }}/>
+					<Logo2  sx=	{{ display: { xs: 'none', md: 'flex' }, mr: 1, ml: 3, fontSize: 100 }}/>
 					<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }}}>
 						<IconButton
 							size="large"
@@ -178,7 +178,17 @@ const MuiNavLink: React.FC<MuiNavLinkProps> = ({ to, onClick, children}) => (
 							<MenuItem  
 								key={index}
 								onClick={handleCloseNavMenu}
-								sx={{fontSize: '1.5rem'}}
+								sx={{
+									'& .MuiMenu-list': {
+										backgroundColor: '#DFDFDF',
+										padding: 0,  
+									},
+	
+									'& .MuiMenuItem-root a': {
+										textDecoration: 'none',
+										color: 'inherit'  
+									},
+								}}
 							>
 								{/* desktop */}
 								{page}
