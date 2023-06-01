@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import Logo2 from '../../images/svg/Logo2';
+import Logo2 from '../../images/svg/Logo2';q																																																																		
 import { NavLink } from 'react-router-dom';
 import { PagesEnum } from '../../enums/enums';
 import { useCheckQuery, useRemoveCookieMutation } from '../../store/apiSlice/userSlice';
@@ -37,11 +37,11 @@ function ResponsiveAppBar() {
 		dispatch!({type: 'reset', payload: initialState})
 	}
 	  
-const MuiNavLink: React.FC<MuiNavLinkProps> = ({ to, onClick, children}) => (
-		<NavLink to={to} onClick={onClick}>
-			{children}
-		</NavLink>
-	);
+	const MuiNavLink: React.FC<MuiNavLinkProps> = ({ to, onClick, children}) => (
+			<NavLink to={to} onClick={onClick}>
+				{children}
+			</NavLink>
+		);
 	  
 	const exit = data?.role ? (
 		<MuiNavLink to={PagesEnum.ENTER} onClick={logout}>
@@ -103,7 +103,6 @@ const MuiNavLink: React.FC<MuiNavLinkProps> = ({ to, onClick, children}) => (
 		<AppBar position="static" sx={{bgcolor: "#D3D3D3"}}>
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
-					{/* <AdbIcon /> */}
 					<Logo2  sx=	{{ display: { xs: 'none', md: 'flex' }, mr: 1, ml: 3, fontSize: 100 }}/>
 					<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }}}>
 						<IconButton
@@ -173,11 +172,21 @@ const MuiNavLink: React.FC<MuiNavLinkProps> = ({ to, onClick, children}) => (
 					>
 						Robo Art 
 					</Typography>
-					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, 
+						'& .MuiTypography-root': {
+							textDecoration: 'none',
+							color: 'pink',
+						  },
+					}}>
 						{pages.map((page, index) => (
-							<MenuItem  
+							<MenuItem
 								key={index}
 								onClick={handleCloseNavMenu}
+								component="div"
+
+						  >
+							{/* desktop */}
+							<Typography
 								sx={{
 									'& .MuiMenu-list': {
 										backgroundColor: '#DFDFDF',
@@ -188,11 +197,11 @@ const MuiNavLink: React.FC<MuiNavLinkProps> = ({ to, onClick, children}) => (
 										textDecoration: 'none',
 										color: 'inherit'  
 									},
-								}}
+								  }}
 							>
-								{/* desktop */}
 								{page}
-							</MenuItem>
+							</Typography>
+						  </MenuItem>
 						))}
 					</Box>
 					<Box sx={{ flexGrow: 0 }}>
