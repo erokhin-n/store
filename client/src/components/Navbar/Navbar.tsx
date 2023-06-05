@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import Logo2 from '../../images/svg/Logo2';q																																																																		
+import Logo2 from '../../images/svg/Logo2';																																																																		
 import { NavLink } from 'react-router-dom';
 import { PagesEnum } from '../../enums/enums';
 import { useCheckQuery, useRemoveCookieMutation } from '../../store/apiSlice/userSlice';
@@ -172,35 +172,21 @@ function ResponsiveAppBar() {
 					>
 						Robo Art 
 					</Typography>
-					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, 
-						'& .MuiTypography-root': {
-							textDecoration: 'none',
-							color: 'pink',
-						  },
-					}}>
+					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 						{pages.map((page, index) => (
 							<MenuItem
 								key={index}
 								onClick={handleCloseNavMenu}
-								component="div"
-
-						  >
-							{/* desktop */}
-							<Typography
 								sx={{
-									'& .MuiMenu-list': {
-										backgroundColor: '#DFDFDF',
-										padding: 0,  
-									},
-	
-									'& .MuiMenuItem-root a': {
-										textDecoration: 'none',
-										color: 'inherit'  
-									},
-								  }}
-							>
+								textDecoration: 'none',
+								'&:hover': {
+									textDecoration: 'none',
+								},
+								}}
+
+						  	>
+							{/* desktop */}
 								{page}
-							</Typography>
 						  </MenuItem>
 						))}
 					</Box>
