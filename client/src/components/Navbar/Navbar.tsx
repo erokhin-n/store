@@ -172,23 +172,30 @@ function ResponsiveAppBar() {
 					>
 						Robo Art 
 					</Typography>
-					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' },
+
+						'& .MuiMenuItem-root a': {
+							textDecoration: 'none',
+							color: 'inherit'  
+						},
+						}}
+					>
 						{pages.map((page, index) => (
 							<MenuItem
 								key={index}
 								onClick={handleCloseNavMenu}
-								sx={{
-								textDecoration: 'none',
-								'&:hover': {
-									textDecoration: 'none',
-								},
-								}}
 
-						  	>
-							{/* desktop */}
-								{page}
-						  </MenuItem>
+							>
+								<Typography 
+									variant="h5"
+									color={"#000"}	
+								>
+								{/* desktop */}
+									{page}
+								</Typography>
+							</MenuItem>
 						))}
+						
 					</Box>
 					<Box sx={{ flexGrow: 0 }}>
 						<Tooltip title="Open settings">
