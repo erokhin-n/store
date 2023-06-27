@@ -4,6 +4,8 @@ import { LoginActions, LoginState } from "../../App"
 import { IAuthFormFields } from "../../interface/interface"
 import ErrorModal from "../ErrorModal"
 import Button from '@mui/material/Button';
+import Box from "@mui/material/Box"
+import { TextField, Typography } from "@mui/material"
 
 
 const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleClick}) => {
@@ -12,69 +14,88 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
     const dispatch = useContext(LoginActions)
 
     return (
-        <form 
-            className="authForm"
+        <Box 
+            component={"form"}
+            sx={{
+                display:{
+                    xs:"flex", 
+                    flexDirection:'column', 
+                    alignItems: 'center', 
+                } 
+            }}
         >
-            {/* <span className="authFormLabel">{state?.formView === formView.FORM_LOGIN ? 
-                "ВХОД" :
-                state?.formView === formView.FORM_REGISTRATION ?
-                "РЕГИСТРАЦИЯ" :
-                "РЕГИСТРАЦИЯ АДМИНА"
-                }
-            </span> */}
-            <input
-                type="text" 
-                placeholder="введите почту"
+            <TextField
+                label="email"
+                placeholder="введите почту" 
                 value={state?.email.value}
                 onChange={e => changeEmail(e.target.value)}
+                variant="filled"
+                error={state!.email.validInfo === ValidationResult.ERROR}
+                helperText={(state!.email.validInfo === ValidationResult.ERROR) ? 
+                    'введите почту в формате email@mail.com' :
+                    ' '
+                }
             />
-            {state!.email.validInfo === ValidationResult.ERROR && 
-                <ErrorModal error="введите почту в формате email@mail.com" />
-            }
-            <input
-                type="text"
+            <TextField
+                label="password" 
                 placeholder="введите пароль"
                 value={state!.password.value}
                 onChange={e => changePassword(e.target.value)}
-            />
-            {state!.password.validInfo === ValidationResult.ERROR && 
-                <ErrorModal error="пароль должен состоять из 8ми букв" />
-            }
-            {state!.serverMessage && <ErrorModal error={state!.serverMessage} />}
-            <Button 
-                variant="contained"
-                onClick={ e =>  handleClick(e)}
-            >
-                {state!.formView === formView.FORM_SUPER_ADMIN ? 
-                    'регистрация админа' : 
-                    state!.formView === formView.FORM_LOGIN ?
-                    "войти" : "регистрация"
+                variant="filled"
+                error={state!.password.validInfo === ValidationResult.ERROR}
+                helperText={(state!.password.validInfo === ValidationResult.ERROR) ? 
+                    "пароль должен состоять из 8ми букв" :
+                    ' '
                 }
-            </Button>
+            />
+
+            {state!.serverMessage && <ErrorModal error={state!.serverMessage} />}
+            <Box>
+                <Button 
+                    variant="contained"
+                    onClick={ e =>  handleClick(e)}
+                >
+                    {state!.formView === formView.FORM_SUPER_ADMIN ? 
+                        'регистрация админа' : 
+                        state!.formView === formView.FORM_LOGIN ?
+                        "войти" : "регистрация"
+                    }
+                </Button>
+            </Box>
             {state!.formView === formView.FORM_SUPER_ADMIN ?
                 null :
                 (state!.formView === formView.FORM_LOGIN) ?
                 <div className="regAndLoginContainer">
-                    <span className="accountInfo">Нет аккаунта?</span> 
-                    <Button 
-                        variant="contained"
+                    <Typography
+                        variant={"subtitle1"}
+                    >
+                        Нет аккаунта?
+                    </Typography> 
+                    <Typography
+                        component={"i"} 
+                        variant={"overline"}
                         onClick={()=> dispatch!({type:'setFormView', payload: formView.FORM_REGISTRATION})}
+                        color={"#1976d2"}
+                        sx={{cursor:'pointer'}}
                     >
                         зарегистрируйтесь
-                    </Button>
+                    </Typography>
                 </div>
                 :
                 <div className="regAndLoginContainer">
-                    <span className="accountInfo">есть аккаунт?</span> 
-                    <Button
+                    <Typography variant={"subtitle1"}>есть аккаунт?</Typography> 
+                    <Typography
+                        component={"i"}
                         onClick={()=> dispatch!({type:'setFormView', payload: formView.FORM_LOGIN})}
-                        variant="contained"
+                        variant={"overline"}
+                        color={"#1976d2"}
+                        sx={{cursor:'pointer'}}
                     >   
                         войдите
-                    </Button>
+                    </Typography>
                 </div>    
             }
-        </form>
+        </Box>
     )
 } 
 

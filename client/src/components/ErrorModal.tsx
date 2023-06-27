@@ -1,11 +1,15 @@
+import Typography from "@mui/material/Typography"
 import { FC } from "react"
 
 const ErrorModal:FC<{error:string}> = ({error}) => {
 
     return (
-        <div data-testid="errorId">
+        <Typography
+            variant={"subtitle2"}
+            
+        >
             {error}
-        </div>
+        </Typography>
     )
 }
 

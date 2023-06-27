@@ -1,6 +1,7 @@
     import { MouseEventHandler, useReducer } from "react"
 import AuthForm from "../components/AuthForm/AuthForm"
 import { authFormReducer, initialState } from "../store/reactReducer/authFormReducer"
+import Grid from "@mui/material/Grid"
 
 const Enter = () => {
 
@@ -11,9 +12,15 @@ const Enter = () => {
     }
 
     return (
-        <section onClick={hideValidation}>
+        <Grid 
+            container
+            direction="column"
+            columns={{xs:12}}
+            alignItems="center" 
+            onClick={hideValidation}
+        >
             <AuthForm />
-        </section>
+        </Grid>
     )
 }
 
