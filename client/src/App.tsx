@@ -12,6 +12,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import Footer from "./components/Footer";
 import BottomNavigation from '@mui/material/BottomNavigation';
+import Grid from "@mui/material/Grid";
 
 
 export const LoginState = createContext<IAuthFormState | null>(null)
@@ -26,9 +27,22 @@ export function App() {
             <LoginActions.Provider value={dispatch}>
                 <BrowserRouter>
                     <CssBaseline />
-                    <Navbar />
-                    <AppRouter />
-                    <Footer />
+                    <Grid 
+                        container 
+                        // direction="column"
+                        sx={{minHeight:"100vh"}}
+                    
+                    >
+                        <Grid item xs={12}>
+                            <Navbar />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <AppRouter />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Footer />
+                        </Grid>
+                    </Grid>
                 </BrowserRouter>
             </LoginActions.Provider>
         </LoginState.Provider>

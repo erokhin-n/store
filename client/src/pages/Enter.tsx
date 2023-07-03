@@ -15,7 +15,7 @@ const Enter = () => {
         <Grid 
             container
             direction="column"
-            columns={{xs:12}}
+                
             alignItems="center" 
             onClick={hideValidation}
         >
