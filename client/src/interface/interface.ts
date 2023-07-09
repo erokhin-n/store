@@ -137,5 +137,6 @@ export interface IBasketResponse {
 export interface MuiNavLinkProps {
     to: string;
     onClick?: () => void;
-    children: React.ReactNode;
+    icon: React.ReactNode;
+    name: string;
   }

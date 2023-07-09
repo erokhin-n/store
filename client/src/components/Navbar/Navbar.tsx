@@ -20,7 +20,13 @@ import { useContext, useEffect } from 'react';
 import { LoginActions } from '../../App';
 import { initialState } from '../../store/reactReducer/authFormReducer';
 import { MuiNavLinkProps } from '../../interface/interface';
-import { MenuList } from '@mui/material';
+import { Grid, MenuList } from '@mui/material/';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import StoreIcon from '@mui/icons-material/Store';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -37,46 +43,33 @@ function ResponsiveAppBar() {
 		dispatch!({type: 'reset', payload: initialState})
 	}
 	  
-	const MuiNavLink: React.FC<MuiNavLinkProps> = ({ to, onClick, children}) => (
+	const MuiNavLink: React.FC<MuiNavLinkProps> = ({ to, onClick, icon, name}) => (
 			<NavLink to={to} onClick={onClick}>
-				{children}
+				<Grid container spacing={{xs:2}}>
+					<Grid item>{icon}</Grid>
+					<Grid item fontSize="1.5rem">{name}</Grid>
+				</Grid>
 			</NavLink>
 		);
 	  
 	const exit = data?.role ? (
-		<MuiNavLink to={PagesEnum.ENTER} onClick={logout}>
-			выйти
-		</MuiNavLink>
+		<MuiNavLink to={PagesEnum.ENTER} onClick={logout} icon={<LogoutIcon fontSize="large"/>} name='exit' />
 	) : (
-		<MuiNavLink to={PagesEnum.ENTER}>
-			войти
-		</MuiNavLink>
+		<MuiNavLink to={PagesEnum.ENTER} icon={<LoginIcon fontSize="large"/>} name='login' />
 	);
 
-	const shop = <MuiNavLink to={PagesEnum.SHOP}>
-			магазин
-		</MuiNavLink>
+	const shop = <MuiNavLink to={PagesEnum.SHOP} icon={<StoreIcon fontSize="large" />} name='shop' />
 
 	const admin = data?.role === "ADMIN"  &&
-		<MuiNavLink 
-			to={PagesEnum.ADMIN_PAGE}
-		>
-			админ панель
-		</MuiNavLink>
+		<MuiNavLink to={PagesEnum.ADMIN_PAGE} icon={<AdminPanelSettingsIcon fontSize="large"/>} name='admin panel'/>
 
 	const superAdmin = data?.role === "SUPER_ADMIN" &&
-		<MuiNavLink
-			to={PagesEnum.SUPER_ADMIN_PAGE}
-		>
-			super admin page
-		</MuiNavLink>
+		<MuiNavLink to={PagesEnum.SUPER_ADMIN_PAGE} icon={<SupervisorAccountIcon fontSize="large"/>} name='super admin'/>
+			
 
 	const user = data?.role === "USER" && 
-		<MuiNavLink
-			to={PagesEnum.BASKET}
-		>
-			корзина
-		</MuiNavLink>
+		<MuiNavLink to={PagesEnum.BASKET} icon={<ShoppingBagIcon fontSize="large"/>} name='basket'/>
+			  
 
 
 	let pages = [exit, shop, user, admin, superAdmin ].filter(element => element !== false)
@@ -148,7 +141,7 @@ function ResponsiveAppBar() {
 								<MenuItem  
 									key={index}
 									onClick={handleCloseNavMenu}
-									sx={{fontSize: '1.5rem'}}
+									// sx={{fontSize: '1.5rem'}}
 								>
 									{/* mobile */}
 									{page}

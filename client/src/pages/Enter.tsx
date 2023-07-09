@@ -20,6 +20,7 @@ const Enter = () => {
             onClick={hideValidation}
         >
             <AuthForm />
+            
         </Grid>
     )
 }

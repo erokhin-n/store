@@ -5,7 +5,7 @@ import { IAuthFormFields } from "../../interface/interface"
 import ErrorModal from "../ErrorModal"
 import Button from '@mui/material/Button';
 import Box from "@mui/material/Box"
-import { TextField, Typography } from "@mui/material"
+import { Grid, TextField, Typography } from "@mui/material"
 
 
 const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleClick}) => {
@@ -21,6 +21,10 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
                     xs:"flex", 
                     flexDirection:'column', 
                     alignItems: 'center', 
+                    border: '1px solid #D3D3D3',
+                    borderRadius: '5px',
+                    padding:"5%",
+                    background: "#F2F2F2"
                 } 
             }}
         >
@@ -62,10 +66,16 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
                     }
                 </Button>
             </Box>
+            <Grid 
+                container
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+            >
             {state!.formView === formView.FORM_SUPER_ADMIN ?
                 null :
                 (state!.formView === formView.FORM_LOGIN) ?
-                <div className="regAndLoginContainer">
+                <Grid item xs={12}>
                     <Typography
                         variant={"subtitle1"}
                     >
@@ -77,12 +87,13 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
                         onClick={()=> dispatch!({type:'setFormView', payload: formView.FORM_REGISTRATION})}
                         color={"#1976d2"}
                         sx={{cursor:'pointer'}}
+                        
                     >
                         зарегистрируйтесь
                     </Typography>
-                </div>
+                </Grid>
                 :
-                <div className="regAndLoginContainer">
+                <Grid item xs={12}>
                     <Typography variant={"subtitle1"}>есть аккаунт?</Typography> 
                     <Typography
                         component={"i"}
@@ -93,8 +104,9 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
                     >   
                         войдите
                     </Typography>
-                </div>    
+                </Grid>    
             }
+            </Grid>
         </Box>
     )
 } 
