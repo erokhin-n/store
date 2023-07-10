@@ -6,6 +6,9 @@ import { useCheckQuery } from "../store/apiSlice/userSlice"
 import { useGetProductCardQuery } from "../store/apiSlice/deviceSlice"
 import { useNavigate } from "react-router-dom"
 import { PagesEnum } from "../enums/enums"
+import Card from "@mui/material/Card"
+import { Button, CardActionArea, CardMedia, Typography } from "@mui/material"
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 
 const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
@@ -19,27 +22,36 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
     }
 
     const goToProductCard = () => {
-        navigate(PagesEnum.PRODUCT_CARD + '/' + device.id)
+        navigate(PagesEnum.PRODUCT_CARD + '/' + device.id) 
     }
 
+    console.log(device.img)
+
+    
+
     return (
-        <div>
-            <div 
-                className="productCard"
+        <Card>
+            <CardActionArea 
                 onClick={()=> goToProductCard()}
             >
-                <h3 className="deviceName">{device.name}</h3>
-                <img className="productCardImage" width={150} height={150} src={'http://localhost:5000/' + device.img} />
-                <span className="productCardRating">рейтинг: {device.rating}</span>
-                <span className="productCardPrice">цена: {device.price}</span>
-            </div>
-            <div 
-                className="productCardButtonContainer"
+                <CardMedia 
+                    component="img"
+                    height='300' 
+                    image={`http://localhost:5000/${device.img}`} 
+                    alt="device"
+                />
+                 <Typography gutterBottom variant="h5" component="div">
+                    price: {device.price}
+                </Typography>
+           
+            <Button 
+                variant="contained"
                 onClick={()=> saveDeviceInBasket()}
             >
-                <BasketButton />
-            </div>
-        </div>
+                <ShoppingCartIcon/>
+            </Button>
+            </CardActionArea>
+        </Card>
     )
 }
 
