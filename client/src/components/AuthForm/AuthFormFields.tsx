@@ -54,7 +54,7 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
             />
 
             {state!.serverMessage && <ErrorModal error={state!.serverMessage} />}
-            <Box>
+            <Box mb={{xs:1}}>
                 <Button 
                     variant="contained"
                     onClick={ e =>  handleClick(e)}
@@ -66,47 +66,58 @@ const AuthFormFields:FC<IAuthFormFields>= ({changeEmail, changePassword, handleC
                     }
                 </Button>
             </Box>
-            <Grid 
-                container
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-            >
             {state!.formView === formView.FORM_SUPER_ADMIN ?
                 null :
                 (state!.formView === formView.FORM_LOGIN) ?
-                <Grid item xs={12}>
-                    <Typography
-                        variant={"subtitle1"}
-                    >
-                        Нет аккаунта?
-                    </Typography> 
-                    <Typography
-                        component={"i"} 
-                        variant={"overline"}
-                        onClick={()=> dispatch!({type:'setFormView', payload: formView.FORM_REGISTRATION})}
-                        color={"#1976d2"}
-                        sx={{cursor:'pointer'}}
-                        
-                    >
-                        зарегистрируйтесь
-                    </Typography>
+                <Grid             
+                    container
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <Grid item>
+                        <Typography
+                            variant={"subtitle1"}
+                        >
+                            Нет аккаунта?
+                        </Typography>
+                    </Grid> 
+                    <Grid item>
+                        <Typography
+                            component={"i"} 
+                            variant={"overline"}
+                            onClick={()=> dispatch!({type:'setFormView', payload: formView.FORM_REGISTRATION})}
+                            color={"#1976d2"}
+                            sx={{cursor:'pointer'}}
+                            
+                        >
+                            зарегистрируйтесь
+                        </Typography>
+                    </Grid>
                 </Grid>
                 :
-                <Grid item xs={12}>
-                    <Typography variant={"subtitle1"}>есть аккаунт?</Typography> 
-                    <Typography
-                        component={"i"}
-                        onClick={()=> dispatch!({type:'setFormView', payload: formView.FORM_LOGIN})}
-                        variant={"overline"}
-                        color={"#1976d2"}
-                        sx={{cursor:'pointer'}}
-                    >   
-                        войдите
-                    </Typography>
+                <Grid 
+                    container
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <Grid item>
+                        <Typography variant={"subtitle1"}>есть аккаунт?</Typography> 
+                    </Grid>
+                    <Grid>
+                        <Typography
+                            component={"i"}
+                            onClick={()=> dispatch!({type:'setFormView', payload: formView.FORM_LOGIN})}
+                            variant={"overline"}
+                            color={"#1976d2"}
+                            sx={{cursor:'pointer'}}
+                        >   
+                            войдите
+                        </Typography>
+                    </Grid>
                 </Grid>    
             }
-            </Grid>
         </Box>
     )
 } 
