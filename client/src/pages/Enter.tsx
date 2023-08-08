@@ -1,4 +1,4 @@
-    import { MouseEventHandler, useReducer } from "react"
+import { MouseEventHandler, useReducer } from "react"
 import AuthForm from "../components/AuthForm/AuthForm"
 import { authFormReducer, initialState } from "../store/reactReducer/authFormReducer"
 import Grid from "@mui/material/Grid"
@@ -15,7 +15,6 @@ const Enter = () => {
         <Grid 
             container
             direction="column"
-                
             alignItems="center" 
             onClick={hideValidation}
         >

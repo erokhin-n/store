@@ -7,7 +7,7 @@ import { useGetProductCardQuery } from "../store/apiSlice/deviceSlice"
 import { useNavigate } from "react-router-dom"
 import { PagesEnum } from "../enums/enums"
 import Card from "@mui/material/Card"
-import { Button, CardActionArea, CardMedia, Typography } from "@mui/material"
+import { Button, CardActionArea, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 
@@ -25,32 +25,44 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
         navigate(PagesEnum.PRODUCT_CARD + '/' + device.id) 
     }
 
-    console.log(device.img)
-
-    
-
     return (
-        <Card>
+        <Card 
+            sx={{ 
+                maxWidth: 300,
+                background: '#A0A0A0'
+            }}
+            
+        >
             <CardActionArea 
                 onClick={()=> goToProductCard()}
             >
                 <CardMedia 
                     component="img"
-                    height='300' 
+                    height='250' 
                     image={`http://localhost:5000/${device.img}`} 
                     alt="device"
                 />
-                 <Typography gutterBottom variant="h5" component="div">
-                    price: {device.price}
-                </Typography>
-           
-            <Button 
-                variant="contained"
-                onClick={()=> saveDeviceInBasket()}
-            >
-                <ShoppingCartIcon/>
-            </Button>
+                <CardContent>
+                    <Typography 
+                        gutterBottom variant="h5" 
+                        // component="div"
+                        color='#fff'
+                    >
+                        {device.name}
+                    </Typography>
+                    <Typography variant="body2" color="#fff">
+                        price: {device.price}
+                    </Typography>
+                </CardContent>
             </CardActionArea>
+            <CardActions>
+                <Button 
+                    variant="contained"
+                    onClick={()=> saveDeviceInBasket()}
+                >
+                    <ShoppingCartIcon/>
+                </Button>
+            </CardActions>
         </Card>
     )
 }
