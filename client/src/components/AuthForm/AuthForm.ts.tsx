@@ -15,7 +15,7 @@ import '@testing-library/jest-dom'
 // 			ctx.json("123-234-44412321")
 //    		)
 //   	}),
-// 	rest.get('http://localhost:5000/api/device', (req, res, ctx)=> {
+// 	rest.get('', (req, res, ctx)=> {
 // 		return res(
 // 			ctx.json({message: "no devices"})
 // 		)

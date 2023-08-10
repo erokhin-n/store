@@ -4,7 +4,7 @@ import { Tags } from '../../enums/enums'
 export const indexSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:5000/api",
+        baseUrl: "https://backend-qz2r.onrender.com/api",
     }),
     tagTypes: [
         Tags.USER,
