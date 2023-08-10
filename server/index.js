@@ -1,6 +1,6 @@
 require('dotenv').config()
 const express = require('express')
-const sequelize = require('./db')
+// const sequelize = require('./db')
 const PORT = process.env.PORT || 7000
 const model = require('./models/models')
 const cors = require('cors')
@@ -19,7 +19,7 @@ const corsOptions = {
 };
 
 const app = express()
-app.use(cors(corsOptions))
+// app.use(cors(corsOptions))
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.static(path.resolve(__dirname, 'static')))
@@ -30,8 +30,8 @@ app.use(errorHandler)
 
 const start = async () => {
 	try {
-		await sequelize.authenticate()
-		await sequelize.sync()
+		// await sequelize.authenticate()
+		// await sequelize.sync()
 		app.listen(PORT, ()=> console.log(`server worked on port ${PORT}`))
 	} catch(e) {
 		console.log(e)
