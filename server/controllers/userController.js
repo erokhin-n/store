@@ -40,7 +40,7 @@ class UserController {
 			const basket = await Basket.create({userId: user.id})
 			const token = generateJwt(user.id, user.email, user.role)
 			res
-			.set('Access-Control-Allow-Origin', 'http://localhost:3000')
+			.set('Access-Control-Allow-Origin', 'https://frontend-s4ut.onrender.com')
 			.cookie('token', token, {
 				httpOnly: true,
 				secure: true
@@ -102,7 +102,7 @@ class UserController {
 			}
 			const token = generateJwt(user.id, user.email, user.role)
 			res
-			.set('Access-Control-Allow-Origin', 'http://localhost:3000')
+			.set('Access-Control-Allow-Origin', 'https://frontend-s4ut.onrender.com')
 			.cookie('token', token, {
 				httpOnly: true,
 				secure: true
@@ -128,7 +128,7 @@ class UserController {
 			const token = generateJwt(req.user.id, req.user.email, req.user.role)
 			if(!token) throw ApiError.unauthorized('проверка токена завершилась ошибкой')
 			res
-			.set('Access-Control-Allow-Origin', 'http://localhost:3000')
+			.set('Access-Control-Allow-Origin', 'https://frontend-s4ut.onrender.com')
 			.cookie('token', token, {
 				httpOnly: true,
 				secure: true
