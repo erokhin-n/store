@@ -32,7 +32,7 @@ const start = async () => {
 	try {
 		await sequelize.authenticate()
 		await sequelize.sync()
-		app.listen(PORT, ()=> console.log(`server work on port ${PORT}`))
+		app.listen(PORT, ()=> console.log(`server worked on port ${PORT}`))
 	} catch(e) {
 		console.log(e)
 	}
