@@ -18,7 +18,7 @@ const ProductCard:FC = () => {
         <Container maxWidth="md">
             <Typography component='h2'>{data?.name}</Typography>
             <Box mt={2} sx={{ width: '10rem', height: '10rem' }}>
-                <img src={`http://localhost:5000/${data?.img}`} 
+                <img src={`https://backend-qz2r.onrender.com/${data?.img}`} 
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />     
             </Box>
