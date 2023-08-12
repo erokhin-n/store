@@ -36,7 +36,7 @@ class UserController {
 				throw ApiError.conflict('пользователь с таким мейлом уже есть!')
 			}
 			const hashPassword = await bcrypt.hash(password, 5)
-			const user = await User.create({email, password: hashPassword, role:'SUPER_ADMIN'})
+			const user = await User.create({email, password: hashPassword})
 			const basket = await Basket.create({userId: user.id})
 			const token = generateJwt(user.id, user.email, user.role)
 			res
