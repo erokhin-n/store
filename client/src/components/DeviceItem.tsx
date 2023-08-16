@@ -39,7 +39,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
                 <CardMedia 
                     component="img"
                     height='250' 
-                    image={`https://backend-qz2r.onrender.com/${device.img}`} 
+                    image={`https://backend-qz2r.onrender.com/static/${device.img}`} 
                     alt="device"
                 />
                 <CardContent>
