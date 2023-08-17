@@ -18,25 +18,6 @@ import {
     Grid,
     CssBaseline,
   } from '@mui/material';
-  
-  const styles = {
-    container: {
-      backgroundColor: '#f5f5f5',
-      minHeight: '100vh',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    paper: {
-      padding: '20px',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    button: {
-      marginTop: '20px',
-    },
-  };
 
 const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
 
@@ -81,46 +62,33 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
         
     }
     return (
-        <Container component="main" maxWidth="xs" style={styles.container}>
+        <div>
       <CssBaseline />
-      <Paper elevation={3} style={styles.paper}>
-        <Typography component="h1" variant="h6">
-          Добавление устройства
-        </Typography>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
+      <Container component="main" maxWidth="xs">
+        <Paper elevation={3}>
+          <Typography component="h1" variant="h6">
+            Добавление устройства
+          </Typography>
+          <Grid container spacing={2}>
             <TypeIdSelect />
-          </Grid>
-          <Grid item xs={12}>
             <BrandIdSelect />
-          </Grid>
-          <Grid item xs={12}>
             <NameInput />
-          </Grid>
-          <Grid item xs={12}>
             <PriceInput />
-          </Grid>
-          <Grid item xs={12}>
-            <ImageInput />
-          </Grid>
-          <Grid item xs={12}>
+            <ImageInput/>
             <DeviceInfo />
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              style={styles.button}
-              onClick={(e) => handleClick(e)}
-            >
-              Сохранить устройство
-            </Button>
-          </Grid>
-        </Grid>
-      </Paper>
-    </Container>
-  );
-};
+            <button onClick={e => handleClick(e)}>сохранить устройство</button>
+            </Grid>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ marginTop: '20px' }}
+            onClick={(e) => handleClick(e)}
+          >
+            Сохранить устройство
+          </Button>
+        </Paper>
+      </Container>
+    </div>
     )
 }
 
