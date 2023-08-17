@@ -62,8 +62,7 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
         
     }
     return (
-        <div>
-      <CssBaseline />
+      
       <Container component="main" maxWidth="xs">
         <Paper elevation={3}>
           <Typography component="h1" variant="h6">
@@ -76,7 +75,7 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
             <PriceInput />
             <ImageInput/>
             <DeviceInfo />
-            <button onClick={e => handleClick(e)}>сохранить устройство</button>
+            
             </Grid>
           <Button
             variant="contained"
@@ -88,7 +87,6 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
           </Button>
         </Paper>
       </Container>
-    </div>
     )
 }
 
