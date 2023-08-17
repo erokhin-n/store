@@ -10,6 +10,33 @@ import PriceInput from "../../UI/PriceInput"
 import TypeIdSelect from "../../UI/TypeIdSelect"
 import DeviceInfo from "./DeviceInfo"
 import { DeviceModalDispatch, DeviceModalState } from "./DeviceModal"
+import {
+    Button,
+    Container,
+    Paper,
+    Typography,
+    Grid,
+    CssBaseline,
+  } from '@mui/material';
+  
+  const styles = {
+    container: {
+      backgroundColor: '#f5f5f5',
+      minHeight: '100vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    paper: {
+      padding: '20px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    button: {
+      marginTop: '20px',
+    },
+  };
 
 const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
 
@@ -54,15 +81,46 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
         
     }
     return (
-        <div className="deviceModal">
+        <Container component="main" maxWidth="xs" style={styles.container}>
+      <CssBaseline />
+      <Paper elevation={3} style={styles.paper}>
+        <Typography component="h1" variant="h6">
+          Добавление устройства
+        </Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
             <TypeIdSelect />
+          </Grid>
+          <Grid item xs={12}>
             <BrandIdSelect />
+          </Grid>
+          <Grid item xs={12}>
             <NameInput />
+          </Grid>
+          <Grid item xs={12}>
             <PriceInput />
-            <ImageInput/>
+          </Grid>
+          <Grid item xs={12}>
+            <ImageInput />
+          </Grid>
+          <Grid item xs={12}>
             <DeviceInfo />
-            <button onClick={e => handleClick(e)}>сохранить устройство</button>
-        </div>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              variant="contained"
+              color="primary"
+              style={styles.button}
+              onClick={(e) => handleClick(e)}
+            >
+              Сохранить устройство
+            </Button>
+          </Grid>
+        </Grid>
+      </Paper>
+    </Container>
+  );
+};
     )
 }
 
