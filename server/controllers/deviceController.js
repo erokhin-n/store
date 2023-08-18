@@ -7,19 +7,19 @@ const fs = require('fs');
 
 async function uploadToImgur(imagePath, clientId) {
 	try {
-	  const image = fs.readFileSync(imagePath, { encoding: 'base64' });
+		const image = fs.readFileSync(imagePath, { encoding: 'base64' });
   
-	  const response = await axios.post('https://api.imgur.com/3/image', image, {
-		headers: {
-		  Authorization: `Client-ID ${clientId}`,
-		},
-	  });
-  
-	  const imageUrl = response.data.data.link;
-	  return imageUrl;
+		const response = await axios.post('https://api.imgur.com/3/image', image, {
+			headers: {
+			Authorization: `Client-ID ${clientId}`,
+			},
+		});
+	
+		const imageUrl = response.data.data.link;
+		return imageUrl;
 	} catch (error) {
-	  console.error('Error uploading to Imgur:', error.response.data);
-	  throw new Error('Image upload to Imgur failed');
+		console.error('Error uploading to Imgur:', error.response.data);
+		throw new Error('Image upload to Imgur failed');
 	}
 }
 
