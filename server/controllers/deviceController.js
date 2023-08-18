@@ -5,8 +5,6 @@ const path = require('path')
 const axios = require('axios');
 const fs = require('fs');
 
-const Device = require('./models/Device'); 
-
 async function uploadToImgur(imagePath, clientId) {
 	try {
 	  const image = fs.readFileSync(imagePath, { encoding: 'base64' });
