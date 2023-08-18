@@ -43,7 +43,7 @@ class DeviceController {
 		  img.mv(imagePath);
 	
 		  // Используйте ваш Client ID для авторизации на Imgur
-		  const clientId = 'YOUR_IMGUR_CLIENT_ID';
+		  const clientId = '69672255265524a';
 	
 		  // Загрузка изображения на Imgur
 		  const imageUrl = await uploadToImgur(imagePath, clientId);
