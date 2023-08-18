@@ -4,6 +4,7 @@ const uuid = require('uuid')
 const path = require('path')
 const axios = require('axios');
 const fs = require('fs');
+const FormData = require('form-data');
 
 async function uploadToImgur(imagePath, clientId) {
 	try {
@@ -38,7 +39,7 @@ class DeviceController {
 		  img.mv(imagePath);
 	
 		  // Используйте ваш Client ID для авторизации на Imgur
-		  const clientId = '69672255265524a';
+		  const clientId = 'YOUR_IMGUR_CLIENT_ID';
 	
 		  // Загрузка изображения на Imgur
 		  const imageUrl = await uploadToImgur(imagePath, clientId);
