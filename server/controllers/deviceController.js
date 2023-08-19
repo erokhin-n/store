@@ -38,7 +38,7 @@ class DeviceController {
 	
 		  img.mv(imagePath);
 	
-		  const clientId = 'YOUR_IMGUR_CLIENT_ID';
+		  const clientId = '69672255265524a';
 	
 		  const imageUrl = await uploadToImgur(imagePath, clientId);
 	
