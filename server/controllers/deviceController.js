@@ -9,7 +9,7 @@ const FormData = require('form-data');
 async function uploadToImgur(imagePath, clientId) {
 	try {
 	  const form = new FormData();
-	  form.append('image', fs.createReadStream(imagePath)); // Используем createReadStream
+	  form.append('image', fs.createReadStream(imagePath));
   
 	  const response = await axios.post('https://api.imgur.com/3/image', form, {
 		headers: {
@@ -38,7 +38,7 @@ class DeviceController {
 	
 		  img.mv(imagePath);
 	
-		  const clientId = '69672255265524a';
+		  const clientId = 'YOUR_IMGUR_CLIENT_ID';
 	
 		  const imageUrl = await uploadToImgur(imagePath, clientId);
 	
