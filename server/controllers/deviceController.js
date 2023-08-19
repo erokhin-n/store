@@ -8,14 +8,12 @@ const FormData = require('form-data');
 
 async function uploadToImgur(imagePath, clientId) {
 	try {
-	  const image = fs.readFileSync(imagePath);
-  
 	  const form = new FormData();
-	  form.append('image', image);
+	  form.append('image', fs.createReadStream(imagePath)); // Используем createReadStream
   
 	  const response = await axios.post('https://api.imgur.com/3/image', form, {
 		headers: {
-		  ...form.getHeaders(), // Указываем заголовки для form-data
+		  ...form.getHeaders(),
 		  Authorization: `Client-ID ${clientId}`,
 		},
 	  });
@@ -26,7 +24,7 @@ async function uploadToImgur(imagePath, clientId) {
 	  console.error('Error uploading to Imgur:', error.response.data);
 	  throw new Error('Image upload to Imgur failed');
 	}
-}
+  }
 
 class DeviceController {
 	async create(req, res, next) {
@@ -36,16 +34,12 @@ class DeviceController {
 		  if (existName) throw ApiError.conflict('такое название устройства уже существует');
 		  const { img } = req.files;
 		  const fileName = uuid.v4() + '.jpg';
-	
-		  // Путь к временной директории, где сохраняются изображения
 		  const imagePath = path.resolve(__dirname, '..', 'static', fileName);
 	
 		  img.mv(imagePath);
 	
-		  // Используйте ваш Client ID для авторизации на Imgur
 		  const clientId = '69672255265524a';
 	
-		  // Загрузка изображения на Imgur
 		  const imageUrl = await uploadToImgur(imagePath, clientId);
 	
 		  const device = await Device.create({ name, price, brandId, typeId, img: imageUrl });
@@ -61,7 +55,6 @@ class DeviceController {
 			);
 		  }
 	
-		  // Удаление временного файла после загрузки на Imgur
 		  fs.unlinkSync(imagePath);
 	
 		  return res.json(device);
