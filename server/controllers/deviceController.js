@@ -1,3 +1,6 @@
+const admin = require('firebase-admin');
+const serviceAccount = require('./storepictures-db9c6-firebase-adminsdk-a2yb2-08ae3c94de.json'); // Замените на путь к вашему ключу сервисного аккаунта
+
 const {Device, DeviceInfo} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const uuid = require('uuid')
@@ -6,25 +9,12 @@ const axios = require('axios');
 const fs = require('fs');
 const FormData = require('form-data');
 
-async function uploadToImgur(imagePath, clientId) {
-	try {
-	  const form = new FormData();
-	  form.append('image', fs.createReadStream(imagePath));
-  
-	  const response = await axios.post('https://api.imgur.com/3/image', form, {
-		headers: {
-		  ...form.getHeaders(),
-		  Authorization: `Client-ID ${clientId}`,
-		},
-	  });
-  
-	  const imageUrl = response.data.data.link;
-	  return imageUrl;
-	} catch (error) {
-	  console.error('Error uploading to Imgur:', error.response.data);
-	  throw new Error('Image upload to Imgur failed');
-	}
-  }
+admin.initializeApp({
+	credential: admin.credential.cert(serviceAccount),
+	storageBucket: 'gs://storepictures-db9c6.appspot.com',
+});
+
+const storage = admin.storage();
 
 class DeviceController {
 	async create(req, res, next) {
@@ -38,9 +28,17 @@ class DeviceController {
 	
 		  img.mv(imagePath);
 	
-		  const clientId = '69672255265524a';
+		  const bucket = storage.bucket();
+		  const destinationPath = `images/${fileName}`;
 	
-		  const imageUrl = await uploadToImgur(imagePath, clientId);
+		  await bucket.upload(imagePath, {
+			destination: destinationPath,
+			metadata: {
+			  contentType: 'image/jpeg', // Укажите соответствующий тип контента
+			},
+		  });
+	
+		  const imageUrl = `https://storage.googleapis.com/gs://storepictures-db9c6.appspot.com/${destinationPath}`;
 	
 		  const device = await Device.create({ name, price, brandId, typeId, img: imageUrl });
 	
