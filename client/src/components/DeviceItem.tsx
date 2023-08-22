@@ -11,6 +11,7 @@ import { Button, CardActionArea, CardActions, CardContent, CardMedia, Typography
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 
+
 const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
 
     const navigate = useNavigate()
