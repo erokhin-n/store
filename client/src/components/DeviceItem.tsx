@@ -35,11 +35,12 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
         navigate(PagesEnum.PRODUCT_CARD + '/' + device.id) 
     }
 
-    console.log(device.img)
+    
 
     // const imageUrl = `https://storage.googleapis.com/storepictures-db9c6.appspot.com/images/${encodeURIComponent(device.img)}`;
     
     const imageUrl = device.img;
+    console.log(imageUrl)
 
     return (
         <Card 
