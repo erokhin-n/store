@@ -40,7 +40,7 @@ export function App() {
                             <AppRouter />
                         </Grid>
                         <Grid item xs={12}>
-                            <Footer />
+                            {/* <Footer /> */}
                         </Grid>
                     </Grid>
                 </BrowserRouter>
