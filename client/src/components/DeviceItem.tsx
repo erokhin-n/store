@@ -13,15 +13,15 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
 
-    const [imageUrl, setImageUrl] = useState<string | ArrayBuffer | null>(null);
+    // const [imageUrl, setImageUrl] = useState<string | ArrayBuffer | null>(null);
 
-    const handleImageLoad = () => {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          setImageUrl(event.target!.result);
-        };
-        reader.readAsDataURL(device.img);
-      };
+    // const handleImageLoad = () => {
+    //     const reader = new FileReader();
+    //     reader.onload = function(event) {
+    //       setImageUrl(event.target!.result);
+    //     };
+    //     reader.readAsDataURL(device.img);
+    //   };
 
     const navigate = useNavigate()
 
@@ -36,7 +36,9 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
     }
 
     // const imageUrl = `https://storage.googleapis.com/storepictures-db9c6.appspot.com/images/${encodeURIComponent(device.img)}`;
-
+    
+    const imageUrl = `https://firebasestorage.googleapis.com/v0/b/storepictures-db9c6.appspot.com/o/images/${device.img}?alt=media`;
+        
     return (
         <Card 
             sx={{ 
@@ -51,9 +53,9 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
                 <CardMedia 
                     component="img"
                     height='250' 
-                    image={imageUrl as string} 
+                    image={imageUrl} 
                     alt="device"
-                    onLoad={handleImageLoad}
+                    // onLoad={handleImageLoad}
                 />
                 <CardContent>
                     <Typography 
