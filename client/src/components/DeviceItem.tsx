@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { IDevice, IDeviceProps } from "../interface/interface"
 import BasketButton from "../images/svg/BasketButton"
 import { useAddDeviceMutation, useGetBasketQuery } from "../store/apiSlice/basketSlice"
@@ -9,19 +9,9 @@ import { PagesEnum } from "../enums/enums"
 import Card from "@mui/material/Card"
 import { Button, CardActionArea, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 
 const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
-
-    // const [imageUrl, setImageUrl] = useState<string | ArrayBuffer | null>(null);
-
-    // const handleImageLoad = () => {
-    //     const reader = new FileReader();
-    //     reader.onload = function(event) {
-    //       setImageUrl(event.target!.result);
-    //     };
-    //     reader.readAsDataURL(device.img);
-    //   };
 
     const navigate = useNavigate()
 
@@ -35,12 +25,23 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
         navigate(PagesEnum.PRODUCT_CARD + '/' + device.id) 
     }
 
-    
+    const [imageUrl, setImageUrl] = useState('');
 
-    // const imageUrl = `https://storage.googleapis.com/storepictures-db9c6.appspot.com/images/${encodeURIComponent(device.img)}`;
+    useEffect(() => {
+        const storage = getStorage(); // Используйте глобальный объект firebase
     
-    const imageUrl = device.img;
-    console.log(imageUrl)
+        async function loadImageUrl() {
+          try {
+            const storageRef = ref(storage, 'images/' + device.img.name);
+            const url = await getDownloadURL(storageRef);
+            setImageUrl(url);
+          } catch (error) {
+            console.error('Error loading image URL:', error);
+          }
+        }
+    
+        loadImageUrl();
+      }, [device.img]);
 
     return (
         <Card 
