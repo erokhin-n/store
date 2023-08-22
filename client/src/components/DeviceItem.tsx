@@ -25,6 +25,8 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
         navigate(PagesEnum.PRODUCT_CARD + '/' + device.id) 
     }
 
+    const imageUrl = `https://storage.googleapis.com/storepictures-db9c6.appspot.com/images/${encodeURIComponent(device.img)}`;
+
     return (
         <Card 
             sx={{ 
@@ -39,7 +41,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
                 <CardMedia 
                     component="img"
                     height='250' 
-                    image={`https://backend-qz2r.onrender.com/static/${device.img}`} 
+                    image={imageUrl} 
                     alt="device"
                 />
                 <CardContent>
