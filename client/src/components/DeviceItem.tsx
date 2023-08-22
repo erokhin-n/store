@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import { IDevice, IDeviceProps } from "../interface/interface"
 import BasketButton from "../images/svg/BasketButton"
 import { useAddDeviceMutation, useGetBasketQuery } from "../store/apiSlice/basketSlice"
@@ -13,6 +13,16 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
 
+    const [imageUrl, setImageUrl] = useState<string | ArrayBuffer | null>(null);
+
+    const handleImageLoad = () => {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          setImageUrl(event.target!.result);
+        };
+        reader.readAsDataURL(device.img);
+      };
+
     const navigate = useNavigate()
 
     const [addDevice, {data}] = useAddDeviceMutation()
@@ -25,7 +35,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
         navigate(PagesEnum.PRODUCT_CARD + '/' + device.id) 
     }
 
-    const imageUrl = `https://storage.googleapis.com/storepictures-db9c6.appspot.com/images/${encodeURIComponent(device.img)}`;
+    // const imageUrl = `https://storage.googleapis.com/storepictures-db9c6.appspot.com/images/${encodeURIComponent(device.img)}`;
 
     return (
         <Card 
@@ -41,8 +51,9 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
                 <CardMedia 
                     component="img"
                     height='250' 
-                    image={imageUrl} 
+                    image={imageUrl as string} 
                     alt="device"
+                    onLoad={handleImageLoad}
                 />
                 <CardContent>
                     <Typography 
