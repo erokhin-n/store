@@ -39,7 +39,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
 
     // const imageUrl = `https://storage.googleapis.com/storepictures-db9c6.appspot.com/images/${encodeURIComponent(device.img)}`;
     
-    const imageUrl = `https://firebasestorage.googleapis.com/v0/b/storepictures-db9c6.appspot.com/o/images/${device.img}?alt=media`;
+    const imageUrl = device.img;
 
     return (
         <Card 
