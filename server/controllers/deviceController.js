@@ -1,5 +1,5 @@
 const admin = require('firebase-admin');
-const serviceAccount = require('storepictures-db9c6-firebase-adminsdk-a2yb2-08ae3c94de.json'); // Замените на путь к вашему ключу сервисного аккаунта
+const serviceAccount = require('../storepictures-db9c6-firebase-adminsdk-a2yb2-08ae3c94de.json'); // Замените на путь к вашему ключу сервисного аккаунта
 
 const {Device, DeviceInfo} = require('../models/models')
 const ApiError = require('../error/ApiError')
