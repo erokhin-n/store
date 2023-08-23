@@ -1,5 +1,4 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
@@ -21,11 +20,10 @@ const firebaseConfig = {
   };
   
 
-// Инициализация Firebase
+// Инициализируйте Firebase с использованием конфигурации
 const app = initializeApp(firebaseConfig);
 
-// Получение экземпляров Firestore и Storage
-const db = getFirestore(app);
+// Получите ссылку на Firebase Storage
 const storage = getStorage(app);
 
-export { app, db, storage };
+export default storage;

@@ -9,7 +9,8 @@ import { PagesEnum } from "../enums/enums"
 import Card from "@mui/material/Card"
 import { Button, CardActionArea, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import { ref, getDownloadURL } from 'firebase/storage';
+import storage from '../firebaseConfig'; // Импортируйте storage из вашего файла
 
 
 const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
@@ -29,8 +30,6 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
     const [imageUrl, setImageUrl] = useState('');
 
     useEffect(() => {
-        const storage = getStorage(); // Используйте глобальный объект firebase
-    
         async function loadImageUrl() {
           try {
             const storageRef = ref(storage, 'images/' + device.img.name);
@@ -40,7 +39,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
             console.error('Error loading image URL:', error);
           }
         }
-    
+      
         loadImageUrl();
       }, [device.img]);
 
