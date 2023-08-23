@@ -32,7 +32,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
     useEffect(() => {
         async function loadImageUrl() {
           try {
-            const storageRef = ref(storage, 'images/' + device.img.name);
+            const storageRef = ref(storage, 'images/' + device.img);
             const url = await getDownloadURL(storageRef);
             setImageUrl(url);
           } catch (error) {
