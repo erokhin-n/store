@@ -10,6 +10,7 @@ export interface IDevice {
     price: number;
     rating: number;
     info?: [{title: string, description: string}];
+    imageFileName?: string; // Добавляем поле для имени файла
 }
 
 export interface IDeviceProps<T> {
