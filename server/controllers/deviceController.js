@@ -55,7 +55,7 @@ class DeviceController {
 	
 		  fs.unlinkSync(imagePath);
 	
-		  return res.json(device);
+		  return res.json({ device, img: imageUrl });
 		} catch (e) {
 		  next(e);
 		}
