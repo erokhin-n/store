@@ -23,10 +23,10 @@ class DeviceController {
 		  const existName = await Device.findOne({ where: { name } });
 		  if (existName) throw ApiError.conflict('такое название устройства уже существует');
 		  const { img } = req.files;
-		  const fileName = uuid.v4() + '.jpg';
-		  const imagePath = path.resolve(__dirname, '..', 'static', fileName);
+		  const fileName = name + '.jpg';
+		//   const imagePath = path.resolve(__dirname, '..', 'static', fileName);
 	
-		  img.mv(imagePath);
+		//   img.mv(imagePath);
 	
 		  const bucket = storage.bucket();
 		  const destinationPath = `images/${fileName}`;
