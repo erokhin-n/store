@@ -17,16 +17,16 @@ const DeviceItem: FC<IDeviceProps<IDevice>> = ({ device, basketId }) => {
     useEffect(() => {
         async function loadImageUrl() {
             try {
-                const storageRef = ref(storage, 'images/' + device.imageFileName);
+                const storageRef = ref(storage, 'images/' + device.img.name);
                 const url = await getDownloadURL(storageRef);
                 setImageUrl(url);
             } catch (error) {
                 console.error('Error loading image URL:', error);
             }
         }
-
+    
         loadImageUrl();
-    }, [device.imageFileName]);
+    }, [device.img]);
 
     const goToProductCard = () => {
         navigate(PagesEnum.PRODUCT_CARD + '/' + device.id);
