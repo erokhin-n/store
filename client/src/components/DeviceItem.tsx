@@ -12,7 +12,7 @@ import storage from '../firebaseConfig'; // Импортируйте storage и�
 const DeviceItem: FC<IDeviceProps<IDevice>> = ({ device, basketId }) => {
     const navigate = useNavigate();
     const [addDevice] = useAddDeviceMutation();
-    const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const [imageUrl, setImageUrl] =useState<string | null>(null);
 
     useEffect(() => {
         async function loadImageUrl() {
