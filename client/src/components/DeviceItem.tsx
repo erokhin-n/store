@@ -7,12 +7,12 @@ import Card from "@mui/material/Card";
 import { Button, CardActionArea, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ref, getDownloadURL } from 'firebase/storage';
-import storage from '../firebaseConfig';
+import storage from '../firebaseConfig'; // Импортируйте storage из вашего файла
 
 const DeviceItem: FC<IDeviceProps<IDevice>> = ({ device, basketId }) => {
     const navigate = useNavigate();
     const [addDevice] = useAddDeviceMutation();
-    const [imageUrl, setImageUrl] = useState('');
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
 
     useEffect(() => {
         async function loadImageUrl() {
@@ -20,12 +20,11 @@ const DeviceItem: FC<IDeviceProps<IDevice>> = ({ device, basketId }) => {
                 const storageRef = ref(storage, 'images/' + device.img.name);
                 const url = await getDownloadURL(storageRef);
                 setImageUrl(url);
-                console.log('url: ' + url)
             } catch (error) {
                 console.error('Error loading image URL:', error);
             }
         }
-    
+
         loadImageUrl();
     }, [device.img]);
 
@@ -50,7 +49,7 @@ const DeviceItem: FC<IDeviceProps<IDevice>> = ({ device, basketId }) => {
                 <CardMedia
                     component="img"
                     height='250'
-                    image={imageUrl}
+                    image={imageUrl || ''}
                     alt="device"
                 />
                 <CardContent>
