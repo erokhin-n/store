@@ -20,6 +20,7 @@ const DeviceItem: FC<IDeviceProps<IDevice>> = ({ device, basketId }) => {
                 const storageRef = ref(storage, 'images/' + device.img.name);
                 const url = await getDownloadURL(storageRef);
                 setImageUrl(url);
+                console.log('url: ' + url)
             } catch (error) {
                 console.error('Error loading image URL:', error);
             }
