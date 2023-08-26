@@ -18,11 +18,12 @@ const Shop = () => {
         if (devices.rows) {
             deviceList = devices.rows.length ? (
                 <DeviceList
-                    devices={devices.rows.map((device: IDevice) => ({
-                        ...device,
-                        img: device.imageFileName // Передаем имя файла изображения
-                    }))}
-                />
+    devices={devices.rows.map((device: IDevice) => ({
+        ...device,
+        img: device.imageFileName // Передаем имя файла изображения
+    }))}
+/>
+
             ) : (
                 <h3>устройств нет</h3>
             );
