@@ -38,7 +38,8 @@ class DeviceController {
 			},
 		  });
 	
-		  const imageUrl = `https://storage.googleapis.com/storepictures-db9c6.appspot.com/${destinationPath}`;	
+		  const imageUrl = `https://storage.googleapis.com/${destinationPath}`;
+		  	
 		  const device = await Device.create({ name, price, brandId, typeId, img: imageUrl });
 	
 		  if (info) {
