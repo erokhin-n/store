@@ -2,6 +2,7 @@
 import DeviceList from "../components/DeviceList"
 import Footer from "../components/Footer"
 import { useAppSelector } from "../hooks/useDispatchAndSelector"
+import { IDevice } from "../interface/interface"
 import { useGetAllDevicesQuery} from "../store/apiSlice/deviceSlice"
 import { useGetAllTypesQuery } from "../store/apiSlice/typeSlice"
 
