@@ -7,36 +7,32 @@ import { useGetAllTypesQuery } from "../store/apiSlice/typeSlice"
 
 
 const Shop = () => {
+    const { data: devices, isLoading, isSuccess, isError, error } = useGetAllDevicesQuery();
 
-    const {
-        data: devices,
-        isLoading,
-        isSuccess,
-        isError,
-        error
-    } = useGetAllDevicesQuery()
+    let deviceList;
 
-    let deviceList
-
-    if(isLoading) {
-        deviceList = "load..."
-    } else if(isSuccess){
-        if(devices.rows) {
-            deviceList = (devices.rows.length) ? 
-            <DeviceList devices={devices.rows} /> : 
-            <h3>устройств нет</h3>
+    if (isLoading) {
+        deviceList = "load...";
+    } else if (isSuccess) {
+        if (devices.rows) {
+            deviceList = devices.rows.length ? (
+                <DeviceList
+                    devices={devices.rows.map((device: IDevice) => ({
+                        ...device,
+                        img: device.imageFileName // Передаем имя файла изображения
+                    }))}
+                />
+            ) : (
+                <h3>устройств нет</h3>
+            );
         } else {
-            deviceList = <h3>no devices in mocks</h3>
+            deviceList = <h3>no devices in mocks</h3>;
         }
-    } else if(isError) {
-        deviceList = <div>error</div>
+    } else if (isError) {
+        deviceList = <div>error</div>;
     }
 
-    return (
-        <div className="shop">
-            {deviceList}
-        </div>
-    )
-}
+    return <div className="shop">{deviceList}</div>;
+};
 
-export default Shop
+export default Shop;
