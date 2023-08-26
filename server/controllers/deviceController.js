@@ -38,7 +38,7 @@ class DeviceController {
 			},
 		  });
 	
-		  const imageUrl = `https://storage.googleapis.com/${destinationPath}`;
+		  const imageUrl = destinationPath;
 		  	
 		  const device = await Device.create({ name, price, brandId, typeId, img: imageUrl });
 	
