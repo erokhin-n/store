@@ -30,8 +30,6 @@ const DeviceItem: FC<IDeviceProps<IDevice>> = ({ device, basketId }) => {
         loadImageUrl();
     }, [device.img]);
     
-    
-
     const goToProductCard = () => {
         navigate(PagesEnum.PRODUCT_CARD + '/' + device.id);
     }
