@@ -5,7 +5,7 @@ export interface IDevice {
     id: number;
     brandId: number;
     typeId: number;
-    img: File;
+    img: string | File | undefined; // Изменение здесь
     name: string;
     price: number;
     rating: number;
