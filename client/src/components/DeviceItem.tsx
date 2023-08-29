@@ -9,7 +9,13 @@ import { PagesEnum } from "../enums/enums"
 import Card from "@mui/material/Card"
 import { Button, CardActionArea, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { getStorage, ref } from "firebase/storage";
 
+// Create a reference with an initial file path and name
+const storage = getStorage();
+const pathReference = ref(storage, 'images/stars.jpg');
+
+console.log(pathReference)
 
 const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
 
