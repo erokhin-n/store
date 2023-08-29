@@ -45,7 +45,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
                 <CardMedia 
                     component="img"
                     height='250' 
-                    image={`${storage}`+ '/' +`${device.img}`} 
+                    image={`${storage}${device.img}`} 
                     alt="device"
                 />
                 <CardContent>
