@@ -15,7 +15,7 @@ import { app } from "../firebaseConfig"
 const storage = getStorage(app);
 const pathReference = ref(storage, 'images/');
 
-console.log(pathReference)
+console.log(storage)
 
 const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
 
