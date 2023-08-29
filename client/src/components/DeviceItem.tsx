@@ -13,7 +13,7 @@ import { getStorage, ref } from "firebase/storage";
 import { app } from "../firebaseConfig"
 
 const storage = getStorage(app);
-const pathReference = ref(storage, 'images/stars.jpg');
+const pathReference = ref(storage, 'images/');
 
 console.log(pathReference)
 
@@ -45,7 +45,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
                 <CardMedia 
                     component="img"
                     height='250' 
-                    image={`http://localhost:5000/${device.img}`} 
+                    image={`${pathReference}`+ '/' +`${device.img}`} 
                     alt="device"
                 />
                 <CardContent>
