@@ -9,7 +9,7 @@ import { PagesEnum } from "../enums/enums"
 import Card from "@mui/material/Card"
 import { Button, CardActionArea, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { getStorage, ref } from "firebase/storage";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { app } from "../firebaseConfig"
 
 const storage = getStorage(app);
@@ -31,7 +31,28 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
 
     const storageWay = `${storageRef}${device.img}`
 
-    console.log(storageWay)
+    console.log(storageRef)
+
+    getDownloadURL(ref(storage, 'images/stars.jpg'))
+    .then((url) => {
+        // `url` is the download URL for 'images/stars.jpg'
+
+        // This can be downloaded directly:
+        const xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = (event) => {
+        const blob = xhr.response;
+        };
+        xhr.open('GET', url);
+        xhr.send();
+
+        // Or inserted into an <img> element
+        const img = document.getElementById('myimg');
+        img.setAttribute('src', url);
+    })
+    .catch((error) => {
+        // Handle any errors
+    });
 
     return (
         <Card 
