@@ -29,7 +29,9 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
         navigate(PagesEnum.PRODUCT_CARD + '/' + device.id) 
     }
 
-    console.log(`${storage} ${device.img}`)
+    console.log('storage: ' + storage)
+
+    console.log('device img: ' + device.img)
 
     return (
         <Card 
