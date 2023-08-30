@@ -98,7 +98,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
                     variant="contained"
                     color="error"
                     onClick={()=> deletePictureFunc(device.id)}
-                >
+                > 
                     <DeleteOutlineIcon/>
                 </Button>
             </CardActions>
