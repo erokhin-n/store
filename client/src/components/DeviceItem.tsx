@@ -29,7 +29,9 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
         navigate(PagesEnum.PRODUCT_CARD + '/' + device.id) 
     }
 
-    console.log('storageRef + deviceImg: ' + storageRef + device.img)
+    const storageWay = `${storageRef}${device.img}`
+
+    console.log(storageWay)
 
     return (
         <Card 
@@ -45,7 +47,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
                 <CardMedia 
                     component="img"
                     height='250' 
-                    image={`${storageRef}${device.img}`} 
+                    image={storageWay}  
                     alt="device"
                 />
                 <CardContent>
