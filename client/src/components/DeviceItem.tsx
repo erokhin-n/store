@@ -15,8 +15,6 @@ import { app } from "../firebaseConfig"
 const storage = getStorage(app);
 const storageRef = ref(storage);
 
-console.log(storageRef.name)
-
 const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
 
     const navigate = useNavigate()
@@ -30,6 +28,8 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
     const goToProductCard = () => {
         navigate(PagesEnum.PRODUCT_CARD + '/' + device.id) 
     }
+
+    console.log(`${storage} ${device.img}`)
 
     return (
         <Card 
@@ -45,7 +45,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
                 <CardMedia 
                     component="img"
                     height='250' 
-                    image={`${storage}${device.img}`} 
+                    image={`${storage} ${device.img}`} 
                     alt="device"
                 />
                 <CardContent>
