@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import { IDevice, IDeviceProps } from "../interface/interface"
 import BasketButton from "../images/svg/BasketButton"
 import { useAddDeviceMutation, useGetBasketQuery } from "../store/apiSlice/basketSlice"
@@ -20,6 +20,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
     const navigate = useNavigate()
 
     const [addDevice, {data}] = useAddDeviceMutation()
+    const [picture, setPicture] = useState<string | null>(null)
 
     const saveDeviceInBasket = () => {
         addDevice({device, basketId}) 
@@ -30,8 +31,6 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
     }
 
     const storageWay = `${storageRef}${device.img}`
-
-    console.log(storageRef)
 
     getDownloadURL(ref(storage, storageWay))
     .then((url) => {
@@ -44,6 +43,8 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
         };
         xhr.open('GET', url);
         xhr.send();
+        setPicture(url)
+
 
         // Or inserted into an <img> element
         // const img = document.getElementById('myimg');
@@ -51,7 +52,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
     })
     .catch((error) => {
         // Handle any errors
-        console.log('error in getDownloadUrl ' + error)
+        console.log('error in getDownloadUrl')
     });
 
     return (
@@ -68,7 +69,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
                 <CardMedia 
                     component="img"
                     height='250' 
-                    image={storageWay}  
+                    image={(picture) ? picture : 'no image'}  
                     alt="device"
                 />
                 <CardContent>
