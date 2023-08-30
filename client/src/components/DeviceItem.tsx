@@ -35,7 +35,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
 
     const deletePictureFunc = (id:number) => {
         console.log('delete picture function: ' + id)
-        deletePicture(id)
+        deletePicture(id) 
     }
 
     const storageWay = `${storageRef}${device.img}`
