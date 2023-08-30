@@ -33,7 +33,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
 
     console.log(storageRef)
 
-    getDownloadURL(ref(storage, 'images/stars.jpg'))
+    getDownloadURL(ref(storage, storageWay))
     .then((url) => {
         // `url` is the download URL for 'images/stars.jpg'
 
@@ -47,8 +47,8 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
         xhr.send();
 
         // Or inserted into an <img> element
-        const img = document.getElementById('myimg');
-        img.setAttribute('src', url);
+        // const img = document.getElementById('myimg');
+        // img.setAttribute('src', url);
     })
     .catch((error) => {
         // Handle any errors
