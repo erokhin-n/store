@@ -34,7 +34,7 @@ class DeviceController {
 		  await bucket.upload(imagePath, {
 			destination: destinationPath,
 			metadata: {
-			  contentType: 'image/jpeg', // Укажите соответствующий тип контента
+			  contentType: 'image/jpeg',
 			},
 		  });
 	
@@ -101,6 +101,19 @@ class DeviceController {
 			return res.json(device)	
 		} catch(e) {
 			next(e)
+		}
+	}
+
+	async deletePicture(req, res, next) {
+		try {
+			const {id} = req.params
+			const deletedPicture = await Device.findOne({
+				where: {id},
+			})	
+			await deletedPicture.destroy()
+			return res.json({message: 'picture deleted'})
+		} catch(e) {
+			return res.json({message: 'ошибка при удалении рисунка'})
 		}
 	}
 }

@@ -3,7 +3,7 @@ import { IDevice, IDeviceProps } from "../interface/interface"
 import BasketButton from "../images/svg/BasketButton"
 import { useAddDeviceMutation, useGetBasketQuery } from "../store/apiSlice/basketSlice"
 import { useCheckQuery } from "../store/apiSlice/userSlice"
-import { useGetProductCardQuery } from "../store/apiSlice/deviceSlice"
+import { useDeletePictureMutation, useGetProductCardQuery } from "../store/apiSlice/deviceSlice"
 import { useNavigate } from "react-router-dom"
 import { PagesEnum } from "../enums/enums"
 import Card from "@mui/material/Card"
@@ -20,6 +20,8 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
     const navigate = useNavigate()
 
     const [addDevice, {data}] = useAddDeviceMutation()
+    const [deletePicture, {data: imgInfo}] = useDeletePictureMutation()
+
     const [picture, setPicture] = useState<string | null>(null)
 
     const saveDeviceInBasket = () => {
@@ -28,6 +30,10 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
 
     const goToProductCard = () => {
         navigate(PagesEnum.PRODUCT_CARD + '/' + device.id) 
+    }
+
+    const deletePictureFunc = () => {
+        deletePicture(device.id)
     }
 
     const storageWay = `${storageRef}${device.img}`
@@ -44,14 +50,8 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
         xhr.open('GET', url);
         xhr.send();
         setPicture(url)
-
-
-        // Or inserted into an <img> element
-        // const img = document.getElementById('myimg');
-        // img.setAttribute('src', url);
     })
     .catch((error) => {
-        // Handle any errors
         console.log('error in getDownloadUrl')
     });
 
@@ -89,6 +89,12 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
                 <Button 
                     variant="contained"
                     onClick={()=> saveDeviceInBasket()}
+                >
+                    <ShoppingCartIcon/>
+                </Button>
+                <Button 
+                    variant="contained"
+                    onClick={()=> deletePictureFunc()}
                 >
                     <ShoppingCartIcon/>
                 </Button>

@@ -23,6 +23,13 @@ const deviceApi = indexSlice.injectEndpoints({
                 credentials: "include",
             }),
             invalidatesTags: [Tags.CREATE_DEVICE]
+        }),
+        deletePicture: build.mutation<void, any> ({
+            query: (id) => ({
+                url:ServerQuery.DELETE_PICTURE + "/" + id,
+                method: 'GET',
+                credentials: "include",
+            })
         })
     }),
     overrideExisting: false
@@ -32,4 +39,5 @@ export const {
     useGetAllDevicesQuery,
     useCreateDeviceMutation,
     useGetProductCardQuery,
+    useDeletePictureMutation,
 } = deviceApi

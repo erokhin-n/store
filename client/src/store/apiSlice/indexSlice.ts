@@ -12,7 +12,8 @@ export const indexSlice = createApi({
         Tags.CREATE_TYPE, 
         Tags.CREATE_BRAND,
         Tags.CREATE_DEVICE,
-        Tags.GET_BASKET_DEVICES
+        Tags.GET_BASKET_DEVICES,
+        Tags.DELETE_DEVICE
     ],
     endpoints: () => ({})
 })
