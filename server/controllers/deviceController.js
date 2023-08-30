@@ -106,7 +106,7 @@ class DeviceController {
 
 	async deletePicture(req, res, next) {
 		try {
-			const {id} = req.params
+			const {id} = req.body
 			const deletedPicture = await Device.findOne({
 				where: {id},
 			})	
