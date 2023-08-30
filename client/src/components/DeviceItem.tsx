@@ -36,7 +36,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
     getDownloadURL(ref(storage, storageWay))
     .then((url) => {
         // `url` is the download URL for 'images/stars.jpg'
-
+        console.log('url in getDownloadUrl ' + url)
         // This can be downloaded directly:
         const xhr = new XMLHttpRequest();
         xhr.responseType = 'blob';
@@ -52,6 +52,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
     })
     .catch((error) => {
         // Handle any errors
+        console.log('error in getDownloadUrl ' + error)
     });
 
     return (
