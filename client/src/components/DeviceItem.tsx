@@ -11,6 +11,7 @@ import { Button, CardActionArea, CardActions, CardContent, CardMedia, Typography
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { app } from "../firebaseConfig"
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 const storage = getStorage(app);
 const storageRef = ref(storage);
@@ -32,8 +33,9 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
         navigate(PagesEnum.PRODUCT_CARD + '/' + device.id) 
     }
 
-    const deletePictureFunc = () => {
-        deletePicture(device.id)
+    const deletePictureFunc = (id:number) => {
+        console.log('delete picture function: ' + id)
+        deletePicture(id)
     }
 
     const storageWay = `${storageRef}${device.img}`
@@ -93,10 +95,10 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
                     <ShoppingCartIcon/>
                 </Button>
                 <Button 
-                    variant="contained"
-                    onClick={()=> deletePictureFunc()}
+                    variant="outlined"
+                    onClick={()=> deletePictureFunc(device.id)}
                 >
-                    <ShoppingCartIcon/>
+                    <DeleteOutlineIcon/>
                 </Button>
             </CardActions>
         </Card>
