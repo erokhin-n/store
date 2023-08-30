@@ -35,10 +35,9 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
 
     getDownloadURL(ref(storage, storageWay))
     .then((url) => {
-        // `url` is the download URL for 'images/stars.jpg'
-        console.log('url in getDownloadUrl ' + url)
-        // This can be downloaded directly:
+        
         const xhr = new XMLHttpRequest();
+        console.log('url in getDownloadUrl ' + url)
         xhr.responseType = 'blob';
         xhr.onload = (event) => {
         const blob = xhr.response;
