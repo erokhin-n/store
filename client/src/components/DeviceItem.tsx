@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { IDevice, IDeviceProps } from "../interface/interface"
 import BasketButton from "../images/svg/BasketButton"
 import { useAddDeviceMutation, useGetBasketQuery } from "../store/apiSlice/basketSlice"
@@ -18,12 +18,19 @@ const storageRef = ref(storage);
 
 const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
 
+    useEffect(()=> {
+        if(device) {
+            setIdState(device.id)
+        }
+    },[])
+
     const navigate = useNavigate()
 
     const [addDevice, {data}] = useAddDeviceMutation()
     const [deletePicture, {data: imgInfo}] = useDeletePictureMutation()
 
     const [picture, setPicture] = useState<string | null>(null)
+    const [idState, setIdState] = useState<any>()
 
     const saveDeviceInBasket = () => {
         addDevice({device, basketId}) 
@@ -33,9 +40,14 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
         navigate(PagesEnum.PRODUCT_CARD + '/' + device.id) 
     }
 
-    const deletePictureFunc = (id:number) => {
-        console.log('delete picture function: ' + typeof(device.id))
-        deletePicture(device.id) 
+    const deletePictureFunc = () => {
+        console.log('delete picture function: ' + idState)
+        if(device) {
+            deletePicture(device.id) 
+        } else {
+            console.log('no device')
+        }
+        
     }
 
     const storageWay = `${storageRef}${device.img}`
@@ -97,7 +109,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
                 <Button 
                     variant="contained"
                     color="error"
-                    onClick={()=> deletePictureFunc(device.id)}
+                    onClick={()=> deletePictureFunc()}
                 > 
                     <DeleteOutlineIcon/>
                 </Button>
