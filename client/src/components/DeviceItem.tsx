@@ -34,7 +34,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
     }
 
     const deletePictureFunc = (id:number) => {
-        console.log('delete picture function: ' + device.id)
+        console.log('delete picture function: ' + typeof(device.id))
         deletePicture(device.id) 
     }
 

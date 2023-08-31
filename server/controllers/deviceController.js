@@ -112,7 +112,7 @@ class DeviceController {
 			// 	where: {id},
 			// })	
 			// await deletedPicture.destroy()
-			// return res.json({message: 'picture deleted'})
+			return res.json({message: 'picture deleted'})
 		} catch(e) {
 			console.log('!!! DELETE PIC ERROR ' + e.message)
 			return res.json({message: 'ошибка при удалении рисунка'})
