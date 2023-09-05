@@ -50,6 +50,8 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
         
     }
 
+    const {data:check, isLoading} = useCheckQuery()
+
     const storageWay = `${storageRef}${device.img}`
 
     getDownloadURL(ref(storage, storageWay))
@@ -106,6 +108,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
                 >
                     <ShoppingCartIcon/>
                 </Button>
+                {(check?.role! === "ADMIN") ? 
                 <Button 
                     variant="contained"
                     color="error"
@@ -113,6 +116,8 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
                 > 
                     <DeleteOutlineIcon/>
                 </Button>
+                : null
+                }
             </CardActions>
         </Card>
     )
