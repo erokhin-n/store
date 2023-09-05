@@ -140,4 +140,4 @@ export interface MuiNavLinkProps {
     onClick?: () => void;
     icon: React.ReactNode;
     name: string;
-  }
+}

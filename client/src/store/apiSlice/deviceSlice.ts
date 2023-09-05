@@ -24,7 +24,7 @@ const deviceApi = indexSlice.injectEndpoints({
             }),
             invalidatesTags: [Tags.CREATE_DEVICE]
         }),
-        deletePicture: build.mutation<void, number> ({
+        deletePicture: build.mutation<void, {id:number}> ({
             query: (id) => ({
                 url:ServerQuery.DELETE_PICTURE,
                 method: 'POST',
