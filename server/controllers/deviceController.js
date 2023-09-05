@@ -108,10 +108,10 @@ class DeviceController {
 		try {
 			let {id} = req.body
 			console.log(req.body)
-			// const deletedPicture = await Device.findOne({
-			// 	where: {id},
-			// })	
-			// await deletedPicture.destroy()
+			const deletedPicture = await Device.findOne({
+				where: {id},
+			})	
+			await deletedPicture.destroy()
 			return res.json({message: 'picture deleted'})
 		} catch(e) {
 			console.log('!!! DELETE PIC ERROR ' + e.message)
