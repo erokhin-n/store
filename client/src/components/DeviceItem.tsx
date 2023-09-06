@@ -41,7 +41,6 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
     }
 
     const deletePictureFunc = () => {
-        console.log('delete picture function: ' + idState)
         if(device) {
             deletePicture({id:device.id}) 
         } else {
