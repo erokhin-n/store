@@ -14,7 +14,7 @@ const corsOptions = {
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
     credentials: true,
     methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-    origin: "https://frontend-s4ut.onrender.com",
+    origin: "http://localhost:3000",
     preflightContinue: false,
 };
 

@@ -1,6 +1,7 @@
 // import BrandModal from "../components/modals/BrandModal/BrandModal"
 import DeviceList from "../components/DeviceList"
 import Footer from "../components/Footer"
+import Loader from "../components/Loader/Loader"
 import { useAppSelector } from "../hooks/useDispatchAndSelector"
 import { useGetAllDevicesQuery} from "../store/apiSlice/deviceSlice"
 import { useGetAllTypesQuery } from "../store/apiSlice/typeSlice"
@@ -19,7 +20,7 @@ const Shop = () => {
     let deviceList
 
     if(isLoading) {
-        deviceList = "load..."
+        deviceList = <Loader/>
     } else if(isSuccess){
         if(devices.rows) {
             deviceList = (devices.rows.length) ? 

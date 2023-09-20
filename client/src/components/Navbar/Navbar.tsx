@@ -27,6 +27,8 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import StoreIcon from '@mui/icons-material/Store';
+import Loader from '../Loader/Loader';
+import Spinner from '../Spinner/Spinner';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -91,6 +93,10 @@ function ResponsiveAppBar() {
 	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
 	};
+
+	if (isLoading) {
+		return <Spinner/>
+	}
 
 	return (
 		<AppBar position="static" sx={{bgcolor: "#D3D3D3"}}>

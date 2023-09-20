@@ -3,13 +3,15 @@ import { useAppSelector } from "../hooks/useDispatchAndSelector"
 import WrongRoutePage from "../pages/WrongRoutePage"
 import { adminRoutes, publicRoutes, superAdminRoutes, userRoutes } from "../routes/routes"
 import { useCheckQuery } from "../store/apiSlice/userSlice"
+import Loader from "./Loader/Loader"
+import Spinner from "./Spinner/Spinner"
 
 const AppRouter = () => {
 
     const {data, isLoading} = useCheckQuery()
 
     if(isLoading){
-        return <h3>loading</h3>
+        return <Loader/>
     }
 
     const routes = publicRoutes.map(route => 
