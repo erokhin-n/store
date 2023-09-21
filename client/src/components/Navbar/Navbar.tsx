@@ -95,7 +95,7 @@ function ResponsiveAppBar() {
 	};
 
 	if (isLoading) {
-		return <Spinner/>
+		return <Loader/>
 	}
 
 	return (
