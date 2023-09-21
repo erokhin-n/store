@@ -5,13 +5,14 @@ import { adminRoutes, publicRoutes, superAdminRoutes, userRoutes } from "../rout
 import { useCheckQuery } from "../store/apiSlice/userSlice"
 import Loader from "./Loader/Loader"
 import Spinner from "./Spinner/Spinner"
+import { Typography } from "@mui/material"
 
 const AppRouter = () => {
 
     const {data, isLoading} = useCheckQuery()
 
     if(isLoading){
-        return <Loader/>
+        return <Typography>'wait please'</Typography>
     }
 
     const routes = publicRoutes.map(route => 
