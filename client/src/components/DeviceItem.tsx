@@ -83,7 +83,7 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
                 <CardMedia 
                     component="img"
                     height='250' 
-                    // image={(picture) ? picture : 'no image'}  
+                    image={(picture) ? picture : 'no image'}  
                     alt="device"
                 />
                 <CardContent>
