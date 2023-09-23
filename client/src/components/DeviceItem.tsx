@@ -57,7 +57,6 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
     .then((url) => {
         
         const xhr = new XMLHttpRequest();
-        console.log('url in getDownloadUrl ' + url)
         xhr.responseType = 'blob';
         xhr.onload = (event) => {
         const blob = xhr.response;
