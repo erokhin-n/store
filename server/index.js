@@ -10,16 +10,16 @@ const errorHandler = require('./middleware/errorHandlingMiddleware')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 
-// const corsOptions = {
-//     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
-//     credentials: true,
-//     methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-//     origin: "https://frontend-s4ut.onrender.com",
-//     preflightContinue: false,
-// };
+const corsOptions = {
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
+    credentials: true,
+    methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+    origin: "https://frontend-s4ut.onrender.com",
+    preflightContinue: false,
+};
 
 const app = express() 
-// app.use(cors(corsOptions))
+app.use(cors(corsOptions))
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.static(path.resolve(__dirname, 'static')))
