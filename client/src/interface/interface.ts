@@ -52,6 +52,7 @@ export type IAuthFormActions =
 export interface IAuthData {
     email: string;
     password: string;
+    role?: string;
 }
 
 export interface IDataUserResponse {
