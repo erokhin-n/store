@@ -18,6 +18,7 @@ const storage = admin.storage();
 
 class DeviceController {
 	async create(req, res, next) {
+		console.log('CREATE DEVICE')
 		try {
 			let { name, price, brandId, typeId, info } = req.body;
 			const existName = await Device.findOne({ where: { name } });
