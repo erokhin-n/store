@@ -5,5 +5,5 @@ module.exports = function(err, req, res, next) {
 		return res.status(err.status).json({message: err.message})
 	}
 	console.log(err.message)
-	return res.status(500).json({message: err.message})
+	return res.status(500).json({message: `НЕПРЕДВИДЕННАЯ ОШИБКА ${err.message}`})
 }
