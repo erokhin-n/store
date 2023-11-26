@@ -1,11 +1,6 @@
 const admin = require('firebase-admin');
 const serviceAccount = require('../storepictures-db9c6-firebase-adminsdk-a2yb2-08ae3c94de.json');
 
-// change_here
-import { getStorage, ref } from "firebase/storage";
-
-//change finish
-
 const {Device, DeviceInfo} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const uuid = require('uuid')
@@ -19,10 +14,7 @@ admin.initializeApp({
 	storageBucket: 'gs://storepictures-db9c6.appspot.com',
 });
 
-// const storage = admin.storage();
-// change:
-const storage = getStorage();
-const storageRef = ref(storage);
+const storage = admin.storage();
 
 class DeviceController {
 	async create(req, res, next) {
