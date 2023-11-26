@@ -33,7 +33,7 @@ class DeviceController {
 			const bucket = storage.bucket();
 			const destinationPath = `images/${fileName}`;
 		
-			await bucket.upload('/images', {
+			await bucket.upload(img.tempFilePath, {
 				destination: destinationPath,
 				metadata: {
 				contentType: 'image/jpeg',
