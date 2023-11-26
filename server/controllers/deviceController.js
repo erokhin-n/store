@@ -1,6 +1,11 @@
 const admin = require('firebase-admin');
 const serviceAccount = require('../storepictures-db9c6-firebase-adminsdk-a2yb2-08ae3c94de.json');
 
+// change_here
+import { getStorage, ref } from "firebase/storage";
+
+//change finish
+
 const {Device, DeviceInfo} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const uuid = require('uuid')
@@ -14,7 +19,10 @@ admin.initializeApp({
 	storageBucket: 'gs://storepictures-db9c6.appspot.com',
 });
 
-const storage = admin.storage();
+// const storage = admin.storage();
+// change:
+const storage = getStorage();
+const storageRef = ref(storage);
 
 class DeviceController {
 	async create(req, res, next) {
@@ -25,17 +33,17 @@ class DeviceController {
 			if (existName) throw ApiError.conflict('такое название устройства уже существует');
 			const { img } = req.files;
 			const fileName = uuid.v4() + '.jpg';
-			const imagePath = path.resolve(__dirname, '..', 'images', fileName);
-			console.log(imagePath)
-			img.mv(imagePath);
+			// const imagePath = path.resolve(__dirname, '..', 'images', fileName);
+			// console.log(imagePath)
+			// img.mv(imagePath);
 		
 			const bucket = storage.bucket();
 			const destinationPath = `images/${fileName}`;
 		
-			await bucket.upload(imagePath, {
+			await bucket.upload('...', {
 				destination: destinationPath,
 				metadata: {
-				contentType: 'image/jpeg',
+					contentType: 'image/jpeg',
 				},
 			});
 		
