@@ -14,7 +14,7 @@ admin.initializeApp({
 	storageBucket: 'gs://storepictures-db9c6.appspot.com',
 });
 
-const storage = admin.storage();
+const storage = admin.storage(); hi.DeviceController
 
 class DeviceController {
 	async create(req, res, next) {
@@ -38,8 +38,9 @@ class DeviceController {
 					contentType: 'image/jpeg',
 				},
 			});
-		
+			
 			const imageUrl = destinationPath;
+			
 				
 			const device = await Device.create({ name, price, brandId, typeId, img: imageUrl });
 		
@@ -53,20 +54,20 @@ class DeviceController {
 				})
 				);
 			}
-	
+			
 		  fs.unlinkSync(imagePath);
 	
 		  return res.json({ device, img: imageUrl });
 		} catch (e) {
 		  next(e);
 		}
-	  }
+	}
+	  
 	async getAll(req,res) {
 		let {brandId, typeId, limit, page} = req.query
 		// page = page || 1
 		// limit = limit || 9
 		// let offset = page * limit - limit
-
 
 
 		let devices;

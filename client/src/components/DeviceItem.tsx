@@ -16,6 +16,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 const storage = getStorage(app);
 const storageRef = ref(storage);
 
+
 const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
 
     useEffect(()=> {
@@ -46,7 +47,6 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
         } else {
             console.log('no device')
         }
-        
     }
 
     const {data:check, isLoading} = useCheckQuery()

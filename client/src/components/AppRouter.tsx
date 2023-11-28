@@ -14,7 +14,7 @@ const AppRouter = () => {
     if(isLoading){
         return <Typography>'wait please'</Typography>
     }
-
+    
     const routes = publicRoutes.map(route => 
         <Route 
             path={route.path} 
