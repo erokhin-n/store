@@ -49,7 +49,7 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
         checkFieldsBeforeSend()
 
         const modalValid = [state!.typeId.valid, state!.brandId.valid,
-            state!.name.valid, state!.price.valid,state!.image.valid ].findIndex(
+            state!.name.valid, state!.price.valid ].findIndex(
                 element => element !== ValidationResult.SUCCESS)
 
         const infoTitleValid = state!.info.findIndex(i => i.titleValid !== ValidationResult.SUCCESS)
