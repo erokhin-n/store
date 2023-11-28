@@ -33,8 +33,8 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
 
         dispatch!({type:'changePriceValid', payload:priceFormValidation(state!.price.value)});
 
-        (state!.image.valid === ValidationResult.FIRST_ADDITION) && 
-            dispatch!({type:'selectImage', payload:{value: '', valid: ValidationResult.ERROR}});
+        // (state!.image.valid === ValidationResult.FIRST_ADDITION) && 
+        //     dispatch!({type:'selectImage', payload:{value: '', valid: ValidationResult.ERROR}});
 
         state!.info.map(i => (i.titleValid === ValidationResult.FIRST_ADDITION) && 
             dispatch!({type:'changeTitle', payload: {value: '', id:i.id, valid:ValidationResult.ERROR}}))
