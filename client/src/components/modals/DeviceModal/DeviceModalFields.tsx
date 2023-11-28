@@ -73,7 +73,7 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
             <BrandIdSelect />
             <NameInput />
             <PriceInput />
-            <ImageInput/>
+            {/* <ImageInput/> */}
             <DeviceInfo />
             
             </Grid>

@@ -23,26 +23,26 @@ class DeviceController {
 			let { name, price, brandId, typeId, info } = req.body;
 			const existName = await Device.findOne({ where: { name } });
 			if (existName) throw ApiError.conflict('такое название устройства уже существует');
-			const { img } = req.files;
+			// const { img } = req.files;
 			const fileName = uuid.v4() + '.jpg';
 			// const imagePath = path.resolve(__dirname, '..', 'images', fileName);
 			// console.log(imagePath)
 			// img.mv(imagePath);
 		
-			const bucket = storage.bucket();
-			const destinationPath = `images/${fileName}`;
+			// const bucket = storage.bucket();
+			// const destinationPath = `images/${fileName}`;
 		
-			await bucket.upload('...', {
-				destination: destinationPath,
-				metadata: {
-					contentType: 'image/jpeg',
-				},
-			});
+			// await bucket.upload('...', {
+			// 	destination: destinationPath,
+			// 	metadata: {
+			// 		contentType: 'image/jpeg',
+			// 	},
+			// });
 			
-			const imageUrl = destinationPath;
+			// const imageUrl = destinationPath;
 			
 				
-			const device = await Device.create({ name, price, brandId, typeId, img: imageUrl });
+			const device = await Device.create({ name, price, brandId, typeId, });
 		
 			if (info) {
 				info = JSON.parse(info);
