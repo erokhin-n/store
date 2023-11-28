@@ -14,7 +14,7 @@ admin.initializeApp({
 	storageBucket: 'gs://storepictures-db9c6.appspot.com',
 });
 
-const storage = admin.storage(); hi.DeviceController
+const storage = admin.storage(); 
 
 class DeviceController {
 	async create(req, res, next) {
