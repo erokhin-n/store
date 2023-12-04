@@ -46,6 +46,7 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
   
     const handleClick = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
+  
         checkFieldsBeforeSend()
 
         const modalValid = [state!.typeId.valid, state!.brandId.valid,
