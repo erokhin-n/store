@@ -41,7 +41,7 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
 
         state!.info.map(i => (i.descriptionValid === ValidationResult.FIRST_ADDITION) && 
             dispatch!({type:'changeDescription', payload: {value: '', id:i.id, valid:ValidationResult.ERROR}}))
-        
+         
     }
   
     const handleClick = (e:MouseEvent<HTMLButtonElement>) => {
