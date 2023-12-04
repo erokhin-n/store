@@ -60,7 +60,6 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
         //     dispatch!({type:'reset', payload: initialState}) 
         // }
       sendDeviceForm()
-        
     }
     return (
       
