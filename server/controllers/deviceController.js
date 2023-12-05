@@ -1,5 +1,5 @@
 const admin = require('firebase-admin');
-const serviceAccount = require('../storepictures-db9c6-firebase-adminsdk-a2yb2-08ae3c94de.json');
+const serviceAccount = require('../storepictures-db9c6-firebase-adminsdk-a2yb2-08ae3c94de.json'); // Замените на путь к вашему ключу сервисного аккаунта
 
 const {Device, DeviceInfo} = require('../models/models')
 const ApiError = require('../error/ApiError')
@@ -14,35 +14,33 @@ admin.initializeApp({
 	storageBucket: 'gs://storepictures-db9c6.appspot.com',
 });
 
-const storage = admin.storage(); 
+const storage = admin.storage();
 
 class DeviceController {
 	async create(req, res, next) {
-		console.log('CREATE DEVICE')
 		try {
 			let { name, price, brandId, typeId, info } = req.body;
 			const existName = await Device.findOne({ where: { name } });
 			if (existName) throw ApiError.conflict('такое название устройства уже существует');
-			// const { img } = req.files;
+			const { img } = req.files;
 			const fileName = uuid.v4() + '.jpg';
-			// const imagePath = path.resolve(__dirname, '..', 'images', fileName);
-			// console.log(imagePath)
-			// img.mv(imagePath);
+			const imagePath = path.resolve(__dirname, '..', 'static', fileName);
 		
-			// const bucket = storage.bucket();
-			// const destinationPath = `images/${fileName}`;
+			img.mv(imagePath);
 		
-			// await bucket.upload('...', {
-			// 	destination: destinationPath,
-			// 	metadata: {
-			// 		contentType: 'image/jpeg',
-			// 	},
-			// });
-			
-			// const imageUrl = destinationPath;
-			
+			const bucket = storage.bucket();
+			const destinationPath = `images/${fileName}`;
+		
+			await bucket.upload(imagePath, {
+				destination: destinationPath,
+				metadata: {
+				contentType: 'image/jpeg',
+				},
+			});
+		
+			const imageUrl = destinationPath;
 				
-			const device = await Device.create({ name, price, brandId, typeId, });
+			const device = await Device.create({ name, price, brandId, typeId, img: imageUrl });
 		
 			if (info) {
 				info = JSON.parse(info);
@@ -54,20 +52,20 @@ class DeviceController {
 				})
 				);
 			}
-			
+	
 		  fs.unlinkSync(imagePath);
 	
 		  return res.json({ device, img: imageUrl });
 		} catch (e) {
 		  next(e);
 		}
-	}
-	  
+	  }
 	async getAll(req,res) {
 		let {brandId, typeId, limit, page} = req.query
 		// page = page || 1
 		// limit = limit || 9
 		// let offset = page * limit - limit
+
 
 
 		let devices;
