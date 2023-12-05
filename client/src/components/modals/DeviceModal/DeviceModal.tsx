@@ -19,7 +19,7 @@ const DeviceModal = () => {
         formData.append('brandId', String(state.brandId.value))
         formData.append('name', state.name.value)
         formData.append('price', state.price.value)
-        // formData.append('img', state.image.value)
+        formData.append('img', state.image.value)
         formData.append('info', JSON.stringify(state.info))
         createDevice(formData)
     }

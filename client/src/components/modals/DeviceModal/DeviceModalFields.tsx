@@ -33,15 +33,15 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
 
         dispatch!({type:'changePriceValid', payload:priceFormValidation(state!.price.value)});
 
-        // (state!.image.valid === ValidationResult.FIRST_ADDITION) && 
-        //     dispatch!({type:'selectImage', payload:{value: '', valid: ValidationResult.ERROR}});
+        (state!.image.valid === ValidationResult.FIRST_ADDITION) && 
+            dispatch!({type:'selectImage', payload:{value: '', valid: ValidationResult.ERROR}});
 
         state!.info.map(i => (i.titleValid === ValidationResult.FIRST_ADDITION) && 
             dispatch!({type:'changeTitle', payload: {value: '', id:i.id, valid:ValidationResult.ERROR}}))
 
         state!.info.map(i => (i.descriptionValid === ValidationResult.FIRST_ADDITION) && 
             dispatch!({type:'changeDescription', payload: {value: '', id:i.id, valid:ValidationResult.ERROR}}))
-         
+        
     }
   
     const handleClick = (e:MouseEvent<HTMLButtonElement>) => {
@@ -50,7 +50,7 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
         checkFieldsBeforeSend()
 
         const modalValid = [state!.typeId.valid, state!.brandId.valid,
-            state!.name.valid, state!.price.valid ].findIndex(
+            state!.name.valid, state!.price.valid,state!.image.valid ].findIndex(
                 element => element !== ValidationResult.SUCCESS)
 
         const infoTitleValid = state!.info.findIndex(i => i.titleValid !== ValidationResult.SUCCESS)
@@ -74,7 +74,7 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
             <BrandIdSelect />
             <NameInput />
             <PriceInput />
-            {/* <ImageInput/> */}
+            <ImageInput/>
             <DeviceInfo />
             
             </Grid>
