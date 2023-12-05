@@ -27,6 +27,7 @@ const DeviceList:FC<IDevicesProps<IDevice[]>> = ({devices}) => {
                 pt={3}
                 // columns={{ xs: 4, sm: 8, md: 12, lg: 12 }}
             >
+                
                 {devices.map((device:IDevice) => 
                     <Grid 
                         item

@@ -33,8 +33,8 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
 
         dispatch!({type:'changePriceValid', payload:priceFormValidation(state!.price.value)});
 
-        (state!.image.valid === ValidationResult.FIRST_ADDITION) && 
-            dispatch!({type:'selectImage', payload:{value: '', valid: ValidationResult.ERROR}});
+        // (state!.image.valid === ValidationResult.FIRST_ADDITION) && 
+        //     dispatch!({type:'selectImage', payload:{value: '', valid: ValidationResult.ERROR}});
 
         state!.info.map(i => (i.titleValid === ValidationResult.FIRST_ADDITION) && 
             dispatch!({type:'changeTitle', payload: {value: '', id:i.id, valid:ValidationResult.ERROR}}))
@@ -46,20 +46,21 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
   
     const handleClick = (e:MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
+  
         checkFieldsBeforeSend()
 
         const modalValid = [state!.typeId.valid, state!.brandId.valid,
-            state!.name.valid, state!.price.valid,state!.image.valid ].findIndex(
+            state!.name.valid, state!.price.valid ].findIndex(
                 element => element !== ValidationResult.SUCCESS)
 
         const infoTitleValid = state!.info.findIndex(i => i.titleValid !== ValidationResult.SUCCESS)
         const infoDescriptionValid = state!.info.findIndex(i => i.descriptionValid !== ValidationResult.SUCCESS)
         
-        if((modalValid === -1 &&  infoTitleValid === -1 && infoDescriptionValid === -1 )) {
-            sendDeviceForm() 
-            dispatch!({type:'reset', payload: initialState}) 
-        }
-        
+        // if((modalValid === -1 &&  infoTitleValid === -1 && infoDescriptionValid === -1 )) {
+        //     sendDeviceForm() 
+        //     dispatch!({type:'reset', payload: initialState}) 
+        // }
+      sendDeviceForm()
     }
     return (
       
@@ -73,7 +74,7 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
             <BrandIdSelect />
             <NameInput />
             <PriceInput />
-            <ImageInput/>
+            {/* <ImageInput/> */}
             <DeviceInfo />
             
             </Grid>
