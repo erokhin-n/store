@@ -56,11 +56,11 @@ const DeviceModalFields:FC<IDeviceFormFields> = ({sendDeviceForm}) => {
         const infoTitleValid = state!.info.findIndex(i => i.titleValid !== ValidationResult.SUCCESS)
         const infoDescriptionValid = state!.info.findIndex(i => i.descriptionValid !== ValidationResult.SUCCESS)
         
-        // if((modalValid === -1 &&  infoTitleValid === -1 && infoDescriptionValid === -1 )) {
-        //     sendDeviceForm() 
-        //     dispatch!({type:'reset', payload: initialState}) 
-        // }
-      sendDeviceForm()
+        if((modalValid === -1 &&  infoTitleValid === -1 && infoDescriptionValid === -1 )) {
+            sendDeviceForm() 
+            dispatch!({type:'reset', payload: initialState}) 
+        }
+        
     }
     return (
       
