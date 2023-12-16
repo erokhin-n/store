@@ -77,13 +77,13 @@ Type.belongsToMany(Brand, {through: TypeBrand })
 Brand.belongsToMany(Type, {through: TypeBrand })
 
 module.exports = {
-		User,
-		Basket,
-		BasketDevice,
-		Device,
-		Type,
-		Brand,
-		Rating,
-		DeviceInfo,
-		TypeBrand,
+	User,
+	Basket,
+	BasketDevice,
+	Device,
+	Type,
+	Brand,
+	Rating,
+	DeviceInfo,
+	TypeBrand,
 }
