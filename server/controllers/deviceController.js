@@ -24,17 +24,17 @@ class DeviceController {
 			if (existName) throw ApiError.conflict('такое название устройства уже существует');
 			const { img } = req.files;
 			const fileName = uuid.v4() + '.jpg';
-			// const imagePath = path.resolve(__dirname, '..', '/images', fileName);
+			const imagePath = path.resolve(__dirname, '..', '/images', fileName);
 		
 			// img.mv(imagePath);
 		
 			const bucket = storage.bucket();
 			const destinationPath = `images/${fileName}`;
 		
-			await bucket.upload(img, {
+			await bucket.upload(imagePath, {
 				destination: destinationPath,
 				metadata: {
-				contentType: 'image/jpeg',
+					contentType: 'image/jpeg',
 				},
 			});
 		
@@ -45,11 +45,11 @@ class DeviceController {
 			if (info) {
 				info = JSON.parse(info);
 				info.forEach((i) =>
-				DeviceInfo.create({
-					title: i.title,
-					description: i.description,
-					deviceId: device.id,
-				})
+					DeviceInfo.create({
+						title: i.title,
+						description: i.description,
+						deviceId: device.id,
+					})
 				);
 			}
 	
