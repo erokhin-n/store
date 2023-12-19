@@ -26,7 +26,7 @@ class DeviceController {
 			const fileName = uuid.v4() + '.jpg';
 			const imagePath = path.resolve('images', fileName);
 			console.log(img)
-			// img.mv(imagePath);
+			img.mv(imagePath);
 		
 			const bucket = storage.bucket();
 			const destinationPath = `images/${fileName}`;
