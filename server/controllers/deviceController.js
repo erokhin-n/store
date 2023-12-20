@@ -19,12 +19,13 @@ const storage = admin.storage();
 class DeviceController {
 	async create(req, res, next) {
 		try {
+			console.log("CREATE WORK")
 			let { name, price, brandId, typeId, info } = req.body;
 			const existName = await Device.findOne({ where: { name } });
 			if (existName) throw ApiError.conflict('такое название устройства уже существует');
 			const { img } = req.files;
 			const fileName = uuid.v4() + '.jpg';
-			const imagePath = path.resolve(__dirname, '../images', fileName);
+			const imagePath = path.resolve(__dirname);
 			console.log(imagePath)
 			img.mv(imagePath);
 		
