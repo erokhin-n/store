@@ -18,8 +18,8 @@ const storage = admin.storage();
 
 class DeviceController {
 	async create(req, res, next) {
+		console.log("CREATE WORK")
 		try {
-			console.log("CREATE WORK")
 			let { name, price, brandId, typeId, info } = req.body;
 			const existName = await Device.findOne({ where: { name } });
 			if (existName) throw ApiError.conflict('такое название устройства уже существует');
