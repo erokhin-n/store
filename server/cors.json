@@ -6,6 +6,6 @@
 		"method": [
 			"*"
 		],
-		"maxAgeSeconds": 36000
+		"maxAgeSeconds": 3600
 	}
 ]
