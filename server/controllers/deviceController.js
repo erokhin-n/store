@@ -25,7 +25,7 @@ class DeviceController {
 			if (existName) throw ApiError.conflict('такое название устройства уже существует');
 			const { img } = req.files;
 			const fileName = uuid.v4() + '.jpg';
-			const imagePath = path.resolve(__dirname);
+			const imagePath = path.resolve(__dirname, '..', 'images');
 			console.log(imagePath)
 			img.mv(imagePath);
 		
