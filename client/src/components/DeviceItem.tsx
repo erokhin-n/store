@@ -53,21 +53,21 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
 
     const storageWay = `${storageRef}${device.img}`
 
-    // getDownloadURL(ref(storage, storageWay))
-    // .then((url) => {
+    getDownloadURL(ref(storage, storageWay))
+    .then((url) => {
         
-    //     const xhr = new XMLHttpRequest();
-    //     xhr.responseType = 'blob';
-    //     xhr.onload = (event) => {
-    //     const blob = xhr.response;
-    //     };
-    //     xhr.open('GET', url);
-    //     xhr.send();
-    //     setPicture(url)
-    // })
-    // .catch((error) => {
-    //     console.log('error in getDownloadUrl')
-    // });
+        const xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = (event) => {
+        const blob = xhr.response;
+        };
+        xhr.open('GET', url);
+        xhr.send();
+        setPicture(url)
+    })
+    .catch((error) => {
+        console.log('error in getDownloadUrl')
+    });
 
     return (
         <Card 
