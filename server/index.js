@@ -23,12 +23,12 @@ const app = express();
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
-app.use(express.static(path.resolve(__dirname, 'static')));
+app.use(express.static(path.resolve(__dirname, '../client/public')));
 app.use(fileUpload({}));
 app.use('/api', router);
 
 // Middleware для обработки всех остальных запросов
-app.use('*', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/public/index.html'));
 });
 
