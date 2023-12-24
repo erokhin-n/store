@@ -19,6 +19,15 @@ const corsOptions = {
 };
 
 const app = express() 
+
+app.use((req, res, next) => {
+  if (!req.originalUrl.startsWith('/api')) {
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+  } else {
+    next();
+  }
+});
+
 app.use(cors(corsOptions))
 app.use(cookieParser())
 app.use(express.json())
