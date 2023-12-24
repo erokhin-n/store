@@ -56,7 +56,7 @@ const AppRouter = () => {
             {routes}
             {authRoutes}
             <Route
-                path="*"
+                path="/*"
                 element={<WrongRoutePage />}
             />
         </Routes>
