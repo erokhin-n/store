@@ -9,6 +9,8 @@ const errorHandler = require('./middleware/errorHandlingMiddleware');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 
+const PORT = process.env.PORT || 7000;
+
 const corsOptions = {
   allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
   credentials: true,
