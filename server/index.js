@@ -21,9 +21,12 @@ const corsOptions = {
 const app = express() 
 
 app.use((req, res, next) => {
+console.log('use work')
   if (!req.originalUrl.startsWith('/api')) {
-    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+console.log('api work')
+    res.sendFile(path.resolve(__dirname, '..', 'client', 'public', 'index.html'));
   } else {
+console.log('error work')
     next();
   }
 });
