@@ -28,7 +28,7 @@ app.use(fileUpload({}));
 app.use('/api', router);
 
 // Middleware для обработки всех остальных запросов
-app.get('*', (req, res) => {
+app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/public/index.html'));
 });
 
