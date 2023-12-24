@@ -27,25 +27,25 @@ const DeviceItem:FC<IDeviceProps<IDevice>> = ({device, basketId}) => {
     const [picture, setPicture] = useState<string | null>(null)
     const [idState, setIdState] = useState<any>()
 
-useEffect(() => {
-    if (device) {
-        const storageWay = `${storageRef}${device.img}`;
-        getDownloadURL(ref(storage, storageWay))
-            .then((url) => {
-                const xhr = new XMLHttpRequest();
-        xhr.responseType = 'blob';
-        xhr.onload = (event) => {
-        const blob = xhr.response;
-        };
-        xhr.open('GET', url);
-        xhr.send();
-        setPicture(url)
-            })
-            .catch((error) => {
-                console.log('error in getDownloadUrl', error);
-            });
-    }
-}, [device]);
+    useEffect(() => {
+        if (device) {
+            const storageWay = `${storageRef}${device.img}`;
+            getDownloadURL(ref(storage, storageWay))
+                .then((url) => {
+                    const xhr = new XMLHttpRequest();
+            xhr.responseType = 'blob';
+            xhr.onload = (event) => {
+                const blob = xhr.response;
+            };
+            xhr.open('GET', url);
+            xhr.send();
+            setPicture(url)
+                })
+                .catch((error) => {
+                    console.log('error in getDownloadUrl', error);
+                });
+        }
+    }, [device]);
 
     const saveDeviceInBasket = () => {
         addDevice({device, basketId}) 
