@@ -36,7 +36,7 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(fileUpload({}))
-app.use(router)
+app.use('/api', router)
 
 app.use(errorHandler)
 
