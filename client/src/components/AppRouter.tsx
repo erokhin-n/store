@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import { useAppSelector } from "../hooks/useDispatchAndSelector"
 import WrongRoutePage from "../pages/WrongRoutePage"
 import { adminRoutes, publicRoutes, superAdminRoutes, userRoutes } from "../routes/routes"
@@ -57,7 +57,7 @@ const AppRouter = () => {
             {authRoutes}
             <Route
                 path="*"
-                element={<WrongRoutePage />}
+                element={<Navigate to="/" />}
             />
         </Routes>
     )
