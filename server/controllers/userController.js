@@ -36,7 +36,7 @@ class UserController {
 				throw ApiError.conflict('пользователь с таким мейлом уже есть!')
 			}
 			const hashPassword = await bcrypt.hash(password, 5)
-			const user = await User.create({email, password: hashPassword, role: "SUPER_ADMIN"})
+			const user = await User.create({email, password: hashPassword, role:"SUPER_ADMIN"})
 			const basket = await Basket.create({userId: user.id})
 			const token = generateJwt(user.id, user.email, user.role)
 			res
@@ -96,6 +96,7 @@ class UserController {
 			if(!user){
 				throw ApiError.unauthorized('пользователь не найден')
 			}
+			console.log(user.role)
 			let comparePassword = bcrypt.compareSync(password, user.password)	
 			if(!comparePassword){
 				throw ApiError.unauthorized("указан неверный пароль")
