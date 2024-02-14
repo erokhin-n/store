@@ -55,10 +55,12 @@ const AppRouter = () => {
         <Routes>
             {routes}
             {authRoutes}
-            <Route
-                path="*"
-                element={<Navigate to="/" />}
+            <Route 
+                path="*" 
+                element={<Navigate to="/not-found" />} 
             />
+
+
         </Routes>
     )
 }
