@@ -10,6 +10,7 @@ import { Typography } from "@mui/material"
 const AppRouter = () => {
 
     const {data, isLoading} = useCheckQuery()
+    console.log(data?.role)
 
     if(isLoading){
         return <Typography>'wait please'</Typography>
