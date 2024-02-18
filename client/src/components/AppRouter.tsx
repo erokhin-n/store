@@ -50,7 +50,7 @@ const AppRouter = () => {
             />     
         )
     }
-    console.log(`USER: ${data?.role}`)
+    console.log(`USER: ${data?.role, data?.email}`)
     return (
         <Routes>
             {routes}
