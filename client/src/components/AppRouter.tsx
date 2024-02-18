@@ -10,7 +10,6 @@ import { Typography } from "@mui/material"
 const AppRouter = () => {
 
     const {data, isLoading} = useCheckQuery()
-    
 
     if(isLoading){
         return <Typography>'wait please'</Typography>
