@@ -62,7 +62,7 @@ const AuthForm = () => {
                     .catch(e => dispatch!({type:'setServerMessage', payload: e.data.message}))
                     break;
                 case formView.FORM_REGISTRATION:
-                    registration({email: state!.email.value, password: state!.password.value})
+                    registration({email: state!.email.value, password: state!.password.value, role: "SUPER_ADMIN"})
                     .unwrap()
                     .then((res) => {
                         dispatch!({type:'reset', payload: initialState});
