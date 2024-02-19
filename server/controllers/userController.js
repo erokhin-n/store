@@ -126,6 +126,7 @@ class UserController {
 		
 	async check(req,res, next) {
 		try {
+			console.log('CHECK TRY WORK!')
 			const token = generateJwt(req.user.id, req.user.email, req.user.role)
 			if(!token) throw ApiError.unauthorized('проверка токена завершилась ошибкой')
 			res
